@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS Software Solutions | أساس للحلول البرمجية - شريكك التقني الأمثل</title>
+    <meta name="description"
+        content="أساس للحلول البرمجية - شركة رائدة في تطوير تطبيقات الموبايل، المواقع الإلكترونية، والأنظمة الإدارية المخصصة بأحدث التقنيات وأفضل الأسعار في مصر والشرق الأوسط.">
+    <meta name="keywords" content="برمجيات، تطبيقات موبايل، شركة برمجة، تطوير مواقع، نظام مبيعات، ERP، مصر، أساس">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ASAS Software Solutions | أساس للحلول البرمجية">
+    <meta property="og:description" content="شريكك التقني الأمثل لتطوير حلول برمجية مبتكرة وموثوقة.">
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts (Cairo & Tajawal) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #00d2ff;
+            --secondary-green: #10b981;
+            --primary-brand: #00d2ff;
+            /* Keeping the name for compatibility but changing value to blue */
+            --dark-bg: #0a0a0a;
+            --dark-card: #141414;
+            --text-main: #ffffff;
+            --text-secondary: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --glow-color: rgba(0, 210, 255, 0.3);
+        }
+
+        /* Light Mode Variables */
+        body.light-mode {
+            --dark-bg: #f8f9fa;
+            --dark-card: #ffffff;
+            --text-main: #1a1a1a;
+            --text-secondary: #4b5563;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Apply Variables */
+        .text-gray-400,
+        .text-gray-300,
+        .text-gray-500 {
+            color: var(--text-secondary) !important;
+        }
+
+        section#calculator {
+            background: linear-gradient(to bottom right, var(--dark-bg), var(--dark-card)) !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-brand);
+            border-radius: 4px;
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Blue/Green Text Gradient */
+        .text-brand-gradient {
+            background: linear-gradient(to right, #00d2ff, #3a7bd5, #10b981, #00d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+        }
+
+        body.light-mode .glass-card {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            background: #ffffff;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 30px -10px var(--glow-color);
+        }
+
+        /* Navbar */
+        nav {
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: var(--dark-bg);
+            backdrop-filter: blur(10px);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Cursor Effect */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-brand);
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            transition: transform 0.1s;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-brand);
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            transition: transform 0.15s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Modal */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Radio Button Styling */
+        .radio-label input:checked+div {
+            border-color: var(--primary-brand);
+            background-color: rgba(0, 210, 255, 0.1);
+        }
+
+        .radio-label input:checked+div i {
+            color: var(--primary-brand);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            animation: pulse-green 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20b858;
+        }
+
+        @keyframes pulse-green {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .loader-logo {
+            text-align: center;
+            animation: logo-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes logo-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* Back to Top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-card);
+            color: var(--primary-brand);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #back-to-top:hover {
+            background-color: var(--primary-brand);
+            color: black;
+            transform: translateY(-5px);
+        }
+
+        /* Portfolio Animation */
+        .project-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card.hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-brand);
+            color: black;
+            border-color: var(--primary-brand);
+        }
+
+        /* Partner Logos Filter */
+        body.light-mode .partner-logo {
+            filter: grayscale(100%) opacity(0.7);
+        }
+
+        .partner-logo {
+            filter: grayscale(100%) invert(1) opacity(0.6);
+            transition: all 0.3s;
+        }
+
+        body.light-mode .partner-logo:hover {
+            filter: grayscale(0%) opacity(1);
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%) invert(0) opacity(1);
+        }
+
+        /* FAQ Animation */
+        details>summary {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details[open] summary~* {
+            animation: sweep .5s ease-in-out;
+        }
+
+        @keyframes sweep {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px)
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+    </style>
+</head>
+
+<body class="selection:bg-cyan-600 selection:text-white">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-logo">
+            <div class="text-5xl font-bold tracking-tighter flex flex-col items-center justify-center gap-4 mb-2">
+                <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="filter drop-shadow-[0_0_15px_rgba(0,210,255,0.5)]">
+                    <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad-loader)" />
+                    <path d="M50 40L65 65H35L50 40Z" fill="#000" />
+                    <path d="M40 75H60V85H40V75Z" fill="#00d2ff" />
+                    <defs>
+                        <linearGradient id="logo-grad-loader" x1="5" y1="5" x2="95" y2="85"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#00d2ff" />
+                            <stop offset="1" stop-color="#10b981" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="text-white">ASAS<span class="text-cyan-500">.</span></div>
+            </div>
+            <div class="w-48 h-1 bg-gray-800 rounded-full overflow-hidden mx-auto">
+                <div class="h-full bg-cyan-500 animate-[loading_1.5s_ease-in-out_infinite]" style="width: 30%"></div>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes loading {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(250%);
+            }
+        }
+    </style>
+
+    <!-- Canvas Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/201032630429?text=السلام%20عليكم%20اريد%20الاستفسار%20عن%20خدماتكم" class="whatsapp-float"
+        target="_blank" title="تواصل عبر واتساب">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" title="العودة للأعلى">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Project Modal -->
+    <div id="project-modal"
+        class="modal fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-90 px-4 backdrop-blur-sm">
+        <div
+            class="bg-[var(--dark-card)] border border-[var(--border-color)] rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl shadow-cyan-500/10">
+            <button id="close-modal"
+                class="absolute top-4 left-4 text-gray-400 hover:text-cyan-500 text-3xl z-10 transition">&times;</button>
+            <div class="grid md:grid-cols-2">
+                <div class="h-64 md:h-auto relative">
+                    <img id="modal-img" src="" alt="Project Image" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+                <div class="p-8">
+                    <h3 id="modal-title" class="text-3xl font-bold text-cyan-500 mb-2"></h3>
+                    <p id="modal-category" class="text-sm text-gray-400 mb-6 uppercase tracking-wider"></p>
+                    <p id="modal-desc" class="text-[var(--text-main)] leading-relaxed mb-6 font-['Tajawal']"></p>
+                    <div class="mb-6">
+                        <h4 class="text-[var(--text-main)] font-bold mb-2">التقنيات المستخدمة:</h4>
+                        <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+                    </div>
+                    <a href="#contact" onclick="closeModal()"
+                        class="inline-block px-6 py-3 bg-cyan-600 text-black font-bold rounded-lg hover:bg-cyan-500 transition">اطلب
+                        مشروع مماثل</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 py-4 px-6 md:px-12 flex justify-between items-center" id="navbar">
+        <div class="text-3xl font-bold tracking-tighter flex items-center gap-2" data-aos="fade-down">
+            <!-- Customized SVG ASAS 'A' Logo Icon -->
+            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+                class="filter drop-shadow-lg">
+                <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad)" />
+                <path d="M50 40L65 65H35L50 40Z" fill="#101827" />
+                <path d="M40 75H60V85H40V75Z" fill="#00d2ff" />
+                <defs>
+                    <linearGradient id="logo-grad" x1="5" y1="5" x2="95" y2="85" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00d2ff" />
+                        <stop offset="1" stop-color="#10b981" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div>
+                <span class="text-[var(--text-main)]">ASAS</span><span class="text-cyan-500">.</span>
+            </div>
+        </div>
+
+        <div class="hidden lg:flex space-x-reverse space-x-6 text-sm font-semibold tracking-wide items-center">
+            <a href="#home"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">الرئيسية</a>
+            <a href="#about" class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">من
+                نحن</a>
+            <a href="#services"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">خدماتنا</a>
+            <a href="#portfolio"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">أعمالنا</a>
+            <a href="#calculator" class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">حساب
+                التكلفة</a>
+            <a href="#careers"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">التوظيف</a>
+            <a href="#contact"
+                class="px-6 py-2 border border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-500 hover:text-black transition duration-300">تواصل
+                معنا</a>
+
+            <!-- Dark/Light Mode Toggle -->
+            <button id="theme-toggle"
+                class="w-10 h-10 rounded-full bg-[var(--card-bg)] border border-[var(--border-color)] flex items-center justify-center text-cyan-500 hover:scale-110 transition">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+
+        <button class="lg:hidden text-[var(--text-main)] text-2xl" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-black bg-opacity-95 z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 md:hidden">
+        <button id="close-menu" class="absolute top-6 left-6 text-white text-3xl">&times;</button>
+        <a href="#home" class="text-2xl text-white hover:text-cyan-500">الرئيسية</a>
+        <a href="#about" class="text-2xl text-white hover:text-cyan-500">من نحن</a>
+        <a href="#services" class="text-2xl text-white hover:text-cyan-500">خدماتنا</a>
+        <a href="#portfolio" class="text-2xl text-white hover:text-cyan-500">أعمالنا</a>
+        <a href="#calculator" class="text-2xl text-white hover:text-cyan-500">حساب التكلفة</a>
+        <a href="#careers" class="text-2xl text-white hover:text-cyan-500">التوظيف</a>
+        <a href="#contact" class="text-2xl text-cyan-500">تواصل معنا</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative px-6">
+        <div class="text-center z-10 max-w-5xl">
+            <p class="text-cyan-500 tracking-widest text-lg mb-4 font-bold" data-aos="fade-up" data-aos-delay="100">
+                شريكك التقني الأمثل</p>
+            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight text-brand-gradient" data-aos="fade-up"
+                data-aos-delay="200">
+                ASAS Software Solutions
+            </h1>
+            <div class="h-12 md:h-16 mb-8" data-aos="fade-up" data-aos-delay="300">
+                <span id="typewriter"
+                    class="text-2xl md:text-4xl text-[var(--text-secondary)] font-light font-['Tajawal']"></span>
+                <span class="animate-pulse text-cyan-500">|</span>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center gap-4 mt-8" data-aos="fade-up" data-aos-delay="400">
+                <a href="#calculator"
+                    class="px-8 py-4 bg-gradient-to-r from-cyan-600 to-emerald-500 text-black font-bold rounded-full shadow-lg hover:shadow-cyan-500/50 transition transform hover:-translate-y-1">
+                    احسب تكلفة مشروعك
+                </a>
+                <a href="#services"
+                    class="px-8 py-4 border border-[var(--text-secondary)] text-[var(--text-main)] font-bold rounded-full hover:border-cyan-500 hover:text-cyan-500 transition transform hover:-translate-y-1">
+                    استكشف خدماتنا
+                </a>
+            </div>
+        </div>
+
+        <!-- Decoration Circles -->
+        <div class="absolute top-1/4 right-10 w-32 h-32 bg-cyan-500 rounded-full blur-[100px] opacity-20 animate-pulse">
+        </div>
+        <div class="absolute bottom-1/4 left-10 w-48 h-48 bg-emerald-500 rounded-full blur-[120px] opacity-10"></div>
+    </section>
+
+    <!-- Partners Strip -->
+    <section class="py-10 border-y border-[var(--border-color)] bg-[var(--card-bg)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-center text-[var(--text-secondary)] text-sm mb-6 uppercase tracking-widest">شركاء النجاح
+                والتقنيات المعتمدة</p>
+            <div class="flex justify-center items-center gap-8 md:gap-16 flex-wrap opacity-70">
+                <i class="fab fa-aws text-4xl partner-logo" title="AWS Partner"></i>
+                <i class="fab fa-google text-4xl partner-logo" title="Google Cloud"></i>
+                <i class="fab fa-microsoft text-4xl partner-logo" title="Microsoft Azure"></i>
+                <i class="fab fa-meta text-4xl partner-logo" title="Meta Developers"></i>
+                <i class="fab fa-stripe text-4xl partner-logo" title="Stripe Payments"></i>
+                <i class="fab fa-digital-ocean text-4xl partner-logo" title="Digital Ocean"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 md:px-12 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative" data-aos="fade-left">
+                <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-gray-800 group">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Team working"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                    </div>
+                </div>
+            </div>
+            <div data-aos="fade-right">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-[var(--text-main)]">من <span
+                        class="text-cyan-500">نحن؟</span></h2>
+                <h3 class="text-2xl text-[var(--text-secondary)] mb-4 font-['Tajawal']">ASAS Software Solutions</h3>
+                <p class="text-gray-400 text-lg leading-relaxed mb-6 font-['Tajawal']">
+                    نحن شركة متخصصة في تطوير الحلول البرمجية الحديثة. هدفنا هو تمكين الشركات والأعمال من خلال تكنولوجيا
+                    متطورة، موثوقة، وقابلة للتوسع.
+                </p>
+                <div class="grid grid-cols-2 gap-6 mb-8">
+                    <div class="flex items-center gap-3"><i class="fas fa-code text-cyan-500"></i><span
+                            class="text-gray-300">تطوير مخصص</span></div>
+                    <div class="flex items-center gap-3"><i class="fas fa-rocket text-cyan-500"></i><span
+                            class="text-gray-300">أداء عالي</span></div>
+                    <div class="flex items-center gap-3"><i class="fas fa-shield-alt text-cyan-500"></i><span
+                            class="text-gray-300">أمان وحماية</span></div>
+                    <div class="flex items-center gap-3"><i class="fas fa-headset text-cyan-500"></i><span
+                            class="text-gray-300">دعم فني</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[var(--text-main)]">خدمات <span
+                        class="text-cyan-500">أساس</span></h2>
+                <p class="text-gray-400 text-lg">حلول تقنية تغطي كافة احتياجاتك</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Services Cards -->
+                <div class="glass-card p-8 rounded-2xl text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div
+                        class="w-20 h-20 mx-auto bg-[var(--card-bg)] border border-[var(--border-color)] rounded-full flex items-center justify-center mb-6 group-hover:bg-cyan-500 transition-colors duration-300">
+                        <i class="fas fa-mobile-alt text-3xl text-cyan-500 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-[var(--text-main)]">Mobile Apps</h3>
+                    <p class="text-gray-400 text-sm">تطبيقات هواتف ذكية (iOS & Android) سلسة وسريعة.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div
+                        class="w-20 h-20 mx-auto bg-[var(--card-bg)] border border-[var(--border-color)] rounded-full flex items-center justify-center mb-6 group-hover:bg-cyan-500 transition-colors duration-300">
+                        <i class="fas fa-desktop text-3xl text-cyan-500 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-[var(--text-main)]">Desktop Software</h3>
+                    <p class="text-gray-400 text-sm">برامج سطح مكتب قوية لإدارة العمليات والبيانات.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div
+                        class="w-20 h-20 mx-auto bg-[var(--card-bg)] border border-[var(--border-color)] rounded-full flex items-center justify-center mb-6 group-hover:bg-cyan-500 transition-colors duration-300">
+                        <i class="fas fa-globe text-3xl text-cyan-500 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-[var(--text-main)]">Web Platforms</h3>
+                    <p class="text-gray-400 text-sm">منصات ويب تفاعلية ومواقع تعريفية.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center group" data-aos="fade-up" data-aos-delay="400">
+                    <div
+                        class="w-20 h-20 mx-auto bg-[var(--card-bg)] border border-[var(--border-color)] rounded-full flex items-center justify-center mb-6 group-hover:bg-cyan-500 transition-colors duration-300">
+                        <i class="fas fa-cogs text-3xl text-cyan-500 group-hover:text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-[var(--text-main)]">Custom Systems</h3>
+                    <p class="text-gray-400 text-sm">حلول برمجية مفصلة خصيصاً لاحتياجاتك.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADDED: Process Section (رحلة العمل) -->
+    <section id="process" class="py-24 relative bg-[var(--dark-bg)] overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[var(--text-main)]">كيف <span
+                        class="text-cyan-500">نعمل؟</span></h2>
+                <p class="text-gray-400 text-lg">رحلة تحويل فكرتك إلى واقع ملموس</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                <!-- Connecting Line -->
+                <div
+                    class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent -z-10">
+                </div>
+
+                <!-- Steps -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div
+                        class="w-24 h-24 mx-auto bg-[var(--card-bg)] border-2 border-[var(--border-color)] rounded-full flex items-center justify-center mb-6 group-hover:border-cyan-500 group-hover:shadow-[0_0_30px_rgba(0,210,255,0.3)] transition-all duration-500 relative z-10">
+                        <span class="text-3xl text-gray-500 group-hover:text-cyan-500 font-bold">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text-main)] mb-2">التحليل والتخطيط</h3>
+                    <p class="text-gray-400 text-sm">دراسة دقيقة للمتطلبات.</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div
+                        class="w-24 h-24 mx-auto bg-[var(--card-bg)] border-2 border-[var(--border-color)] rounded-full flex items-center justify-center mb-6 group-hover:border-cyan-500 group-hover:shadow-[0_0_30px_rgba(0,210,255,0.3)] transition-all duration-500 relative z-10">
+                        <span class="text-3xl text-gray-500 group-hover:text-cyan-500 font-bold">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text-main)] mb-2">التصميم (UI/UX)</h3>
+                    <p class="text-gray-400 text-sm">واجهات عصرية وجذابة.</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div
+                        class="w-24 h-24 mx-auto bg-[var(--card-bg)] border-2 border-[var(--border-color)] rounded-full flex items-center justify-center mb-6 group-hover:border-cyan-500 group-hover:shadow-[0_0_30px_rgba(0,210,255,0.3)] transition-all duration-500 relative z-10">
+                        <span class="text-3xl text-gray-500 group-hover:text-cyan-500 font-bold">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text-main)] mb-2">التطوير والبرمجة</h3>
+                    <p class="text-gray-400 text-sm">كود نظيف وأداء عالي.</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="400">
+                    <div
+                        class="w-24 h-24 mx-auto bg-[var(--card-bg)] border-2 border-[var(--border-color)] rounded-full flex items-center justify-center mb-6 group-hover:border-cyan-500 group-hover:shadow-[0_0_30px_rgba(0,210,255,0.3)] transition-all duration-500 relative z-10">
+                        <span class="text-3xl text-gray-500 group-hover:text-cyan-500 font-bold">4</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text-main)] mb-2">الاختبار والإطلاق</h3>
+                    <p class="text-gray-400 text-sm">ضمان الجودة والتسليم.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section (UPDATED with more projects) -->
+    <section id="portfolio" class="py-24 px-6 bg-[var(--dark-bg)]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-right">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-2 text-[var(--text-main)]">معرض <span
+                            class="text-cyan-500">الأعمال</span></h2>
+                    <p class="text-gray-400">مختارات من أحدث مشاريعنا التقنية</p>
+                </div>
+                <a href="#"
+                    class="hidden md:inline-block text-cyan-500 hover:text-[var(--text-main)] transition mt-4 md:mt-0">مشاهدة
+                    المعرض الكامل <i class="fas fa-arrow-left mr-2"></i></a>
+            </div>
+
+            <!-- Portfolio Filters -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
+                <button
+                    class="filter-btn active px-6 py-2 rounded-full border border-[var(--border-color)] text-sm font-bold transition hover:border-cyan-500"
+                    data-filter="all">الكل</button>
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-[var(--border-color)] text-sm font-bold transition hover:border-cyan-500"
+                    data-filter="apps">تطبيقات</button>
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-[var(--border-color)] text-sm font-bold transition hover:border-cyan-500"
+                    data-filter="sites">مواقع</button>
+                <button
+                    class="filter-btn px-6 py-2 rounded-full border border-[var(--border-color)] text-sm font-bold transition hover:border-cyan-500"
+                    data-filter="systems">أنظمة</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Project 1 (Systems) -->
+                <div class="project-card group relative overflow-hidden rounded-xl h-64 md:h-80 cursor-pointer md:col-span-2"
+                    data-category="systems" data-aos="zoom-in"
+                    onclick="openModal('نظام إدارة الشركات (ERP)', 'Desktop Software & Web Dashboard', 'قمنا ببناء نظام متكامل لإدارة الموارد البشرية، الحسابات، والمخازن لشركة صناعية كبرى.', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', ['React', 'Node.js', 'SQL'])">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                        class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        alt="Dashboard">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-90 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-center p-4">
+                        <h3
+                            class="text-2xl font-bold text-cyan-500 translate-y-4 group-hover:translate-y-0 transition duration-300">
+                            نظام إدارة الشركات (ERP)</h3>
+                        <p
+                            class="text-gray-300 mt-2 translate-y-4 group-hover:translate-y-0 transition duration-300 delay-100">
+                            اضغط للتفاصيل</p>
+                    </div>
+                </div>
+                <!-- Project 2 (Apps) -->
+                <div class="project-card group relative overflow-hidden rounded-xl h-64 md:h-80 cursor-pointer"
+                    data-aos="zoom-in" data-category="apps" data-aos-delay="100"
+                    onclick="openModal('تطبيق توصيل طلبات', 'Mobile Application', 'تطبيق متكامل للعملاء والمطاعم.', 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', ['Flutter', 'Firebase', 'Google Maps'])">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="App">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-90 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-center p-4">
+                        <h3
+                            class="text-2xl font-bold text-cyan-500 translate-y-4 group-hover:translate-y-0 transition duration-300">
+                            تطبيق توصيل</h3>
+                        <p
+                            class="text-gray-300 mt-2 translate-y-4 group-hover:translate-y-0 transition duration-300 delay-100">
+                            اضغط للتفاصيل</p>
+                    </div>
+                </div>
+                <!-- Project 3 (Sites) -->
+                <div class="project-card group relative overflow-hidden rounded-xl h-64 md:h-80 cursor-pointer"
+                    data-aos="zoom-in" data-category="sites" data-aos-delay="200"
+                    onclick="openModal('منصة تعليمية', 'Web Platform', 'منصة للتعليم عن بعد.', 'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', ['Laravel', 'Vue.js'])">
+                    <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="Web">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-90 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-center p-4">
+                        <h3
+                            class="text-2xl font-bold text-cyan-500 translate-y-4 group-hover:translate-y-0 transition duration-300">
+                            منصة تعليمية</h3>
+                        <p
+                            class="text-gray-300 mt-2 translate-y-4 group-hover:translate-y-0 transition duration-300 delay-100">
+                            اضغط للتفاصيل</p>
+                    </div>
+                </div>
+                <!-- Project 4 (Apps) -->
+                <div class="project-card group relative overflow-hidden rounded-xl h-64 md:h-80 cursor-pointer"
+                    data-aos="zoom-in" data-category="apps" data-aos-delay="300"
+                    onclick="openModal('تطبيق لياقة بدنية', 'Mobile App', 'تطبيق لتتبع التمارين والأنظمة الغذائية.', 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', ['React Native', 'Node.js'])">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        alt="Fitness App">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-90 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-center p-4">
+                        <h3
+                            class="text-2xl font-bold text-cyan-500 translate-y-4 group-hover:translate-y-0 transition duration-300">
+                            تطبيق جيم</h3>
+                        <p
+                            class="text-gray-300 mt-2 translate-y-4 group-hover:translate-y-0 transition duration-300 delay-100">
+                            اضغط للتفاصيل</p>
+                    </div>
+                </div>
+                <!-- Project 5 (Systems) -->
+                <div class="project-card group relative overflow-hidden rounded-xl h-64 md:h-80 cursor-pointer"
+                    data-aos="zoom-in" data-category="systems" data-aos-delay="400"
+                    onclick="openModal('نظام إدارة مستشفيات', 'System', 'نظام متكامل للمرضى والأطباء.', 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', ['.NET Core', 'Angular'])">
+                    <img src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        alt="Hospital System">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-90 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-center p-4">
+                        <h3
+                            class="text-2xl font-bold text-cyan-500 translate-y-4 group-hover:translate-y-0 transition duration-300">
+                            نظام مستشفيات</h3>
+                        <p
+                            class="text-gray-300 mt-2 translate-y-4 group-hover:translate-y-0 transition duration-300 delay-100">
+                            اضغط للتفاصيل</p>
+                    </div>
+                </div>
+                <!-- Project 6 (Sites) -->
+                <div class="project-card group relative overflow-hidden rounded-xl h-64 md:h-80 cursor-pointer"
+                    data-aos="zoom-in" data-category="sites" data-aos-delay="500"
+                    onclick="openModal('متجر أزياء عالمي', 'E-commerce', 'متجر إلكتروني بتصميم عصري.', 'https://images.unsplash.com/photo-1445205170230-05328324f377?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', ['Shopify', 'Liquid'])">
+                    <img src="https://images.unsplash.com/photo-1445205170230-05328324f377?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                        alt="Fashion Store">
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-90 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-center p-4">
+                        <h3
+                            class="text-2xl font-bold text-cyan-500 translate-y-4 group-hover:translate-y-0 transition duration-300">
+                            متجر أزياء</h3>
+                        <p
+                            class="text-gray-300 mt-2 translate-y-4 group-hover:translate-y-0 transition duration-300 delay-100">
+                            اضغط للتفاصيل</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="py-24 px-6 relative bg-gradient-to-br from-[var(--dark-bg)] to-[var(--dark-card)]">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[var(--text-main)]">احسب <span
+                        class="text-cyan-400">ميزانية مشروعك</span></h2>
+                <p class="text-gray-400">أسعار تنافسية تبدأ من القيم الموضحة أدناه</p>
+            </div>
+
+            <div class="glass-card p-8 rounded-2xl border-t border-cyan-500/20" data-aos="fade-up" data-aos-delay="100">
+                <form id="cost-form" class="space-y-8">
+                    <!-- Step 1: Project Type -->
+                    <div>
+                        <h3 class="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
+                            <i class="fas fa-layer-group text-cyan-500"></i> نوع المشروع
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <label class="cursor-pointer radio-label relative">
+                                <input type="radio" name="project_type" value="2500" class="hidden peer" checked>
+                                <div
+                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
+                                    <i
+                                        class="fas fa-file-code text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
+                                    <div class="font-bold text-sm text-[var(--text-main)]">Landing Page</div>
+                                    <div class="text-xs text-gray-500 mt-1">صفحة واحدة | يبدأ من 2,500 ج.م</div>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer radio-label relative">
+                                <input type="radio" name="project_type" value="5000" class="hidden peer">
+                                <div
+                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
+                                    <i class="fas fa-globe text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
+                                    <div class="font-bold text-sm text-[var(--text-main)]">موقع شركة</div>
+                                    <div class="text-xs text-gray-500 mt-1">5-7 صفحات | يبدأ من 5,000 ج.م</div>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer radio-label relative">
+                                <input type="radio" name="project_type" value="8000" class="hidden peer">
+                                <div
+                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
+                                    <i
+                                        class="fas fa-shopping-cart text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
+                                    <div class="font-bold text-sm text-[var(--text-main)]">متجر إلكتروني</div>
+                                    <div class="text-xs text-gray-500 mt-1">بيع منتجات | يبدأ من 8,000 ج.م</div>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer radio-label relative">
+                                <input type="radio" name="project_type" value="15000" class="hidden peer">
+                                <div
+                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
+                                    <i
+                                        class="fas fa-mobile-alt text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
+                                    <div class="font-bold text-sm text-[var(--text-main)]">تطبيق موبايل</div>
+                                    <div class="text-xs text-gray-500 mt-1">Android/iOS | يبدأ من 15,000 ج.م</div>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer radio-label relative">
+                                <input type="radio" name="project_type" value="15000" class="hidden peer">
+                                <div
+                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
+                                    <i
+                                        class="fas fa-cash-register text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
+                                    <div class="font-bold text-sm text-[var(--text-main)]">نظام إدارة (CRM/POS)</div>
+                                    <div class="text-xs text-gray-500 mt-1">للمحلات والشركات | يبدأ من 15,000 ج.م</div>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer radio-label relative">
+                                <input type="radio" name="project_type" value="20000" class="hidden peer">
+                                <div
+                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
+                                    <i class="fas fa-server text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
+                                    <div class="font-bold text-sm text-[var(--text-main)]">منصة ويب خاصة</div>
+                                    <div class="text-xs text-gray-500 mt-1">SaaS / Custom | يبدأ من 20,000 ج.م</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Size (Pages/Screens) -->
+                    <div>
+                        <h3 class="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
+                            <i class="fas fa-file-alt text-cyan-500"></i> حجم المشروع
+                        </h3>
+                        <div class="bg-[var(--card-bg)] p-6 rounded-lg border border-[var(--border-color)]">
+                            <label class="block text-gray-400 mb-2 text-sm">حجم العمل التقريبي (صفحات / شاشات): <span
+                                    id="pages-val" class="text-cyan-500 font-bold text-lg mr-2">بسيط
+                                    (Basic)</span></label>
+                            <input type="range" id="pages-range" min="1" max="3" value="1"
+                                class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+                            <div class="flex justify-between text-xs text-gray-500 mt-2">
+                                <span>بسيط (Basic)</span>
+                                <span>متوسط (Standard)</span>
+                                <span>كبير (Advanced)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Design Quality -->
+                    <div>
+                        <h3 class="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
+                            <i class="fas fa-paint-brush text-cyan-500"></i> التصميم والواجهة
+                        </h3>
+                        <div class="flex gap-4">
+                            <label class="flex-1 cursor-pointer">
+                                <input type="radio" name="design_level" value="0" class="hidden peer" checked>
+                                <div
+                                    class="p-3 border border-[var(--border-color)] rounded-lg text-center hover:border-cyan-500 peer-checked:bg-cyan-500 peer-checked:text-black transition">
+                                    <div class="font-bold text-[var(--text-main)] peer-checked:text-black">تصميم جاهز /
+                                        قياسي</div>
+                                    <div
+                                        class="text-xs opacity-70 mt-1 peer-checked:text-black text-[var(--text-secondary)]">
+                                        سعر اقتصادي وسرعة تنفيذ</div>
+                                </div>
+                            </label>
+                            <label class="flex-1 cursor-pointer">
+                                <input type="radio" name="design_level" value="2000" class="hidden peer">
+                                <div
+                                    class="p-3 border border-[var(--border-color)] rounded-lg text-center hover:border-cyan-500 peer-checked:bg-cyan-500 peer-checked:text-black transition">
+                                    <div class="font-bold text-[var(--text-main)] peer-checked:text-black">تصميم خاص
+                                        (UI/UX)</div>
+                                    <div
+                                        class="text-xs opacity-70 mt-1 peer-checked:text-black text-[var(--text-secondary)]">
+                                        يبدأ من +2,000 ج.م</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Features -->
+                    <div>
+                        <h3 class="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
+                            <i class="fas fa-cogs text-cyan-500"></i> خدمات إضافية
+                        </h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
+                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="1500">
+                                <span class="text-gray-300 text-sm">ربط بوابات دفع (+1500)</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
+                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="1000">
+                                <span class="text-gray-300 text-sm">نشر التطبيقات (+1000)</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
+                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="2000">
+                                <span class="text-gray-300 text-sm">لغة إضافية (+2000)</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
+                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="3000">
+                                <span class="text-gray-300 text-sm">لوحة تحكم متقدمة (+3000)</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
+                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="2000">
+                                <span class="text-gray-300 text-sm">نظام شات / إشعارات (+2000)</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
+                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="1500">
+                                <span class="text-gray-300 text-sm">صيانة لمدة سنة (+1500)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Result -->
+                    <div class="border-t border-gray-700 pt-8 text-center bg-black/30 -mx-8 -mb-8 p-8 rounded-b-2xl">
+                        <div class="text-gray-400 mb-2">التكلفة التقديرية تبدأ من:</div>
+                        <div class="flex justify-center items-baseline gap-2 dir-ltr">
+                            <span class="text-5xl md:text-6xl font-bold text-cyan-500 font-['Tajawal']"
+                                id="total-price">2,500</span>
+                            <span class="text-xl text-gray-500">ج.م</span>
+                        </div>
+                        <p
+                            class="text-sm text-cyan-500/80 mt-3 mb-6 font-bold bg-cyan-500/10 inline-block px-4 py-2 rounded-lg border border-cyan-500/20">
+                            <i class="fas fa-info-circle ml-1"></i>
+                            الأسعار تبدأ من القيم الموضحة، ويتم تحديد التكلفة النهائية حسب متطلبات المشروع ودرجة
+                            التعقيد.
+                        </p>
+                        <br>
+                        <a href="#" id="whatsapp-btn" target="_blank"
+                            class="inline-flex items-center gap-2 px-8 py-4 bg-green-600 text-white font-bold rounded-full hover:bg-green-500 transition shadow-lg shadow-green-900/20">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                            تأكيد السعر وبدء المشروع
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADDED: Testimonials Section (آراء العملاء) -->
+    <section id="testimonials" class="py-24 px-6 bg-[var(--dark-bg)]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[var(--text-main)]">آراء <span
+                        class="text-cyan-500">عملائنا</span></h2>
+                <p class="text-gray-400">قصص نجاح نفتخر بها</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-quote-right text-4xl text-cyan-500/20 absolute top-6 right-6"></i>
+                    <p class="text-gray-400 mb-6 italic text-sm leading-loose">"شركة محترمة جداً، التزام بالمواعيد وجودة
+                        في التنفيذ. الموقع اللي عملوه لشركتنا كان وش السعد علينا."</p>
+                    <div class="flex items-center gap-4 border-t border-[var(--border-color)] pt-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-700 overflow-hidden"><img
+                                src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client"
+                                class="w-full h-full object-cover"></div>
+                        <div>
+                            <h4 class="font-bold text-[var(--text-main)] text-sm">محمد علي</h4>
+                            <p class="text-xs text-gray-500">CEO - TechHouse</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-quote-right text-4xl text-cyan-500/20 absolute top-6 right-6"></i>
+                    <p class="text-gray-400 mb-6 italic text-sm leading-loose">"تجربة ممتازة مع فريق الدعم الفني، تطبيق
+                        الموبايل شغال 10/10 والعملاء مبسوطين منه جداً."</p>
+                    <div class="flex items-center gap-4 border-t border-[var(--border-color)] pt-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-700 overflow-hidden"><img
+                                src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client"
+                                class="w-full h-full object-cover"></div>
+                        <div>
+                            <h4 class="font-bold text-[var(--text-main)] text-sm">سارة أحمد</h4>
+                            <p class="text-xs text-gray-500">Founder - Fashionista</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-2xl relative" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-quote-right text-4xl text-cyan-500/20 absolute top-6 right-6"></i>
+                    <p class="text-gray-400 mb-6 italic text-sm leading-loose">"أحسن سعر مقابل قيمة في السوق المصري.
+                        نظام الحسابات اللي برمجوه وفر علينا وقت ومجهود كبير."</p>
+                    <div class="flex items-center gap-4 border-t border-[var(--border-color)] pt-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-700 overflow-hidden"><img
+                                src="https://randomuser.me/api/portraits/men/85.jpg" alt="Client"
+                                class="w-full h-full object-cover"></div>
+                        <div>
+                            <h4 class="font-bold text-[var(--text-main)] text-sm">كريم محمود</h4>
+                            <p class="text-xs text-gray-500">Manager - Al-Nour Co.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section id="careers" class="py-24 px-6 relative border-t border-[var(--border-color)] bg-[var(--dark-bg)]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12" data-aos="fade-up">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[var(--text-main)]">انضم <span
+                            class="text-cyan-500">لفريقنا</span></h2>
+                    <p class="text-gray-400">نبحث دائماً عن المبدعين</p>
+                </div>
+                <a href="#contact"
+                    class="hidden md:inline-block px-6 py-2 border border-gray-600 rounded-full hover:bg-[var(--text-main)] hover:text-[var(--dark-bg)] text-[var(--text-secondary)] transition">أرسل
+                    سيرتك الذاتية</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Job 1 -->
+                <div class="bg-[var(--card-bg)] border border-[var(--border-color)] p-8 rounded-xl hover:border-cyan-500 transition group cursor-pointer"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-[var(--text-main)] group-hover:text-cyan-500 transition">
+                            Senior Frontend Developer</h3>
+                        <span class="bg-gray-800 text-xs px-2 py-1 rounded text-gray-300">Full Time</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6">خبرة لا تقل عن 3 سنوات في React.js و Tailwind CSS.</p>
+                    <span class="text-cyan-500 text-sm font-bold">قدم الآن <i class="fas fa-arrow-left mr-1"></i></span>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="bg-[var(--card-bg)] border border-[var(--border-color)] p-8 rounded-xl hover:border-cyan-500 transition group cursor-pointer"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-[var(--text-main)] group-hover:text-cyan-500 transition">
+                            Sales Specialist</h3>
+                        <span class="bg-gray-800 text-xs px-2 py-1 rounded text-gray-300">Part Time</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6">مهارات تواصل ممتازة وخبرة في مبيعات البرمجيات والحلول التقنية.
+                    </p>
+                    <span class="text-cyan-500 text-sm font-bold">قدم الآن <i class="fas fa-arrow-left mr-1"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section (ADDED) -->
+    <section id="faq" class="py-24 px-6 bg-[var(--dark-bg)] border-t border-[var(--border-color)]">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[var(--text-main)]">الأسئلة <span
+                        class="text-cyan-500">الشائعة</span></h2>
+                <p class="text-gray-400">كل ما تريد معرفته عن خدمات أساس</p>
+            </div>
+
+            <div class="space-y-4">
+                <details class="group glass-card rounded-xl overflow-hidden" data-aos="fade-up">
+                    <summary
+                        class="p-6 flex justify-between items-center bg-[var(--card-bg)] hover:bg-cyan-500/5 transition">
+                        <span class="font-bold text-[var(--text-main)]">هل تقدمون ضماناً على البرمجيات؟</span>
+                        <i
+                            class="fas fa-chevron-down transform transition-transform group-open:rotate-180 text-cyan-500"></i>
+                    </summary>
+                    <div class="p-6 text-gray-400 border-t border-[var(--border-color)] bg-black/20">
+                        نعم، نقدم ضماناً لمدة سنة كاملة على كافة أعمالنا البرمجية، يشمل ذلك إصلاح أي أخطاء تقنية مجاناً
+                        ودعماً فنياً مستمراً.
+                    </div>
+                </details>
+
+                <details class="group glass-card rounded-xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <summary
+                        class="p-6 flex justify-between items-center bg-[var(--card-bg)] hover:bg-cyan-500/5 transition">
+                        <span class="font-bold text-[var(--text-main)]">كم يستغرق بناء تطبيق موبايل؟</span>
+                        <i
+                            class="fas fa-chevron-down transform transition-transform group-open:rotate-180 text-cyan-500"></i>
+                    </summary>
+                    <div class="p-6 text-gray-400 border-t border-[var(--border-color)] bg-black/20">
+                        يعتمد ذلك على حجم المشروع، لكن في المتوسط يستغرق التطبيق البسيط من 4-6 أسابيع، والمشاريع الكبيرة
+                        من 3-6 أشهر.
+                    </div>
+                </details>
+
+                <details class="group glass-card rounded-xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <summary
+                        class="p-6 flex justify-between items-center bg-[var(--card-bg)] hover:bg-cyan-500/5 transition">
+                        <span class="font-bold text-[var(--text-main)]">كيف يتم احتساب سعر المشروع؟</span>
+                        <i
+                            class="fas fa-chevron-down transform transition-transform group-open:rotate-180 text-cyan-500"></i>
+                    </summary>
+                    <div class="p-6 text-gray-400 border-t border-[var(--border-color)] bg-black/20">
+                        يتم الاحتساب بناءً على عدد الساعات المطلوبة للتطوير، تعقيد المميزات، ونوع التقنيات المستخدمة.
+                        يمكنك استخدام حاسبة التكلفة في الأعلى لأخذ فكرة تقريبية.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[var(--text-main)]" data-aos="fade-up">جاهز لتحويل فكرتك
+                لواقع؟</h2>
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12" data-aos="fade-up" data-aos-delay="150">
+                <a href="https://wa.me/201032630429" target="_blank"
+                    class="flex items-center justify-center gap-3 px-8 py-4 bg-green-600 text-white font-bold rounded-lg hover:bg-green-500 transition transform hover:-translate-y-1">
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    تواصل عبر واتساب
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- REPLACED: Luxurious Mega Footer -->
+    <footer
+        class="bg-gradient-to-b from-[#0a0a0a] to-black border-t border-cyan-500/30 pt-20 pb-10 px-6 relative overflow-hidden">
+        <!-- Glow Effect -->
+        <div
+            class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full max-w-3xl h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent shadow-[0_0_50px_rgba(0,210,255,0.5)]">
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 relative z-10">
+            <!-- Brand Column -->
+            <div class="space-y-6">
+                <div class="text-3xl font-bold tracking-tighter flex items-center gap-2">
+                    <div class="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center text-black text-xl">
+                        <svg width="24" height="24" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="#000" />
+                        </svg>
+                    </div>
+                    <div><span class="text-white">ASAS</span><span class="text-cyan-500">.</span></div>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    نبتكر حلولاً رقمية ذكية تمكن الشركات من النمو في عصر التحول الرقمي. شريكك التقني الموثوق في مصر
+                    والشرق الأوسط.
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://www.facebook.com/ASASSoftwareSolutions" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-cyan-500 hover:text-black hover:border-cyan-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-cyan-500 hover:text-black hover:border-cyan-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-cyan-500 hover:text-black hover:border-cyan-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-cyan-500 hover:text-black hover:border-cyan-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Links Column -->
+            <div>
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">روابط هامة <span
+                        class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="#about" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> من نحن</a></li>
+                    <li><a href="#services" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> خدماتنا</a></li>
+                    <li><a href="#portfolio" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> معرض الأعمال</a></li>
+                    <li><a href="#calculator" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> احسب تكلفة مشروعك</a></li>
+                    <li><a href="#careers" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> وظائف خالية</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Column -->
+            <div>
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">تواصل معنا <span
+                        class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
+                <ul class="space-y-6 text-gray-400 text-sm">
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 text-cyan-500"><i class="fas fa-map-marker-alt"></i></div>
+                        <span>الشركة أونلاين</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="text-cyan-500"><i class="fas fa-phone-alt"></i></div>
+                        <span class="font-['Tajawal']" dir="ltr">+20 103 263 0429</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="text-cyan-500"><i class="fas fa-envelope"></i></div>
+                        <span>lwlmho44@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div>
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">النشرة البريدية <span
+                        class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
+                <p class="text-gray-500 text-sm mb-6">كن أول من يعلم عن العروض والتقنيات الجديدة.</p>
+                <form class="flex flex-col gap-3">
+                    <div class="relative">
+                        <input type="email" placeholder="بريدك الإلكتروني"
+                            class="w-full bg-[#1a1a1a] border border-gray-800 text-white px-4 py-4 rounded-lg focus:outline-none focus:border-cyan-500 transition pl-10">
+                        <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
+                    </div>
+                    <button
+                        class="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-black font-bold py-4 rounded-lg hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition transform hover:-translate-y-1">اشترك
+                        الآن</button>
+                </form>
+            </div>
+        </div>
+
+        <div
+            class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto relative z-10">
+            <p class="text-gray-600 text-sm">&copy; 2024 ASAS Software Solutions. جميع الحقوق محفوظة.</p>
+            <div class="flex gap-6 text-gray-600 text-sm">
+                <a href="#" class="hover:text-cyan-500 transition">الشروط والأحكام</a>
+                <a href="#" class="hover:text-cyan-500 transition">سياسة الخصوصية</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Preloader Hiding
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.visibility = 'hidden';
+                }, 800);
+            }, 1000); // 1.5 seconds minimum show time
+        });
+
+        // Initialize AOS
+        AOS.init({ duration: 1000, once: true, offset: 100 });
+
+        // Theme Toggle
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeBtn.querySelector('i');
+        const body = document.body;
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            if (body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Navbar Scroll & Back to Top visibility
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function () {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) { nav.classList.add('scrolled'); }
+            else { nav.classList.remove('scrolled'); }
+
+            if (window.scrollY > 500) { backToTopBtn.classList.add('show'); }
+            else { backToTopBtn.classList.remove('show'); }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        function toggleMenu() { mobileMenu.classList.toggle('translate-x-full'); }
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Typewriter
+        const textElement = document.getElementById('typewriter');
+        const words = ["تطوير برمجيات", "تطبيقات موبايل", "حلول ويب متكاملة"];
+        let wordIndex = 0; let charIndex = 0; let isDeleting = false; let typeSpeed = 100;
+        function type() {
+            const currentWord = words[wordIndex];
+            if (isDeleting) { textElement.textContent = currentWord.substring(0, charIndex - 1); charIndex--; typeSpeed = 50; }
+            else { textElement.textContent = currentWord.substring(0, charIndex + 1); charIndex++; typeSpeed = 100; }
+            if (!isDeleting && charIndex === currentWord.length) { isDeleting = true; typeSpeed = 2000; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; typeSpeed = 500; }
+            setTimeout(type, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX; const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`; cursorDot.style.top = `${posY}px`;
+            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+        });
+
+        // Particles
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color;
+            }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = this.color; ctx.fill(); }
+            update() {
+                if (this.x > canvas.width || this.x < 0) { this.directionX = -this.directionX; }
+                if (this.y > canvas.height || this.y < 0) { this.directionY = -this.directionY; }
+                this.x += this.directionX; this.y += this.directionY; this.draw();
+            }
+        }
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 15000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.4) - 0.2; let directionY = (Math.random() * 0.4) - 0.2;
+                let color = '#00d2ff';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
+            connect();
+        }
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                        opacityValue = 1 - (distance / 20000);
+                        ctx.strokeStyle = 'rgba(0, 210, 255,' + opacityValue + ')';
+                        ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke();
+                    }
+                }
+            }
+        }
+        window.addEventListener('resize', () => { canvas.width = innerWidth; canvas.height = innerHeight; initParticles(); });
+        initParticles(); animateParticles();
+
+        // Modal
+        const modal = document.getElementById('project-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalCategory = document.getElementById('modal-category');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalTags = document.getElementById('modal-tags');
+        const closeModalBtn = document.getElementById('close-modal');
+        function openModal(title, category, desc, img, tags) {
+            modalTitle.innerText = title; modalCategory.innerText = category; modalDesc.innerText = desc; modalImg.src = img;
+            modalTags.innerHTML = '';
+            tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = 'bg-gray-800 text-cyan-400 px-3 py-1 rounded text-xs font-bold';
+                span.innerText = tag;
+                modalTags.appendChild(span);
+            });
+            modal.classList.add('active'); document.body.style.overflow = 'hidden';
+        }
+        function closeModal() { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+        // CALCULATOR LOGIC (EGYPTIAN MARKET - REALISTIC)
+        const projectTypes = document.querySelectorAll('input[name="project_type"]');
+        const designLevels = document.querySelectorAll('input[name="design_level"]');
+        const pagesRange = document.getElementById('pages-range');
+        const pagesVal = document.getElementById('pages-val');
+        const features = document.querySelectorAll('.feature-check');
+        const whatsappBtn = document.getElementById('whatsapp-btn');
+        const totalPriceEl = document.getElementById('total-price');
+        const formatter = new Intl.NumberFormat('en-US');
+
+        function calculateTotal() {
+            let total = 0; let basePrice = 0; let typeLabel = "";
+            // 1. Base Price
+            projectTypes.forEach(radio => {
+                if (radio.checked) {
+                    basePrice = parseInt(radio.value);
+                    typeLabel = radio.nextElementSibling.querySelector('.font-bold').innerText;
+                }
+            });
+            // 2. Complexity Factor
+            let complexity = parseInt(pagesRange.value); let multiplier = 1; let sizeLabel = "";
+            if (complexity === 1) { pagesVal.innerText = "بسيط (Basic)"; multiplier = 1; sizeLabel = "بسيط"; }
+            else if (complexity === 2) { pagesVal.innerText = "متوسط (Standard)"; multiplier = 1.5; sizeLabel = "متوسط"; }
+            else { pagesVal.innerText = "كبير (Advanced)"; multiplier = 2.5; sizeLabel = "كبير"; }
+            total = basePrice * multiplier;
+            // 3. Design Cost
+            let designLabel = "قياسي";
+            designLevels.forEach(radio => {
+                if (radio.checked) {
+                    total += parseInt(radio.value);
+                    if (parseInt(radio.value) > 0) designLabel = "خاص (UI/UX)";
+                }
+            });
+            // 4. Features Cost
+            let selectedFeatures = [];
+            features.forEach(checkbox => {
+                if (checkbox.checked) {
+                    total += parseInt(checkbox.value);
+                    selectedFeatures.push(checkbox.nextElementSibling.innerText);
+                }
+            });
+
+            // Animation
+            totalPriceEl.style.opacity = "0.5";
+            const formattedTotal = formatter.format(total);
+            setTimeout(() => {
+                totalPriceEl.innerText = formattedTotal;
+                totalPriceEl.style.opacity = "1";
+            }, 150);
+
+            // Update WhatsApp Link
+            let message = `مرحباً ASAS، قمت بتقدير ميزانية لمشروعي الجديد عبر موقعكم:\n\n`;
+            message += `🔹 نوع المشروع: ${typeLabel}\n`;
+            message += `🔹 حجم المشروع: ${sizeLabel}\n`;
+            message += `🔹 مستوى التصميم: ${designLabel}\n`;
+            if (selectedFeatures.length > 0) {
+                message += `🔹 إضافات: ${selectedFeatures.join('، ')}\n`;
+            }
+            message += `\n💰 التكلفة التقديرية: ${formattedTotal} ج.م`;
+
+            whatsappBtn.href = `https://wa.me/201032630429?text=${encodeURIComponent(message)}`;
+        }
+        // Event Listeners
+        projectTypes.forEach(r => r.addEventListener('change', calculateTotal));
+        designLevels.forEach(r => r.addEventListener('change', calculateTotal));
+        pagesRange.addEventListener('input', calculateTotal);
+        features.forEach(c => c.addEventListener('change', calculateTotal));
+        calculateTotal();
+
+        // Portfolio Filtering Logic
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.classList.remove('hidden');
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            card.classList.add('hidden');
+                        }, 500);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
