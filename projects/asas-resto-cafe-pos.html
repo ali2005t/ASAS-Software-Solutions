@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS RESTO & CAFE POS | نظام إدارة المطاعم والكافيهات الذكي</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-emerald: #10b981;
+            --primary-brand: #10b981;
+            --dark-bg: #0a0a0a;
+            --dark-card: #141414;
+            --text-main: #ffffff;
+            --text-secondary: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --glow-color: rgba(16, 185, 129, 0.3);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+        }
+
+        .text-brand-gradient {
+            background: linear-gradient(to right, #10b981, #00d2ff, #3a7bd5, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-emerald);
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover .feature-icon {
+            background: var(--primary-emerald);
+            color: black;
+            transform: scale(1.1);
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-emerald-600 selection:text-white">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed w-full z-50 py-6 px-6 md:px-12 flex justify-between items-center backdrop-blur-md border-b border-white/5">
+        <div class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+            <svg width="35" height="35" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad)" />
+                <defs>
+                    <linearGradient id="logo-grad" x1="5" y1="5" x2="95" y2="85" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00d2ff" />
+                        <stop offset="1" stop-color="#10b981" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span class="text-white">ASAS</span><span class="text-emerald-500">.</span>
+        </div>
+        <a href="../index.html#portfolio"
+            class="px-6 py-2 border border-white/20 rounded-full hover:bg-white/10 transition flex items-center gap-2 text-sm font-bold">
+            <i class="fas fa-arrow-right"></i> العودة للرئيسية
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-40 pb-20 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2" data-aos="fade-left">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-16 h-16 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-center p-2 overflow-hidden shadow-lg shadow-emerald-500/10">
+                        <img src="../assets/resto_cafe.png" class="w-full h-full object-contain" alt="Resto & Cafe Logo"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'text-[10px] text-emerald-500 font-black leading-none text-center\'>RESTO<br>CAFE</div>'">
+                    </div>
+                    <div
+                        class="inline-block px-4 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-500 text-xs font-bold">
+                        تجربة ضيافة رقمية متكاملة
+                    </div>
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight">
+                    برنامج <span class="text-brand-gradient">RESTO & CAFE</span><br>إتقان الإدارة والخدمة
+                </h1>
+                <p class="text-gray-400 text-lg leading-relaxed mb-10 font-['Tajawal']">
+                    تم تطوير هذا النظام خصيصاً ليلبي احتياجات المطاعم والكافيهات العصرية. من إدارة الطاولات المعقدة
+                    وبونات المطبخ اللحظية إلى تخصيص مكاتب الطلبات (Addons) ومتابعة دقيقة للورديات والأرباح.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://wa.me/201032630429" target="_blank"
+                        class="px-8 py-4 bg-emerald-600 text-black font-bold rounded-xl hover:bg-emerald-500 transition shadow-lg shadow-emerald-500/20">
+                        احصل على عرض سعر
+                    </a>
+                    <div class="flex items-center gap-4 px-6 py-4 bg-white/5 border border-white/10 rounded-xl">
+                        <div
+                            class="flex items-center justify-center w-10 h-10 bg-emerald-500/20 rounded-full text-emerald-500">
+                            <i class="fas fa-star text-sm"></i>
+                        </div>
+                        <span class="text-xs text-gray-400 font-bold">الأعلى تقييماً في فئة Cafes POS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 relative" data-aos="zoom-in">
+                <div class="relative z-10 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                    <img src="../assets/cafe_pos.png" class="w-full h-auto" alt="ASAS RESTO & CAFE POS View">
+                </div>
+                <div
+                    class="absolute -top-10 -right-10 w-64 h-64 bg-emerald-500/20 rounded-full blur-[100px] animate-pulse">
+                </div>
+                <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-cyan-500/10 rounded-full blur-[80px]"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="py-20 px-6 bg-white/[0.02]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-4">مميزات نظام <span class="text-emerald-500">Resto & Cafe</span></h2>
+                <p class="text-gray-400">نظام ذكي لخدمة أسرع وتنظيم أدق</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon"><i class="fas fa-chair"></i></div>
+                    <h3 class="text-xl font-bold mb-4">إدارة الصالة والطاولات</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">عرض مرئي لحالة الطاولات (مشغولة،
+                        متاحة، فاتورة مطلوبة) مع سهولة نقل الطلبات من طاولة لأخرى بضغطة زر.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon"><i class="fas fa-fire-burner"></i></div>
+                    <h3 class="text-xl font-bold mb-4">بونات المطبخ الآلية</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">طباعة فورية للمطبخ أو الباريستا
+                        عند تأكيد الطلب مع ذكر كافة الملاحظات والـ Addons المطلوبة بدقة.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon"><i class="fas fa-plus-circle"></i></div>
+                    <h3 class="text-xl font-bold mb-4">الإضافات والتعديلات (Addons)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">نظام مرن لإضافة التعديلات اللحظية
+                        على الأطباق والمشروبات (سكر زيادة، بدون بصل، صوص إضافي) وحساب تكلفتها تلقائياً.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon"><i class="fas fa-business-time"></i></div>
+                    <h3 class="text-xl font-bold mb-4">إدارة الورديات والعهد</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">نظام دقيق لبداية ونهاية الوردية
+                        وحساب العجز والزيادة في الكاش لضمان أعلى مستوى من الرقابة المالية.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon"><i class="fas fa-receipt"></i></div>
+                    <h3 class="text-xl font-bold mb-4">تقسيم ودمج الفواتير</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">مرونة تامة في التعامل مع فواتير
+                        المجموعات، سواء بتقسيم الفاتورة أو دمج عدة طلبات في إيصال واحد.</p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon"><i class="fas fa-wallet"></i></div>
+                    <h3 class="text-xl font-bold mb-4">المصاريف وصافي الربح</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">تسجيل كافة المصاريف اليومية للمطعم
+                        وخصمها من المبيعات لتعطيك صورة حقيقية عن صافي الأرباح.</p>
+                </div>
+                <!-- Feature 7: Offline (Main Selling Point) -->
+                <div class="glass-card p-8 rounded-[2rem] border-emerald-500/30 bg-emerald-500/5" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div class="feature-icon bg-emerald-500 text-black"><i class="fas fa-wifi-slash"></i></div>
+                    <h3 class="text-xl font-bold mb-4 text-emerald-400">استقرار كامل بدون إنترنت</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">لا يتأثر النظام بانقطاع الإنترنت،
+                        يمكنك تنفيذ الطلبات وطباعة البونات في المطبخ بكفاءة تامة دون الحاجة لأي اتصال خارجي.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specs -->
+    <section class="py-24 px-6">
+        <div
+            class="max-w-5xl mx-auto glass-card p-12 rounded-[3rem] border-emerald-500/20 bg-gradient-to-br from-white/5 to-transparent">
+            <h2 class="text-3xl font-black mb-12 text-center">المواصفات <span class="text-emerald-500">الفنية</span>
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <i class="fab fa-react text-5xl text-blue-400 mb-4 block"></i>
+                    <span class="font-bold text-gray-300">React Touch UI</span>
+                </div>
+                <div class="text-center">
+                    <i class="fab fa-node-js text-5xl text-green-500 mb-4 block"></i>
+                    <span class="font-bold text-gray-300">Desktop Runtime</span>
+                </div>
+                <div class="text-center group">
+                    <div class="mb-4 flex justify-center transition-transform group-hover:scale-110">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            class="text-emerald-500">
+                            <path d="M2.5 4.5L21.5 21.5" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" />
+                            <path d="M12 18.5V18.51" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M14.5 14C15.9378 12.8715 17.5858 12.1932 19.3333 12C13.6364 5.33333 10.3636 5.33333 4.66667 12C5.99222 12.1465 7.27511 12.5699 8.5 13.25"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M9.5 16C10.2785 15.3615 11.127 15.0116 12 15M17.3333 12C16.9606 11.564 16.5333 11.196 16.0593 10.9038"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <span class="font-bold text-gray-300">Offline Mode</span>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-mobile-screen text-5xl text-indigo-400 mb-4 block"></i>
+                    <span class="font-bold text-gray-300">Fully Responsive</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 text-center px-6">
+        <h2 class="text-4xl md:text-5xl font-black mb-10" data-aos="fade-up">ابدأ رحلة النجاح مع ASAS</h2>
+        <a href="https://wa.me/201032630429" target="_blank"
+            class="inline-flex items-center gap-4 px-12 py-5 bg-gradient-to-r from-emerald-600 to-cyan-500 text-black font-black text-xl rounded-2xl hover:scale-105 transition transform shadow-2xl shadow-emerald-500/20"
+            data-aos="zoom-in">
+            <i class="fab fa-whatsapp"></i> احجز نسختك الآن
+        </a>
+    </section>
+
+    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm font-bold">
+        &copy; 2026 ASAS Software Solutions. جميع الحقوق محفوظة.
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Background Particles Effect
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function init() {
+            points = [];
+            for (let i = 0; i < 50; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#10b981';
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.1)';
+
+            points.forEach((p, i) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 1, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < points.length; j++) {
+                    const p2 = points[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        init();
+        draw();
+    </script>
+</body>
+
+</html>
