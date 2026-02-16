@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS PHARMACY PRO | نظام إدارة الصيدليات المتكامل</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #0097a7;
+            --primary-brand: #0097a7;
+            --dark-bg: #0a0a0a;
+            --dark-card: #141414;
+            --text-main: #ffffff;
+            --text-secondary: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --glow-color: rgba(0, 151, 167, 0.3);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+        }
+
+        .text-brand-gradient {
+            background: linear-gradient(to right, #0097a7, #26c6da, #4dd0e1, #0097a7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover .feature-icon {
+            background: var(--primary-blue);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-cyan-600 selection:text-white">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed w-full z-50 py-6 px-6 md:px-12 flex justify-between items-center backdrop-blur-md border-b border-white/5">
+        <div class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+            <svg width="35" height="35" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad)" />
+                <defs>
+                    <linearGradient id="logo-grad" x1="5" y1="5" x2="95" y2="85" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#0097a7" />
+                        <stop offset="1" stop-color="#26c6da" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span class="text-white">ASAS</span><span class="text-[#0097a7]">.</span>
+        </div>
+        <a href="../index.html#portfolio"
+            class="px-6 py-2 border border-white/20 rounded-full hover:bg-white/10 transition flex items-center gap-2 text-sm font-bold">
+            <i class="fas fa-arrow-right"></i> العودة للرئيسية
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-40 pb-20 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2" data-aos="fade-left">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-16 h-16 bg-white/5 rounded-full border border-white/10 flex items-center justify-center p-2 overflow-hidden shadow-lg shadow-cyan-500/10">
+                        <img src="../assets/pharmacy.png" class="w-full h-full object-contain" alt="Pharmacy Logo">
+                    </div>
+                    <div
+                        class="inline-block px-4 py-1 bg-[#0097a7]/10 border border-[#0097a7]/20 rounded-full text-[#0097a7] text-xs font-bold">
+                        نظام إدارة الصيدليات الذكي
+                    </div>
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight">
+                    برنامج <span class="text-brand-gradient">PHARMACY PRO</span><br>لإدارة الصيدليات
+                </h1>
+                <p class="text-gray-400 text-lg leading-relaxed mb-10 font-['Tajawal']">
+                    الحل الأشمل لإدارة الصيدلية من الألف للياء. متابعة دقيقة للصلاحيات، إدارة النواقص، البدائل، وحسابات
+                    الموردين. كل ما تحتاجه لإدارة صيدليتك بكفاءة واحترافية.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://wa.me/201032630429" target="_blank"
+                        class="px-8 py-4 bg-[#0097a7] text-white font-bold rounded-xl hover:bg-[#00838f] transition shadow-lg shadow-cyan-500/20">
+                        طلب نسخة تجريبية
+                    </a>
+                </div>
+            </div>
+            <div class="lg:w-1/2 relative" data-aos="zoom-in">
+                <div class="relative z-10 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                    <img src="../assets/pharmacy_pos.png" class="w-full h-auto" alt="ASAS PHARMACY POS Dashboard">
+                </div>
+                <div
+                    class="absolute -top-10 -right-10 w-64 h-64 bg-[#0097a7]/20 rounded-full blur-[100px] animate-pulse">
+                </div>
+                <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-teal-500/10 rounded-full blur-[80px]"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="py-20 px-6 bg-white/[0.02]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-4">مميزات نظام <span class="text-[#0097a7]">Pharmacy Pro</span></h2>
+                <p class="text-gray-400">تقنيات صممت خصيصاً للصيدلي المحترف</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon"><i class="fas fa-calendar-times"></i></div>
+                    <h3 class="text-xl font-bold mb-4">متابعة تواريخ الصلاحية</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">تنبيهات تلقائية قبل انتهاء صلاحية
+                        الأدوية بفترة كافية لتجنب الخسائر، مع تقارير مفصلة بالأدوية المنتهية وقريبة الانتهاء.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon"><i class="fas fa-pills"></i></div>
+                    <h3 class="text-xl font-bold mb-4">البدائل والمثائل</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">اقتراحات فورية للبدائل بنفس المادة
+                        الفعالة أو المثائل التجارية عند عدم توفر صنف معين، لضمان عدم ضياع أي بيعة.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon"><i class="fas fa-file-medical-alt"></i></div>
+                    <h3 class="text-xl font-bold mb-4">إدارة النواقص الذكية</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">سجل آلي للنواقص، وإنشاء طلبيات
+                        الشراء بضغطة زر بناءً على معدلات السحب وحد الطلب.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon"><i class="fas fa-truck-loading"></i></div>
+                    <h3 class="text-xl font-bold mb-4">حسابات الموردين</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">إدارة كاملة لفواتير الشراء،
+                        مرتجعات الشراء، وحسابات الآجل للموردين مع كشوف حساب مفصلة.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon"><i class="fas fa-user-clock"></i></div>
+                    <h3 class="text-xl font-bold mb-4">إدارة الورديات</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">نظام صارم لاستلام وتسليم العهدة،
+                        وتقارير وردية توضح العجز أو الزيادة في الدرج لكل صيدلي.</p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon"><i class="fas fa-search"></i></div>
+                    <h3 class="text-xl font-bold mb-4">بحث فائق السرعة</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">بحث بالاسم العربي، الإنجليزي،
+                        الباركود، أو المادة الفعالة، مع دعم كامل لقارئ الباركود.</p>
+                </div>
+                <!-- Feature 7: Offline (Main Selling Point) -->
+                <div class="glass-card p-8 rounded-[2rem] border-[#0097a7]/30 bg-[#0097a7]/5" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div class="feature-icon bg-[#0097a7] text-white"><i class="fas fa-wifi-slash"></i></div>
+                    <h3 class="text-xl font-bold mb-4 text-[#0097a7]">يعمل بدون إنترنت (Offline)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">قاعدة بيانات محلية قوية تضمن سرعة
+                        الأداء واستمرارية العمل حتى في حالة انقطاع الإنترنت.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specs -->
+    <section class="py-24 px-6">
+        <div
+            class="max-w-5xl mx-auto glass-card p-12 rounded-[3rem] border-[#0097a7]/20 bg-gradient-to-br from-white/5 to-transparent">
+            <h2 class="text-3xl font-black mb-12 text-center">المواصفات <span class="text-[#0097a7]">الفنية</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <i class="fab fa-react text-5xl text-blue-400 mb-4 block"></i>
+                    <span class="font-bold text-gray-300">React Core</span>
+                </div>
+                <div class="text-center">
+                    <i class="fab fa-node-js text-5xl text-green-500 mb-4 block"></i>
+                    <span class="font-bold text-gray-300">Electron.js</span>
+                </div>
+                <div class="text-center group">
+                    <div class="mb-4 flex justify-center transition-transform group-hover:scale-110">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            class="text-[#0097a7]">
+                            <path d="M2.5 4.5L21.5 21.5" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" />
+                            <path d="M12 18.5V18.51" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M14.5 14C15.9378 12.8715 17.5858 12.1932 19.3333 12C13.6364 5.33333 10.3636 5.33333 4.66667 12C5.99222 12.1465 7.27511 12.5699 8.5 13.25"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M9.5 16C10.2785 15.3615 11.127 15.0116 12 15M17.3333 12C16.9606 11.564 16.5333 11.196 16.0593 10.9038"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <span class="font-bold text-gray-300">Offline System</span>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-database text-5xl text-amber-500 mb-4 block"></i>
+                    <span class="font-bold text-gray-300">Smart Local DB</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 text-center px-6">
+        <h2 class="text-4xl md:text-5xl font-black mb-10" data-aos="fade-up">جاهز لتطوير صيدليتك؟</h2>
+        <a href="https://wa.me/201032630429" target="_blank"
+            class="inline-flex items-center gap-4 px-12 py-5 bg-[#0097a7] text-white font-black text-xl rounded-2xl hover:scale-105 transition transform shadow-2xl shadow-cyan-500/20"
+            data-aos="zoom-in">
+            <i class="fab fa-whatsapp"></i> تواصل معنا الآن
+        </a>
+    </section>
+
+    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm font-bold">
+        &copy; 2026 ASAS Software Solutions. جميع الحقوق محفوظة.
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Background Particles Effect
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function init() {
+            points = [];
+            for (let i = 0; i < 50; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0097a7';
+            ctx.strokeStyle = 'rgba(0, 151, 167, 0.1)';
+
+            points.forEach((p, i) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 1, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < points.length; j++) {
+                    const p2 = points[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        init();
+        draw();
+    </script>
+</body>
+
+</html>
