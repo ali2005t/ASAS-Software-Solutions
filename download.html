@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل التحديث | ASAS Law Pro</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #d4af37;
+            /* Gold */
+            --secondary-color: #1e3a8a;
+            /* Dark Blue */
+            --dark-bg: #0a0a0a;
+            --dark-card: #141414;
+            --text-main: #ffffff;
+            --text-secondary: #9ca3af;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-gold {
+            background: var(--primary-color);
+            color: black;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+            background: #b08d2b;
+        }
+
+        /* Pulse Animation for the button */
+        @keyframes pulse-gold {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(212, 175, 55, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+
+        .pulse-btn {
+            animation: pulse-gold 2s infinite;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-amber-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="py-6 px-6 md:px-12 flex justify-between items-center border-b border-white/5">
+        <div class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+            <img src="assets/law_logo.png" class="w-10 h-10 object-contain" alt="Logo">
+            <div><span class="text-white">ASAS</span><span class="text-[#d4af37]">.</span></div>
+        </div>
+        <a href="index.html" class="text-gray-400 hover:text-[#d4af37] transition font-bold text-sm">
+            <i class="fas fa-home ml-1"></i> الرئيسية
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center p-6 relative">
+        <!-- Background Elements -->
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-[#d4af37]/10 rounded-full blur-[120px] pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-1/4 left-1/4 w-64 h-64 bg-blue-900/20 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="max-w-3xl w-full text-center relative z-10">
+
+            <div class="mb-8">
+                <i class="fas fa-gift text-6xl text-[#d4af37] mb-6 animate-bounce"></i>
+                <h1 class="text-4xl md:text-6xl font-black mb-4">
+                    تحديث جديد متوفر!
+                </h1>
+                <p class="text-xl text-gray-400 font-['Tajawal']">
+                    الإصدار الأحدث من <span class="text-[#d4af37] font-bold" id="project-name-display">ASAS Law
+                        Pro</span> جاهز للتحميل.
+                </p>
+            </div>
+
+            <!-- Version Info Card -->
+            <div class="glass-card p-8 rounded-3xl mb-10 max-w-xl mx-auto shadow-2xl border-t border-[#d4af37]/20">
+                <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+                    <span class="text-gray-400">الإصدار الحالي المتوفر:</span>
+                    <span class="font-bold text-2xl text-white font-mono" id="version-number">v1.1.0</span>
+                </div>
+
+                <div class="text-right mb-8">
+                    <h3 class="font-bold text-[#d4af37] mb-3 text-sm">ما الجديد في هذا الإصدار؟</h3>
+                    <ul class="text-gray-300 text-sm space-y-2 font-['Tajawal'] list-disc list-inside"
+                        id="whats-new-list">
+                        <li>تحسينات في سرعة فتح البرنامج.</li>
+                        <li>إصلاح مشكلة عرض التنبيهات في لوحة التحكم.</li>
+                        <li>إضافة تقارير جديدة للموكلين.</li>
+                        <li>تحسينات أمنية عامة.</li>
+                    </ul>
+                </div>
+
+                <a href="#" id="download-btn"
+                    class="btn-gold pulse-btn w-full py-4 rounded-xl flex items-center justify-center gap-3 text-lg">
+                    <i class="fas fa-cloud-download-alt"></i> تحميل التحديث الآن
+                </a>
+                <p class="mt-4 text-xs text-gray-500">
+                    <i class="fas fa-info-circle ml-1"></i>
+                    سيتم تثبيت التحديث فوق النسخة الحالية مع الحفاظ على جميع بياناتك وتفعيلك.
+                </p>
+            </div>
+
+            <div class="flex justify-center gap-4 text-sm text-gray-500">
+                <span class="flex items-center gap-1"><i class="fab fa-windows"></i> Windows 10/11</span>
+                <span class="flex items-center gap-1"><i class="fas fa-shield-alt"></i> آمن 100%</span>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-8 text-center text-gray-600 text-sm font-bold border-t border-white/5">
+        &copy; 2026 ASAS Software Solutions.
+    </footer>
+
+    <!-- Firebase Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9",
+            measurementId: "G-14FDJ99K84"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Get Project ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('project') || 'law-pro'; // Default to law-pro
+
+        const versionEl = document.getElementById('version-number');
+        const btnEl = document.getElementById('download-btn');
+        const titleEl = document.querySelector('h1');
+
+        async function loadProjectData() {
+            try {
+                btnEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحقق...';
+
+                const docRef = doc(db, "projects", projectId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+
+                    if (!data.active) {
+                        document.body.innerHTML = '<div class="flex items-center justify-center h-screen text-white text-2xl">عذراً، هذا المشروع غير متاح حالياً.</div>';
+                        return;
+                    }
+
+                    // Update UI
+                    document.getElementById('project-name-display').textContent = data.name;
+                    document.title = 'تحميل التحديث | ' + data.name;
+
+                    versionEl.textContent = 'v' + data.version;
+
+                    // Update Whats New
+                    if (data.whatsNew) {
+                        const listEl = document.getElementById('whats-new-list');
+                        listEl.innerHTML = data.whatsNew.split('\n')
+                            .filter(line => line.trim() !== '')
+                            .map(line => `<li>${line}</li>`)
+                            .join('');
+                    }
+
+                    if (data.downloadUrl) {
+                        btnEl.innerHTML = '<i class="fas fa-cloud-download-alt"></i> تحميل التحديث الآن';
+                        btnEl.onclick = (e) => {
+                            e.preventDefault();
+                            window.location.href = data.downloadUrl;
+                        };
+                    } else {
+                        btnEl.innerHTML = 'التحميل قريباً';
+                        btnEl.classList.add('opacity-50', 'cursor-not-allowed');
+                        btnEl.onclick = (e) => e.preventDefault();
+                    }
+
+                } else {
+                    console.error("No such document!");
+                    titleEl.textContent = "المشروع غير موجود";
+                    versionEl.textContent = "---";
+                    btnEl.style.display = 'none';
+                }
+            } catch (error) {
+                console.error("Error getting document:", error);
+                btnEl.innerHTML = 'حدث خطأ في الاتصال';
+            }
+        }
+
+        // Start Loading
+        loadProjectData();
+    </script>
+</body>
+
+</html>

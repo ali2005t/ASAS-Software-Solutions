@@ -143,10 +143,27 @@
                     وبونات المطبخ اللحظية إلى تخصيص مكاتب الطلبات (Addons) ومتابعة دقيقة للورديات والأرباح.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="https://wa.me/201032630429" target="_blank"
-                        class="px-8 py-4 bg-emerald-600 text-black font-bold rounded-xl hover:bg-emerald-500 transition shadow-lg shadow-emerald-500/20">
-                        احصل على عرض سعر
-                    </a>
+                    <div class="flex flex-col gap-4">
+                        <!-- Pricing Container -->
+                        <div id="project-price-container" class="h-10 flex items-center gap-4 font-mono">
+                            <div class="h-8 w-32 bg-white/5 rounded animate-pulse"></div> <!-- Skeleton -->
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <a id="project-download-btn" href="#" download
+                                class="px-8 py-4 bg-emerald-600 text-black font-bold rounded-xl hover:bg-emerald-500 transition shadow-lg shadow-emerald-500/20 flex items-center gap-2">
+                                <i class="fas fa-download"></i> Loading...
+                            </a>
+                            <a id="project-activation-btn" href="#" target="_blank"
+                                class="px-8 py-4 border border-emerald-500 text-emerald-500 font-bold rounded-xl hover:bg-emerald-500 hover:text-black transition flex items-center gap-2">
+                                <i class="fab fa-whatsapp"></i> طلب كود التفعيل
+                            </a>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 flex items-center gap-2">
+                            <i class="fas fa-info-circle text-emerald-500"></i>
+                            تجربة مجانية كاملة لمدة 7 أيام عند التحميل
+                        </p>
+                    </div>
                     <div class="flex items-center gap-4 px-6 py-4 bg-white/5 border border-white/10 rounded-xl">
                         <div
                             class="flex items-center justify-center w-10 h-10 bg-emerald-500/20 rounded-full text-emerald-500">
@@ -348,6 +365,72 @@
         resize();
         init();
         draw();
+    </script>
+    <!-- Dynamic Download Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9",
+            measurementId: "G-14FDJ99K84"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function initProject() {
+            const priceContainer = document.getElementById('project-price-container');
+            const downloadBtn = document.getElementById('project-download-btn');
+            const activationBtn = document.getElementById('project-activation-btn');
+
+            try {
+                const docRef = doc(db, "projects", "resto-cafe-pos");
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+
+                    // 1. Pricing Logic
+                    if (data.discountPrice && data.discountPrice > 0) {
+                        priceContainer.innerHTML = `
+                            <span class="line-through text-slate-500 text-xl">${data.price} ج.م</span>
+                            <span class="text-3xl font-black text-white">${data.discountPrice} ج.م</span>
+                            <span class="bg-red-500/20 text-red-500 text-xs px-2 py-1 rounded font-bold">خصم لفترة محدودة</span>
+                        `;
+                    } else if (data.price > 0) {
+                        priceContainer.innerHTML = `<span class="text-3xl font-black text-white">${data.price} ج.م</span>`;
+                    } else {
+                        priceContainer.innerHTML = `<span class="text-xl font-bold text-gray-400">مجاني / عند الطلب</span>`;
+                    }
+
+                    // 2. Download Button
+                    if (data.downloadUrl) {
+                        downloadBtn.innerHTML = `<i class="fas fa-download"></i> تحميل النسخة (v${data.version})`;
+                        downloadBtn.href = data.downloadUrl;
+                        downloadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    } else {
+                        downloadBtn.innerHTML = `<i class="fas fa-times"></i> غير متاح حالياً`;
+                        downloadBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                        downloadBtn.href = '#';
+                    }
+
+                    // 3. Activation Button
+                    const msg = `السلام عليكم، أريد كود تفعيل لنظام ${data.name}`;
+                    activationBtn.href = `https://wa.me/201032630429?text=${encodeURIComponent(msg)}`;
+                }
+            } catch (e) {
+                console.error("Failed to fetch project info", e);
+                priceContainer.innerHTML = '<span class="text-red-500 text-sm">خطأ في تحميل البيانات</span>';
+            }
+        }
+
+        initProject();
     </script>
 </body>
 

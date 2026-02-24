@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS Super Admin | لوحة القيادة</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0f172a;
+            color: white;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sidebar Active State */
+        .nav-item.active {
+            background-color: rgba(6, 182, 212, 0.1);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Section -->
+    <div id="login-section" class="fixed inset-0 flex items-center justify-center bg-[#0f172a] z-50">
+        <div
+            class="bg-gray-800 p-8 rounded-2xl shadow-2xl w-96 border border-gray-700 text-center relative overflow-hidden">
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+
+            <div class="relative z-10">
+                <div
+                    class="w-20 h-20 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-cyan-500/20">
+                    <i class="fas fa-user-shield text-4xl text-cyan-500"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-2">ASAS Admin</h2>
+                <p class="text-gray-400 text-sm mb-6">تسجيل الدخول للمسؤولين فقط</p>
+
+                <form id="login-form" class="space-y-4">
+                    <input type="email" id="email" placeholder="البريد الإلكتروني" required
+                        class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-cyan-500 outline-none transition text-right">
+
+                    <input type="password" id="password" placeholder="كلمة المرور" required
+                        class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-cyan-500 outline-none transition text-right">
+
+                    <button type="submit" id="login-btn"
+                        class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 py-3 rounded-lg font-bold hover:shadow-lg hover:shadow-cyan-500/20 transition flex justify-center items-center gap-2">
+                        <span>دخول</span> <i class="fas fa-arrow-left"></i>
+                    </button>
+
+                    <p id="login-error" class="text-red-500 text-sm hidden animate-pulse"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="hidden min-h-screen flex">
+
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-900 border-l border-slate-800 flex flex-col fixed h-full right-0 top-0 z-40">
+            <div class="p-6 border-b border-slate-800 flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center font-bold text-xl shadow-lg">
+                    A</div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight">ASAS Admin</h1>
+                    <p class="text-xs text-slate-500">Super Control</p>
+                </div>
+            </div>
+
+            <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+                <button onclick="switchView('projects')" id="nav-projects"
+                    class="nav-item w-full text-right px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-3">
+                    <i class="fas fa-box-open w-6 text-center"></i> <span>المشاريع والإصدارات</span>
+                </button>
+
+                <button onclick="switchView('licenses')" id="nav-licenses"
+                    class="nav-item w-full text-right px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-3">
+                    <i class="fas fa-key w-6 text-center"></i> <span>مفاتيح التفعيل</span>
+                </button>
+
+                <div class="border-t border-slate-800 my-4"></div>
+
+                <a href="../index.html" target="_blank"
+                    class="w-full flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-white transition text-sm">
+                    <i class="fas fa-globe w-6 text-center"></i> زيارة الموقع
+                </a>
+            </nav>
+
+            <div class="p-4 border-t border-slate-800">
+                <div class="bg-slate-800 rounded-lg p-3 mb-3">
+                    <p class="text-xs text-slate-400 mb-1">المستخدم الحالي</p>
+                    <p id="current-user-email" class="text-xs font-bold truncate text-cyan-500">...</p>
+                </div>
+                <button onclick="logout()"
+                    class="w-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white py-2 rounded-lg transition text-sm font-bold">
+                    <i class="fas fa-sign-out-alt ml-2"></i> تسجيل خروج
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 mr-64 p-8 bg-[#0f172a] min-h-screen">
+
+            <!-- View: Projects -->
+            <div id="view-projects" class="view-section hidden">
+                <header class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2">إدارة المشاريع</h2>
+                        <p class="text-slate-400">التحكم في إصدارات البرامج وروابط التحميل.</p>
+                    </div>
+                    <button onclick="openProjectModal()"
+                        class="bg-cyan-600 hover:bg-cyan-500 px-6 py-2 rounded-lg font-bold transition shadow-lg shadow-cyan-500/20">
+                        <i class="fas fa-plus ml-2"></i> إضافة مشروع
+                    </button>
+                </header>
+
+                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards Injected via JS -->
+                    <div class="col-span-3 text-center py-20">
+                        <i class="fas fa-spinner fa-spin text-4xl text-cyan-500"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Licenses -->
+            <div id="view-licenses" class="view-section hidden">
+                <header class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2">مفاتيح التفعيل</h2>
+                        <p class="text-slate-400">توليد وإدارة تراخيص برامج نقاط البيع.</p>
+                    </div>
+                    <button onclick="generateLicenseKey()" id="generate-btn"
+                        class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded-lg font-bold transition shadow-lg shadow-emerald-500/20">
+                        <i class="fas fa-magic ml-2"></i> توليد مفتاح جديد
+                    </button>
+                </header>
+
+                <!-- New Key Display -->
+                <div id="new-key-display"
+                    class="hidden mb-8 glass p-6 rounded-xl border border-emerald-500/30 bg-emerald-500/5 text-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-full h-1 bg-emerald-500"></div>
+                    <h3 class="text-emerald-400 font-bold mb-2">تم إنشاء المفتاح بنجاح!</h3>
+                    <div class="flex items-center justify-center gap-4">
+                        <span id="generated-key"
+                            class="text-3xl font-mono font-bold tracking-widest text-white select-all">ASAS-XXXX-XXXX-XXXX</span>
+                        <button onclick="copyKeyFromDisplay()" class="text-emerald-400 hover:text-white transition"
+                            title="نسخ"><i class="fas fa-copy text-xl"></i></button>
+                    </div>
+                </div>
+
+                <!-- Keys Table -->
+                <div class="glass rounded-xl overflow-hidden">
+                    <table class="w-full text-right">
+                        <thead class="bg-slate-800 text-slate-400 text-sm">
+                            <tr>
+                                <th class="p-4 font-normal">المفتاح</th>
+                                <th class="p-4 font-normal">تاريخ الإنشاء</th>
+                                <th class="p-4 font-normal text-cyan-500">تاريخ الاستخدام</th>
+                                <th class="p-4 font-normal">البرنامج / الجهاز</th>
+                                <th class="p-4 font-normal">الحالة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="keys-table-body" class="text-sm divide-y divide-slate-800">
+                            <!-- Rows Injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="project-modal"
+        class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-slate-800 p-8 rounded-2xl w-full max-w-lg border border-slate-700 relative shadow-2xl">
+            <button onclick="closeProjectModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <h3 id="modal-title" class="text-2xl font-bold mb-6 border-b border-slate-700 pb-4">تعديل المشروع</h3>
+
+            <input type="hidden" id="project-doc-id">
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-slate-400 text-sm mb-1">معرف المشروع (ID)</label>
+                    <input type="text" id="project-id" placeholder="مثال: law-pro"
+                        class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none font-mono text-sm">
+                    <p class="text-xs text-slate-500 mt-1">يستخدم هذا المعرف في روابط الموقع (غير قابل للتغيير لاحقاً)
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 text-sm mb-1">الاسم الظاهر</label>
+                    <input type="text" id="project-name" placeholder="مثال: ASAS Law Pro"
+                        class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-slate-400 text-sm mb-1">رقم الإصدار</label>
+                        <input type="text" id="project-version" placeholder="1.0.0"
+                            class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none text-center font-mono text-cyan-500 font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 text-sm mb-1">الحالة</label>
+                        <select id="project-active"
+                            class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none">
+                            <option value="true">نشط (Active)</option>
+                            <option value="false">معطل (Disabled)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 text-sm mb-1">رابط التحميل (Direct Link / GitHub)</label>
+                    <input type="url" id="project-download" placeholder="https://..."
+                        class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none text-xs ltr">
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 text-sm mb-1">ما الجديد في هذا الإصدار؟ (كل ميزة في سطر)</label>
+                    <textarea id="project-whatsnew" rows="4"
+                        placeholder="مثال:&#10;تحسينات في الأداء&#10;إصلاح خطأ المطبعة"
+                        class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none text-sm text-right h-32"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-slate-400 text-sm mb-1">السعر الأساسي (ج.م)</label>
+                        <input type="number" id="project-price" placeholder="00.00"
+                            class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 text-sm mb-1">سعر الخصم (اختياري)</label>
+                        <input type="number" id="project-discount" placeholder="00.00"
+                            class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none font-mono">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <button onclick="saveProject()"
+                    class="w-full bg-cyan-600 hover:bg-cyan-500 py-3 rounded-lg font-bold transition shadow-lg">حفظ
+                    التغييرات</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Logic Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, getDoc, doc, setDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9",
+            measurementId: "G-14FDJ99K84"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- GLOBAL STATE & NAVIGATION ---
+        let currentUser = null;
+        let unsubscribeKeys = null; // To stop listener when switching views
+
+        window.switchView = (viewName) => {
+            // Hide all sections
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+            // Show selected
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+            document.getElementById(`nav-${viewName}`).classList.add('active');
+
+            // Load Data
+            if (viewName === 'projects') loadProjects();
+            if (viewName === 'licenses') startKeysListener();
+        };
+
+        // --- AUTHENTICATION ---
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('dashboard-section').classList.remove('hidden');
+                document.getElementById('current-user-email').textContent = user.email;
+
+                // Default View
+                switchView('projects');
+            } else {
+                currentUser = null;
+                document.getElementById('login-section').classList.remove('hidden');
+                document.getElementById('dashboard-section').classList.add('hidden');
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            const btn = document.getElementById('login-btn');
+            const errorMsg = document.getElementById('login-error');
+
+            try {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                btn.disabled = true;
+                await signInWithEmailAndPassword(auth, email, pass);
+                errorMsg.classList.add('hidden');
+            } catch (error) {
+                console.error(error);
+                errorMsg.textContent = "فشل تسجيل الدخول: تأكد من البيانات.";
+                errorMsg.classList.remove('hidden');
+            } finally {
+                btn.innerHTML = '<span>دخول</span> <i class="fas fa-arrow-left"></i>';
+                btn.disabled = false;
+            }
+        });
+
+        window.logout = () => signOut(auth);
+
+
+        // --- PROJECTS MANAGMENT ---
+        async function loadProjects() {
+            const grid = document.getElementById('projects-grid');
+
+            try {
+                // Auto-Seed Check
+                await autoSeedProjects(); // Ensure defaults exist
+
+                const querySnapshot = await getDocs(collection(db, "projects"));
+                grid.innerHTML = '';
+
+                if (querySnapshot.empty) {
+                    grid.innerHTML = '<div class="col-span-3 text-center text-slate-500 py-10">لا توجد مشاريع حتى الآن. اضغط "إضافة مشروع" للبدء.</div>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const p = doc.data();
+                    const card = `
+                        <div class="glass p-6 rounded-xl border-t-4 ${p.active ? 'border-cyan-500' : 'border-red-500'} hover:scale-[1.02] transition relative group">
+                            
+                            <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition">
+                                <span class="bg-slate-800 text-xs px-2 py-1 rounded text-slate-400">${p.active ? 'نشط' : 'معطل'}</span>
+                            </div>
+
+                            <div class="mb-4">
+                                <h3 class="font-bold text-xl mb-1">${p.name}</h3>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs bg-slate-800 px-2 py-0.5 rounded text-slate-400 font-mono">${doc.id}</span>
+                                    <span class="text-xs bg-cyan-900/30 text-cyan-400 px-2 py-0.5 rounded font-mono font-bold">v${p.version}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-slate-900/50 p-3 rounded mb-6 text-xs text-slate-400 truncate font-mono select-all" title="${p.downloadUrl}">
+                                ${p.downloadUrl || 'No Download Link'}
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button onclick="window.editProject('${doc.id}', '${p.name}', '${p.version}', '${p.downloadUrl || ''}', ${p.active}, ${p.price || 0}, ${p.discountPrice || 0}, ${JSON.stringify(p.whatsNew || '').replace(/"/g, '&quot;')})" 
+                                    class="flex-1 bg-slate-700 hover:bg-slate-600 py-2 rounded text-sm transition font-bold">
+                                    <i class="fas fa-edit"></i> تعديل
+                                </button>
+                                <a href="${p.downloadUrl}" target="_blank" class="px-3 py-2 bg-slate-800 rounded text-cyan-500 hover:text-cyan-400">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                });
+
+            } catch (e) {
+                console.error(e);
+                grid.innerHTML = `<div class="col-span-3 text-red-500 text-center">حدث خطأ: ${e.message}</div>`;
+            }
+        }
+
+        async function autoSeedProjects() {
+            const projectsToSeed = [
+                { id: 'law-pro', name: 'ASAS Law Pro', version: '1.0.0', active: true, downloadUrl: '', price: 2500, discountPrice: 0 },
+                { id: 'pharmacy-pos', name: 'ASAS Pharmacy Pro', version: '1.0.0', active: true, downloadUrl: '', price: 1500, discountPrice: 1200 },
+                { id: 'market-pos', name: 'ASAS Market POS', version: '1.0.0', active: true, downloadUrl: '', price: 2000, discountPrice: 0 },
+                { id: 'resto-cafe-pos', name: 'Resto & Cafe POS', version: '1.0.0', active: true, downloadUrl: '', price: 3000, discountPrice: 0 }
+            ];
+
+            for (const proj of projectsToSeed) {
+                const docRef = doc(db, "projects", proj.id);
+                const docSnap = await getDoc(docRef);
+                if (!docSnap.exists()) {
+                    console.log(`Seeding ${proj.name}...`);
+                    await setDoc(docRef, { ...proj, updatedAt: new Date().toISOString() });
+                }
+            }
+        }
+
+        window.openProjectModal = () => {
+            document.getElementById('project-doc-id').value = '';
+            document.getElementById('project-id').value = '';
+            document.getElementById('project-id').disabled = false;
+            document.getElementById('project-name').value = '';
+            document.getElementById('project-version').value = '';
+            document.getElementById('project-download').value = '';
+            document.getElementById('modal-title').innerText = 'إضافة مشروع جديد';
+            document.getElementById('project-modal').classList.remove('hidden');
+        };
+
+        window.editProject = (id, name, version, url, active, price, discount, whatsNew) => {
+            document.getElementById('project-doc-id').value = id;
+            document.getElementById('project-id').value = id;
+            document.getElementById('project-id').disabled = true;
+            document.getElementById('project-name').value = name;
+            document.getElementById('project-version').value = version;
+            document.getElementById('project-download').value = url;
+            document.getElementById('project-price').value = price || '';
+            document.getElementById('project-discount').value = discount || '';
+            document.getElementById('project-active').value = active.toString();
+            document.getElementById('project-whatsnew').value = whatsNew || '';
+            document.getElementById('modal-title').innerText = 'تحديث: ' + name;
+            document.getElementById('project-modal').classList.remove('hidden');
+        };
+
+        window.closeProjectModal = () => document.getElementById('project-modal').classList.add('hidden');
+
+        window.saveProject = async () => {
+            const btn = document.querySelector('button[onclick="saveProject()"]');
+            const originalText = btn.innerText;
+            btn.innerText = 'جاري الحفظ...';
+            btn.disabled = true;
+
+            const id = document.getElementById('project-id').value || document.getElementById('project-doc-id').value;
+            const data = {
+                name: document.getElementById('project-name').value,
+                version: document.getElementById('project-version').value,
+                active: document.getElementById('project-active').value === 'true',
+                downloadUrl: document.getElementById('project-download').value,
+                price: Number(document.getElementById('project-price').value) || 0,
+                discountPrice: Number(document.getElementById('project-discount').value) || 0,
+                whatsNew: document.getElementById('project-whatsnew').value,
+                updatedAt: new Date().toISOString()
+            };
+
+            if (!id) { alert('يجب إدخال ID للمشروع'); btn.disabled = false; btn.innerText = originalText; return; }
+
+            try {
+                await setDoc(doc(db, "projects", id), data, { merge: true });
+                closeProjectModal();
+                loadProjects();
+            } catch (e) {
+                alert('حدث خطأ: ' + e.message);
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        };
+
+
+        // --- LICENSE MANAGEMENT ---
+        function startKeysListener() {
+            if (unsubscribeKeys) unsubscribeKeys(); // Clear old listener
+
+            const q = query(collection(db, "licenses"), orderBy("createdAt", "desc"), limit(50));
+            unsubscribeKeys = onSnapshot(q, (snapshot) => {
+                const tbody = document.getElementById('keys-table-body');
+                tbody.innerHTML = '';
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const key = docSnap.id;
+                    const isUsed = data.isUsed || false;
+                    const statusClass = isUsed ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500';
+                    const statusText = isUsed ? 'مستخدم' : 'نشط';
+                    const dateCreated = data.createdAt ? data.createdAt.toDate().toLocaleDateString('ar-EG') + ' ' + data.createdAt.toDate().toLocaleTimeString('ar-EG') : '---';
+                    const dateUsed = data.activatedAt ? data.activatedAt.toDate().toLocaleDateString('ar-EG') + ' ' + data.activatedAt.toDate().toLocaleTimeString('ar-EG') : '<span class="text-slate-600">- لم يُستخدم بعد -</span>';
+
+                    const row = `
+                        <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/50">
+                            <td class="p-4 flex items-center gap-3">
+                                <span class="font-mono font-bold ${isUsed ? 'text-slate-500 line-through' : 'text-cyan-400 select-all'}">${key}</span>
+                                ${!isUsed ? `<button onclick="navigator.clipboard.writeText('${key}').then(()=>alert('تم نسخ الكود!'))" class="text-slate-500 hover:text-cyan-400 transition" title="نسخ الكود"><i class="fas fa-copy"></i></button>` : ''}
+                            </td>
+                            <td class="p-4 text-slate-400 text-xs">${dateCreated}</td>
+                            <td class="p-4 text-slate-300 text-xs font-bold">${dateUsed}</td>
+                            <td class="p-4">
+                                <div class="text-[11px] font-bold text-cyan-500">${data.programName || '---'}</div>
+                                <div class="text-[9px] text-slate-500 truncate w-32" title="${data.deviceInfo || ''}">${data.deviceInfo || ''}</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="${statusClass} px-2 py-1 rounded text-xs font-bold">${statusText}</span>
+                                ${isUsed ? `<button onclick="window.revokeLicense('${key}')" class="mr-2 text-red-500 hover:text-red-400 transition" title="إلغاء التفعيل"><i class="fas fa-undo"></i></button>` : ''}
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            });
+        }
+
+        window.generateLicenseKey = async () => {
+            const btn = document.getElementById('generate-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            const part = () => Math.random().toString(36).substring(2, 6).toUpperCase();
+            const newKey = `ASAS-${part()}-${part()}-${part()}`;
+
+            try {
+                await setDoc(doc(db, "licenses", newKey), {
+                    createdAt: serverTimestamp(),
+                    isUsed: false,
+                    activatedAt: null,
+                    generatedBy: currentUser.email
+                });
+
+                document.getElementById('generated-key').textContent = newKey;
+                document.getElementById('new-key-display').classList.remove('hidden');
+
+            } catch (error) {
+                alert("Error: " + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-magic ml-2"></i> توليد مفتاح جديد';
+            }
+        };
+
+        window.copyKeyFromDisplay = () => {
+            const key = document.getElementById('generated-key').textContent;
+            navigator.clipboard.writeText(key).then(() => alert('تم النسخ!'));
+        };
+
+        window.revokeLicense = async (key) => {
+            if (!confirm(`هل أنت متأكد من إلغاء تفعيل المفتاح ${key}؟ هذا سيسمح باستخدامه مرة أخرى.`)) return;
+
+            try {
+                const { updateDoc, deleteField } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+                await updateDoc(doc(db, "licenses", key), {
+                    isUsed: false,
+                    activatedAt: deleteField(),
+                    deviceInfo: deleteField(),
+                    programName: deleteField()
+                });
+                alert('تم إلغاء التفعيل بنجاح.');
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        };
+
+    </script>
+</body>
+
+</html>
