@@ -10,30 +10,41 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
+      "@type": "SoftwareCompany",
       "name": "ASAS Software Solutions",
-      "operatingSystem": "Windows, Android, iOS",
-      "applicationCategory": "BusinessApplication",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "150"
+      "alternateName": "أساس للحلول البرمجية",
+      "url": "https://asassoft.com/",
+      "logo": "https://asassoft.com/assets/law_logo.png",
+      "sameAs": [
+        "https://www.facebook.com/ASASSoftwareSolutions"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+201032630429",
+        "contactType": "sales",
+        "areaServed": "EG",
+        "availableLanguage": ["Arabic", "English"]
       },
-      "offers": {
-        "@type": "Offer",
-        "price": "2500",
-        "priceCurrency": "EGP"
+      "description": "شركة برمجيات رائدة متخصصون في الأنظمة الإدارية وتطبيقات الموبايل (Law Pro, Market POS).",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "EG"
       }
     }
     </script>
     <meta name="keywords" content="برمجيات، تطبيقات موبايل، شركة برمجة، تطوير مواقع، نظام مبيعات، ERP، مصر، أساس">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/ico.ico">
+    <link rel="shortcut icon" href="assets/ico.ico" type="image/x-icon">
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asassoft.com/">
     <meta property="og:title" content="ASAS Software Solutions | أساس للحلول البرمجية">
-    <meta property="og:description" content="شريكك التقني الأمثل لتطوير حلول برمجية مبتكرة وموثوقة.">
-    <meta property="og:image"
-        content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop">
+    <meta property="og:description"
+        content="شريكك التقني الأمثل لتطوير تطبيقات الموبايل والأنظمة الإدارية بأحدث التقنيات.">
+    <meta property="og:image" content="assets/law_logo.png">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -383,6 +394,158 @@
                 transform: translateY(0)
             }
         }
+
+        /* Tech Marquee */
+        .marquee {
+            overflow: hidden;
+            display: flex;
+            user-select: none;
+            gap: 4rem;
+            position: relative;
+        }
+
+        .marquee-content {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-around;
+            min-width: 100%;
+            gap: 4rem;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        .tech-icon {
+            filter: grayscale(100%);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.5;
+        }
+
+        .tech-icon:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.2) translateY(-5px);
+            color: var(--primary-brand);
+        }
+
+        /* Stats Heartbeat */
+        .stat-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(0, 210, 255, 0.05);
+            border-color: rgba(0, 210, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(45deg, #00d2ff, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Tech Stack Tooltip Effect on Cards */
+        .tech-stack-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 10px;
+            color: var(--primary-brand);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .project-card:hover .tech-stack-badge {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* AI Concierge Widget */
+        .ai-widget {
+            position: fixed;
+            bottom: 105px;
+            /* Positioned above WhatsApp icon */
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 25px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .ai-chat-window.active {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .chat-bubble {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 85%;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .bot-bubble {
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            align-self: flex-start;
+            color: white;
+            border-bottom-left-radius: 2px;
+        }
+
+        .user-bubble {
+            background: #00d2ff;
+            color: black;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            font-weight: bold;
+        }
+
+        /* Case Study Content Colors */
+        .case-study-title {
+            background: linear-gradient(to left, #00d2ff, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-14FDJ99K84"></script>
@@ -396,38 +559,53 @@
 
 <body class="selection:bg-cyan-600 selection:text-white">
 
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader-logo">
-            <div class="text-5xl font-bold tracking-tighter flex flex-col items-center justify-center gap-4 mb-2">
-                <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    class="filter drop-shadow-[0_0_15px_rgba(0,210,255,0.5)]">
-                    <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad-loader)" />
-                    <path d="M50 40L65 65H35L50 40Z" fill="#000" />
-                    <path d="M40 75H60V85H40V75Z" fill="#00d2ff" />
+    <!-- Premium Preloader -->
+    <div id="preloader"
+        class="fixed inset-0 z-[1000] bg-[#050505] flex items-center justify-center transition-opacity duration-700">
+        <div class="relative flex flex-col items-center">
+            <!-- SVG Logo with Dynamic Glow -->
+            <div class="relative w-32 h-32 mb-8" data-aos="zoom-in">
+                <div class="absolute inset-0 bg-cyan-500/20 blur-[40px] rounded-full animate-pulse"></div>
+                <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="relative z-10">
+                    <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad-premium)"
+                        class="drop-shadow-[0_0_15px_rgba(0,210,255,0.8)]" />
                     <defs>
-                        <linearGradient id="logo-grad-loader" x1="5" y1="5" x2="95" y2="85"
+                        <linearGradient id="logo-grad-premium" x1="5" y1="5" x2="95" y2="85"
                             gradientUnits="userSpaceOnUse">
                             <stop stop-color="#00d2ff" />
                             <stop offset="1" stop-color="#10b981" />
                         </linearGradient>
                     </defs>
                 </svg>
-                <div class="text-white">ASAS<span class="text-cyan-500">.</span></div>
             </div>
-            <div class="w-48 h-1 bg-gray-800 rounded-full overflow-hidden mx-auto">
-                <div class="h-full bg-cyan-500 animate-[loading_1.5s_ease-in-out_infinite]" style="width: 30%"></div>
+
+            <!-- Branding Text with Reveal Effect -->
+            <div class="overflow-hidden mb-6">
+                <div class="text-white text-3xl font-black tracking-[0.2em] animate-[reveal_1.2s_ease-out_forwards]">
+                    ASAS<span class="text-cyan-500">.</span>
+                </div>
+            </div>
+
+            <!-- Modern Slim Progress Bar -->
+            <div class="w-40 h-[2px] bg-white/5 rounded-full overflow-hidden">
+                <div id="loader-progress"
+                    class="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 transition-all duration-300 ease-out"
+                    style="width: 0%"></div>
             </div>
         </div>
     </div>
+
     <style>
-        @keyframes loading {
+        @keyframes reveal {
             0% {
-                transform: translateX(-100%);
+                transform: translateY(100%);
+                opacity: 0;
             }
 
             100% {
-                transform: translateX(250%);
+                transform: translateY(0);
+                opacity: 1;
             }
         }
     </style>
@@ -592,6 +770,30 @@
         </div>
     </section>
 
+    <!-- Developer's Heartbeat Section -->
+    <section class="py-20 relative overflow-hidden bg-[var(--dark-bg)]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="stat-card p-6 rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="text-3xl md:text-5xl font-black stat-number mb-2" data-target="1200000">0</div>
+                    <p class="text-gray-400 text-sm font-bold">سطر برمجي مكتوب</p>
+                </div>
+                <div class="stat-card p-6 rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="text-3xl md:text-5xl font-black stat-number mb-2" data-target="450">0</div>
+                    <p class="text-gray-400 text-sm font-bold">كوب قهوة (☕)</p>
+                </div>
+                <div class="stat-card p-6 rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="text-3xl md:text-5xl font-black stat-number mb-2" data-target="150">0</div>
+                    <p class="text-gray-400 text-sm font-bold">إطلاق ناجح (Deploy)</p>
+                </div>
+                <div class="stat-card p-6 rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="text-3xl md:text-5xl font-black stat-number mb-2" data-target="99.9">0</div>
+                    <p class="text-gray-400 text-sm font-bold">نسبة الاستقرار %</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="about" class="py-24 px-6 md:px-12 relative overflow-hidden">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
@@ -736,6 +938,7 @@
                 <!-- Featured Project: ASAS LAW PRO -->
                 <div class="project-card group relative overflow-hidden rounded-3xl h-[450px] cursor-pointer shadow-2xl border border-amber-500/10"
                     data-aos="fade-up" onclick="window.location.href='projects/asas-law-pro.html'">
+                    <div class="tech-stack-badge">Powered by React & Firebase</div>
                     <img src="assets/law_dashboard.png"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                         alt="ASAS LAW PRO">
@@ -763,6 +966,7 @@
                 <!-- Featured Project: ASAS PHARMACY PRO -->
                 <div class="project-card group relative overflow-hidden rounded-3xl h-[450px] cursor-pointer shadow-2xl border border-[#0097a7]/10"
                     data-aos="fade-up" onclick="window.location.href='projects/asas-pharmacy-pos.html'">
+                    <div class="tech-stack-badge">Powered by Flutter & Firestore</div>
                     <img src="assets/pharmacy_pos.png"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                         alt="ASAS PHARMACY POS">
@@ -790,6 +994,7 @@
                 <!-- Featured Project 1: ASAS MARKET POS -->
                 <div class="project-card group relative overflow-hidden rounded-3xl h-[450px] cursor-pointer shadow-2xl border border-cyan-500/10"
                     data-aos="fade-up" onclick="window.location.href='projects/asas-market-pos.html'">
+                    <div class="tech-stack-badge">Powered by Electron & Node.js</div>
                     <img src="assets/dashboard.png"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                         alt="ASAS MARKET POS">
@@ -819,6 +1024,7 @@
                 <div class="project-card group relative overflow-hidden rounded-3xl h-[450px] cursor-pointer shadow-2xl border border-cyan-500/10"
                     data-aos="fade-up" data-aos-delay="100"
                     onclick="window.location.href='projects/asas-resto-cafe-pos.html'">
+                    <div class="tech-stack-badge">Powered by Firebase & Tailwind</div>
                     <img src="assets/cafe_pos.png"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                         alt="ASAS RESTO & CAFE POS">
@@ -843,6 +1049,37 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Marquee Section -->
+    <section class="py-20 bg-black/40 border-y border-white/5 overflow-hidden">
+        <div class="marquee">
+            <div class="marquee-content">
+                <i class="fab fa-react text-5xl tech-icon" title="React.js"></i>
+                <i class="fab fa-node-js text-5xl tech-icon" title="Node.js"></i>
+                <i class="fas fa-fire text-5xl tech-icon" title="Firebase"></i>
+                <i class="fab fa-js text-5xl tech-icon" title="JavaScript"></i>
+                <i class="fab fa-css3-alt text-5xl tech-icon" title="Tailwind CSS"></i>
+                <i class="fab fa-git-alt text-5xl tech-icon" title="Git"></i>
+                <i class="fab fa-github text-5xl tech-icon" title="GitHub"></i>
+                <i class="fab fa-php text-5xl tech-icon" title="PHP"></i>
+                <i class="fab fa-laravel text-5xl tech-icon" title="Laravel"></i>
+                <i class="fab fa-python text-5xl tech-icon" title="Python"></i>
+            </div>
+            <!-- Duplicate for infinite effect -->
+            <div class="marquee-content">
+                <i class="fab fa-react text-5xl tech-icon" title="React.js"></i>
+                <i class="fab fa-node-js text-5xl tech-icon" title="Node.js"></i>
+                <i class="fas fa-fire text-5xl tech-icon" title="Firebase"></i>
+                <i class="fab fa-js text-5xl tech-icon" title="JavaScript"></i>
+                <i class="fab fa-css3-alt text-5xl tech-icon" title="Tailwind CSS"></i>
+                <i class="fab fa-git-alt text-5xl tech-icon" title="Git"></i>
+                <i class="fab fa-github text-5xl tech-icon" title="GitHub"></i>
+                <i class="fab fa-php text-5xl tech-icon" title="PHP"></i>
+                <i class="fab fa-laravel text-5xl tech-icon" title="Laravel"></i>
+                <i class="fab fa-python text-5xl tech-icon" title="Python"></i>
             </div>
         </div>
     </section>
@@ -1031,11 +1268,18 @@
                             التعقيد.
                         </p>
                         <br>
-                        <a href="#" id="whatsapp-btn" target="_blank"
-                            class="inline-flex items-center gap-2 px-8 py-4 bg-green-600 text-white font-bold rounded-full hover:bg-green-500 transition shadow-lg shadow-green-900/20">
-                            <i class="fab fa-whatsapp text-xl"></i>
-                            تأكيد السعر وبدء المشروع
-                        </a>
+                        <div class="flex flex-col md:flex-row justify-center gap-4 mt-6">
+                            <a href="#" id="whatsapp-btn" target="_blank"
+                                class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-600 text-white font-bold rounded-full hover:bg-green-500 transition shadow-lg shadow-green-900/20">
+                                <i class="fab fa-whatsapp text-xl"></i>
+                                تأكيد السعر وبدء المشروع
+                            </a>
+                            <button type="button" onclick="downloadQuotePDF()" id="download-pdf-btn"
+                                class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-full hover:bg-white/10 transition shadow-lg">
+                                <i class="fas fa-file-pdf text-xl text-red-500"></i>
+                                تحميل عرض سعر (PDF)
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -1097,50 +1341,115 @@
         </div>
     </section>
 
-    <!-- Careers Section -->
-    <section id="careers" class="py-24 px-6 relative border-t border-[var(--border-color)] bg-[var(--dark-bg)]">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12" data-aos="fade-up">
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[var(--text-main)]">انضم <span
-                            class="text-cyan-500">لفريقنا</span></h2>
-                    <p class="text-gray-400">نبحث دائماً عن المبدعين - <span class="text-emerald-400">جميع وظائفنا عن
-                            بُعد (من المنزل)</span></p>
+    <!-- Careers Section (Upgraded with Glassmorphism) -->
+    <section id="careers" class="py-32 px-6 relative overflow-hidden">
+        <!-- Background Decorative Elements -->
+        <div class="absolute top-1/4 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-1/4 -left-20 w-72 h-72 bg-emerald-500/10 rounded-full blur-[100px]"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
+                <div class="space-y-4">
+                    <div
+                        class="inline-block px-4 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-500 text-xs font-bold tracking-widest uppercase">
+                        توسع مستمر
+                    </div>
+                    <h2 class="text-5xl md:text-6xl font-black text-white leading-tight">
+                        انضم إلى <span class="text-brand-gradient">عائلة أساس</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg max-w-2xl font-['Tajawal']">
+                        نحن لا نبحث عن موظفين، بل نبحث عن شركاء نجاح يشاركوننا الشغف. <span
+                            class="text-emerald-400 font-bold underline decoration-emerald-500/30 underline-offset-8">جميع
+                            وظائفنا هي بنظام العمل عن بُعد (Remote Work) للأبد.</span>
+                    </p>
                 </div>
                 <a href="#contact"
-                    class="hidden md:inline-block px-6 py-2 border border-gray-600 rounded-full hover:bg-[var(--text-main)] hover:text-[var(--dark-bg)] text-[var(--text-secondary)] transition">أرسل
-                    سيرتك الذاتية</a>
+                    class="mt-8 md:mt-0 px-10 py-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 text-white font-bold transition-all shadow-xl backdrop-blur-md flex items-center gap-3 group">
+                    أرسل سيرتك الذاتية <i class="fas fa-file-pdf group-hover:scale-110 transition-transform"></i>
+                </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Job 1 -->
-                <div class="bg-[var(--card-bg)] border border-[var(--border-color)] p-8 rounded-xl hover:border-cyan-500 transition group cursor-pointer"
+                <div class="glass-card group p-10 rounded-[2.5rem] hover:border-cyan-500/50 transition-all duration-500 relative overflow-hidden"
                     data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold text-[var(--text-main)] group-hover:text-cyan-500 transition">
-                            Senior Frontend Developer</h3>
-                        <div class="flex flex-col items-end gap-1">
-                            <span class="bg-gray-800 text-xs px-2 py-1 rounded text-gray-300">Remote / Full Time</span>
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-cyan-500/10 transition-colors">
+                    </div>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <div class="space-y-1">
+                            <h3 class="text-2xl font-black text-white group-hover:text-cyan-500 transition-colors">
+                                Senior Frontend Developer</h3>
+                            <p class="text-cyan-500/60 text-xs font-bold uppercase tracking-widest">Engineering Dept.
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-end gap-2">
+                            <span
+                                class="bg-emerald-500/20 text-emerald-400 text-[10px] px-4 py-1.5 rounded-full font-black flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                                REMOTE / FULL-TIME
+                            </span>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm mb-6">خبرة لا تقل عن 3 سنوات في React.js و Tailwind CSS. العمل
-                        بالكامل من منزلك بأحدث معايير الجودة.</p>
-                    <span class="text-cyan-500 text-sm font-bold">قدم الآن <i class="fas fa-arrow-left mr-1"></i></span>
+
+                    <p class="text-gray-400 text-sm mb-10 leading-relaxed font-['Tajawal']">
+                        نبحث عن محترف React.js يتقن تحويل التصاميم المبهرة إلى واقع ملموس. خبرة في Tailwind CSS و
+                        State Management. ستعمل مع فريق متطور في بيئة تكنولوجية تفاعلية بالكامل من منزلك.
+                    </p>
+
+                    <div class="flex items-center justify-between border-t border-white/5 pt-8">
+                        <div class="flex -space-x-reverse -space-x-3">
+                            <div class="w-8 h-8 rounded-full border-2 border-[#0a0a0a] bg-gray-800 flex items-center justify-center text-[10px] text-white font-bold"
+                                title="Current Team Member">AS</div>
+                            <div class="w-8 h-8 rounded-full border-2 border-[#0a0a0a] bg-gray-700 flex items-center justify-center text-[10px] text-white font-bold"
+                                title="Current Team Member">MK</div>
+                        </div>
+                        <a href="#contact" class="text-white text-sm font-black flex items-center gap-3 group/btn">
+                            قدم طلب انضمام <i
+                                class="fas fa-arrow-left text-cyan-500 group-hover/btn:-translate-x-2 transition-transform"></i>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Job 2 -->
-                <div class="bg-[var(--card-bg)] border border-[var(--border-color)] p-8 rounded-xl hover:border-cyan-500 transition group cursor-pointer"
+                <div class="glass-card group p-10 rounded-[2.5rem] hover:border-emerald-500/50 transition-all duration-500 relative overflow-hidden"
                     data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold text-[var(--text-main)] group-hover:text-cyan-500 transition">
-                            Sales Specialist</h3>
-                        <div class="flex flex-col items-end gap-1">
-                            <span class="bg-gray-800 text-xs px-2 py-1 rounded text-gray-300">Remote / Part Time</span>
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-emerald-500/10 transition-colors">
+                    </div>
+
+                    <div class="flex justify-between items-start mb-8 relative z-10">
+                        <div class="space-y-1">
+                            <h3 class="text-2xl font-black text-white group-hover:text-emerald-500 transition-colors">
+                                Sales Specialist</h3>
+                            <p class="text-emerald-500/60 text-xs font-bold uppercase tracking-widest">Business Growth
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-end gap-2">
+                            <span
+                                class="bg-emerald-500/20 text-emerald-400 text-[10px] px-4 py-1.5 rounded-full font-black flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                                REMOTE / PART-TIME
+                            </span>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm mb-6">مهارات تواصل ممتازة وخبرة في مبيعات البرمجيات. العمل بمرونة
-                        تامة من أي مكان في مصر.</p>
-                    <span class="text-cyan-500 text-sm font-bold">قدم الآن <i class="fas fa-arrow-left mr-1"></i></span>
+
+                    <p class="text-gray-400 text-sm mb-10 leading-relaxed font-['Tajawal']">
+                        هل تمتلك مهارة الإقناع وشغف التكنولوجيا؟ انضم إلينا للمساعدة في توسيع قاعدة عملائنا لبرامج
+                        Law Pro و POS. عمولة مجزية، ساعات عمل مرنة، ومكافآت أداء دورية، والعمل بالكامل من أي مكان.
+                    </p>
+
+                    <div class="flex items-center justify-between border-t border-white/5 pt-8">
+                        <div class="flex -space-x-reverse -space-x-3">
+                            <div class="w-8 h-8 rounded-full border-2 border-[#0a0a0a] bg-gray-600 flex items-center justify-center text-[10px] text-white font-bold"
+                                title="Current Team Member">HR</div>
+                        </div>
+                        <a href="#contact" class="text-white text-sm font-black flex items-center gap-3 group/btn">
+                            قدم طلب انضمام <i
+                                class="fas fa-arrow-left text-emerald-500 group-hover/btn:-translate-x-2 transition-transform"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1483,28 +1792,109 @@
 
             <!-- Newsletter Column -->
             <div>
-                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">النشرة البريدية <span
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">السياسات القانونية <span
                         class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
-                <p class="text-gray-500 text-sm mb-6">كن أول من يعلم عن العروض والتقنيات الجديدة.</p>
-                <form class="flex flex-col gap-3">
-                    <div class="relative">
-                        <input type="email" placeholder="بريدك الإلكتروني"
-                            class="w-full bg-[#1a1a1a] border border-gray-800 text-white px-4 py-4 rounded-lg focus:outline-none focus:border-cyan-500 transition pl-10">
-                        <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600"></i>
-                    </div>
-                    <button
-                        class="w-full bg-gradient-to-r from-cyan-600 to-cyan-500 text-black font-bold py-4 rounded-lg hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition transform hover:-translate-y-1">اشترك
-                        الآن</button>
-                </form>
+                <div class="flex flex-col gap-4 text-gray-400 text-sm">
+                    <a href="privacy.html" class="hover:text-cyan-500 transition flex items-center gap-2">
+                        <i class="fas fa-shield-alt text-cyan-500"></i> سياسة الخصوصية
+                    </a>
+                    <a href="terms.html" class="hover:text-cyan-500 transition flex items-center gap-2">
+                        <i class="fas fa-file-contract text-cyan-500"></i> الشروط والأحكام
+                    </a>
+                </div>
             </div>
         </div>
 
         <div
             class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto relative z-10">
-            <p class="text-gray-600 text-sm">&copy; 2024 ASAS Software Solutions. جميع الحقوق محفوظة.</p>
-            <div class="flex gap-6 text-gray-600 text-sm">
-                <a href="terms.html" class="hover:text-cyan-500 transition">الشروط والأحكام</a>
-                <a href="privacy.html" class="hover:text-cyan-500 transition">سياسة الخصوصية</a>
+            <p class="text-gray-600 text-sm">&copy; 2026 ASAS Software Solutions. جميع الحقوق محفوظة.</p>
+        </div>
+        <!-- AI Concierge Widget -->
+        <div class="ai-widget">
+            <button id="ai-toggle"
+                class="w-14 h-14 bg-cyan-500 rounded-full flex items-center justify-center text-black shadow-2xl hover:scale-110 transition-all rotate-0">
+                <i class="fas fa-robot text-2xl"></i>
+            </button>
+
+            <div id="ai-chat" class="ai-chat-window">
+                <div class="p-6 bg-cyan-500 text-black flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-robot text-xl"></i>
+                        <span class="font-black text-sm">مستشار أساس الذكي</span>
+                    </div>
+                    <button id="ai-close" class="hover:rotate-90 transition-transform">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div id="chat-content" class="flex-1 p-6 overflow-y-auto flex flex-col custom-scrollbar space-y-4">
+                    <div class="chat-bubble bot-bubble">
+                        مرحباً بك! أنا مستشار أساس الذكي. كيف يمكنني مساعدتك اليوم؟ يمكنك سؤالي عن أي شيء يخص برامجنا أو
+                        خدماتنا.
+                    </div>
+                </div>
+
+                <div class="p-4 border-t border-white/5 bg-black/20">
+                    <div class="flex gap-2 bg-white/5 rounded-2xl p-2 border border-white/10">
+                        <input type="text" id="ai-input" placeholder="اكتب سؤالك هنا..."
+                            class="flex-1 bg-transparent border-none focus:ring-0 text-white text-sm px-3 py-2 outline-none"
+                            onkeypress="if(event.key === 'Enter') sendAIMessage()">
+                        <button onclick="sendAIMessage()"
+                            class="w-10 h-10 bg-cyan-500 rounded-xl flex items-center justify-center text-black hover:bg-cyan-400 transition-colors">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case Study Modal -->
+        <div id="case-study-modal"
+            class="fixed inset-0 z-[2000] hidden items-center justify-center p-6 bg-black/90 backdrop-blur-xl">
+            <div class="bg-[#111] border border-white/10 max-w-4xl w-full max-h-[90vh] rounded-[3rem] overflow-hidden flex flex-col shadow-2xl scale-95 opacity-0 transition-all duration-500"
+                id="case-study-content">
+                <div class="relative h-64 overflow-hidden">
+                    <img id="case-img" src="" class="w-full h-full object-cover opacity-50" alt="">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent"></div>
+                    <button id="close-case"
+                        class="absolute top-8 right-8 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-cyan-500 hover:text-black transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="absolute bottom-10 right-10">
+                        <h2 id="case-title" class="text-4xl md:text-5xl font-black text-white mb-2"></h2>
+                        <p id="case-client" class="text-cyan-500 font-bold tracking-widest uppercase text-sm"></p>
+                    </div>
+                </div>
+
+                <div class="flex-1 overflow-y-auto p-10 md:p-16 space-y-12 custom-scrollbar">
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div class="space-y-4">
+                            <div class="text-xs font-black text-gray-500 uppercase tracking-widest">المشكلة السابقة
+                            </div>
+                            <p id="case-before" class="text-gray-400 leading-relaxed font-['Tajawal']"></p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="text-xs font-black text-emerald-500 uppercase tracking-widest">الحل من أساس
+                            </div>
+                            <p id="case-after" class="text-gray-300 leading-relaxed font-['Tajawal'] font-bold"></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
+                            <div id="case-stat1" class="text-3xl font-black text-white mb-1"></div>
+                            <div class="text-[10px] text-gray-500 uppercase font-bold">زيادة في الكفاءة</div>
+                        </div>
+                        <div class="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
+                            <div id="case-stat2" class="text-3xl font-black text-white mb-1"></div>
+                            <div class="text-[10px] text-gray-500 uppercase font-bold">توفير في الوقت</div>
+                        </div>
+                        <div class="bg-white/5 p-8 rounded-3xl border border-white/5 text-center">
+                            <div id="case-stat3" class="text-3xl font-black text-white mb-1"></div>
+                            <div class="text-[10px] text-gray-500 uppercase font-bold">دقة البيانات</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
@@ -1513,15 +1903,30 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // Preloader Hiding
+        // Premium Preloader Logic
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.visibility = 'hidden';
-                }, 800);
-            }, 1000); // 1.5 seconds minimum show time
+            const progressBar = document.getElementById('loader-progress');
+            let progress = 0;
+
+            // Artificial progress for smooth experience
+            const interval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress > 100) progress = 100;
+                progressBar.style.width = `${progress}%`;
+
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        preloader.style.opacity = '0';
+                        // Add entrance animations to main content
+                        document.body.style.overflow = 'auto';
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                        }, 700);
+                    }, 500);
+                }
+            }, 150);
         });
 
         // Initialize AOS
@@ -1669,6 +2074,153 @@
         function closeModal() { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
         closeModalBtn.addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    </script>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // CONFIGURATION: Put your Gemini API Key here to enable real AI
+        // Get it from: https://aistudio.google.com/
+        const GEMINI_API_KEY = "AIzaSyBqa6DyFB55NhSx9m_Ur7phG70qcuYDvpk"; // <--- Paste your key here
+
+        // AI CONCIERGE LOGIC
+        const aiToggle = document.getElementById('ai-toggle');
+        const aiChat = document.getElementById('ai-chat');
+        const aiClose = document.getElementById('ai-close');
+        const aiInput = document.getElementById('ai-input');
+        const chatContent = document.getElementById('chat-content');
+
+        const systemKnowledge = {
+            "law": "نظام ASAS Law Pro هو الأفضل للمحامين، يدير القضايا والجلسات والأرشفة.",
+            "pharmacy": "نظام Pharmacy Pro مخصص للصيدليات، يدير المخازن والصلاحية والمناديب.",
+            "resto": "نظام Resto & Cafe POS رائع للمطاعم، يوفر طلبات المنيو من التابلت وتقارير مبيعات.",
+            "market": "نظام Market POS للمحلات التجارية، يدير الباركود والجرد السريع وفواتير الموردين.",
+            "price": "يمكنك استخدام حاسبة التكلفة في الموقع للحصول على سعر تقديري فوري أو التواصل معنا.",
+            "contact": "يمكنك التواصل معنا عبر واتساب على الرقم +201032630429.",
+            "developer": "المطور والمهندس المسؤول هو البشمهندس **علي محمد الول** مؤسس شركة أساس."
+        };
+
+        const systemPrompt = `
+        أنت "مستشار أساس الذكي"، المساعد الذكي الرسمي لشركة "أساس للحلول البرمجية" (ASAS Software Solutions).
+        معلومات حاسمة للرد:
+        - المالك والمؤسس: المهندس "علي محمد الول" (Ali Mohamed El-Wal).
+        - تاريخ التأسيس: تأسست الشركة في عام 2025.
+        - المنتجات: ASAS Law Pro, Pharmacy Pro, Resto & Cafe POS, Market POS.
+        - التواصل: واتساب +201032630429.
+        - الشخصية: مبرمج ومطور بواسطة علي محمد الول.
+        `;
+
+        aiToggle.addEventListener('click', () => {
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('rotate-180');
+        });
+
+        aiClose.addEventListener('click', () => {
+            aiChat.classList.remove('active');
+            aiToggle.classList.remove('rotate-180');
+        });
+
+        window.sendAIMessage = async function () {
+            const msg = aiInput.value.trim();
+            if (!msg) return;
+
+            addChatMessage(msg, 'user');
+            aiInput.value = '';
+
+            const loadingBubble = document.createElement('div');
+            loadingBubble.className = 'chat-bubble bot-bubble opacity-50';
+            loadingBubble.innerHTML = '<span class="animate-pulse">مستشار أساس يفكر...</span>';
+            chatContent.appendChild(loadingBubble);
+            chatContent.scrollTop = chatContent.scrollHeight;
+
+            let responseText = "";
+
+            if (GEMINI_API_KEY && GEMINI_API_KEY.length > 10) {
+                try {
+                    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+                    // Use gemini-pro which is highly compatible for v1beta
+                    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+                    const result = await model.generateContent(systemPrompt + "\n\nسؤال المستخدم: " + msg);
+                    const response = await result.response;
+                    responseText = response.text();
+                } catch (error) {
+                    console.error("Gemini Error:", error);
+                    responseText = await getFallbackResponse(msg);
+                }
+            } else {
+                responseText = await getFallbackResponse(msg);
+            }
+
+            chatContent.removeChild(loadingBubble);
+            addChatMessage(responseText, 'bot');
+        }
+
+        async function getFallbackResponse(userMsg) {
+            const query = userMsg.toLowerCase();
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    if (query.includes('علي') || query.includes('الول') || query.includes('مطور') || query.includes('صاحب') || query.includes('مين'))
+                        resolve("المطور والمؤسس لشركة أساس هو البشمهندس **علي محمد الول**. هو العقل المدبر لكل برامجنا.");
+                    else if (query.includes('تأسس') || query.includes('بدأ') || query.includes('متى') || query.includes('تاريخ') || query.includes('امتى'))
+                        resolve("انطلقت شركة أساس للحلول البرمجية رسمياً في عام **2025** لتقدم أحدث الحلول التقنية في السوق.");
+                    else if (query.includes('محام') || query.includes('قض')) resolve(systemKnowledge.law);
+                    else if (query.includes('صيدل')) resolve(systemKnowledge.pharmacy);
+                    else if (query.includes('مطعم') || query.includes('كافيه')) resolve(systemKnowledge.resto);
+                    else if (query.includes('سعر') || query.includes('تكلف')) resolve(systemKnowledge.price);
+                    else if (query.includes('تواصل') || query.includes('واتساب')) resolve(systemKnowledge.contact);
+                    else if (query.includes('ازيك') || query.includes('سلام') || query.includes('مرحبا'))
+                        resolve("أهلاً بك! أنا مستشار أساس الذكي. كيف يمكنني مساعدتك اليوم؟");
+                    else
+                        resolve("نحن في أساس للحلول البرمجية نقدم أنظمة متطورة للمحاماة، الصيدليات، المطاعم، والمتاجر تحت إشراف المهندس علي محمد الول. كيف يمكنني خدمتك؟");
+                }, 1000);
+            });
+        }
+
+        function addChatMessage(text, side) {
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${side}-bubble`;
+            bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+            chatContent.appendChild(bubble);
+            chatContent.scrollTop = chatContent.scrollHeight;
+        }
+    </script>
+
+    <script>
+
+        // Stats Counter Animation
+        const stats = document.querySelectorAll('.stat-number');
+        const observerOptions = { threshold: 0.5 };
+
+        const statsObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseFloat(entry.target.getAttribute('data-target'));
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            entry.target.innerText = target % 1 === 0 ? Math.floor(current).toLocaleString() :
+                                current.toFixed(1); requestAnimationFrame(updateCounter);
+                        } else {
+                            entry.target.innerText = target % 1 === 0 ?
+                                target.toLocaleString() : target.toFixed(1);
+                        }
+                    }; updateCounter(); observer.unobserve(entry.target);
+                }
+            });
+        },
+            observerOptions); stats.forEach(stat => statsObserver.observe(stat));
 
         // CALCULATOR LOGIC (EGYPTIAN MARKET - REALISTIC)
         const projectTypes = document.querySelectorAll('input[name="project_type"]');
@@ -1677,8 +2229,11 @@
         const pagesVal = document.getElementById('pages-val');
         const features = document.querySelectorAll('.feature-check');
         const whatsappBtn = document.getElementById('whatsapp-btn');
+        const downloadPdfBtn = document.getElementById('download-pdf-btn');
         const totalPriceEl = document.getElementById('total-price');
         const formatter = new Intl.NumberFormat('en-US');
+
+        let currentCalculation = {};
 
         function calculateTotal() {
             let total = 0; let basePrice = 0; let typeLabel = "";
@@ -1720,6 +2275,16 @@
                 totalPriceEl.style.opacity = "1";
             }, 150);
 
+            // Store current calc for PDF
+            currentCalculation = {
+                type: typeLabel,
+                size: sizeLabel,
+                design: designLabel,
+                features: selectedFeatures,
+                total: formattedTotal,
+                date: new Date().toLocaleDateString('ar-EG')
+            };
+
             // Update WhatsApp Link
             let message = `مرحباً ASAS، قمت بتقدير ميزانية لمشروعي الجديد عبر موقعكم:\n\n`;
             message += `🔹 نوع المشروع: ${typeLabel}\n`;
@@ -1732,11 +2297,69 @@
 
             whatsappBtn.href = `https://wa.me/201032630429?text=${encodeURIComponent(message)}`;
         }
+
+        // Add PDF script and logic
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        document.head.appendChild(script);
+
+        async function downloadQuotePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Add basic design (Note: jsPDF for Arabic requires font handling, for now we list details in simple format)
+            doc.setFillColor(10, 10, 10);
+            doc.rect(0, 0, 210, 297, 'F');
+
+            doc.setTextColor(0, 210, 255);
+            doc.setFontSize(30);
+            doc.text('ASAS Software Solutions', 20, 30);
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(16);
+            doc.text('Preliminary Project Quote', 20, 50);
+            doc.setFontSize(10);
+            doc.text(`Date: ${currentCalculation.date}`, 160, 50);
+
+            doc.setDrawColor(0, 210, 255);
+            doc.line(20, 55, 190, 55);
+
+            doc.setFontSize(12);
+            doc.text(`Project Type: ${currentCalculation.type}`, 20, 75);
+            doc.text(`Scale: ${currentCalculation.size}`, 20, 85);
+            doc.text(`Design Level: ${currentCalculation.design}`, 20, 95);
+
+            doc.text('Included Features:', 20, 115);
+            currentCalculation.features.forEach((feat, i) => {
+                doc.text(`- ${feat}`, 30, 125 + (i * 10));
+            });
+
+            doc.setDrawColor(255, 255, 255, 0.1);
+            doc.line(20, 240, 190, 240);
+
+            doc.setTextColor(0, 210, 255);
+            doc.setFontSize(22);
+            doc.text(`Estimated Total: ${currentCalculation.total} EGP`, 20, 260);
+
+            doc.setTextColor(150, 150, 150);
+            doc.setFontSize(10);
+            doc.text('This is a preliminary estimate provided by asassoft.com', 20, 280);
+            doc.text('Contact us at: +20 103 263 0429', 140, 280);
+
+            doc.save(`ASAS-Quote-${Date.now()}.pdf`);
+        }
+
         // Event Listeners
         projectTypes.forEach(r => r.addEventListener('change', calculateTotal));
         designLevels.forEach(r => r.addEventListener('change', calculateTotal));
         pagesRange.addEventListener('input', calculateTotal);
         features.forEach(c => c.addEventListener('change', calculateTotal));
+
+        // Final sanity check for UI elements
         calculateTotal();
 
         // Portfolio Filtering Logic
