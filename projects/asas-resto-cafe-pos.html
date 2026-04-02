@@ -163,11 +163,12 @@
                     وبونات المطبخ اللحظية إلى تخصيص مكاتب الطلبات (Addons) ومتابعة دقيقة للورديات والأرباح.
                 </p>
                 <div class="flex flex-wrap gap-4">
+                    <!-- Pricing Container -->
+                    <div id="project-price-container" class="h-10 flex items-center gap-4 font-mono">
+                        <div class="h-8 w-32 bg-white/5 rounded animate-pulse"></div> <!-- Skeleton -->
+                    </div>
+
                     <div class="flex flex-col gap-4">
-                        <!-- Pricing Container -->
-                        <div id="project-price-container" class="h-10 flex items-center gap-4 font-mono">
-                            <div class="h-8 w-32 bg-white/5 rounded animate-pulse"></div> <!-- Skeleton -->
-                        </div>
 
                         <div class="flex flex-wrap gap-4">
                             <a id="project-download-btn" href="#" download
@@ -268,95 +269,6 @@
         </div>
     </section>
 
-    <!-- Pricing Tiers -->
-    <section class="py-24 px-6 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-black mb-4">خطط <span class="text-emerald-500">الأسعار</span></h2>
-                <p class="text-gray-400">باقات مدروسة بعناية لتناسب عالم الضيافة</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Lite Plan -->
-                <div class="glass-card p-10 rounded-[2.5rem] border-white/5 flex flex-col hover:border-emerald-500/30 transition-all duration-500"
-                    data-aos="fade-up">
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold mb-2 text-gray-300">باقة الكافيهات</h3>
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-4xl font-black text-white">1800</span>
-                            <span class="text-gray-500 text-sm">ج.م / لمرة واحدة</span>
-                        </div>
-                    </div>
-                    <ul class="space-y-4 mb-10 flex-grow text-sm text-gray-400">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> مبيعات سريعة
-                            وتيك أوي</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> إدارة حسابات
-                            باريستا</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> دعم فني
-                            أونلاين (3 شهور)</li>
-                        <li class="opacity-30 flex items-center gap-3"><i class="fas fa-times"></i> إدارة كاملة للطاولات
-                        </li>
-                    </ul>
-                    <a href="https://wa.me/201032630429?text=أريد الاستفسار عن باقة الكافيهات لنظام Resto POS"
-                        class="w-full py-4 rounded-xl border border-white/10 text-center font-bold hover:bg-white/5 transition">اطلبها
-                        الآن</a>
-                </div>
-
-                <!-- Pro Plan -->
-                <div class="glass-card p-10 rounded-[2.5rem] border-emerald-500/50 bg-emerald-500/5 flex flex-col shadow-[0_0_50px_rgba(16,185,129,0.1)] relative transform scale-105 z-10"
-                    data-aos="fade-up" data-aos-delay="100">
-                    <div
-                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-black text-[10px] px-4 py-1 rounded-full font-black uppercase tracking-widest">
-                        الأكثر طلباً</div>
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold mb-2 text-emerald-500">الباقة الاحترافية</h3>
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-5xl font-black text-white">2800</span>
-                            <span class="text-gray-500 text-sm">ج.م / لمرة واحدة</span>
-                        </div>
-                    </div>
-                    <ul class="space-y-4 mb-10 flex-grow text-sm text-gray-300">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> كل مميزات باقة
-                            الكافيهات</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> إدارة الصالة
-                            والطاولات</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> بونات مطبخ
-                            آلية (طابعات متعددة)</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> دعم فني متميز
-                            (عام كامل)</li>
-                    </ul>
-                    <a href="https://wa.me/201032630429?text=أريد الاستفسار عن الباقة الاحترافية لنظام Resto POS"
-                        class="w-full py-4 rounded-xl bg-emerald-500 text-black text-center font-black hover:bg-emerald-400 transition shadow-xl shadow-emerald-500/20">اطلبها
-                        الآن</a>
-                </div>
-
-                <!-- Ultimate Plan -->
-                <div class="glass-card p-10 rounded-[2.5rem] border-white/5 flex flex-col hover:border-emerald-500/30 transition-all duration-500"
-                    data-aos="fade-up" data-aos-delay="200">
-                    <div class="mb-8">
-                        <h3 class="text-xl font-bold mb-2 text-gray-300">باقة المطاعم الكبرى</h3>
-                        <div class="flex items-baseline gap-1">
-                            <span class="text-4xl font-black text-white">تواصل</span>
-                            <span class="text-gray-500 text-sm">للفروع والسلاسل</span>
-                        </div>
-                    </div>
-                    <ul class="space-y-4 mb-10 flex-grow text-sm text-gray-400">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> ربط مخازن
-                            المواد الخام (Raw)</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> نظام الكول
-                            سنتر والدليفري</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> تطبيق موبايل
-                            لطلب القائمة</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> دعم فني VIP
-                            مدى الحياة</li>
-                    </ul>
-                    <a href="https://wa.me/201032630429?text=أريد الاستفسار عن باقة المطاعم الكبرى لنظام Resto POS"
-                        class="w-full py-4 rounded-xl border border-white/10 text-center font-bold hover:bg-white/5 transition">تواصل
-                        معنا</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Testimonials -->
     <section class="py-24 px-6 bg-gradient-to-b from-transparent to-white/[0.02]">
@@ -408,11 +320,11 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="text-center">
                     <i class="fab fa-react text-5xl text-blue-400 mb-4 block"></i>
-                    <span class="font-bold text-gray-300">React Touch UI</span>
+                    <span class="font-bold text-gray-300 text-sm">Ultra-Low Latency React Interface</span>
                 </div>
                 <div class="text-center">
                     <i class="fab fa-node-js text-5xl text-green-500 mb-4 block"></i>
-                    <span class="font-bold text-gray-300">Desktop Runtime</span>
+                    <span class="font-bold text-gray-300 text-sm">Industrial Desktop Engine Core</span>
                 </div>
                 <div class="text-center group">
                     <div class="mb-4 flex justify-center transition-transform group-hover:scale-110">
@@ -432,11 +344,11 @@
                                 stroke-linejoin="round" />
                         </svg>
                     </div>
-                    <span class="font-bold text-gray-300">Offline Mode</span>
+                    <span class="font-bold text-gray-300 text-sm">Hybrid Edge Offline Synchronization</span>
                 </div>
                 <div class="text-center">
-                    <i class="fas fa-mobile-screen text-5xl text-indigo-400 mb-4 block"></i>
-                    <span class="font-bold text-gray-300">Fully Responsive</span>
+                    <i class="fas fa-shield-halved text-5xl text-indigo-400 mb-4 block"></i>
+                    <span class="font-bold text-gray-300 text-sm">Military-Grade Encryption (AES-256)</span>
                 </div>
             </div>
         </div>
@@ -583,6 +495,40 @@
 
         initProject();
     </script>
+
+    <!-- Support Widgets -->
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20b858;
+        }
+
+
+    </style>
+
+    <a href="https://wa.me/201032630429" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=U4NGSGWd2p7a"></script>
 </body>
 
 </html>

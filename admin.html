@@ -18,14 +18,118 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #0f172a;
-            color: white;
+            background-color: #020617;
+            color: #cbd5e1;
+            overflow-x: hidden;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0891b2; }
+
+        :root {
+            --accent: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.3);
+            --bg-deep: #020617;
+            --bg-card: #0f172a;
+            --border-tech: rgba(6, 182, 212, 0.1);
         }
 
         .glass {
             background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* PREMIUM LOGIN DESIGN */
+        #login-section {
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background elements */
+        .tech-bg-element {
+            position: absolute;
+            background: linear-gradient(45deg, transparent, rgba(6, 182, 212, 0.05), transparent);
+            transform: rotate(-45deg);
+            pointer-events: none;
+            width: 200%;
+            height: 100px;
+            animation: tech-scan 10s linear infinite;
+        }
+
+        @keyframes tech-scan {
+            0% { top: -100%; }
+            100% { top: 200%; }
+        }
+
+        .login-card {
+            position: relative;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(6, 182, 212, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #06b6d4, transparent, #3b82f6, transparent, #06b6d4);
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.3;
+            animation: border-glow 20s linear infinite;
+            border-radius: 1.5rem;
+        }
+
+        @keyframes border-glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .cyber-input {
+            background: rgba(2, 6, 23, 0.7) !important;
+            border: 1px solid rgba(6, 182, 212, 0.2) !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cyber-input:focus {
+            border-color: #06b6d4 !important;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3), inset 0 0 5px rgba(6, 182, 212, 0.1);
+            transform: scale(1.01);
+        }
+
+        .cyber-btn {
+            background: linear-gradient(135deg, #0891b2 0%, #2563eb 100%);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .cyber-btn:hover::after {
+            left: 120%;
+        }
+
+        .cyber-btn:hover {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+            transform: translateY(-2px);
         }
 
         /* Sidebar Active State */
@@ -41,150 +145,321 @@
 <body>
 
     <!-- Login Section -->
-    <div id="login-section" class="fixed inset-0 flex items-center justify-center bg-[#0f172a] z-50">
+    <div id="login-section" class="fixed inset-0 flex items-center justify-center bg-[#070b14] z-50">
+        <!-- Tech background visual elements -->
+        <div class="tech-bg-element" style="animation-delay: 0s; top: 10%;"></div>
+        <div class="tech-bg-element" style="animation-delay: 2s; top: 30%;"></div>
+        <div class="tech-bg-element" style="animation-delay: 5s; top: 60%;"></div>
+        <div class="tech-bg-element" style="animation-delay: 8s; top: 90%;"></div>
+
         <div
-            class="bg-gray-800 p-8 rounded-2xl shadow-2xl w-96 border border-gray-700 text-center relative overflow-hidden">
-            <!-- Background Decoration -->
-            <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+            class="login-card p-10 rounded-3xl w-full max-w-md text-center relative overflow-hidden group">
+            
+            <!-- Corner Accents -->
+            <div class="absolute top-0 right-0 w-2 h-16 bg-cyan-500/30"></div>
+            <div class="absolute top-0 right-0 w-16 h-2 bg-cyan-500/30"></div>
+            <div class="absolute bottom-0 left-0 w-2 h-16 bg-blue-500/30"></div>
+            <div class="absolute bottom-0 left-0 w-16 h-2 bg-blue-500/30"></div>
 
             <div class="relative z-10">
                 <div
-                    class="w-20 h-20 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-cyan-500/20">
-                    <i class="fas fa-user-shield text-4xl text-cyan-500"></i>
+                    class="w-24 h-24 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:border-cyan-500/50 transition-all duration-500 transform group-hover:rotate-[360deg]">
+                    <i class="fas fa-terminal text-5xl text-cyan-500 filter drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]"></i>
                 </div>
-                <h2 class="text-2xl font-bold mb-2">ASAS Admin</h2>
-                <p class="text-gray-400 text-sm mb-6">تسجيل الدخول للمسؤولين فقط</p>
+                
+                <h2 class="text-3xl font-black mb-1 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent uppercase tracking-tight">ASAS Software Solutions</h2>
+                <div class="flex items-center justify-center gap-2 mb-8">
+                    <span class="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
+                    <p class="text-cyan-500/70 text-xs font-mono uppercase tracking-[0.2em]">Authorized Management Portal</p>
+                </div>
 
-                <form id="login-form" class="space-y-4">
-                    <input type="email" id="email" placeholder="البريد الإلكتروني" required
-                        class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-cyan-500 outline-none transition text-right">
+                <form id="login-form" class="space-y-6">
+                    <div class="relative">
+                        <i class="fas fa-at absolute right-4 top-1/2 -translate-y-1/2 text-cyan-500/40 text-sm"></i>
+                        <input type="email" id="email" placeholder="البريد الإلكتروني" required
+                            class="cyber-input w-full rounded-xl pr-12 pl-4 py-4 text-white focus:outline-none transition-all text-right font-medium">
+                    </div>
 
-                    <input type="password" id="password" placeholder="كلمة المرور" required
-                        class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-cyan-500 outline-none transition text-right">
+                    <div class="relative">
+                        <i class="fas fa-lock absolute right-4 top-1/2 -translate-y-1/2 text-cyan-500/40 text-sm"></i>
+                        <input type="password" id="password" placeholder="كلمة المرور" required
+                            class="cyber-input w-full rounded-xl pr-12 pl-4 py-4 text-white focus:outline-none transition-all text-right font-medium">
+                    </div>
 
                     <button type="submit" id="login-btn"
-                        class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 py-3 rounded-lg font-bold hover:shadow-lg hover:shadow-cyan-500/20 transition flex justify-center items-center gap-2">
-                        <span>دخول</span> <i class="fas fa-arrow-left"></i>
+                        class="cyber-btn w-full py-4 rounded-xl font-black text-lg tracking-wider hover:shadow-cyan-500/50 flex justify-center items-center gap-3 transition-all duration-300">
+                        <span>INITIATE ACCESS</span> <i class="fas fa-rocket"></i>
                     </button>
 
-                    <p id="login-error" class="text-red-500 text-sm hidden animate-pulse"></p>
+                    <p id="login-error" class="bg-red-500/10 border border-red-500/30 text-red-500 text-sm p-3 rounded-lg hidden font-bold"></p>
                 </form>
+
+                <div class="mt-8 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] text-gray-500 font-mono">
+                    <span>SECURITY: v4.2.1-STABLE</span>
+                    <span class="text-cyan-500/30 group-hover:text-cyan-500 transition-colors">CONNECTED TO FIREBASE CLOUD</span>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Dashboard Section -->
-    <div id="dashboard-section" class="hidden min-h-screen flex">
+    <div id="dashboard-section" class="hidden min-h-screen flex text-right overflow-hidden">
 
         <!-- Sidebar -->
-        <aside class="w-64 bg-slate-900 border-l border-slate-800 flex flex-col fixed h-full right-0 top-0 z-40">
-            <div class="p-6 border-b border-slate-800 flex items-center gap-3">
-                <div
-                    class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center font-bold text-xl shadow-lg">
-                    A</div>
-                <div>
-                    <h1 class="font-bold text-lg leading-tight">ASAS Admin</h1>
-                    <p class="text-xs text-slate-500">Super Control</p>
+        <aside class="w-72 bg-slate-950/80 backdrop-blur-xl border-l border-white/5 flex flex-col fixed h-full right-0 top-0 z-40 shadow-2xl">
+            <div class="p-8 border-b border-white/5 relative overflow-hidden group">
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
+                
+                <div class="flex items-center gap-4 relative z-10">
+                    <div class="w-12 h-12 bg-gradient-to-tr from-cyan-600 to-blue-600 rounded-xl flex items-center justify-center font-black text-2xl shadow-[0_0_20px_rgba(6,182,212,0.3)] transform rotate-3 hover:rotate-0 transition-all duration-500 text-white">
+                        A</div>
+                    <div>
+                        <h1 class="font-black text-xl leading-tight tracking-tight text-white uppercase italic">ASAS<span class="text-cyan-500"> SOLUTIONS</span></h1>
+                        <p class="text-[10px] text-slate-500 font-mono tracking-widest uppercase">Management Control</p>
+                    </div>
                 </div>
             </div>
 
-            <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+            <nav class="flex-1 p-6 space-y-3 overflow-y-auto">
+                <div class="text-[10px] font-mono text-slate-600 mb-2 mr-2 uppercase tracking-widest">Main Modules</div>
+                
                 <button onclick="switchView('projects')" id="nav-projects"
-                    class="nav-item w-full text-right px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-3">
-                    <i class="fas fa-box-open w-6 text-center"></i> <span>المشاريع والإصدارات</span>
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-cyan-500/50 transition-all">
+                        <i class="fas fa-cubes text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold" data-i18n="navProjects">إدارة المشاريع</span>
                 </button>
 
                 <button onclick="switchView('licenses')" id="nav-licenses"
-                    class="nav-item w-full text-right px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-3">
-                    <i class="fas fa-key w-6 text-center"></i> <span>مفاتيح التفعيل</span>
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-emerald-500/50 transition-all">
+                        <i class="fas fa-fingerprint text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold" data-i18n="navLicenses">تراخيص التفعيل</span>
                 </button>
 
-                <div class="border-t border-slate-800 my-4"></div>
+                <button onclick="switchView('contracts')" id="nav-contracts"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-amber-500/50 transition-all">
+                        <i class="fas fa-file-signature text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold" data-i18n="navContracts">العقود الإلكترونية</span>
+                </button>
 
-                <a href="../index.html" target="_blank"
-                    class="w-full flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-white transition text-sm">
-                    <i class="fas fa-globe w-6 text-center"></i> زيارة الموقع
-                </a>
+                <button onclick="switchView('resellers')" id="nav-resellers"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-fuchsia-500/50 transition-all">
+                        <i class="fas fa-users-cog text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold">إدارة الموزعين</span>
+                </button>
+
+                <div class="border-t border-white/5 my-6 pt-6">
+                    <div class="text-[10px] font-mono text-slate-600 mb-2 mr-2 uppercase tracking-widest" data-i18n="externalHeader">روابط خارجية</div>
+                    <a href="../index.html" target="_blank"
+                        class="w-full flex items-center gap-4 px-5 py-3 rounded-xl text-slate-500 hover:text-white hover:bg-white/5 transition-all group">
+                        <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-blue-500/50 transition-all">
+                            <i class="fas fa-external-link-alt text-xs"></i>
+                        </div>
+                        <span class="text-xs font-bold font-mono" data-i18n="visitSite">زيارة الموقع</span>
+                    </a>
+                </div>
             </nav>
 
-            <div class="p-4 border-t border-slate-800">
-                <div class="bg-slate-800 rounded-lg p-3 mb-3">
-                    <p class="text-xs text-slate-400 mb-1">المستخدم الحالي</p>
-                    <p id="current-user-email" class="text-xs font-bold truncate text-cyan-500">...</p>
+            <div class="p-6 border-t border-white/5 bg-black/20">
+                <div class="bg-slate-900/50 border border-white/5 rounded-2xl p-4 mb-4 backdrop-blur-sm group hover:border-cyan-500/30 transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-500 border border-cyan-500/20">
+                            <i class="fas fa-user-tie text-xs"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-500 font-mono uppercase tracking-tighter">Current Admin</p>
+                            <p id="current-user-email" class="text-xs font-black truncate text-cyan-500 ltr text-left">...</p>
+                        </div>
+                    </div>
+                    <button onclick="logout()"
+                        class="w-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white py-3 rounded-xl transition-all text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-power-off"></i> LOGOUT SESSION
+                    </button>
                 </div>
-                <button onclick="logout()"
-                    class="w-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white py-2 rounded-lg transition text-sm font-bold">
-                    <i class="fas fa-sign-out-alt ml-2"></i> تسجيل خروج
-                </button>
+                <p class="text-[9px] text-slate-700 text-center font-mono">ASAS CORE v4.2.1-STABLE</p>
             </div>
         </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 mr-64 p-8 bg-[#0f172a] min-h-screen">
+        <!-- Main Content (Modernized Padding and Background) -->
+        <main class="flex-1 mr-72 p-10 bg-slate-950 min-h-screen relative overflow-y-auto">
+            <!-- Top Controls (Language Toggle) -->
+            <div class="relative z-20 flex justify-end mb-8">
+                <button id="lang-toggle" onclick="toggleLanguage()" 
+                    class="bg-white/5 border border-white/5 px-4 py-2 rounded-xl text-[10px] font-black text-slate-400 hover:text-cyan-500 hover:bg-white/10 transition-all flex items-center gap-2 uppercase tracking-widest">
+                    <i class="fas fa-language text-md"></i> <span id="lang-text">English</span>
+                </button>
+            </div>
+
+            <!-- Decorative Background Element -->
+            <div class="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-cyan-500/5 to-transparent pointer-events-none"></div>
 
             <!-- View: Projects -->
-            <div id="view-projects" class="view-section hidden">
-                <header class="flex justify-between items-center mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-2">إدارة المشاريع</h2>
-                        <p class="text-slate-400">التحكم في إصدارات البرامج وروابط التحميل.</p>
+            <div id="view-projects" class="view-section hidden relative z-10">
+                <header class="flex justify-between items-center mb-12">
+                    <div class="flex items-center gap-4">
+                        <div class="w-1.5 h-10 bg-cyan-500 rounded-full"></div>
+                        <div>
+                            <h2 class="text-4xl font-black text-white tracking-tight italic uppercase" data-i18n="projectHeader">إدارة <span class="text-cyan-500">المشاريع</span></h2>
+                            <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1" data-i18n="projectSub">التحكم في مستودع البرمجيات العالمي</p>
+                        </div>
                     </div>
                     <button onclick="openProjectModal()"
-                        class="bg-cyan-600 hover:bg-cyan-500 px-6 py-2 rounded-lg font-bold transition shadow-lg shadow-cyan-500/20">
-                        <i class="fas fa-plus ml-2"></i> إضافة مشروع
+                        class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] text-white px-8 py-4 rounded-2xl font-black transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                        <i class="fas fa-plus-circle"></i> <span data-i18n="addModule">إضافة مشروع جديد</span>
                     </button>
                 </header>
 
-                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Cards Injected via JS -->
-                    <div class="col-span-3 text-center py-20">
-                        <i class="fas fa-spinner fa-spin text-4xl text-cyan-500"></i>
+                    <div class="col-span-3 text-center py-32">
+                        <div class="inline-block w-16 h-16 border-4 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin"></div>
+                        <p class="text-slate-500 mt-4 font-mono text-xs uppercase tracking-widest" data-i18n="loadingModules">جاري تحميل الوحدات...</p>
                     </div>
                 </div>
             </div>
 
             <!-- View: Licenses -->
-            <div id="view-licenses" class="view-section hidden">
-                <header class="flex justify-between items-center mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-2">مفاتيح التفعيل</h2>
-                        <p class="text-slate-400">توليد وإدارة تراخيص برامج نقاط البيع.</p>
+            <div id="view-licenses" class="view-section hidden relative z-10">
+                <header class="flex justify-between items-center mb-12">
+                    <div class="flex items-center gap-4">
+                        <div class="w-1.5 h-10 bg-emerald-500 rounded-full"></div>
+                        <div>
+                            <h2 class="text-4xl font-black text-white tracking-tight italic uppercase" data-i18n="keyHeader">مفاتيح <span class="text-emerald-500">التفعيل</span></h2>
+                            <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1" data-i18n="keySub">إدارة رموز تنشيط البرامج</p>
+                        </div>
                     </div>
                     <button onclick="generateLicenseKey()" id="generate-btn"
-                        class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded-lg font-bold transition shadow-lg shadow-emerald-500/20">
-                        <i class="fas fa-magic ml-2"></i> توليد مفتاح جديد
+                        class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] text-white px-8 py-4 rounded-2xl font-black transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                        <i class="fas fa-magic"></i> <span data-i18n="generateToken">توليد رمز جديد</span>
                     </button>
                 </header>
 
                 <!-- New Key Display -->
                 <div id="new-key-display"
-                    class="hidden mb-8 glass p-6 rounded-xl border border-emerald-500/30 bg-emerald-500/5 text-center relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-full h-1 bg-emerald-500"></div>
-                    <h3 class="text-emerald-400 font-bold mb-2">تم إنشاء المفتاح بنجاح!</h3>
-                    <div class="flex items-center justify-center gap-4">
+                    class="hidden mb-12 bg-emerald-500/5 backdrop-blur-md border border-emerald-500/20 p-10 rounded-3xl text-center relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent animate-pulse"></div>
+                    <h3 class="text-emerald-400 font-black mb-4 uppercase tracking-[0.2em] text-xs" data-i18n="tokenSuccess">تم إنشاء رمز الوصول بنجاح</h3>
+                    <div class="flex items-center justify-center gap-6">
                         <span id="generated-key"
-                            class="text-3xl font-mono font-bold tracking-widest text-white select-all">ASAS-XXXX-XXXX-XXXX</span>
-                        <button onclick="copyKeyFromDisplay()" class="text-emerald-400 hover:text-white transition"
-                            title="نسخ"><i class="fas fa-copy text-xl"></i></button>
+                            class="text-4xl font-mono font-black tracking-[0.3em] text-white select-all filter drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">ASAS-XXXX-XXXX-XXXX</span>
+                        <button onclick="copyKeyFromDisplay()" class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-emerald-400 hover:bg-emerald-500 hover:text-white transition-all shadow-lg"
+                            title="Copy Token"><i class="fas fa-copy"></i></button>
                     </div>
                 </div>
 
                 <!-- Keys Table -->
-                <div class="glass rounded-xl overflow-hidden">
+                <div class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
                     <table class="w-full text-right">
-                        <thead class="bg-slate-800 text-slate-400 text-sm">
+                        <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
                             <tr>
-                                <th class="p-4 font-normal">المفتاح</th>
-                                <th class="p-4 font-normal">تاريخ الإنشاء</th>
-                                <th class="p-4 font-normal text-cyan-500">تاريخ الاستخدام</th>
-                                <th class="p-4 font-normal">البرنامج / الجهاز</th>
-                                <th class="p-4 font-normal">الحالة</th>
+                                <th class="p-6 font-black text-cyan-500/70 text-right" data-i18n="keyIdentifier">المعرف الفريد</th>
+                                <th class="p-6 font-black" data-i18n="timestamp">وقت الإنشاء</th>
+                                <th class="p-6 font-black" data-i18n="activationTime">وقت التنشيط</th>
+                                <th class="p-6 font-black" data-i18n="targetHost">الجهاز المستهدف</th>
+                                <th class="p-6 font-black" data-i18n="status">الحالة</th>
                             </tr>
                         </thead>
-                        <tbody id="keys-table-body" class="text-sm divide-y divide-slate-800">
+                        <tbody id="keys-table-body" class="text-sm divide-y divide-white/5">
                             <!-- Rows Injected via JS -->
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <!-- View: Contracts -->
+            <div id="view-contracts" class="view-section hidden relative z-10">
+                <header class="flex justify-between items-center mb-12">
+                    <div class="flex items-center gap-4">
+                        <div class="w-1.5 h-10 bg-amber-500 rounded-full"></div>
+                        <div>
+                            <h2 class="text-4xl font-black text-white tracking-tight italic uppercase" data-i18n="contractHeader">العقود <span class="text-amber-500">الإلكترونية</span></h2>
+                            <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1" data-i18n="contractSub">إدارة اتفاقيات التراخيص والعقود الرقمية</p>
+                        </div>
+                    </div>
+                    <button onclick="openContractModal()"
+                        class="bg-gradient-to-r from-amber-600 to-orange-600 shadow-[0_0_20px_rgba(245,158,11,0.2)] text-white px-8 py-4 rounded-2xl font-black transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                        <i class="fas fa-file-contract"></i> <span data-i18n="createContract">إنشاء عقد جديد</span>
+                    </button>
+                </header>
+
+                <div id="contracts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Cards Injected via JS -->
+                    <div class="col-span-3 text-center py-32">
+                        <div class="inline-block w-16 h-16 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin"></div>
+                        <p class="text-slate-500 mt-4 font-mono text-xs uppercase tracking-widest" data-i18n="loadingContracts">جاري تحميل العقود...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Resellers -->
+            <div id="view-resellers" class="view-section hidden relative z-10">
+                <header class="flex justify-between items-center mb-12">
+                    <div class="flex items-center gap-4">
+                        <div class="w-1.5 h-10 bg-fuchsia-500 rounded-full"></div>
+                        <div>
+                            <h2 class="text-4xl font-black text-white tracking-tight italic uppercase">إدارة <span class="text-fuchsia-500">الموزعين</span></h2>
+                            <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1">طلبات التقديم والتسعير الجملة</p>
+                        </div>
+                    </div>
+                    <button onclick="openResellerConfig()"
+                        class="bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:shadow-[0_0_20px_rgba(217,70,239,0.4)] text-white px-8 py-4 rounded-2xl font-black transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                        <i class="fas fa-cogs"></i> <span>إعدادات النظام والحقيبة التسويقية</span>
+                    </button>
+                </header>
+
+                <div class="grid grid-cols-1 gap-8">
+                    <!-- Resellers Table -->
+                    <div class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
+                        <div class="p-6 border-b border-white/5 flex items-center gap-3">
+                            <i class="fas fa-users text-fuchsia-500"></i>
+                            <h3 class="text-white font-bold uppercase">قائمة الموزعين (الوكلاء)</h3>
+                        </div>
+                        <table class="w-full text-right">
+                            <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
+                                <tr>
+                                    <th class="p-6 font-black text-fuchsia-500/70">الاسم / النشاط</th>
+                                    <th class="p-6 font-black">رقم الموبايل</th>
+                                    <th class="p-6 font-black">البريد</th>
+                                    <th class="p-6 font-black text-center">العملاء</th>
+                                    <th class="p-6 font-black text-center">الحالة</th>
+                                    <th class="p-6 font-black text-center">تحديث</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resellers-table-body" class="text-sm divide-y divide-white/5">
+                                <!-- JS Injection -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Key Requests from Resellers -->
+                    <div class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl mt-4">
+                        <div class="p-6 border-b border-white/5 flex items-center gap-3">
+                            <i class="fas fa-key text-cyan-500"></i>
+                            <h3 class="text-white font-bold uppercase">طلبات استخراج تفعيلات للعملاء</h3>
+                        </div>
+                        <table class="w-full text-right">
+                            <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
+                                <tr>
+                                    <th class="p-6 font-black">طالب التفعيل (الموزع)</th>
+                                    <th class="p-6 font-black text-cyan-500/70">اسم العميل النهائي</th>
+                                    <th class="p-6 font-black">رقم العميل</th>
+                                    <th class="p-6 font-black">البرنامج</th>
+                                    <th class="p-6 font-black text-center">الحالة</th>
+                                    <th class="p-6 font-black text-center">إجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reseller-requests-body" class="text-sm divide-y divide-white/5">
+                                <!-- JS Injection -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -193,78 +468,226 @@
 
     <!-- Project Modal -->
     <div id="project-modal"
-        class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center backdrop-blur-sm">
-        <div class="bg-slate-800 p-8 rounded-2xl w-full max-w-lg border border-slate-700 relative shadow-2xl">
-            <button onclick="closeProjectModal()" class="absolute top-4 left-4 text-slate-400 hover:text-white">
-                <i class="fas fa-times text-xl"></i>
+        class="fixed inset-0 bg-[#020617]/95 hidden z-50 flex items-center justify-center backdrop-blur-md p-6">
+        <div class="bg-slate-900 border border-white/10 p-10 rounded-[2.5rem] w-full max-w-2xl relative shadow-[0_0_100px_rgba(0,0,0,0.5)] overflow-hidden">
+            <!-- Decorative Modal Elements -->
+            <div class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
+            
+            <button onclick="closeProjectModal()" class="absolute top-6 left-6 w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-500 hover:text-white hover:bg-red-500 transition-all">
+                <i class="fas fa-times"></i>
             </button>
 
-            <h3 id="modal-title" class="text-2xl font-bold mb-6 border-b border-slate-700 pb-4">تعديل المشروع</h3>
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-12 h-12 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-500 border border-cyan-500/20">
+                    <i class="fas fa-edit text-xl"></i>
+                </div>
+                <div>
+                    <h3 id="modal-title" class="text-3xl font-black text-white italic uppercase" data-i18n="modalTitleAdd">تسجيل <span class="text-cyan-500">وحدة جديدة</span></h3>
+                    <p class="text-slate-500 font-mono text-[10px] uppercase tracking-widest" data-i18n="modalSub">تعديل سجل النظام الرئيسي</p>
+                </div>
+            </div>
 
             <input type="hidden" id="project-doc-id">
 
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-slate-400 text-sm mb-1">معرف المشروع (ID)</label>
-                    <input type="text" id="project-id" placeholder="مثال: law-pro"
-                        class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none font-mono text-sm">
-                    <p class="text-xs text-slate-500 mt-1">يستخدم هذا المعرف في روابط الموقع (غير قابل للتغيير لاحقاً)
-                    </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="fieldId">معرف المشروع (Primary Key)</label>
+                    <input type="text" id="project-id" placeholder="e.g. law-pro"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none font-mono text-sm transition-all text-white">
                 </div>
 
                 <div>
-                    <label class="block text-slate-400 text-sm mb-1">الاسم الظاهر</label>
-                    <input type="text" id="project-name" placeholder="مثال: ASAS Law Pro"
-                        class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none">
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="fieldName">الاسم الظاهر</label>
+                    <input type="text" id="project-name" placeholder="ASAS System Name"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none transition-all text-white font-bold">
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-slate-400 text-sm mb-1">رقم الإصدار</label>
+                        <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="fieldVersion">إصدار البناء</label>
                         <input type="text" id="project-version" placeholder="1.0.0"
-                            class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none text-center font-mono text-cyan-500 font-bold">
+                            class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none text-center font-mono text-cyan-500 font-black transition-all">
                     </div>
                     <div>
-                        <label class="block text-slate-400 text-sm mb-1">الحالة</label>
+                        <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="fieldStatus">حالة الشبكة</label>
                         <select id="project-active"
-                            class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none">
-                            <option value="true">نشط (Active)</option>
-                            <option value="false">معطل (Disabled)</option>
+                            class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none transition-all text-white appearance-none cursor-pointer">
+                            <option value="true" data-i18n="online">نشط</option>
+                            <option value="false" data-i18n="offline">معطل</option>
                         </select>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-slate-400 text-sm mb-1">رابط التحميل (Direct Link / GitHub)</label>
-                    <input type="url" id="project-download" placeholder="https://..."
-                        class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none text-xs ltr">
+                <div class="md:col-span-2">
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="fieldUrl">رابط النشر (Endpoint URL)</label>
+                    <input type="url" id="project-download" placeholder="https://cdn.asas.com/dist/..."
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none text-xs text-white font-mono transition-all">
                 </div>
 
-                <div>
-                    <label class="block text-slate-400 text-sm mb-1">ما الجديد في هذا الإصدار؟ (كل ميزة في سطر)</label>
+                <div class="md:col-span-2">
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="fieldChangelog">سجل التغييرات (ما الجديد؟)</label>
                     <textarea id="project-whatsnew" rows="4"
-                        placeholder="مثال:&#10;تحسينات في الأداء&#10;إصلاح خطأ المطبعة"
-                        class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none text-sm text-right h-32"></textarea>
+                        placeholder="New features..."
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none text-sm text-right h-24 text-white transition-all"></textarea>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-slate-400 text-sm mb-1">السعر الأساسي (ج.م)</label>
-                        <input type="number" id="project-price" placeholder="00.00"
-                            class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none font-mono">
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="fieldPrice">السعر الأساسي (ج.م)</label>
+                    <input type="number" id="project-price" placeholder="00.00"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none font-mono text-white transition-all">
+                </div>
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="fieldDiscount">سعر الخصم</label>
+                    <input type="number" id="project-discount" placeholder="00.00"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none font-mono text-cyan-500 transition-all">
+                </div>
+            </div>
+
+            <div class="mt-10">
+                <button onclick="saveProject()"
+                    class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 py-5 rounded-2xl font-black text-lg tracking-widest hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all transform active:scale-95 text-white" data-i18n="commitChanges">
+                    اعتماد التغييرات
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contract Modal -->
+    <div id="contract-modal"
+        class="fixed inset-0 bg-[#020617]/95 hidden z-[60] flex items-center justify-center backdrop-blur-md p-6 overflow-y-auto">
+        <div class="bg-slate-900 border border-white/10 p-10 rounded-[2.5rem] w-full max-w-4xl relative shadow-[0_0_100px_rgba(0,0,0,0.5)] my-auto max-h-[95vh] overflow-y-auto custom-scrollbar">
+            <!-- Decorative Modal Elements -->
+            <div class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-transparent via-amber-500 to-transparent"></div>
+            
+            <button onclick="closeContractModal()" class="absolute top-6 left-6 w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-500 hover:text-white hover:bg-red-500 transition-all">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500 border border-amber-500/20">
+                    <i class="fas fa-file-signature text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-black text-white italic uppercase"><span data-i18n="generateContract">إنشاء عقد</span> <span class="text-amber-500">رقمي</span></h3>
+                    <p class="text-slate-500 font-mono text-[10px] uppercase tracking-widest">Digital Agreement Generator</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="clientName">اسم العميل (الطرف الثاني)</label>
+                    <input type="text" id="contract-client-name" placeholder="Full Name"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-white font-bold">
+                </div>
+
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="selectProject">البرنامج / الخدمة</label>
+                    <select id="contract-project"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-white appearance-none cursor-pointer">
+                        <!-- Projects Injected via JS -->
+                    </select>
+                    <!-- Other Project Name Input -->
+                    <div id="contract-project-other-container" class="hidden mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <input type="text" id="contract-project-other" placeholder="أدخل اسم المشروع المخصص..."
+                            class="w-full bg-amber-500/10 border border-amber-500/30 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-amber-500 font-bold placeholder:text-amber-500/40">
                     </div>
-                    <div>
-                        <label class="block text-slate-400 text-sm mb-1">سعر الخصم (اختياري)</label>
-                        <input type="number" id="project-discount" placeholder="00.00"
-                            class="w-full bg-slate-900 border border-slate-700 rounded p-3 focus:border-cyan-500 outline-none font-mono">
+                </div>
+
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="contractCost">التكلفة الإجمالية (ج.م)</label>
+                    <input type="number" id="contract-cost" placeholder="00.00"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none font-mono text-white transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="contractDate">تاريخ التعاقد</label>
+                    <input type="date" id="contract-date"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none font-mono text-white transition-all">
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2" data-i18n="contractTerms">الشروط والأحكام الخاصة</label>
+                    <textarea id="contract-terms" rows="4"
+                        placeholder="Additional terms..."
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none text-sm text-right h-24 text-white transition-all font-['Cairo']">يلتزم الطرف الثاني بعدم إعادة بيع البرنامج أو كود التفعيل دون إذن كتابي من الطرف الأول. تشمل التكلفة الدعم الفني لمدة عام واحد.</textarea>
+                </div>
+
+                <div class="md:col-span-2">
+                    <div class="p-6 bg-amber-500/10 border border-amber-500/20 rounded-3xl text-center">
+                        <i class="fas fa-info-circle text-amber-500 mb-2"></i>
+                        <p class="text-[10px] text-amber-500 font-mono uppercase tracking-widest leading-relaxed">
+                            سوف يوقع العميل بعد إرسال الرابط له.<br>
+                            يمكنك نسخ الرابط من قائمة العقود بعد الحفظ.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-8">
-                <button onclick="saveProject()"
-                    class="w-full bg-cyan-600 hover:bg-cyan-500 py-3 rounded-lg font-bold transition shadow-lg">حفظ
-                    التغييرات</button>
+            <div class="mt-10">
+                <button onclick="saveContract()"
+                    class="w-full bg-gradient-to-r from-amber-600 to-orange-600 py-5 rounded-2xl font-black text-lg tracking-widest hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all transform active:scale-95 text-white" data-i18n="finalizeAgreement">
+                    إصدار العقد والاعتماد
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reseller Config Modal -->
+    <div id="reseller-config-modal"
+        class="fixed inset-0 bg-[#020617]/95 hidden z-[60] flex items-center justify-center backdrop-blur-md p-6 overflow-y-auto">
+        <div class="bg-slate-900 border border-white/10 p-10 rounded-[2.5rem] w-full max-w-4xl relative shadow-[0_0_100px_rgba(0,0,0,0.5)] my-auto max-h-[95vh] overflow-y-auto custom-scrollbar">
+            <div class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent"></div>
+            
+            <button onclick="document.getElementById('reseller-config-modal').classList.add('hidden')" class="absolute top-6 left-6 w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-500 hover:text-white hover:bg-red-500 transition-all">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-12 h-12 bg-fuchsia-500/10 rounded-2xl flex items-center justify-center text-fuchsia-500 border border-fuchsia-500/20">
+                    <i class="fas fa-cogs text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-black text-white italic uppercase">إعدادات <span class="text-fuchsia-500">منظومة الوكلاء</span></h3>
+                    <p class="text-slate-500 font-mono text-[10px] uppercase tracking-widest">Global Master Reseller Configurations</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Base Prices -->
+                <div class="md:col-span-2 glass p-6 rounded-2xl border border-white/10">
+                    <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i class="fas fa-tags text-cyan-500"></i> أسعار الجملة (التي تظهر للموزع)</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="base-prices-inputs">
+                        <div>
+                            <label class="block text-slate-500 text-[10px] mb-2 font-mono uppercase">MARKET</label>
+                            <input type="number" id="base-market" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fuchsia-500">
+                        </div>
+                        <div>
+                            <label class="block text-slate-500 text-[10px] mb-2 font-mono uppercase">RESTO</label>
+                            <input type="number" id="base-resto" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fuchsia-500">
+                        </div>
+                        <div>
+                            <label class="block text-slate-500 text-[10px] mb-2 font-mono uppercase">PHARMACY</label>
+                            <input type="number" id="base-pharmacy" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fuchsia-500">
+                        </div>
+                        <div>
+                            <label class="block text-slate-500 text-[10px] mb-2 font-mono uppercase">LAW</label>
+                            <input type="number" id="base-law" class="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fuchsia-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing Materials -->
+                <div class="md:col-span-2 glass p-6 rounded-2xl border border-white/10">
+                    <h4 class="text-white font-bold mb-4 flex items-center gap-2"><i class="fas fa-bullhorn text-emerald-500"></i> نصوص الحقيبة التسويقية</h4>
+                    <p class="text-xs text-slate-500 mb-4">اكتب هنا المنشورات الإعلانية التي ستظهر بداخل حسابات كل الموزعين لنسخها والتسويق لبرامجك.</p>
+                    <textarea id="config-marketing" rows="8" class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-emerald-500 outline-none text-sm text-right text-white transition-all font-['Cairo']"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-10">
+                <button onclick="saveResellerConfig()" class="w-full bg-gradient-to-r from-fuchsia-600 to-purple-600 py-5 rounded-2xl font-black text-lg tracking-widest hover:shadow-[0_0_30px_rgba(217,70,239,0.4)] transition-all transform active:scale-95 text-white">
+                    حفظ وإرسال التحديثات لجميع الموزعين
+                </button>
             </div>
         </div>
     </div>
@@ -292,7 +715,145 @@
 
         // --- GLOBAL STATE & NAVIGATION ---
         let currentUser = null;
-        let unsubscribeKeys = null; // To stop listener when switching views
+        let unsubscribeKeys = null;
+        let currentLang = 'ar';
+
+        const i18n = {
+            ar: {
+                navProjects: "إدارة المشاريع",
+                navLicenses: "تراخيص التفعيل",
+                externalHeader: "روابط خارجية",
+                visitSite: "زيارة الموقع",
+                langToggle: "English",
+                projectHeader: "إدارة <span class='text-cyan-500'>المشاريع</span>",
+                projectSub: "التحكم في مستودع البرمجيات العالمي",
+                addModule: "إضافة مشروع جديد",
+                keyHeader: "مفاتيح <span class='text-emerald-500'>التفعيل</span>",
+                keySub: "إدارة رموز تنشيط البرامج",
+                generateToken: "توليد رمز جديد",
+                loadingModules: "جاري تحميل الوحدات...",
+                online: "نشط",
+                offline: "معطل",
+                idRef: "معرف المرجع",
+                deployment: "إصدار النشر",
+                configure: "إعداد الوحدة",
+                noDownload: "لم يتم تحديد مسار",
+                tokenSuccess: "تم إنشاء رمز الوصول بنجاح",
+                keyIdentifier: "المعرف الفريد",
+                timestamp: "وقت الإنشاء",
+                activationTime: "وقت التنشيط",
+                targetHost: "الجهاز المستهدف",
+                status: "الحالة",
+                used: "مستخدم",
+                active: "نشط",
+                noKeys: "لا توجد مفاتيح تفعيل حالياً.",
+                modalTitleAdd: "تسجيل <span class='text-cyan-500'>وحدة جديدة</span>",
+                modalTitleEdit: "تحديث <span class='text-cyan-500'>إعدادات الوحدة</span>",
+                modalSub: "تعديل سجل النظام الرئيسي",
+                fieldId: "معرف المشروع (Primary Key)",
+                fieldName: "الاسم الظاهر",
+                fieldVersion: "إصدار البناء",
+                fieldStatus: "حالة الشبكة",
+                fieldUrl: "رابط النشر (Endpoint URL)",
+                fieldChangelog: "سجل التغييرات (ما الجديد؟)",
+                fieldPrice: "السعر الأساسي (ج.م)",
+                fieldDiscount: "سعر الخصم",
+                commitChanges: "اعتماد التغييرات",
+                navContracts: "العقود الإلكترونية",
+                contractHeader: "العقود <span class='text-amber-500'>الإلكترونية</span>",
+                contractSub: "إدارة اتفاقيات التراخيص الرسمية",
+                createContract: "إنشاء عقد جديد",
+                loadingContracts: "جاري تحميل العقود...",
+                generateContract: "إنشاء عقد",
+                clientName: "اسم العميل (الطرف الثاني)",
+                selectProject: "البرنامج / الخدمة",
+                contractCost: "التكلفة الإجمالية (ج.م)",
+                contractDate: "تاريخ التعاقد",
+                contractTerms: "الشروط والأحكام الخاصة",
+                signatureArea: "منطقة التوقيع (العميل)",
+                finalizeAgreement: "إصدار العقد والاعتماد",
+                executeContract: "إبداء التنفيذ"
+            },
+            en: {
+                navProjects: "Project Management",
+                navLicenses: "License Management",
+                externalHeader: "External Links",
+                visitSite: "Live Production",
+                langToggle: "العربية",
+                projectHeader: "Project <span class='text-cyan-500'>Modules</span>",
+                projectSub: "Global Repository Control",
+                addModule: "Add New Module",
+                keyHeader: "Auth <span class='text-emerald-500'>Keys</span>",
+                keySub: "Activation Token Management",
+                generateToken: "Generate Token",
+                loadingModules: "Hydrating Modules...",
+                online: "ONLINE",
+                offline: "OFFLINE",
+                idRef: "ID_REF",
+                deployment: "DEPLOYMENT",
+                configure: "CONFIGURE MODULE",
+                noDownload: "ENDPOINT_NOT_DEFINED",
+                tokenSuccess: "Access Token Generated Successfully",
+                keyIdentifier: "Identifier",
+                timestamp: "Timestamp",
+                activationTime: "Activation Time",
+                targetHost: "Target Host",
+                status: "Status",
+                used: "Used",
+                active: "Active",
+                noKeys: "No keys available yet.",
+                modalTitleAdd: "Register <span class='text-cyan-500'>New Module</span>",
+                modalTitleEdit: "Config <span class='text-cyan-500'>Module</span>",
+                modalSub: "System Record Modification",
+                fieldId: "Module Identifier (Primary Key)",
+                fieldName: "Display Name",
+                fieldVersion: "Build Version",
+                fieldStatus: "Network Status",
+                fieldUrl: "Deployment Endpoint (URL)",
+                fieldChangelog: "Build Changelog (Features list)",
+                fieldPrice: "Base Valuation (EGP)",
+                fieldDiscount: "Discount valuation",
+                commitChanges: "COMMIT CHANGES",
+                navContracts: "E-Contracts",
+                contractHeader: "Electronic <span class='text-amber-500'>Contracts</span>",
+                contractSub: "Official Licensing Agreements",
+                createContract: "Create New Contract",
+                loadingContracts: "Hydrating Contracts...",
+                generateContract: "Generate Contract",
+                clientName: "Client Name (Party B)",
+                selectProject: "Software / Service",
+                contractCost: "Total Valuation (EGP)",
+                contractDate: "Contract Date",
+                contractTerms: "Special Terms & Conditions",
+                signatureArea: "Signature Area (Client)",
+                finalizeAgreement: "Finalize & Issue",
+                executeContract: "START EXECUTION"
+            }
+        };
+
+        window.toggleLanguage = () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            updateUI();
+            
+            // Re-render Dynamic Content
+            const activeView = document.querySelector('.view-section:not(.hidden)');
+            if (activeView) {
+                if (activeView.id === 'view-projects') loadProjects();
+                if (activeView.id === 'view-licenses') startKeysListener();
+            }
+        };
+
+        function updateUI() {
+            const strings = i18n[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (strings[key]) {
+                    el.innerHTML = strings[key];
+                }
+            });
+            document.getElementById('lang-text').textContent = strings['langToggle'];
+        }
 
         window.switchView = (viewName) => {
             // Hide all sections
@@ -300,12 +861,16 @@
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 
             // Show selected
-            document.getElementById(`view-${viewName}`).classList.remove('hidden');
-            document.getElementById(`nav-${viewName}`).classList.add('active');
+            const view = document.getElementById(`view-${viewName}`);
+            const nav = document.getElementById(`nav-${viewName}`);
+            if (view) view.classList.remove('hidden');
+            if (nav) nav.classList.add('active');
 
             // Load Data
             if (viewName === 'projects') loadProjects();
             if (viewName === 'licenses') startKeysListener();
+            if (viewName === 'contracts') loadContracts();
+            if (viewName === 'resellers') loadResellers();
         };
 
         // --- AUTHENTICATION ---
@@ -339,10 +904,16 @@
                 errorMsg.classList.add('hidden');
             } catch (error) {
                 console.error(error);
-                errorMsg.textContent = "فشل تسجيل الدخول: تأكد من البيانات.";
+                if (error.code === 'auth/too-many-requests') {
+                    errorMsg.textContent = "تم إيقاف الحساب مؤقتاً بسبب كثرة المحاولات الخاطئة. يرجى الانتظار قليلاً.";
+                } else if (error.code === 'auth/invalid-credential') {
+                    errorMsg.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+                } else {
+                    errorMsg.textContent = "فشل تسجيل الدخول: تأكد من البيانات.";
+                }
                 errorMsg.classList.remove('hidden');
             } finally {
-                btn.innerHTML = '<span>دخول</span> <i class="fas fa-arrow-left"></i>';
+                btn.innerHTML = '<span>INITIATE ACCESS</span> <i class="fas fa-rocket"></i>';
                 btn.disabled = false;
             }
         });
@@ -353,6 +924,7 @@
         // --- PROJECTS MANAGMENT ---
         async function loadProjects() {
             const grid = document.getElementById('projects-grid');
+            const strings = i18n[currentLang];
 
             try {
                 // Auto-Seed Check
@@ -362,38 +934,44 @@
                 grid.innerHTML = '';
 
                 if (querySnapshot.empty) {
-                    grid.innerHTML = '<div class="col-span-3 text-center text-slate-500 py-10">لا توجد مشاريع حتى الآن. اضغط "إضافة مشروع" للبدء.</div>';
+                    grid.innerHTML = `<div class="col-span-3 text-center text-slate-500 py-10">${strings.noKeys}</div>`;
                     return;
                 }
 
                 querySnapshot.forEach((doc) => {
                     const p = doc.data();
                     const card = `
-                        <div class="glass p-6 rounded-xl border-t-4 ${p.active ? 'border-cyan-500' : 'border-red-500'} hover:scale-[1.02] transition relative group">
+                        <div class="bg-slate-900/40 backdrop-blur-md rounded-[2rem] border border-white/5 p-8 hover:border-cyan-500/30 transition-all duration-500 group relative flex flex-col shadow-2xl">
                             
-                            <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition">
-                                <span class="bg-slate-800 text-xs px-2 py-1 rounded text-slate-400">${p.active ? 'نشط' : 'معطل'}</span>
+                            <div class="absolute top-6 left-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                                <span class="bg-black/50 backdrop-blur-sm text-[10px] font-mono px-3 py-1 rounded-full border border-white/10 text-slate-400 font-bold uppercase tracking-widest">${p.active ? strings.online : strings.offline}</span>
                             </div>
 
-                            <div class="mb-4">
-                                <h3 class="font-bold text-xl mb-1">${p.name}</h3>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs bg-slate-800 px-2 py-0.5 rounded text-slate-400 font-mono">${doc.id}</span>
-                                    <span class="text-xs bg-cyan-900/30 text-cyan-400 px-2 py-0.5 rounded font-mono font-bold">v${p.version}</span>
+                            <div class="mb-8 flex items-start justify-between">
+                                <div>
+                                    <h3 class="font-black text-2xl mb-2 text-white group-hover:text-cyan-400 transition-colors uppercase italic">${p.name}</h3>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-[10px] bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-lg text-cyan-500 font-mono font-black uppercase tracking-tighter italic">${strings.idRef}: ${doc.id}</span>
+                                        <span class="text-[10px] bg-slate-800 border border-white/5 text-slate-400 px-3 py-1 rounded-lg font-mono font-black italic">${strings.deployment} v${p.version}</span>
+                                    </div>
+                                </div>
+                                <div class="w-14 h-14 bg-gradient-to-br from-white/5 to-transparent rounded-2xl flex items-center justify-center border border-white/5 text-cyan-500/30 group-hover:text-cyan-500 transition-all">
+                                    <i class="fas fa-microchip text-2xl"></i>
                                 </div>
                             </div>
                             
-                            <div class="bg-slate-900/50 p-3 rounded mb-6 text-xs text-slate-400 truncate font-mono select-all" title="${p.downloadUrl}">
-                                ${p.downloadUrl || 'No Download Link'}
+                            <div class="bg-black/40 border border-white/5 p-4 rounded-2xl mb-8 text-[11px] text-slate-500 font-mono text-left break-all group-hover:text-slate-300 transition-colors flex items-center gap-3">
+                                <i class="fas fa-link text-cyan-500/50"></i>
+                                <span class="truncate">${p.downloadUrl || strings.noDownload}</span>
                             </div>
 
-                            <div class="flex gap-2">
+                            <div class="mt-auto grid grid-cols-5 gap-3">
                                 <button onclick="window.editProject('${doc.id}', '${p.name}', '${p.version}', '${p.downloadUrl || ''}', ${p.active}, ${p.price || 0}, ${p.discountPrice || 0}, ${JSON.stringify(p.whatsNew || '').replace(/"/g, '&quot;')})" 
-                                    class="flex-1 bg-slate-700 hover:bg-slate-600 py-2 rounded text-sm transition font-bold">
-                                    <i class="fas fa-edit"></i> تعديل
+                                    class="col-span-4 bg-white/5 hover:bg-cyan-500 hover:text-black py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 border border-white/5 hover:border-cyan-500 text-white shadow-xl transform active:scale-95">
+                                    <i class="fas fa-sliders-h"></i> ${strings.configure}
                                 </button>
-                                <a href="${p.downloadUrl}" target="_blank" class="px-3 py-2 bg-slate-800 rounded text-cyan-500 hover:text-cyan-400">
-                                    <i class="fas fa-download"></i>
+                                <a href="${p.downloadUrl}" target="_blank" class="w-full bg-white/5 h-full rounded-2xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-blue-600 transition-all border border-white/5 transform active:scale-95">
+                                    <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
@@ -426,17 +1004,19 @@
         }
 
         window.openProjectModal = () => {
+            const strings = i18n[currentLang];
             document.getElementById('project-doc-id').value = '';
             document.getElementById('project-id').value = '';
             document.getElementById('project-id').disabled = false;
             document.getElementById('project-name').value = '';
             document.getElementById('project-version').value = '';
             document.getElementById('project-download').value = '';
-            document.getElementById('modal-title').innerText = 'إضافة مشروع جديد';
+            document.getElementById('modal-title').innerHTML = strings.modalTitleAdd;
             document.getElementById('project-modal').classList.remove('hidden');
         };
 
         window.editProject = (id, name, version, url, active, price, discount, whatsNew) => {
+            const strings = i18n[currentLang];
             document.getElementById('project-doc-id').value = id;
             document.getElementById('project-id').value = id;
             document.getElementById('project-id').disabled = true;
@@ -447,7 +1027,7 @@
             document.getElementById('project-discount').value = discount || '';
             document.getElementById('project-active').value = active.toString();
             document.getElementById('project-whatsnew').value = whatsNew || '';
-            document.getElementById('modal-title').innerText = 'تحديث: ' + name;
+            document.getElementById('modal-title').innerHTML = strings.modalTitleEdit;
             document.getElementById('project-modal').classList.remove('hidden');
         };
 
@@ -489,35 +1069,42 @@
         // --- LICENSE MANAGEMENT ---
         function startKeysListener() {
             if (unsubscribeKeys) unsubscribeKeys(); // Clear old listener
+            const strings = i18n[currentLang];
 
             const q = query(collection(db, "licenses"), orderBy("createdAt", "desc"), limit(50));
             unsubscribeKeys = onSnapshot(q, (snapshot) => {
                 const tbody = document.getElementById('keys-table-body');
                 tbody.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-mono uppercase tracking-widest text-xs">${strings.noKeys}</td></tr>`;
+                    return;
+                }
+
                 snapshot.forEach((docSnap) => {
                     const data = docSnap.data();
                     const key = docSnap.id;
                     const isUsed = data.isUsed || false;
                     const statusClass = isUsed ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500';
-                    const statusText = isUsed ? 'مستخدم' : 'نشط';
-                    const dateCreated = data.createdAt ? data.createdAt.toDate().toLocaleDateString('ar-EG') + ' ' + data.createdAt.toDate().toLocaleTimeString('ar-EG') : '---';
-                    const dateUsed = data.activatedAt ? data.activatedAt.toDate().toLocaleDateString('ar-EG') + ' ' + data.activatedAt.toDate().toLocaleTimeString('ar-EG') : '<span class="text-slate-600">- لم يُستخدم بعد -</span>';
+                    const statusText = isUsed ? strings.used : strings.active;
+                    const dateCreated = data.createdAt ? data.createdAt.toDate().toLocaleString(currentLang === 'ar' ? 'ar-EG' : 'en-US') : '---';
+                    const dateUsed = data.activatedAt ? data.activatedAt.toDate().toLocaleString(currentLang === 'ar' ? 'ar-EG' : 'en-US') : `<span class="text-slate-600">- ${currentLang === 'ar' ? 'لم يُستخدم بعد' : 'Not used yet'} -</span>`;
 
                     const row = `
                         <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/50">
                             <td class="p-4 flex items-center gap-3">
                                 <span class="font-mono font-bold ${isUsed ? 'text-slate-500 line-through' : 'text-cyan-400 select-all'}">${key}</span>
-                                ${!isUsed ? `<button onclick="navigator.clipboard.writeText('${key}').then(()=>alert('تم نسخ الكود!'))" class="text-slate-500 hover:text-cyan-400 transition" title="نسخ الكود"><i class="fas fa-copy"></i></button>` : ''}
+                                ${!isUsed ? `<button onclick="navigator.clipboard.writeText('${key}').then(()=>alert('${currentLang === 'ar' ? 'تم نسخ الكود!' : 'Key copied!'}'))" class="text-slate-500 hover:text-cyan-400 transition" title="Copy Key"><i class="fas fa-copy"></i></button>` : ''}
                             </td>
-                            <td class="p-4 text-slate-400 text-xs">${dateCreated}</td>
-                            <td class="p-4 text-slate-300 text-xs font-bold">${dateUsed}</td>
+                            <td class="p-4 text-slate-500 font-mono text-[10px] uppercase">${dateCreated}</td>
+                            <td class="p-4 text-cyan-500/70 font-mono text-[10px] uppercase font-bold">${dateUsed}</td>
                             <td class="p-4">
                                 <div class="text-[11px] font-bold text-cyan-500">${data.programName || '---'}</div>
                                 <div class="text-[9px] text-slate-500 truncate w-32" title="${data.deviceInfo || ''}">${data.deviceInfo || ''}</div>
                             </td>
                             <td class="p-4">
-                                <span class="${statusClass} px-2 py-1 rounded text-xs font-bold">${statusText}</span>
-                                ${isUsed ? `<button onclick="window.revokeLicense('${key}')" class="mr-2 text-red-500 hover:text-red-400 transition" title="إلغاء التفعيل"><i class="fas fa-undo"></i></button>` : ''}
+                                <span class="${statusClass} px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-white/5 shadow-lg">${statusText}</span>
+                                ${isUsed ? `<button onclick="window.revokeLicense('${key}')" class="mr-2 text-red-500 hover:text-red-400 transition" title="Revoke"><i class="fas fa-undo"></i></button>` : ''}
                             </td>
                         </tr>
                     `;
@@ -525,6 +1112,9 @@
                 });
             });
         }
+
+        // Initialize UI
+        updateUI();
 
         window.generateLicenseKey = async () => {
             const btn = document.getElementById('generate-btn');
@@ -572,6 +1162,397 @@
                 alert('تم إلغاء التفعيل بنجاح.');
             } catch (error) {
                 alert("Error: " + error.message);
+            }
+        };
+
+        // --- CONTRACT MANAGEMENT ---
+        let isDrawing = false;
+        let sigMode = 'draw';
+        const STAMP_URL = "asas_official_stamp.png";
+
+        window.openContractModal = async () => {
+            const modal = document.getElementById('contract-modal');
+            if (modal) modal.classList.remove('hidden');
+            
+            // Standard Professional Terms - High Value & Detailed Template (V3)
+            const baseTerms = `بموجب هذا العقد الإطاري للخدمات التقنية، أقر أنا الطرف الثاني بكامل أهليتي المعتبرة قانوناً، برغبتي وطلبي في التعاقد مع صرح (ASAS SOFTWARE SOLUTIONS) (الطرف الأول) لتطوير وتنفيذ المشروع التقني المذكور أعلاه، وذلك وفقاً للبنود التالية:
+
+1. الالتزام بالجودة: يلتزم الطرف الأول بتسليم المشروع وفقاً لأحدث معايير البرمجة العالمية، مع ضمان استقرار الأداء وسرعة الاستجابة.
+2. ترخيص الاستخدام: يحصل الطرف الثاني على رخصة تشغيل دائمة وغير محدودة للنسخة المتعاقد عليها، مع ضمان حقوق الملكية الفكرية والأدبية للطرف الأول.
+3. الضمان الذهبي: يمنح الطرف الأول الطرف الثاني ضماناً ممتداً لمدة 12 شهر (عام كامل) من تاريخ الاستلام النهائي، يشمل إصلاح أي عيوب برمجية محتملة فور ظهورها.
+4. الدعم الفني المباشر: يلتزم الطرف الأول بتوفير قنوات تواصل مخصصة للدعم الفني التقني المتكامل لحل كافة الاستفسارات والمشكلات التقنية طوال فترة التعاقد.
+5. التحديثات والتطوير: يلتزم الطرف الأول بتقديم كافة التحديثات الأمنية والوظيفية للبرنامج مجاناً، لضمان مواكبة أحدث التطورات التقنية.
+6. كفاءة التشغيل (الأجهزة): يلتزم الطرف الثاني بتوفير أجهزة حاسوب تتناسب مع متطلبات تشغيل النظام (مثلاً Windows 10 مع ذاكرة 4GB كحد أدنى)، والطرف الأول غير مسؤول عن أي بطء ناتج عن ضعف مواصفات الجهاز.
+7. التدريب والاستلام: يلتزم الطرف الأول بتسليم العميل فيديو توضيحي شامل يتضمن شرحاً وافياً لكافة خصائص البرنامج وكيفية التعامل معه بشكل احترافي.
+8. الاختبار والقبول: يمنح الطرف الأول الطرف الثاني فترة 7 أيام (أسبوع) لاختبار النظام وإبداء أي ملاحظات، وبعد مرور هذه المدة يعتبر العقد "منفذاً بالكامل" ولا يحق طلب تعديلات جوهرية مجانية بعد ذلك.
+9. سياسة التنفيذ: يتم البدء في التنفيذ فور اعتماد هذا العقد رقمياً، ويتم تسليم المراحل وفقاً للجدول الزمني المتفق عليه.
+
+نحن في شركة أساس، لا نبيع برمجيات فحسب، بل نبني معكم مستقبلاً رقمياً متكاملاً. شكراً لثقتكم واختياركم لنا كشريك لنجاحكم الدائم.`;
+            
+            const termsBox = document.getElementById('contract-terms');
+            if (termsBox) termsBox.value = baseTerms;
+
+            // Fill projects list
+            const projectSelect = document.getElementById('contract-project');
+            if (projectSelect) {
+                projectSelect.innerHTML = `<option value="">${currentLang === 'ar' ? 'اختر المشروع' : 'Select Project'}</option>`;
+                const snapshot = await getDocs(collection(db, "projects"));
+                snapshot.forEach(docSnap => {
+                    projectSelect.innerHTML += `<option value="${docSnap.id}">${docSnap.data().name}</option>`;
+                });
+                projectSelect.innerHTML += `<option value="other" style="color: #fbbf24; font-weight: bold;">${currentLang === 'ar' ? '+ مشروع آخر' : '+ Other Project'}</option>`;
+                
+                projectSelect.onchange = () => {
+                    const otherInput = document.getElementById('contract-project-other-container');
+                    if (otherInput) otherInput.classList.toggle('hidden', projectSelect.value !== 'other');
+                };
+            }
+
+            initSignaturePad();
+        };
+
+        window.closeContractModal = () => {
+            const modal = document.getElementById('contract-modal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        window.setSignatureMode = (mode) => {
+            sigMode = mode;
+            const drawCont = document.getElementById('signature-draw-container');
+            const typeCont = document.getElementById('signature-type-container');
+            if (drawCont) drawCont.classList.toggle('hidden', mode !== 'draw');
+            if (typeCont) typeCont.classList.toggle('hidden', mode !== 'type');
+            
+            const btnDraw = document.getElementById('sig-mode-draw');
+            const btnType = document.getElementById('sig-mode-type');
+            if (btnDraw) btnDraw.className = mode === 'draw' ? 'text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-amber-500 text-black' : 'text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-white/5 text-slate-500';
+            if (btnType) btnType.className = mode === 'type' ? 'text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-amber-500 text-black' : 'text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-white/5 text-slate-500';
+        };
+
+        function initSignaturePad() {
+            const canvas = document.getElementById('signature-pad');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#fff';
+
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left,
+                    y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top
+                };
+            };
+
+            const start = (e) => { isDrawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); };
+            const draw = (e) => { if(!isDrawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); e.preventDefault(); };
+            const stop = () => { isDrawing = false; ctx.closePath(); };
+
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener('mousemove', draw);
+            window.addEventListener('mouseup', stop);
+            canvas.addEventListener('touchstart', start);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', stop);
+        }
+
+        window.clearSignature = () => {
+            const canvas = document.getElementById('signature-pad');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            const typed = document.getElementById('typed-signature');
+            if (typed) typed.value = '';
+        };
+
+        window.saveContract = async () => {
+            const clientName = document.getElementById('contract-client-name').value;
+            let projectId = document.getElementById('contract-project').value;
+            if (projectId === 'other') {
+                projectId = document.getElementById('contract-project-other').value;
+            }
+            const cost = document.getElementById('contract-cost').value;
+            const terms = document.getElementById('contract-terms').value;
+            const date = document.getElementById('contract-date').value;
+
+            if (!clientName || !projectId || !cost) {
+                alert(currentLang === 'ar' ? "يرجى ملء الحقول الإجبارية" : "Please fill mandatory fields");
+                return;
+            }
+
+            try {
+                const contractRef = doc(collection(db, "contracts"));
+                await setDoc(contractRef, {
+                    clientName,
+                    projectId,
+                    cost,
+                    terms,
+                    date,
+                    status: 'Pending',
+                    createdAt: serverTimestamp()
+                });
+                alert("Contract Created Successfully! Link is ready to share.");
+                closeContractModal();
+                loadContracts();
+            } catch (error) {
+                console.error("Error saving contract:", error);
+            }
+        };
+
+        let contractsUnsubscribe = null;
+        window.loadContracts = async () => {
+            const grid = document.getElementById('contracts-grid');
+            if(!grid) return;
+            
+            // Clean up old listener if exists
+            if (contractsUnsubscribe) contractsUnsubscribe();
+
+            grid.innerHTML = '<div class="col-span-3 text-center py-20"><div class="inline-block w-8 h-8 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin"></div></div>';
+
+            const { onSnapshot, query, collection, orderBy } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+            
+            contractsUnsubscribe = onSnapshot(query(collection(db, "contracts"), orderBy("createdAt", "desc")), (snapshot) => {
+                grid.innerHTML = '';
+
+                if (snapshot.empty) {
+                    grid.innerHTML = `<div class="col-span-3 text-slate-600 text-center py-20 font-mono text-xs uppercase tracking-widest">${currentLang === 'ar' ? 'لا توجد عقود نشطة' : 'No active contracts found'}</div>`;
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-900/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-amber-500/30 transition-all group relative overflow-hidden";
+                    
+                    let sigHtml = '';
+                if (data.signature) {
+                    sigHtml = data.sigMode === 'draw' 
+                        ? `<img src="${data.signature}" class="h-16 invert opacity-80" alt="Signature">`
+                        : `<span class="text-3xl font-['Cairo'] italic text-white/50 break-all">${data.signature}</span>`;
+                } else {
+                    sigHtml = `<span class="text-[9px] font-mono text-slate-700 uppercase tracking-widest italic">${currentLang === 'ar' ? 'بانتظار توقيع العميل' : 'Awaiting client signature'}</span>`;
+                }
+
+                card.innerHTML = `
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+                            <i class="fas fa-file-contract text-lg"></i>
+                        </div>
+                        <div class="flex gap-2">
+                             <button onclick="copyContractLink('${docSnap.id}')" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-amber-500 transition-all" title="Copy Link"><i class="fas fa-share-alt"></i></button>
+                             <button onclick="deleteContract('${docSnap.id}')" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-red-500 transition-all" title="Delete"><i class="fas fa-trash"></i></button>
+                             <div class="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${data.status === 'Signed' ? 'bg-indigo-500/20 text-indigo-500' : (data.status === 'Executing' ? 'bg-emerald-500/20 text-emerald-500' : 'bg-amber-500/20 text-amber-500')}">
+                                ${data.status === 'Signed' ? (currentLang === 'ar' ? 'تم توقيع العقد' : 'CONTRACT SIGNED') : 
+                                   (data.status === 'Executing' ? (currentLang === 'ar' ? 'قيد التنفيذ' : 'IN PROGRESS') : 
+                                   (currentLang === 'ar' ? 'بانتظار التوقيع' : 'WAITING SIGNATURE'))}
+                             </div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="text-xl font-black text-white mb-1 uppercase">${data.clientName}</h4>
+                        <p class="text-xs text-slate-500 font-mono uppercase tracking-widest">${data.projectId} | Cost: ${data.cost} EGP</p>
+                    </div>
+                    <div class="p-4 bg-black/40 rounded-2xl mb-6 border border-white/5">
+                        <p class="text-[10px] text-slate-400 font-['Cairo'] line-clamp-2">${data.terms}</p>
+                    </div>
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex-1">${sigHtml}</div>
+                        <img src="${STAMP_URL}" class="w-12 h-12 opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all rotate-12" alt="Stamp">
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-white/5 flex gap-3">
+                        <button onclick="startExecution('${docSnap.id}')" class="flex-1 bg-amber-500 text-black py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all transform active:scale-95">
+                            ${data.status === 'Signed' ? (currentLang === 'ar' ? 'بدء تنفيذ المشروع' : 'Start Execution') : 
+                              (data.status === 'Executing' ? (currentLang === 'ar' ? 'قيد التنفيذ حالياً' : 'In Progress') : 
+                              (currentLang === 'ar' ? 'إخطار العميل بالتوقيع' : 'Awaiting Client'))}
+                        </button>
+                        ${data.status === 'Signed' || data.signature ? `
+                        <button onclick="downloadContractPDF('${docSnap.id}')" class="w-12 bg-white/5 text-white py-3 rounded-xl text-[10px] hover:bg-red-600 transition-all transform active:scale-95 flex items-center justify-center">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>` : ''}
+                    </div>
+                `;
+                    grid.appendChild(card);
+                });
+            });
+        };
+
+        window.copyContractLink = (id) => {
+            const url = `${window.location.origin}${window.location.pathname.replace('admin.html', 'contract.html')}?id=${id}`;
+            navigator.clipboard.writeText(url).then(() => {
+                alert(currentLang === 'ar' ? "تم نسخ رابط العقد! أرسله للعميل للتوقيع." : "Contract link copied! Send it to the client for signing.");
+            });
+        };
+
+        window.downloadContractPDF = (id) => {
+            window.open(`contract.html?id=${id}`, '_blank');
+            // Inform user to use the PDF button on the contract page
+            alert(currentLang === 'ar' ? "سيتم فتح العقد في نافذة جديدة. اضغط على زر حمل العقد (PDF) هناك." : "Contract will open in a new tab. Use the DOWNLOAD PDF button there.");
+        };
+
+        window.deleteContract = async (id) => {
+            if (!confirm(currentLang === 'ar' ? "هل أنت متأكد من حذف هذا العقد؟" : "Are you sure you want to delete this contract?")) return;
+            try {
+                const { deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+                await deleteDoc(doc(db, "contracts", id));
+                loadContracts();
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        window.startExecution = async (cid) => {
+            try {
+                await setDoc(doc(db, "contracts", cid), { status: 'Executing' }, { merge: true });
+                loadContracts();
+            } catch (e) { console.error(e); }
+        };
+
+        // --- RESELLERS SYSTEM ---
+        let unsubResellers = null;
+        let unsubRequests = null;
+
+        window.loadResellers = () => {
+            // Listen to resellers
+            if (unsubResellers) unsubResellers();
+            unsubResellers = onSnapshot(query(collection(db, "resellers"), orderBy("created_at", "desc")), (snap) => {
+                const tbody = document.getElementById('resellers-table-body');
+                tbody.innerHTML = '';
+                if(snap.empty) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500">لا يوجد موزعون حالياً.</td></tr>`;
+                    return;
+                }
+                snap.forEach(docSnap => {
+                    const r = docSnap.data();
+                    const statusClass = r.status === 'approved' ? 'text-emerald-500 bg-emerald-500/10' : (r.status === 'pending' ? 'text-amber-500 bg-amber-500/10' : 'text-red-500 bg-red-500/10');
+                    const statusBadge = `<span class="px-3 py-1 rounded-full text-xs font-bold ${statusClass}">${r.status === 'approved' ? 'نشط' : (r.status === 'pending' ? 'قيد المراجعة' : 'مرفوض')}</span>`;
+                    
+                    let actionButtons = '';
+                    if (r.status === 'pending') {
+                        actionButtons = `<button onclick="updateResellerStatus('${r.uid}', 'approved')" class="text-emerald-500 hover:bg-emerald-500/20 px-3 py-1 rounded border border-emerald-500/30 text-xs">قبول</button>
+                                         <button onclick="updateResellerStatus('${r.uid}', 'rejected')" class="text-red-500 hover:bg-red-500/20 px-3 py-1 rounded border border-red-500/30 text-xs mr-1">حظر</button>`;
+                    } else if (r.status === 'approved') {
+                        actionButtons = `<button onclick="updateResellerStatus('${r.uid}', 'rejected')" class="text-red-500 hover:bg-red-500/20 px-3 py-1 rounded border border-red-500/30 text-xs">إيقاف الحساب</button>`;
+                    } else {
+                        actionButtons = `<button onclick="updateResellerStatus('${r.uid}', 'approved')" class="text-emerald-500 hover:bg-emerald-500/20 px-3 py-1 rounded border border-emerald-500/30 text-xs">تفعيل مجدداً</button>`;
+                    }
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-white/5 transition-all">
+                            <td class="p-6">
+                                <div class="font-bold text-white text-sm truncate w-40" title="${r.name}">${r.name}</div>
+                            </td>
+                            <td class="p-6 text-slate-400 font-mono tracking-wider">${r.phone}</td>
+                            <td class="p-6 text-slate-400 text-xs ltr text-left truncate w-48" title="${r.email}">${r.email}</td>
+                            <td class="p-6 text-center text-cyan-400 font-black">${r.clients_count || 0}</td>
+                            <td class="p-6 text-center">${statusBadge}</td>
+                            <td class="p-6 text-center space-x-reverse space-x-2">${actionButtons}</td>
+                        </tr>
+                    `;
+                });
+            });
+
+            // Listen to key requests
+            if (unsubRequests) unsubRequests();
+            unsubRequests = onSnapshot(query(collection(db, "reseller_requests"), orderBy("timestamp", "desc")), (snap) => {
+                const tbody = document.getElementById('reseller-requests-body');
+                tbody.innerHTML = '';
+                if(snap.empty) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500">لا توجد طلبات مفاتيح معلقة.</td></tr>`;
+                    return;
+                }
+                snap.forEach(docSnap => {
+                    const req = docSnap.data();
+                    const reqId = docSnap.id;
+                    const isCompleted = req.status === 'completed';
+                    const sBadge = isCompleted 
+                        ? `<span class="text-emerald-500"><i class="fas fa-check-circle"></i> تم إرسال المفتاح</span>` 
+                        : `<span class="text-amber-500 animate-pulse"><i class="fas fa-clock"></i> في الانتظار</span>`;
+                    
+                    const actionBtn = isCompleted 
+                        ? `<button disabled class="text-slate-600 bg-slate-900 px-3 py-1 rounded text-xs cursor-not-allowed">مكتمل</button>`
+                        : `<button onclick="completeKeyRequest('${reqId}', '${req.reseller_id}')" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-3 py-1 rounded text-xs transition">تأكيد تسليم المفتاح للموزع</button>`;
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-white/5 transition-all ${isCompleted ? 'opacity-50' : ''}">
+                            <td class="p-6 font-bold text-fuchsia-400">${req.reseller_name}</td>
+                            <td class="p-6 text-white font-bold">${req.client_name}</td>
+                            <td class="p-6 text-slate-400 font-mono">${req.client_phone || '---'}</td>
+                            <td class="p-6 text-cyan-400 font-mono">${req.software}</td>
+                            <td class="p-6 text-center">${sBadge}</td>
+                            <td class="p-6 text-center">${actionBtn}</td>
+                        </tr>
+                    `;
+                });
+            });
+        };
+
+        window.updateResellerStatus = async (uid, status) => {
+            let msg = status === 'approved' ? "الموافقة على" : "رفض/حظر";
+            if(!confirm(`هل أنت متأكد من ${msg} هذا الموزع؟`)) return;
+            try {
+                // Using setDoc for merge
+                await setDoc(doc(db, "resellers", uid), { status: status }, { merge: true });
+            } catch(e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+        window.completeKeyRequest = async (reqId, resellerId) => {
+            if(!confirm("هل تم التواصل مع الموزع وتسليمه مفتاح التفعيل واستلام المبلغ؟ بمجرد التأكيد، سيزيد رصيد عملاء الموزع 1.")) return;
+            try {
+                // Using setDoc for merge
+                await setDoc(doc(db, "reseller_requests", reqId), { status: 'completed' }, { merge: true });
+                
+                // Increment reseller client count using reading and writing
+                const resRef = doc(db, "resellers", resellerId);
+                const resSnap = await getDoc(resRef);
+                if(resSnap.exists()) {
+                    const currentCount = resSnap.data().clients_count || 0;
+                    await setDoc(resRef, { clients_count: currentCount + 1 }, { merge: true });
+                }
+            } catch(e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+        window.openResellerConfig = async () => {
+            document.getElementById('reseller-config-modal').classList.remove('hidden');
+            const snap = await getDoc(doc(db, "admin_config", "global_settings"));
+            if(snap.exists()) {
+                const d = snap.data();
+                if(d.base_prices) {
+                    document.getElementById('base-market').value = d.base_prices.MARKET || '';
+                    document.getElementById('base-resto').value = d.base_prices.RESTO || '';
+                    document.getElementById('base-pharmacy').value = d.base_prices.PHARMACY || '';
+                    document.getElementById('base-law').value = d.base_prices.LAW || '';
+                }
+                document.getElementById('config-marketing').value = d.marketing_posts || '';
+            }
+        };
+
+        window.saveResellerConfig = async () => {
+            const btn = event.currentTarget;
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            const m = parseInt(document.getElementById('base-market').value) || 0;
+            const r = parseInt(document.getElementById('base-resto').value) || 0;
+            const p = parseInt(document.getElementById('base-pharmacy').value) || 0;
+            const l = parseInt(document.getElementById('base-law').value) || 0;
+            const posts = document.getElementById('config-marketing').value;
+
+            try {
+                await setDoc(doc(db, "admin_config", "global_settings"), {
+                    base_prices: { MARKET: m, RESTO: r, PHARMACY: p, LAW: l },
+                    marketing_posts: posts
+                }, { merge: true });
+                alert("تم الحفظ بنجاح! التحديثات متاحة الآن لجميع الموزعين.");
+                document.getElementById('reseller-config-modal').classList.add('hidden');
+            } catch(e) {
+                console.error(e); alert("خطأ في الحفظ");
+            } finally {
+                btn.innerHTML = original;
+                btn.disabled = false;
             }
         };
 

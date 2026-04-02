@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS Partners | بوابة الموزعين</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #020617;
+            color: #cbd5e1;
+            overflow-x: hidden;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cyber-input {
+            background: rgba(2, 6, 23, 0.7) !important;
+            border: 1px solid rgba(245, 158, 11, 0.2) !important;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-input:focus {
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+            transform: scale(1.01);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- AUTHENTICATION SECTION -->
+    <div id="auth-section" class="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-[#020617] to-black">
+        
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px]"></div>
+
+        <div class="w-full max-w-4xl grid md:grid-cols-2 gap-8 glass rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-amber-500/20">
+            
+            <!-- Branding Panel -->
+            <div class="p-12 bg-gradient-to-br from-amber-600 to-amber-900 text-white flex flex-col justify-center relative overflow-hidden hidden md:flex">
+                <div class="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                
+                <h1 class="text-4xl font-black mb-4 z-10">بوابة الموزعين والشركاء</h1>
+                <p class="text-amber-200 text-lg mb-8 z-10">انضم لأكبر شبكة موزعين للبرمجيات الإدارية في السوق، حقق أرباحك وعمولاتك بدون سقف.</p>
+                
+                <ul class="space-y-4 z-10 font-bold">
+                    <li><i class="fas fa-check-circle text-amber-300 ml-2"></i> لا يوجد رسوم انضمام</li>
+                    <li><i class="fas fa-check-circle text-amber-300 ml-2"></i> عمولات 100% فوق السعر الأصلي</li>
+                    <li><i class="fas fa-check-circle text-amber-300 ml-2"></i> مواد وحقائب تسويقية جاهزة لحملاتك</li>
+                </ul>
+
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay">
+            </div>
+
+            <!-- Forms Panel -->
+            <div class="p-8 md:p-12 relative">
+                <button onclick="window.location.href='index.html'" class="absolute top-4 right-4 text-xs text-slate-500 hover:text-amber-500 transition-colors"><i class="fas fa-arrow-right"></i> العودة للموقع</button>
+                
+                <!-- LOGIN FORM -->
+                <div id="login-form-wrapper">
+                    <div class="text-center mb-8">
+                        <i class="fas fa-handshake text-4xl text-amber-500 mb-4 drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]"></i>
+                        <h2 class="text-2xl font-black text-white">تسجيل الدخول</h2>
+                        <p class="text-slate-400 text-sm">مرحباً بك مجدداً يا شريك النجاح</p>
+                    </div>
+                    
+                    <form id="login-form" class="space-y-4">
+                        <div>
+                            <input type="email" id="login-email" placeholder="البريد الإلكتروني" required class="cyber-input w-full rounded-xl px-5 py-4 text-white focus:outline-none text-right font-medium">
+                        </div>
+                        <div>
+                            <input type="password" id="login-pass" placeholder="كلمة المرور" required class="cyber-input w-full rounded-xl px-5 py-4 text-white focus:outline-none text-right font-medium">
+                        </div>
+                        
+                        <p id="login-error" class="text-red-500 text-xs text-center hidden font-bold"></p>
+                        
+                        <button type="submit" id="login-btn" class="w-full py-4 bg-amber-500 text-black font-black rounded-xl hover:bg-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.4)] transition-all">
+                            دخول للوحة التحكم
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6 text-center text-sm">
+                        <span class="text-slate-400">ليس لديك حساب موزع؟</span>
+                        <button onclick="toggleAuthMode()" class="text-amber-500 font-bold hover:underline">قدم طلب انضمام الآن</button>
+                    </div>
+                </div>
+
+                <!-- REGISTER FORM (Hidden by default) -->
+                <div id="register-form-wrapper" class="hidden">
+                    <div class="text-center mb-8">
+                        <i class="fas fa-user-plus text-4xl text-amber-500 mb-4 drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]"></i>
+                        <h2 class="text-2xl font-black text-white">طلب وكالة وتوزيع</h2>
+                        <p class="text-slate-400 text-sm">سيتم مراجعة طلبك بواسطة الإدارة وتفعيله قريباً</p>
+                    </div>
+                    
+                    <form id="register-form" class="space-y-4">
+                        <div>
+                            <input type="text" id="reg-name" placeholder="الاسم بالكامل / اسم النشاط" required class="cyber-input w-full rounded-xl px-5 py-3 text-white focus:outline-none text-right font-medium">
+                        </div>
+                        <div>
+                            <input type="tel" id="reg-phone" placeholder="رقم الموبايل (واتساب)" required class="cyber-input w-full rounded-xl px-5 py-3 text-white focus:outline-none text-right font-medium">
+                        </div>
+                        <div>
+                            <input type="email" id="reg-email" placeholder="البريد الإلكتروني" required class="cyber-input w-full rounded-xl px-5 py-3 text-white focus:outline-none text-right font-medium">
+                        </div>
+                        <div>
+                            <input type="password" id="reg-pass" placeholder="كلمة المرور (6 أحرف على الأقل)" required class="cyber-input w-full rounded-xl px-5 py-3 text-white focus:outline-none text-right font-medium">
+                        </div>
+                        
+                        <p id="reg-error" class="text-red-500 text-xs text-center hidden font-bold"></p>
+                        
+                        <button type="submit" id="reg-btn" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-black rounded-xl hover:shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all">
+                            إرسال الطلب للإدارة
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6 text-center text-sm">
+                        <span class="text-slate-400">لديك حساب بالفعل؟</span>
+                        <button onclick="toggleAuthMode()" class="text-amber-500 font-bold hover:underline">تسجيل الدخول</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- PENDING APPROVAL WALL -->
+    <div id="pending-section" class="hidden min-h-screen flex items-center justify-center p-6 bg-[#020617] text-center relative">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-5"></div>
+        <div class="glass p-12 rounded-3xl max-w-lg border border-yellow-500/30 relative z-10">
+            <i class="fas fa-clock text-6xl text-yellow-500 mb-6 animate-pulse"></i>
+            <h2 class="text-3xl font-black text-white mb-4">حسابك قيد المراجعة</h2>
+            <p class="text-slate-400 mb-8 leading-relaxed">
+                لقد استلمنا طلب انضمامك لبرنامج الموزعين بنجاح. يتم حالياً مراجعة بياناتك من قبل الإدارة وسيتم تفعيل حسابك في أقرب وقت لتبدأ رحلة الأرباح معنا.
+            </p>
+            <button onclick="logout()" class="px-6 py-2 bg-slate-800 text-slate-300 rounded-lg hover:text-white transition">تسجيل الخروج</button>
+        </div>
+    </div>
+
+
+    <!-- DASHBOARD SECTION (For Approved Resellers) -->
+    <div id="dashboard-section" class="hidden min-h-screen bg-[#020617]">
+        
+        <!-- Header -->
+        <header class="bg-slate-900 border-b border-white/5 py-4 px-6 md:px-12 flex justify-between items-center sticky top-0 z-50">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-black font-black text-xl shadow-[0_0_15px_rgba(245,158,11,0.4)]">R</div>
+                <div>
+                    <h1 class="font-black text-lg text-white uppercase tracking-tight">بوابة الموزعين</h1>
+                    <p class="text-xs text-amber-500 font-mono" id="display-user-name">Loading...</p>
+                </div>
+            </div>
+            <button onclick="logout()" class="bg-red-500/10 text-red-500 px-4 py-2 rounded-lg font-bold hover:bg-red-500 hover:text-white transition-all text-sm">
+                <i class="fas fa-sign-out-alt"></i> خروج
+            </button>
+        </header>
+
+        <main class="max-w-7xl mx-auto p-6 md:p-12 space-y-8">
+            
+            <!-- Global Info / Base Prices -->
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Prices Widget -->
+                <div class="md:col-span-2 glass rounded-2xl p-8 border border-white/5">
+                    <h2 class="text-xl font-black text-white mb-2"><i class="fas fa-tags text-cyan-500"></i> الأسعار الأساسية للأنظمة</h2>
+                    <p class="text-sm text-slate-400 mb-6">هذه هي أسعار توريد النظام لك من الشركة، قم بإضافة عمولتك كما تراه مناسباً للعميل النهائي والأرباح الزائدة بالكامل لك.</p>
+                    
+                    <div id="prices-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="text-center p-4">
+                            <i class="fas fa-spinner fa-spin text-cyan-500 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Widget -->
+                <div class="glass rounded-2xl p-8 border border-amber-500/20 bg-gradient-to-b from-amber-500/5 to-transparent text-center flex flex-col justify-center">
+                    <h2 class="text-lg font-bold text-amber-500 mb-2">إجمالي عملائي</h2>
+                    <div id="my-clients-count" class="text-5xl font-black text-white">0</div>
+                    <p class="text-xs text-slate-500 mt-2">عميل مسجل عن طريقك</p>
+                </div>
+            </section>
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Request Key Form -->
+                <section class="glass rounded-2xl p-8 border border-white/5 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+                    <h2 class="text-2xl font-black text-white mb-2"><i class="fas fa-key text-cyan-500"></i> طلب استخراج مفتاح (ترخيص تطبيق)</h2>
+                    <p class="text-sm text-slate-400 mb-8">قم بتعبئة بيانات عميلك الذي أتم الشراء.. وسنقوم بالتواصل معك لسداد السعر الأصلي للبرنامج ومنحك المفتاح المفتوح لتسليمه للعميل.</p>
+                    
+                    <form id="key-request-form" class="space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2">اسم العميل / النشاط</label>
+                            <input type="text" id="req-client-name" required class="cyber-input w-full rounded-xl px-5 py-3 text-white focus:outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-2">رقم هاتف العميل (للدعم الفني)</label>
+                                <input type="tel" id="req-client-phone" class="cyber-input w-full rounded-xl px-5 py-3 text-white focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-2">البرنامج المطلوب</label>
+                                <select id="req-module" required class="cyber-input w-full rounded-xl px-5 py-3 text-white focus:outline-none">
+                                    <option value="" disabled selected>اختر البرنامج</option>
+                                    <option value="MARKET">ماركت ونقاط بيع</option>
+                                    <option value="RESTO">إدارة مطاعم وكافيهات</option>
+                                    <option value="PHARMACY">إدارة صيدليات</option>
+                                    <option value="LAW">أنظمة قانونية</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" id="req-btn" class="w-full py-4 bg-cyan-600 text-white font-black rounded-xl hover:bg-cyan-500 transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] mt-4">
+                            إرسال طلب التفعيل لإدارة ASAS
+                        </button>
+                        <p id="req-success" class="text-emerald-500 text-sm font-bold text-center hidden mt-2">✅ تم إرسال طلبك بنجاح، سيتم التواصل معك على الواتساب قريباً.</p>
+                    </form>
+                </section>
+
+
+                <!-- Marketing Kit -->
+                <section class="glass rounded-2xl p-8 border border-white/5 relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-emerald-500"></div>
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-black text-white"><i class="fas fa-bullhorn text-emerald-500"></i> حقيبة التسويق</h2>
+                        <span class="text-xs bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/30">جديد</span>
+                    </div>
+                    <p class="text-sm text-slate-400 mb-6">نصوص إعلانية (Copywriting) تمت كتابتها بواسطة خبراء مبيعات الإدارة. خذها نسخاً واستخدمها في جروبات فيسبوك والوتساب لزيادة مبيعاتك.</p>
+                    
+                    <div id="marketing-container" class="flex-1 bg-black/40 rounded-xl p-6 border border-white/5 overflow-y-auto max-h-[300px]">
+                        <div class="text-center py-10"><i class="fas fa-spinner fa-spin text-emerald-500 text-2xl"></i></div>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="text-center pt-10">
+                <p class="text-sm text-slate-500">تحتاج مساعدة بخصوص نظام الوكلاء؟ <a href="https://wa.me/201032630429" target="_blank" class="text-amber-500 hover:underline">تواصل مع الدعم</a></p>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Firebase Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, getDoc, doc, setDoc, addDoc, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // FIREBASE CONF
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Global User Profile
+        let userProfile = null;
+
+        // UI Toggles
+        window.toggleAuthMode = () => {
+            document.getElementById('login-form-wrapper').classList.toggle('hidden');
+            document.getElementById('register-form-wrapper').classList.toggle('hidden');
+        };
+
+        window.logout = () => signOut(auth);
+
+        // Auth Tracker
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // Determine user state from Firestore
+                const docRef = doc(db, "resellers", user.uid);
+                const docSnap = await getDoc(docRef);
+                
+                document.getElementById('auth-section').classList.add('hidden');
+
+                if (docSnap.exists()) {
+                    userProfile = docSnap.data();
+                    
+                    // IF Pending
+                    if (userProfile.status === 'pending') {
+                        document.getElementById('dashboard-section').classList.add('hidden');
+                        document.getElementById('pending-section').classList.remove('hidden');
+                    } else if (userProfile.status === 'approved') {
+                        // All good, show dash
+                        document.getElementById('pending-section').classList.add('hidden');
+                        document.getElementById('dashboard-section').classList.remove('hidden');
+                        
+                        document.getElementById('display-user-name').textContent = userProfile.name;
+                        document.getElementById('my-clients-count').textContent = userProfile.clients_count || 0;
+                        
+                        // Hydrate dash data
+                        loadAdminConfig();
+                    } else if(userProfile.status === 'rejected') {
+                        alert("تم رفض/حظر حسابك كوكيل.");
+                        signOut(auth);
+                    }
+                } else {
+                    // Logged in via another place (e.g. admin email) but not a reseller?
+                    alert("هذا الحساب ليس مسجلاً كموزع في النظام.");
+                    signOut(auth);
+                }
+            } else {
+                userProfile = null;
+                document.getElementById('auth-section').classList.remove('hidden');
+                document.getElementById('pending-section').classList.add('hidden');
+                document.getElementById('dashboard-section').classList.add('hidden');
+            }
+        });
+
+        // 1. LOGIN
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            const btn = document.getElementById('login-btn');
+            const err = document.getElementById('login-error');
+            
+            try {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                btn.disabled = true;
+                await signInWithEmailAndPassword(auth, email, pass);
+            } catch (error) {
+                err.textContent = "بيانات الدخول خاطئة أو الحساب غير موجود";
+                err.classList.remove('hidden');
+                btn.innerHTML = 'دخول للوحة التحكم';
+                btn.disabled = false;
+            }
+        });
+
+        // 2. REGISTER
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const phone = document.getElementById('reg-phone').value;
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-pass').value;
+            const btn = document.getElementById('reg-btn');
+            const err = document.getElementById('reg-error');
+            
+            try {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                btn.disabled = true;
+                
+                // Create user
+                const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+                const uid = userCredential.user.uid;
+                
+                // Save to Firestore as 'pending'
+                await setDoc(doc(db, "resellers", uid), {
+                    uid: uid,
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    status: 'pending',
+                    clients_count: 0,
+                    created_at: serverTimestamp()
+                });
+                
+                // AuthState will naturally trigger and show the Pending Wall
+            } catch (error) {
+                err.textContent = "يوجد مشكلة، قد يكون البريد مستخدم مسبقاً";
+                err.classList.remove('hidden');
+                btn.innerHTML = 'إرسال الطلب للإدارة';
+                btn.disabled = false;
+            }
+        });
+
+        // 3. LOAD DATA (Prices and Marketing)
+        function loadAdminConfig() {
+            onSnapshot(doc(db, "admin_config", "global_settings"), (docSnap) => {
+                const data = docSnap.data();
+                if(data) {
+                    // Update Prices
+                    const pg = document.getElementById('prices-grid');
+                    pg.innerHTML = '';
+                    if(data.base_prices) {
+                        for (const [key, value] of Object.entries(data.base_prices)) {
+                            pg.innerHTML += `
+                                <div class="bg-black/40 border border-white/5 rounded-xl p-4 text-center">
+                                    <p class="text-xs text-slate-400 mb-1 uppercase font-bold">${key}</p>
+                                    <p class="text-xl font-black text-white">${value} <span class="text-[10px] text-cyan-500">ج.م</span></p>
+                                </div>
+                            `;
+                        }
+                    }
+
+                    // Update Marketing Kit
+                    const mk = document.getElementById('marketing-container');
+                    if(data.marketing_posts && data.marketing_posts.trim() !== '') {
+                        mk.innerHTML = `<div class="whitespace-pre-line text-sm text-slate-300 font-medium leading-loose border-r-2 border-emerald-500 pr-4">${data.marketing_posts}</div>
+                        <button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); alert('تم النسخ للتسويق!')" class="mt-4 text-xs bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg border border-white/10 transition"><i class="fas fa-copy text-emerald-500"></i> نسخ لنشر الإعلان</button>
+                        `;
+                    } else {
+                        mk.innerHTML = '<p class="text-sm text-center text-slate-500">لا يوجد منشورات جاهزة حالياً.</p>';
+                    }
+                }
+            });
+        }
+
+        // 4. REQUEST KEY (License Request)
+        document.getElementById('key-request-form').addEventListener('submit', async(e)=>{
+            e.preventDefault();
+            if(!userProfile) return;
+
+            const btn = document.getElementById('req-btn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            const clientName = document.getElementById('req-client-name').value;
+            const clientPhone = document.getElementById('req-client-phone').value;
+            const module = document.getElementById('req-module').value;
+
+            try {
+                await addDoc(collection(db, "reseller_requests"), {
+                    reseller_id: userProfile.uid,
+                    reseller_name: userProfile.name,
+                    client_name: clientName,
+                    client_phone: clientPhone,
+                    software: module,
+                    status: 'pending',
+                    timestamp: serverTimestamp()
+                });
+                document.getElementById('key-request-form').reset();
+                document.getElementById('req-success').classList.remove('hidden');
+            } catch(err) {
+                alert("حدث خطأ بطلب المفتاح.");
+            } finally {
+                btn.innerHTML = 'إرسال طلب التفعيل لإدارة ASAS';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

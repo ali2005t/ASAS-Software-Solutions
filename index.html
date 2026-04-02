@@ -100,10 +100,6 @@
             color: var(--text-secondary) !important;
         }
 
-        section#calculator {
-            background: linear-gradient(to bottom right, var(--dark-bg), var(--dark-card)) !important;
-        }
-
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -481,70 +477,13 @@
             transform: translateY(0);
         }
 
-        /* AI Concierge Widget */
-        .ai-widget {
-            position: fixed;
-            bottom: 105px;
-            /* Positioned above WhatsApp icon */
-            right: 30px;
-            z-index: 1000;
-        }
-
-        .ai-chat-window {
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            width: 350px;
-            height: 500px;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            border-radius: 25px;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateY(20px);
-            opacity: 0;
-        }
-
-        .ai-chat-window.active {
-            display: flex;
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .chat-bubble {
-            padding: 12px 16px;
-            border-radius: 15px;
-            max-width: 85%;
-            margin-bottom: 15px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .bot-bubble {
-            background: rgba(0, 210, 255, 0.1);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            align-self: flex-start;
-            color: white;
-            border-bottom-left-radius: 2px;
-        }
-
-        .user-bubble {
-            background: #00d2ff;
-            color: black;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-            font-weight: bold;
-        }
-
         /* Case Study Content Colors */
         .case-study-title {
             background: linear-gradient(to left, #00d2ff, #10b981);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
         }
     </style>
     <!-- Google Analytics (GA4) -->
@@ -607,6 +546,30 @@
                 transform: translateY(0);
                 opacity: 1;
             }
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20b858;
         }
     </style>
 
@@ -687,8 +650,6 @@
                 class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">أعمالنا</a>
             <a href="blog.html"
                 class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">المدونة</a>
-            <a href="#calculator" class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">حساب
-                التكلفة</a>
             <a href="#careers"
                 class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">التوظيف</a>
             <a href="#contact"
@@ -716,7 +677,6 @@
         <a href="#services" class="text-2xl text-white hover:text-cyan-500">خدماتنا</a>
         <a href="#portfolio" class="text-2xl text-white hover:text-cyan-500">أعمالنا</a>
         <a href="blog.html" class="text-2xl text-white hover:text-cyan-500">المدونة</a>
-        <a href="#calculator" class="text-2xl text-white hover:text-cyan-500">حساب التكلفة</a>
         <a href="#careers" class="text-2xl text-white hover:text-cyan-500">التوظيف</a>
         <a href="#contact" class="text-2xl text-cyan-500">تواصل معنا</a>
     </div>
@@ -737,14 +697,28 @@
             </div>
 
             <div class="flex flex-col md:flex-row justify-center gap-4 mt-8" data-aos="fade-up" data-aos-delay="400">
-                <a href="#calculator"
+                <a href="#portfolio"
                     class="px-8 py-4 bg-gradient-to-r from-cyan-600 to-emerald-500 text-black font-bold rounded-full shadow-lg hover:shadow-cyan-500/50 transition transform hover:-translate-y-1">
-                    احسب تكلفة مشروعك
+                    شاهد أعمالنا
                 </a>
                 <a href="#services"
                     class="px-8 py-4 border border-[var(--text-secondary)] text-[var(--text-main)] font-bold rounded-full hover:border-cyan-500 hover:text-cyan-500 transition transform hover:-translate-y-1">
                     استكشف خدماتنا
                 </a>
+            </div>
+
+            <!-- Guarantee Badge -->
+            <div class="mt-12 inline-block relative group" data-aos="fade-up" data-aos-delay="500">
+                <div class="absolute -inset-1 bg-gradient-to-r from-amber-400 to-yellow-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                <div class="relative px-6 py-4 bg-[var(--dark-card)] ring-1 ring-amber-500/50 rounded-lg shadow-xl shadow-amber-500/10 flex items-center gap-4 cursor-default">
+                    <div class="text-3xl text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500">ضمان استرداد الأموال 100%</p>
+                        <p class="text-xs text-gray-400 mt-1 font-medium">بدون مخاطرة خلال 14 يوماً من الشراء</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1086,206 +1060,6 @@
 
 
 
-    <!-- Calculator Section -->
-    <section id="calculator" class="py-24 px-6 relative bg-gradient-to-br from-[var(--dark-bg)] to-[var(--dark-card)]">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[var(--text-main)]">احسب <span
-                        class="text-cyan-400">ميزانية مشروعك</span></h2>
-                <p class="text-gray-400">أسعار تنافسية تبدأ من القيم الموضحة أدناه</p>
-            </div>
-
-            <div class="glass-card p-8 rounded-2xl border-t border-cyan-500/20" data-aos="fade-up" data-aos-delay="100">
-                <form id="cost-form" class="space-y-8">
-                    <!-- Step 1: Project Type -->
-                    <div>
-                        <h3 class="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
-                            <i class="fas fa-layer-group text-cyan-500"></i> نوع المشروع
-                        </h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <label class="cursor-pointer radio-label relative">
-                                <input type="radio" name="project_type" value="2500" class="hidden peer" checked>
-                                <div
-                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
-                                    <i
-                                        class="fas fa-file-code text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
-                                    <div class="font-bold text-sm text-[var(--text-main)]">Landing Page</div>
-                                    <div class="text-xs text-gray-500 mt-1">صفحة واحدة | يبدأ من 2,500 ج.م</div>
-                                </div>
-                            </label>
-                            <label class="cursor-pointer radio-label relative">
-                                <input type="radio" name="project_type" value="5000" class="hidden peer">
-                                <div
-                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
-                                    <i class="fas fa-globe text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
-                                    <div class="font-bold text-sm text-[var(--text-main)]">موقع شركة</div>
-                                    <div class="text-xs text-gray-500 mt-1">5-7 صفحات | يبدأ من 5,000 ج.م</div>
-                                </div>
-                            </label>
-                            <label class="cursor-pointer radio-label relative">
-                                <input type="radio" name="project_type" value="8000" class="hidden peer">
-                                <div
-                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
-                                    <i
-                                        class="fas fa-shopping-cart text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
-                                    <div class="font-bold text-sm text-[var(--text-main)]">متجر إلكتروني</div>
-                                    <div class="text-xs text-gray-500 mt-1">بيع منتجات | يبدأ من 8,000 ج.م</div>
-                                </div>
-                            </label>
-                            <label class="cursor-pointer radio-label relative">
-                                <input type="radio" name="project_type" value="15000" class="hidden peer">
-                                <div
-                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
-                                    <i
-                                        class="fas fa-mobile-alt text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
-                                    <div class="font-bold text-sm text-[var(--text-main)]">تطبيق موبايل</div>
-                                    <div class="text-xs text-gray-500 mt-1">Android/iOS | يبدأ من 15,000 ج.م</div>
-                                </div>
-                            </label>
-                            <label class="cursor-pointer radio-label relative">
-                                <input type="radio" name="project_type" value="15000" class="hidden peer">
-                                <div
-                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
-                                    <i
-                                        class="fas fa-cash-register text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
-                                    <div class="font-bold text-sm text-[var(--text-main)]">نظام إدارة (CRM/POS)</div>
-                                    <div class="text-xs text-gray-500 mt-1">للمحلات والشركات | يبدأ من 15,000 ج.م</div>
-                                </div>
-                            </label>
-                            <label class="cursor-pointer radio-label relative">
-                                <input type="radio" name="project_type" value="20000" class="hidden peer">
-                                <div
-                                    class="p-4 border border-[var(--border-color)] bg-[var(--card-bg)] rounded-lg text-center hover:border-cyan-500 transition peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
-                                    <i class="fas fa-server text-2xl mb-2 text-gray-400 peer-checked:text-cyan-500"></i>
-                                    <div class="font-bold text-sm text-[var(--text-main)]">منصة ويب خاصة</div>
-                                    <div class="text-xs text-gray-500 mt-1">SaaS / Custom | يبدأ من 20,000 ج.م</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Step 2: Size (Pages/Screens) -->
-                    <div>
-                        <h3 class="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
-                            <i class="fas fa-file-alt text-cyan-500"></i> حجم المشروع
-                        </h3>
-                        <div class="bg-[var(--card-bg)] p-6 rounded-lg border border-[var(--border-color)]">
-                            <label class="block text-gray-400 mb-2 text-sm">حجم العمل التقريبي (صفحات / شاشات): <span
-                                    id="pages-val" class="text-cyan-500 font-bold text-lg mr-2">بسيط
-                                    (Basic)</span></label>
-                            <input type="range" id="pages-range" min="1" max="3" value="1"
-                                class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
-                            <div class="flex justify-between text-xs text-gray-500 mt-2">
-                                <span>بسيط (Basic)</span>
-                                <span>متوسط (Standard)</span>
-                                <span>كبير (Advanced)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 3: Design Quality -->
-                    <div>
-                        <h3 class="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
-                            <i class="fas fa-paint-brush text-cyan-500"></i> التصميم والواجهة
-                        </h3>
-                        <div class="flex gap-4">
-                            <label class="flex-1 cursor-pointer">
-                                <input type="radio" name="design_level" value="0" class="hidden peer" checked>
-                                <div
-                                    class="p-3 border border-[var(--border-color)] rounded-lg text-center hover:border-cyan-500 peer-checked:bg-cyan-500 peer-checked:text-black transition">
-                                    <div class="font-bold text-[var(--text-main)] peer-checked:text-black">تصميم جاهز /
-                                        قياسي</div>
-                                    <div
-                                        class="text-xs opacity-70 mt-1 peer-checked:text-black text-[var(--text-secondary)]">
-                                        سعر اقتصادي وسرعة تنفيذ</div>
-                                </div>
-                            </label>
-                            <label class="flex-1 cursor-pointer">
-                                <input type="radio" name="design_level" value="2000" class="hidden peer">
-                                <div
-                                    class="p-3 border border-[var(--border-color)] rounded-lg text-center hover:border-cyan-500 peer-checked:bg-cyan-500 peer-checked:text-black transition">
-                                    <div class="font-bold text-[var(--text-main)] peer-checked:text-black">تصميم خاص
-                                        (UI/UX)</div>
-                                    <div
-                                        class="text-xs opacity-70 mt-1 peer-checked:text-black text-[var(--text-secondary)]">
-                                        يبدأ من +2,000 ج.م</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Step 4: Features -->
-                    <div>
-                        <h3 class="text-xl font-bold text-[var(--text-main)] mb-4 flex items-center gap-2">
-                            <i class="fas fa-cogs text-cyan-500"></i> خدمات إضافية
-                        </h3>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            <label
-                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
-                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="1500">
-                                <span class="text-gray-300 text-sm">ربط بوابات دفع (+1500)</span>
-                            </label>
-                            <label
-                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
-                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="1000">
-                                <span class="text-gray-300 text-sm">نشر التطبيقات (+1000)</span>
-                            </label>
-                            <label
-                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
-                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="2000">
-                                <span class="text-gray-300 text-sm">لغة إضافية (+2000)</span>
-                            </label>
-                            <label
-                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
-                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="3000">
-                                <span class="text-gray-300 text-sm">لوحة تحكم متقدمة (+3000)</span>
-                            </label>
-                            <label
-                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
-                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="2000">
-                                <span class="text-gray-300 text-sm">نظام شات / إشعارات (+2000)</span>
-                            </label>
-                            <label
-                                class="flex items-center space-x-reverse space-x-3 cursor-pointer bg-[var(--card-bg)] p-3 rounded-lg border border-[var(--border-color)] hover:border-gray-600 transition">
-                                <input type="checkbox" class="w-5 h-5 accent-cyan-500 feature-check" value="1500">
-                                <span class="text-gray-300 text-sm">صيانة لمدة سنة (+1500)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Result -->
-                    <div class="border-t border-gray-700 pt-8 text-center bg-black/30 -mx-8 -mb-8 p-8 rounded-b-2xl">
-                        <div class="text-gray-400 mb-2">التكلفة التقديرية تبدأ من:</div>
-                        <div class="flex justify-center items-baseline gap-2 dir-ltr">
-                            <span class="text-5xl md:text-6xl font-bold text-cyan-500 font-['Tajawal']"
-                                id="total-price">2,500</span>
-                            <span class="text-xl text-gray-500">ج.م</span>
-                        </div>
-                        <p
-                            class="text-sm text-cyan-500/80 mt-3 mb-6 font-bold bg-cyan-500/10 inline-block px-4 py-2 rounded-lg border border-cyan-500/20">
-                            <i class="fas fa-info-circle ml-1"></i>
-                            الأسعار تبدأ من القيم الموضحة، ويتم تحديد التكلفة النهائية حسب متطلبات المشروع ودرجة
-                            التعقيد.
-                        </p>
-                        <br>
-                        <div class="flex flex-col md:flex-row justify-center gap-4 mt-6">
-                            <a href="#" id="whatsapp-btn" target="_blank"
-                                class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-600 text-white font-bold rounded-full hover:bg-green-500 transition shadow-lg shadow-green-900/20">
-                                <i class="fab fa-whatsapp text-xl"></i>
-                                تأكيد السعر وبدء المشروع
-                            </a>
-                            <button type="button" onclick="downloadQuotePDF()" id="download-pdf-btn"
-                                class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-full hover:bg-white/10 transition shadow-lg">
-                                <i class="fas fa-file-pdf text-xl text-red-500"></i>
-                                تحميل عرض سعر (PDF)
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- ADDED: Testimonials Section (آراء العملاء) -->
     <section id="testimonials" class="py-24 px-6 bg-[var(--dark-bg)]">
         <div class="max-w-7xl mx-auto">
@@ -1612,6 +1386,72 @@
         </div>
     </section>
 
+    <!-- Academy Teaser Section -->
+    <section id="academy" class="py-24 px-6 border-t border-[var(--border-color)] bg-[var(--card-bg)] relative overflow-hidden">
+        <!-- Glow effect -->
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 relative z-10">
+            <!-- Text Content -->
+            <div class="md:w-1/2" data-aos="fade-left">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 font-bold text-sm mb-6">
+                    <i class="fas fa-graduation-cap"></i> أكاديمية أساس للتدريب
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[var(--text-main)] leading-tight">
+                    وفر وقتك، ودعنا <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">ندرب موظفيك</span>
+                </h2>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                    لا تضيع وقتك في شرح النظام للعاملين لديك. مع كل اشتراك، ستحصل على وصول غير محدود لمنصة الشروحات المرئية المجانية التي تشرح كل صغيرة وكبيرة في النظام خطوة بخطوة عبر فيديوهات مسجلة.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center gap-3 text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> فيديوهات قصيرة ومباشرة لكل شاشة</li>
+                    <li class="flex items-center gap-3 text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> تغطي كافة مهام الكاشير، الإدارة، والمخازن</li>
+                    <li class="flex items-center gap-3 text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> وصول مجاني مدى الحياة مع ترخيص البرنامج</li>
+                </ul>
+                <a href="https://wa.me/201032630429?text=السلام%20عليكم%20اريد%20الاستفسار%20عن%20أكاديمية%20التدريب" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 bg-[var(--dark-card)] border border-[var(--border-color)] hover:border-cyan-500 text-[var(--text-main)] hover:text-cyan-400 font-bold rounded-lg transition-all shadow-lg hover:shadow-cyan-500/20 group">
+                    <i class="fab fa-youtube text-red-500 text-xl group-hover:scale-110 transition"></i> استفسر عن المنصة
+                </a>
+            </div>
+            <!-- Video Mockup -->
+            <div class="md:w-1/2" data-aos="fade-right">
+                <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/80 group cursor-pointer bg-black aspect-video flex items-center justify-center">
+                    <i class="fab fa-youtube text-7xl text-white/20 group-hover:text-red-600 transition-colors duration-500 shadow-xl"></i>
+                    <div class="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-sm rounded-lg p-3 text-sm text-gray-300 border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-play-circle text-cyan-500 ml-2"></i> الدرس الأول: كيفية إضافة صنف جديد للمخزن
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resellers & Affiliates Teaser Section -->
+    <section id="resellers" class="py-20 px-6 bg-gradient-to-br from-[#0a192f] to-[#112240] relative overflow-hidden border-y border-cyan-500/20">
+        <!-- Decoration -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500 via-transparent to-transparent"></div>
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <div class="inline-block p-4 rounded-full bg-cyan-500/10 mb-6" data-aos="zoom-in">
+                <i class="fas fa-handshake text-4xl text-cyan-400"></i>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black mb-4 text-white" data-aos="fade-up">
+                كن شريك نجاح مع <span class="text-cyan-500">أساس</span>
+            </h2>
+            <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="100">
+                هل تملك محل كمبيوتر؟ هل أنت مهندس تقني؟ 
+                انضم لبرنامج الموزعين والوكلاء لبرامجنا، وابدأ بجني <span class="font-bold text-amber-400">عمولات مجزية جداً</span> مقابل كل عملية بيع دون أي مخاطرة مالية.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
+                <a href="resellers.html" class="px-8 py-4 bg-amber-500 text-black font-extrabold rounded-xl hover:bg-amber-400 transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(245,158,11,0.4)] flex items-center justify-center gap-3">
+                    <i class="fas fa-rocket text-2xl"></i> سجل وانضم كشريك نجاح
+                </a>
+            </div>
+            
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-sm text-gray-400" data-aos="fade-up" data-aos-delay="300">
+                <div class="p-4 bg-white/5 rounded-lg border border-white/5"><i class="fas fa-percent text-cyan-500 mb-2 block text-2xl"></i> عمولات حصرية فورية</div>
+                <div class="p-4 bg-white/5 rounded-lg border border-white/5"><i class="fas fa-headset text-cyan-500 mb-2 block text-2xl"></i> دعم فني مخصص للموزعين</div>
+                <div class="p-4 bg-white/5 rounded-lg border border-white/5"><i class="fas fa-cogs text-cyan-500 mb-2 block text-2xl"></i> أنظمة جاهزة وتدريب شامل</div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-24 px-6 relative">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none"></div>
@@ -1746,6 +1586,9 @@
                     <a href="https://www.facebook.com/ASASSoftwareSolutions" target="_blank" rel="noopener noreferrer"
                         class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-cyan-500 hover:text-black hover:border-cyan-500 transition-all duration-300 transform hover:-translate-y-1"><i
                             class="fab fa-facebook-f"></i></a>
+                    <!-- Chatway Support Widget -->
+                    <script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=U4NGSGWd2p7a"></script>
+<br>
                     <a href="https://wa.me/201032630429" target="_blank" rel="noopener noreferrer"
                         class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-cyan-500 hover:text-black hover:border-cyan-500 transition-all duration-300 transform hover:-translate-y-1"><i
                             class="fab fa-whatsapp"></i></a>
@@ -1808,44 +1651,6 @@
         <div
             class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto relative z-10">
             <p class="text-gray-600 text-sm">&copy; 2026 ASAS Software Solutions. جميع الحقوق محفوظة.</p>
-        </div>
-        <!-- AI Concierge Widget -->
-        <div class="ai-widget">
-            <button id="ai-toggle"
-                class="w-14 h-14 bg-cyan-500 rounded-full flex items-center justify-center text-black shadow-2xl hover:scale-110 transition-all rotate-0">
-                <i class="fas fa-robot text-2xl"></i>
-            </button>
-
-            <div id="ai-chat" class="ai-chat-window">
-                <div class="p-6 bg-cyan-500 text-black flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-robot text-xl"></i>
-                        <span class="font-black text-sm">مستشار أساس الذكي</span>
-                    </div>
-                    <button id="ai-close" class="hover:rotate-90 transition-transform">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
-                <div id="chat-content" class="flex-1 p-6 overflow-y-auto flex flex-col custom-scrollbar space-y-4">
-                    <div class="chat-bubble bot-bubble">
-                        مرحباً بك! أنا مستشار أساس الذكي. كيف يمكنني مساعدتك اليوم؟ يمكنك سؤالي عن أي شيء يخص برامجنا أو
-                        خدماتنا.
-                    </div>
-                </div>
-
-                <div class="p-4 border-t border-white/5 bg-black/20">
-                    <div class="flex gap-2 bg-white/5 rounded-2xl p-2 border border-white/10">
-                        <input type="text" id="ai-input" placeholder="اكتب سؤالك هنا..."
-                            class="flex-1 bg-transparent border-none focus:ring-0 text-white text-sm px-3 py-2 outline-none"
-                            onkeypress="if(event.key === 'Enter') sendAIMessage()">
-                        <button onclick="sendAIMessage()"
-                            class="w-10 h-10 bg-cyan-500 rounded-xl flex items-center justify-center text-black hover:bg-cyan-400 transition-colors">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Case Study Modal -->
@@ -2076,122 +1881,6 @@
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     </script>
 
-    <script type="importmap">
-        {
-          "imports": {
-            "@google/generative-ai": "https://esm.run/@google/generative-ai"
-          }
-        }
-    </script>
-    <script type="module">
-        import { GoogleGenerativeAI } from "@google/generative-ai";
-
-        // CONFIGURATION: Put your Gemini API Key here to enable real AI
-        // Get it from: https://aistudio.google.com/
-        const GEMINI_API_KEY = "AIzaSyBqa6DyFB55NhSx9m_Ur7phG70qcuYDvpk"; // <--- Paste your key here
-
-        // AI CONCIERGE LOGIC
-        const aiToggle = document.getElementById('ai-toggle');
-        const aiChat = document.getElementById('ai-chat');
-        const aiClose = document.getElementById('ai-close');
-        const aiInput = document.getElementById('ai-input');
-        const chatContent = document.getElementById('chat-content');
-
-        const systemKnowledge = {
-            "law": "نظام ASAS Law Pro هو الأفضل للمحامين، يدير القضايا والجلسات والأرشفة.",
-            "pharmacy": "نظام Pharmacy Pro مخصص للصيدليات، يدير المخازن والصلاحية والمناديب.",
-            "resto": "نظام Resto & Cafe POS رائع للمطاعم، يوفر طلبات المنيو من التابلت وتقارير مبيعات.",
-            "market": "نظام Market POS للمحلات التجارية، يدير الباركود والجرد السريع وفواتير الموردين.",
-            "price": "يمكنك استخدام حاسبة التكلفة في الموقع للحصول على سعر تقديري فوري أو التواصل معنا.",
-            "contact": "يمكنك التواصل معنا عبر واتساب على الرقم +201032630429.",
-            "developer": "المطور والمهندس المسؤول هو البشمهندس **علي محمد الول** مؤسس شركة أساس."
-        };
-
-        const systemPrompt = `
-        أنت "مستشار أساس الذكي"، المساعد الذكي الرسمي لشركة "أساس للحلول البرمجية" (ASAS Software Solutions).
-        معلومات حاسمة للرد:
-        - المالك والمؤسس: المهندس "علي محمد الول" (Ali Mohamed El-Wal).
-        - تاريخ التأسيس: تأسست الشركة في عام 2025.
-        - المنتجات: ASAS Law Pro, Pharmacy Pro, Resto & Cafe POS, Market POS.
-        - التواصل: واتساب +201032630429.
-        - الشخصية: مبرمج ومطور بواسطة علي محمد الول.
-        `;
-
-        aiToggle.addEventListener('click', () => {
-            aiChat.classList.toggle('active');
-            aiToggle.classList.toggle('rotate-180');
-        });
-
-        aiClose.addEventListener('click', () => {
-            aiChat.classList.remove('active');
-            aiToggle.classList.remove('rotate-180');
-        });
-
-        window.sendAIMessage = async function () {
-            const msg = aiInput.value.trim();
-            if (!msg) return;
-
-            addChatMessage(msg, 'user');
-            aiInput.value = '';
-
-            const loadingBubble = document.createElement('div');
-            loadingBubble.className = 'chat-bubble bot-bubble opacity-50';
-            loadingBubble.innerHTML = '<span class="animate-pulse">مستشار أساس يفكر...</span>';
-            chatContent.appendChild(loadingBubble);
-            chatContent.scrollTop = chatContent.scrollHeight;
-
-            let responseText = "";
-
-            if (GEMINI_API_KEY && GEMINI_API_KEY.length > 10) {
-                try {
-                    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-                    // Use gemini-pro which is highly compatible for v1beta
-                    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
-                    const result = await model.generateContent(systemPrompt + "\n\nسؤال المستخدم: " + msg);
-                    const response = await result.response;
-                    responseText = response.text();
-                } catch (error) {
-                    console.error("Gemini Error:", error);
-                    responseText = await getFallbackResponse(msg);
-                }
-            } else {
-                responseText = await getFallbackResponse(msg);
-            }
-
-            chatContent.removeChild(loadingBubble);
-            addChatMessage(responseText, 'bot');
-        }
-
-        async function getFallbackResponse(userMsg) {
-            const query = userMsg.toLowerCase();
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    if (query.includes('علي') || query.includes('الول') || query.includes('مطور') || query.includes('صاحب') || query.includes('مين'))
-                        resolve("المطور والمؤسس لشركة أساس هو البشمهندس **علي محمد الول**. هو العقل المدبر لكل برامجنا.");
-                    else if (query.includes('تأسس') || query.includes('بدأ') || query.includes('متى') || query.includes('تاريخ') || query.includes('امتى'))
-                        resolve("انطلقت شركة أساس للحلول البرمجية رسمياً في عام **2025** لتقدم أحدث الحلول التقنية في السوق.");
-                    else if (query.includes('محام') || query.includes('قض')) resolve(systemKnowledge.law);
-                    else if (query.includes('صيدل')) resolve(systemKnowledge.pharmacy);
-                    else if (query.includes('مطعم') || query.includes('كافيه')) resolve(systemKnowledge.resto);
-                    else if (query.includes('سعر') || query.includes('تكلف')) resolve(systemKnowledge.price);
-                    else if (query.includes('تواصل') || query.includes('واتساب')) resolve(systemKnowledge.contact);
-                    else if (query.includes('ازيك') || query.includes('سلام') || query.includes('مرحبا'))
-                        resolve("أهلاً بك! أنا مستشار أساس الذكي. كيف يمكنني مساعدتك اليوم؟");
-                    else
-                        resolve("نحن في أساس للحلول البرمجية نقدم أنظمة متطورة للمحاماة، الصيدليات، المطاعم، والمتاجر تحت إشراف المهندس علي محمد الول. كيف يمكنني خدمتك؟");
-                }, 1000);
-            });
-        }
-
-        function addChatMessage(text, side) {
-            const bubble = document.createElement('div');
-            bubble.className = `chat-bubble ${side}-bubble`;
-            bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-            chatContent.appendChild(bubble);
-            chatContent.scrollTop = chatContent.scrollHeight;
-        }
-    </script>
 
     <script>
 
@@ -2221,146 +1910,6 @@
             });
         },
             observerOptions); stats.forEach(stat => statsObserver.observe(stat));
-
-        // CALCULATOR LOGIC (EGYPTIAN MARKET - REALISTIC)
-        const projectTypes = document.querySelectorAll('input[name="project_type"]');
-        const designLevels = document.querySelectorAll('input[name="design_level"]');
-        const pagesRange = document.getElementById('pages-range');
-        const pagesVal = document.getElementById('pages-val');
-        const features = document.querySelectorAll('.feature-check');
-        const whatsappBtn = document.getElementById('whatsapp-btn');
-        const downloadPdfBtn = document.getElementById('download-pdf-btn');
-        const totalPriceEl = document.getElementById('total-price');
-        const formatter = new Intl.NumberFormat('en-US');
-
-        let currentCalculation = {};
-
-        function calculateTotal() {
-            let total = 0; let basePrice = 0; let typeLabel = "";
-            // 1. Base Price
-            projectTypes.forEach(radio => {
-                if (radio.checked) {
-                    basePrice = parseInt(radio.value);
-                    typeLabel = radio.nextElementSibling.querySelector('.font-bold').innerText;
-                }
-            });
-            // 2. Complexity Factor
-            let complexity = parseInt(pagesRange.value); let multiplier = 1; let sizeLabel = "";
-            if (complexity === 1) { pagesVal.innerText = "بسيط (Basic)"; multiplier = 1; sizeLabel = "بسيط"; }
-            else if (complexity === 2) { pagesVal.innerText = "متوسط (Standard)"; multiplier = 1.5; sizeLabel = "متوسط"; }
-            else { pagesVal.innerText = "كبير (Advanced)"; multiplier = 2.5; sizeLabel = "كبير"; }
-            total = basePrice * multiplier;
-            // 3. Design Cost
-            let designLabel = "قياسي";
-            designLevels.forEach(radio => {
-                if (radio.checked) {
-                    total += parseInt(radio.value);
-                    if (parseInt(radio.value) > 0) designLabel = "خاص (UI/UX)";
-                }
-            });
-            // 4. Features Cost
-            let selectedFeatures = [];
-            features.forEach(checkbox => {
-                if (checkbox.checked) {
-                    total += parseInt(checkbox.value);
-                    selectedFeatures.push(checkbox.nextElementSibling.innerText);
-                }
-            });
-
-            // Animation
-            totalPriceEl.style.opacity = "0.5";
-            const formattedTotal = formatter.format(total);
-            setTimeout(() => {
-                totalPriceEl.innerText = formattedTotal;
-                totalPriceEl.style.opacity = "1";
-            }, 150);
-
-            // Store current calc for PDF
-            currentCalculation = {
-                type: typeLabel,
-                size: sizeLabel,
-                design: designLabel,
-                features: selectedFeatures,
-                total: formattedTotal,
-                date: new Date().toLocaleDateString('ar-EG')
-            };
-
-            // Update WhatsApp Link
-            let message = `مرحباً ASAS، قمت بتقدير ميزانية لمشروعي الجديد عبر موقعكم:\n\n`;
-            message += `🔹 نوع المشروع: ${typeLabel}\n`;
-            message += `🔹 حجم المشروع: ${sizeLabel}\n`;
-            message += `🔹 مستوى التصميم: ${designLabel}\n`;
-            if (selectedFeatures.length > 0) {
-                message += `🔹 إضافات: ${selectedFeatures.join('، ')}\n`;
-            }
-            message += `\n💰 التكلفة التقديرية: ${formattedTotal} ج.م`;
-
-            whatsappBtn.href = `https://wa.me/201032630429?text=${encodeURIComponent(message)}`;
-        }
-
-        // Add PDF script and logic
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-        document.head.appendChild(script);
-
-        async function downloadQuotePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({
-                orientation: 'p',
-                unit: 'mm',
-                format: 'a4'
-            });
-
-            // Add basic design (Note: jsPDF for Arabic requires font handling, for now we list details in simple format)
-            doc.setFillColor(10, 10, 10);
-            doc.rect(0, 0, 210, 297, 'F');
-
-            doc.setTextColor(0, 210, 255);
-            doc.setFontSize(30);
-            doc.text('ASAS Software Solutions', 20, 30);
-
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(16);
-            doc.text('Preliminary Project Quote', 20, 50);
-            doc.setFontSize(10);
-            doc.text(`Date: ${currentCalculation.date}`, 160, 50);
-
-            doc.setDrawColor(0, 210, 255);
-            doc.line(20, 55, 190, 55);
-
-            doc.setFontSize(12);
-            doc.text(`Project Type: ${currentCalculation.type}`, 20, 75);
-            doc.text(`Scale: ${currentCalculation.size}`, 20, 85);
-            doc.text(`Design Level: ${currentCalculation.design}`, 20, 95);
-
-            doc.text('Included Features:', 20, 115);
-            currentCalculation.features.forEach((feat, i) => {
-                doc.text(`- ${feat}`, 30, 125 + (i * 10));
-            });
-
-            doc.setDrawColor(255, 255, 255, 0.1);
-            doc.line(20, 240, 190, 240);
-
-            doc.setTextColor(0, 210, 255);
-            doc.setFontSize(22);
-            doc.text(`Estimated Total: ${currentCalculation.total} EGP`, 20, 260);
-
-            doc.setTextColor(150, 150, 150);
-            doc.setFontSize(10);
-            doc.text('This is a preliminary estimate provided by asassoft.com', 20, 280);
-            doc.text('Contact us at: +20 103 263 0429', 140, 280);
-
-            doc.save(`ASAS-Quote-${Date.now()}.pdf`);
-        }
-
-        // Event Listeners
-        projectTypes.forEach(r => r.addEventListener('change', calculateTotal));
-        designLevels.forEach(r => r.addEventListener('change', calculateTotal));
-        pagesRange.addEventListener('input', calculateTotal);
-        features.forEach(c => c.addEventListener('change', calculateTotal));
-
-        // Final sanity check for UI elements
-        calculateTotal();
 
         // Portfolio Filtering Logic
         const filterBtns = document.querySelectorAll('.filter-btn');
@@ -2419,10 +1968,17 @@
                 const snapshot = await getDocs(collection(db, "projects"));
                 snapshot.forEach(doc => {
                     const data = doc.data();
-                    if (!data.active) return;
+                    const nameEl = document.querySelector(`[data-project-id="${doc.id}-name"]`);
+                    const card = nameEl ? nameEl.closest('.project-card') : null;
+
+                    if (!data.active) {
+                        if (card) card.classList.add('hidden');
+                        return;
+                    } else {
+                        if (card) card.classList.remove('hidden');
+                    }
 
                     // Update Name if exists
-                    const nameEl = document.querySelector(`[data-project-id="${doc.id}-name"]`);
                     if (nameEl && data.name) {
                         nameEl.textContent = data.name;
                     }
@@ -2458,9 +2014,7 @@
                     // Update Activation Link
                     const activationBtn = document.querySelector(`[data-project-id="${doc.id}-activation"]`);
                     if (activationBtn) {
-                        const msg = `السلام عليكم، أريد كود تفعيل لنظام ${data.name}`;
-                        activationBtn.href = `https://wa.me/201032630429?text=${encodeURIComponent(msg)}`;
-                    }
+                        const msg = `السلام عليكم، أريد كود تفعيل لنظام ${data.name}`;                    }
                 });
             } catch (error) {
                 console.error("Failed to load project updates:", error);
