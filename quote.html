@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلب عرض سعر | ASAS Software Solutions</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #020617;
+            color: #cbd5e1;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cyber-input {
+            background: rgba(2, 6, 23, 0.7) !important;
+            border: 1px solid rgba(6, 182, 212, 0.2) !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cyber-input:focus {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3), inset 0 0 5px rgba(16, 185, 129, 0.1);
+            outline: none;
+        }
+
+        .radio-card {
+            border: 2px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .radio-card:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .radio-card.selected {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal.active {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body class="relative">
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[120px]"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center p-6 relative z-10 py-20">
+        
+        <!-- Loading State -->
+        <div id="loading-state" class="text-center w-full max-w-lg">
+            <i class="fas fa-spinner fa-spin text-5xl text-emerald-500 mb-6"></i>
+            <h2 class="text-2xl font-bold text-white">جاري تحضير عرض السعر...</h2>
+            <p class="text-slate-400 mt-2">يرجى الانتظار قليلاً</p>
+        </div>
+
+        <!-- Invalid Link State -->
+        <div id="invalid-state" class="hidden text-center w-full max-w-lg glass p-12 rounded-3xl border-red-500/30">
+            <i class="fas fa-exclamation-triangle text-5xl text-red-500 mb-6"></i>
+            <h2 class="text-2xl font-bold text-white">عفواً، الرابط غير صحيح</h2>
+            <p class="text-slate-400 mt-2 mb-8">رابط وكيل النظام الذي تحاول الدخول من خلاله غير ساري الوظيفة.</p>
+            <a href="index.html" class="bg-slate-800 text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-700 transition">الذهاب للموقع الرسمي</a>
+        </div>
+
+        <!-- Quote Form State -->
+        <div id="quote-state" class="hidden w-full max-w-2xl">
+            
+            <!-- Welcome Header -->
+            <div class="text-center mb-8">
+                <div class="inline-block bg-emerald-500/10 text-emerald-400 px-4 py-1.5 rounded-full text-sm font-bold border border-emerald-500/20 mb-4">
+                    <i class="fas fa-handshake"></i> مرحباً بك عبر وكيلنا المعتمد: <span id="reseller-name-display" class="font-black text-white ml-1">---</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black text-white mb-4 italic tracking-tight">اطلب <span class="text-emerald-500">منظومتك</span> الآن</h1>
+                <p class="text-slate-400">نحن هنا لتطوير نشاطك التجاري بأفضل الأسعار وأقوى البرمجيات</p>
+            </div>
+
+            <!-- The Form -->
+            <form id="quote-form" class="glass rounded-[2rem] p-8 md:p-10 border border-emerald-500/20 shadow-[0_0_50px_rgba(16,185,129,0.1)]">
+                
+                <div class="space-y-6">
+                    <!-- Personal Info -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">اسم النشاط / المسؤول <span class="text-emerald-500">*</span></label>
+                            <input type="text" id="client-name" required placeholder="مثال: مطعم الفرسان" class="w-full cyber-input rounded-xl px-4 py-3 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">رقم الهاتف التواصل <span class="text-emerald-500">*</span></label>
+                            <input type="tel" id="client-phone" required placeholder="مثال: 010xxxxxxxx" class="w-full cyber-input rounded-xl px-4 py-3 text-white dir-ltr text-right">
+                        </div>
+                    </div>
+
+                    <!-- Select Software -->
+                    <div class="pt-4 border-t border-white/5">
+                        <label class="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">اختر البرنامج المطلوب <span class="text-emerald-500">*</span></label>
+                        <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- JS will inject options here -->
+                        </div>
+                        <input type="hidden" id="selected-project" required>
+                        <input type="hidden" id="selected-price">
+                    </div>
+
+                    <!-- Hardware Needs -->
+                    <div class="pt-4 border-t border-white/5">
+                        <label class="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">هل تحتاج إلى أجهزة (كاشير / طابعات)؟</label>
+                        <div class="flex gap-4">
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="radio" name="hardware" value="yes" class="w-5 h-5 accent-emerald-500 bg-black/50 border border-white/20">
+                                <span class="text-slate-300 font-bold group-hover:text-emerald-400 transition">نعم، أحتاج تاسيس أجهزة</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="radio" name="hardware" value="no" checked class="w-5 h-5 accent-emerald-500 bg-black/50 border border-white/20">
+                                <span class="text-slate-300 font-bold group-hover:text-emerald-400 transition">لا، لدي الأجهزة بالفعل</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-10">
+                    <button type="submit" id="submit-quote-btn" class="w-full relative group overflow-hidden bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black py-4 rounded-xl text-lg hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all transform active:scale-[0.98]">
+                        <span class="relative z-10 flexItems justify-center gap-2">
+                            <i class="fas fa-paper-plane"></i> تأكيد الطلب وإرسال
+                        </span>
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </button>
+                    <p class="text-center text-[10px] text-slate-500 mt-4 leading-relaxed">
+                        بضغطك على إرسال، سيتم التواصل معك من قبل وكيلنا المعتمد قريباً لإنهاء الإجراءات.
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success State -->
+        <div id="success-state" class="hidden text-center w-full max-w-lg glass p-12 rounded-3xl border-emerald-500/30">
+            <div class="w-24 h-24 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check text-5xl"></i>
+            </div>
+            <h2 class="text-3xl font-black text-white mb-2">تم استلام طلبك بنجاح!</h2>
+            <p class="text-slate-400 leading-relaxed mb-8">نشكرك لثقتك بمنظومة ASAS. تم إرسال طلبك لوكيلنا وسيقوم بالتواصل معك خلال الساعات القادمة لتأكيد الحجز.</p>
+            <button onclick="location.reload()" class="bg-black/50 border border-white/10 text-white px-8 py-3 rounded-xl font-bold hover:bg-white/10 transition">إرسال طلب جديد</button>
+        </div>
+
+    </main>
+
+    <!-- Details Modal -->
+    <div id="details-modal" class="modal fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm invisible opacity-0 pointer-events-none p-4">
+        <div class="modal-content glass rounded-3xl p-8 max-w-2xl w-full border border-emerald-500/30 shadow-[0_0_50px_rgba(16,185,129,0.1)] relative max-h-[90vh] overflow-y-auto">
+            <button type="button" onclick="closeDetailsModal()" class="absolute top-6 left-6 text-slate-400 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-400">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400 text-xl border border-emerald-500/30">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3 id="modal-title" class="text-3xl font-black text-white placeholder">تفاصيل النظام</h3>
+            </div>
+            <div id="modal-body" class="whitespace-pre-line text-slate-300 leading-loose text-sm font-medium border-r-2 border-emerald-500 pr-4">
+                جاري التحميل...
+            </div>
+            <div class="mt-8 text-left">
+                <button type="button" onclick="closeDetailsModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-xl transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">حسناً، فهمت</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Backdoor -->
+    <footer class="py-6 border-t border-white/5 text-center relative z-10 w-full mt-auto bg-black/40 backdrop-blur-md">
+        <p class="text-xs text-slate-500 mb-2">الأسعار المعروضة هي أسعار الوكيل المعتمد وتشمل التركيب</p>
+        <a href="index.html" class="inline-flex items-center gap-2 text-slate-600 hover:text-emerald-500 transition text-[10px] uppercase font-mono tracking-widest font-black">
+            Powered By ASAS Software Solutions <i class="fas fa-external-link-alt"></i>
+        </a>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDoc, getDocs, doc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9",
+            measurementId: "G-14FDJ99K84"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let currentReseller = null;
+        let expectedCommission = 0; // The inflated amount added by reseller per project
+
+        async function initPage() {
+            // 1. Get REF from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const refId = urlParams.get('ref');
+
+            if (!refId) {
+                showInvalid(); return;
+            }
+
+            try {
+                // 2. Validate Reseller
+                const resDoc = await getDoc(doc(db, "resellers", refId));
+                if (!resDoc.exists() || resDoc.data().status !== 'approved') {
+                    showInvalid(); return;
+                }
+
+                currentReseller = resDoc.data();
+                document.getElementById('reseller-name-display').textContent = currentReseller.name;
+
+                // 3. Load Projects & Apply Markup
+                const q = query(collection(db, "projects"), where("active", "==", true));
+                const projectsSnap = await getDocs(q);
+
+                const grid = document.getElementById('projects-grid');
+                grid.innerHTML = '';
+
+                projectsSnap.forEach((pDoc) => {
+                    const p = pDoc.data();
+                    let basePrice = p.discountPrice > 0 ? p.discountPrice : (p.price || 0);
+
+                    // --- APPLY RESELLER MARKUP LOGIC ---
+                    const mType = currentReseller.markup_type || 'none';
+                    const mVal = parseFloat(currentReseller.markup_value || 0);
+                    let finalPrice = basePrice;
+                    let projectCommission = 0;
+
+                    if (mType === 'flat') {
+                        finalPrice += mVal;
+                        projectCommission = mVal;
+                    } else if (mType === 'percentage') {
+                        const added = basePrice * (mVal / 100);
+                        finalPrice += added;
+                        projectCommission = added; // This is an approximation. If they choose this project, this is the commission.
+                    }
+
+                    // Build Card
+                    const div = document.createElement('div');
+                    div.className = 'radio-card bg-black/40 rounded-xl p-5 flex flex-col justify-between h-full relative overflow-hidden group/card';
+                    div.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-white font-black text-lg">${p.name}</h3>
+                                <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500">
+                                    <i class="fas fa-check opacity-0 group-[.selected]:opacity-100 transition-opacity"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 mb-6">
+                                <span class="text-3xl font-black text-emerald-400">${Math.round(finalPrice)} <span class="text-sm text-slate-500 font-normal">ج.م</span></span>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <button type="button" onclick="event.stopPropagation(); showDetailsModal('${p.name}', \`${(p.whatsNew||'').replace(/`/g, "'")}\`)" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/5 py-3 rounded-xl font-bold transition flex items-center justify-center gap-2 text-sm z-10 relative">
+                                <i class="fas fa-list-ul"></i> عرض تفاصيل ومواصفات النظام
+                            </button>
+                        </div>
+                    `;
+                    
+                    div.onclick = () => {
+                        document.querySelectorAll('.radio-card').forEach(el => el.classList.remove('selected'));
+                        div.classList.add('selected');
+                        document.getElementById('selected-project').value = p.name;
+                        document.getElementById('selected-price').value = finalPrice;
+                        expectedCommission = projectCommission; // Save it to grant to reseller later in admin!
+                    };
+
+                    grid.appendChild(div);
+                });
+
+                // Show valid state
+                document.getElementById('loading-state').style.display = 'none';
+                document.getElementById('invalid-state').style.display = 'none';
+                document.getElementById('success-state').style.display = 'none';
+                document.getElementById('quote-state').style.display = 'block';
+
+            } catch (err) {
+                console.error(err);
+                showInvalid();
+            }
+        }
+
+        function showInvalid() {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('quote-state').style.display = 'none';
+            document.getElementById('success-state').style.display = 'none';
+            document.getElementById('invalid-state').style.display = 'block';
+        }
+
+        window.showDetailsModal = function(title, content) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = content || 'لا توجد تفاصيل إضافية مسجلة.';
+            document.getElementById('details-modal').classList.add('active');
+        };
+
+        window.closeDetailsModal = function() {
+            document.getElementById('details-modal').classList.remove('active');
+        };
+
+        // Handle Submission
+        document.getElementById('quote-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const pName = document.getElementById('selected-project').value;
+            if(!pName) {
+                if(window.showToast) window.showToast("يرجى اختيار البرنامج المطلوب أولاً", "error");
+                else alert("يرجى اختيار البرنامج المطلوب أولاً");
+                return;
+            }
+
+            const btn = document.getElementById('submit-quote-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+            btn.disabled = true;
+
+            const data = {
+                name: document.getElementById('client-name').value,
+                phone: document.getElementById('client-phone').value,
+                business_type: pName,
+                hardware_needed: document.querySelector('input[name="hardware"]:checked').value === 'yes',
+                estimated_price: document.getElementById('selected-price').value,
+                referred_by: currentReseller.uid,
+                referred_by_name: currentReseller.name,
+                expected_commission: expectedCommission,
+                status: 'new',
+                created_at: serverTimestamp()
+            };
+
+            try {
+                await addDoc(collection(db, "leads"), data);
+                
+                // Show Success
+                document.getElementById('quote-state').style.display = 'none';
+                document.getElementById('success-state').style.display = 'block';
+
+                if(window.showToast) window.showToast("تم الإرسال بنجاح!", "success");
+
+            } catch (e) {
+                console.error(e);
+                if(window.showToast) window.showToast("حدث خطأ بالاتصال، يرجى المحاولة لاحقاً.", "error");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        // Init
+        document.addEventListener('DOMContentLoaded', initPage);
+
+    </script>
+    
+    <!-- Toast Notifications -->
+    <script src="assets/js/toast.js"></script>
+</body>
+</html>
