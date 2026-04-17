@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأسئلة الشائعة | ASAS Software Solutions</title>
+    <meta name="description" content="الأسئلة الشائعة حول خدمات ASAS Software Solutions، أنظمة الموزعين، العروض، والدعم الفني.">
+    <link rel="icon" type="image/x-icon" href="assets/ico.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-bg: #05080d;
+            --dark-card: rgba(15, 23, 42, 0.92);
+            --text-main: #eef2ff;
+            --text-secondary: #a5b4fc;
+            --accent: #00d2ff;
+            --border-color: rgba(148, 163, 184, 0.18);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #05080d;
+            color: var(--text-main);
+            margin: 0;
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .page-container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 24px 20px 60px;
+        }
+
+        .section-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(24px);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 24px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            cursor: default;
+        }
+
+        .faq-question h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .faq-answer {
+            margin-top: 14px;
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 0.98rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.2rem;
+            border-radius: 999px;
+            background: rgba(0, 210, 255, 0.14);
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.82rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .button-primary {
+            background: linear-gradient(90deg, #00d2ff, #10b981);
+            color: #020617;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+            <div>
+                <a href="index.html" class="text-2xl md:text-3xl font-bold text-white">ASAS <span class="text-accent">.</span></a>
+                <p class="text-sm text-gray-400 mt-2">الإجابة على كل سؤال لديك عن الأنظمة والخدمات.</p>
+            </div>
+            <nav class="flex flex-wrap gap-4">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <a href="about.html" class="nav-link">من نحن</a>
+                <a href="index.html#services" class="nav-link">خدماتنا</a>
+                <a href="quote.html" class="nav-link">عرض سعر</a>
+                <a href="resellers.html" class="nav-link">الموزعين</a>
+            </nav>
+        </header>
+
+        <section class="section-card mb-10">
+            <span class="badge">الأسئلة الشائعة</span>
+            <h1 class="mt-6 text-4xl font-black text-white">أسئلة غالبًا ما يطلبها العملاء</h1>
+            <p class="mt-4 text-gray-300 leading-relaxed">هنا نوضح أهم المعلومات عن خدماتنا وكيف يمكن أن تبدأ مع ASAS بسهولة وسرعة.</p>
+        </section>
+
+        <section class="section-card space-y-6 mb-10">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>ما هي المشاريع التي تعملون عليها؟</h3>
+                    <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                </div>
+                <p class="faq-answer">نقوم بتطوير أنظمة إدارة للعيادات، الصيدليات، المطاعم، المتاجر، والموزعين بالإضافة إلى تطبيقات الموبايل المخصصة.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>هل تقدمون دعمًا فنيًا بعد التسليم؟</h3>
+                    <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                </div>
+                <p class="faq-answer">نعم، نقدم دعمًا فنيًا مستمرًا بعد التسليم لضمان عمل النظام بشكل ثابت وتحديث أي احتياجات جديدة.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>هل يمكنني تخصيص النظام ليناسب نشاطي؟</h3>
+                    <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                </div>
+                <p class="faq-answer">بالتأكيد. نعمل على تخصيص الميزات لتلائم طبيعة نشاطك التجاري حسب احتياجاتك وقدرتك التشغيلية.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>ما هي مدة تنفيذ المشروع؟</h3>
+                    <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                </div>
+                <p class="faq-answer">مدة التنفيذ تعتمد على حجم المشروع والتعديلات المطلوبة، لكنها عادة تبدأ من أسابيع قليلة إلى شهر واحد للحلول القياسية.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>هل تعملون بنظام موزعين؟</h3>
+                    <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                </div>
+                <p class="faq-answer">نعم، لدينا صفحة خاصة للموزعين ونوفر برامج تسويق ومزايا ترويجية للموزعين والشركاء التجاريين.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>كيف أبدأ؟</h3>
+                    <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                </div>
+                <p class="faq-answer">يمكنك طلب عرض سعر عبر صفحة العرض، أو التواصل معنا مباشرة على واتساب لبدء دراسة المشروع وتقديم خطة مفصلة.</p>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2 class="text-3xl font-bold text-white mb-6">لا تزال لديك سؤال؟</h2>
+            <p class="text-gray-300 leading-relaxed mb-6">فريقنا جاهز للرد بسرعة وتوضيح أي تفاصيل حول نظامك أو طريقة العمل.</p>
+            <a href="quote.html" class="button-primary px-8 py-4 rounded-full font-bold text-sm inline-flex items-center justify-center">اطلب عرض سعر الآن</a>
+        </section>
+    </div>
+
+    <footer class="border-t border-white/10 py-10">
+        <div class="page-container grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div>
+                <h3 class="text-white font-bold mb-4">ASAS Software Solutions</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">حلول برمجية ذكية ودعم فني متواصل للمشروعات الصغيرة والمتوسطة.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-4">روابط سريعة</h4>
+                <ul class="space-y-3 text-gray-400 text-sm">
+                    <li><a href="index.html" class="footer-link">الرئيسية</a></li>
+                    <li><a href="about.html" class="footer-link">من نحن</a></li>
+                    <li><a href="resellers.html" class="footer-link">الموزعين</a></li>
+                    <li><a href="privacy.html" class="footer-link">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-4">تواصل معنا</h4>
+                <p class="text-gray-400 text-sm mb-2">واتساب: <a href="https://wa.me/201032630429" class="footer-link">01032630429</a></p>
+                <p class="text-gray-400 text-sm">البريد: asas.software.solutions@gmail.com</p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-4">خدماتنا</h4>
+                <ul class="space-y-3 text-gray-400 text-sm">
+                    <li>نظم إدارة متكاملة</li>
+                    <li>تطوير مخصص</li>
+                    <li>دعم فني وتسويق</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
