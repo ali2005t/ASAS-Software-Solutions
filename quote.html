@@ -238,6 +238,7 @@
 
         let currentReseller = null;
         let expectedCommission = 0; // The inflated amount added by reseller per project
+        let marketingByProject = {}; // marketing text per project id for details modal
 
         async function initPage() {
             // 1. Get REF from URL
@@ -257,6 +258,12 @@
 
                 currentReseller = resDoc.data();
                 document.getElementById('reseller-name-display').textContent = currentReseller.name;
+
+                const adminDoc = await getDoc(doc(db, "admin_config", "global_settings"));
+                if (adminDoc.exists()) {
+                    const adminData = adminDoc.data();
+                    marketingByProject = (adminData.marketing_posts_mapped || {});
+                }
 
                 // 3. Load Projects & Apply Markup
                 const q = query(collection(db, "projects"), where("active", "==", true));
@@ -300,7 +307,7 @@
                             </div>
                         </div>
                         <div class="mt-auto">
-                            <button type="button" onclick="event.stopPropagation(); showDetailsModal('${p.name}', \`${(p.whatsNew||'').replace(/`/g, "'")}\`)" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/5 py-3 rounded-xl font-bold transition flex items-center justify-center gap-2 text-sm z-10 relative">
+                            <button type="button" onclick="event.stopPropagation(); showDetailsModal('${p.name}', '${pDoc.id}', \`${(p.whatsNew||'').replace(/`/g, "'")}\`)" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/5 py-3 rounded-xl font-bold transition flex items-center justify-center gap-2 text-sm z-10 relative">
                                 <i class="fas fa-list-ul"></i> عرض تفاصيل ومواصفات النظام
                             </button>
                         </div>
