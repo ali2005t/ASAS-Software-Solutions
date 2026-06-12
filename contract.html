@@ -36,11 +36,15 @@
 
         /* Hot-Swap Capture Strategy (Fixed Arabic & Non-Empty PDF) */
         .hot-swap-pdf {
+            border: 2px solid #000 !important;
+            max-width: 210mm !important;
+            margin: 0 auto !important;
+
             background: #ffffff !important;
             color: #000000 !important;
-            width: 1000px !important;
+            width: 210mm !important;
             /* High-Res fixed width */
-            padding: 10px !important;
+            padding: 10mm !important;
             /* Absolute Minimum */
             margin: 0 !important;
             direction: rtl !important;
@@ -50,6 +54,16 @@
             /* Full height capture */
             overflow: visible !important;
         }
+
+        .hot-swap-pdf {
+            border: 2px solid #000 !important;
+            max-width: 210mm !important;
+            margin: 0 auto !important;
+
+            transform: none;
+            transform-origin: top center;
+        }
+
 
         .hot-swap-pdf .glass-card {
             background: #ffffff !important;
@@ -63,7 +77,7 @@
             -webkit-backdrop-filter: none !important;
             margin-top: 0 !important;
         }
-        
+
         .hot-swap-pdf .bg-black\/40 {
             background: #ffffff !important;
             border: 1px solid #000 !important;
@@ -86,48 +100,48 @@
         }
 
         .hot-swap-pdf h1 {
-            font-size: 28px !important;
+            font-size: 24px !important;
             font-weight: 900 !important;
             margin-bottom: 10px !important;
         }
 
         .hot-swap-pdf h3 {
-            font-size: 20px !important;
+            font-size: 15px !important;
             font-weight: 900 !important;
             color: #000000 !important;
             text-align: center !important;
-            margin-top: 15px !important;
-            margin-bottom: 15px !important;
+            margin-top: 8px !important;
+            margin-bottom: 8px !important;
             border-bottom: 2px solid #000000 !important;
-            padding-bottom: 8px !important;
+            padding-bottom: 4px !important;
         }
 
         .hot-swap-pdf h4 {
-            font-size: 14px !important;
+            font-size: 12px !important;
             font-weight: 900 !important;
             color: #b45309 !important;
-            margin-top: 12px !important;
-            margin-bottom: 4px !important;
+            margin-top: 8px !important;
+            margin-bottom: 3px !important;
         }
 
         .hot-swap-pdf p {
-            font-size: 13px !important;
-            line-height: 1.6 !important;
-            margin-bottom: 4px !important;
+            font-size: 11px !important;
+            line-height: 1.15 !important;
+            margin-bottom: 3px !important;
         }
 
         .hot-swap-pdf .bg-black\/40 {
             background: #f9fafb !important;
             border: 1px solid #e5e7eb !important;
-            padding: 15px !important;
+            padding: 6px !important;
             margin: 10px 0 !important;
         }
 
         .hot-swap-pdf .bg-amber-500\/5 {
             background: #fffbeb !important;
             border: 1px solid #fde68a !important;
-            padding: 10px !important;
-            margin-top: 10px !important;
+            padding: 10mm !important;
+            margin-top: 4px !important;
         }
 
         .hot-swap-pdf #sig-pad {
@@ -138,14 +152,14 @@
             display: flex !important;
             background: transparent !important;
             border: 1px solid #eee !important;
-            margin-top: 10px !important;
-            min-height: 100px !important;
+            margin-top: 4px !important;
+            min-height: 60px !important;
             visibility: visible !important;
             opacity: 1 !important;
         }
 
         .hot-swap-pdf #signature-view-area img {
-            max-height: 160px !important;
+            max-height: 90px !important;
             display: block !important;
             opacity: 1 !important;
             visibility: visible !important;
@@ -164,6 +178,26 @@
         .hot-swap-pdf #action-buttons,
         .hot-swap-pdf #sig-controls {
             display: none !important;
+        }
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 10mm;
+            }
+
+            html,
+            body {
+                width: 210mm !important;
+                height: 297mm !important;
+                background: #fff !important;
+            }
+
+            #contract-content {
+                width: 190mm !important;
+                max-width: 190mm !important;
+                margin: 0 auto !important;
+            }
         }
     </style>
 </head>
@@ -259,7 +293,7 @@
                     <span class="w-8 h-[1px] bg-amber-500"></span> الشروط والأحكام المتعاقد عليها
                 </h4>
 
-                <div class="space-y-2 text-sm text-slate-400 font-['Cairo'] leading-loose text-justify px-4"
+                <div class="space-y-1.5 text-[12px] text-slate-400 font-['Cairo'] leading-relaxed text-justify px-4"
                     id="display-terms">
                     <!-- Dynamic Terms Injected Here -->
                 </div>
@@ -367,32 +401,32 @@
         function parseMarkdown(text) {
             if (!text) return '';
             let html = '';
-            
+
             // Clean up any remaining asterisks and hashtags completely
             let cleanedText = text.replace(/[*#]/g, '');
-            
+
             const lines = cleanedText.split('\n');
             let isFirstLine = true;
-            
+
             lines.forEach(line => {
                 let trimmed = line.trim();
                 if (trimmed.length === 0) {
                     return;
                 }
-                
+
                 // Check if it is the title of the contract
                 if (isFirstLine) {
-                    html += `<h3 class="text-amber-500 font-black text-xl mt-2 mb-6 text-center border-b border-white/10 pb-4">${trimmed}</h3>`;
+                    html += `<h3 class="text-amber-500 font-black text-lg mt-2 mb-4 text-center border-b border-white/10 pb-3">${trimmed}</h3>`;
                     isFirstLine = false;
                     return;
                 }
-                
+
                 // Center "بسم الله الرحمن الرحيم"
                 if (trimmed.includes("بسم الله الرحمن الرحيم")) {
-                    html += `<p class="text-center font-bold text-white my-4 text-base">${trimmed}</p>`;
+                    html += `<p class="text-center font-bold text-white my-3 text-xs">${trimmed}</p>`;
                     return;
                 }
-                
+
                 // Check if it starts with one of the Arabic ordinal numbers for headings
                 const headingKeywords = ["أولاً", "ثانياً", "ثالثاً", "رابعاً", "خامساً", "سادساً", "سابعاً", "ثامناً", "تاسعاً", "عاشراً"];
                 let isHeading = false;
@@ -402,17 +436,18 @@
                         break;
                     }
                 }
-                
+
                 if (isHeading) {
-                    html += `<h4 class="text-amber-500 font-black text-sm mt-4 mb-1.5 flex items-center gap-2">
+                    let idAttr = trimmed.startsWith("تاسعاً") ? ' id="clause-9"' : '';
+                    html += `<h4${idAttr} class="text-amber-500 font-black text-[13px] mt-3 mb-1 flex items-center gap-2">
                                 <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> ${trimmed}
                              </h4>`;
                 } else if (/^\d+\.\s/.test(trimmed) || /^\d+\-\s/.test(trimmed)) {
                     const match = trimmed.match(/^\d+[\.\-]/)[0];
                     const textContent = trimmed.replace(/^\d+[\.\-]\s*/, '');
-                    html += `<p class="mr-4 mb-1.5 text-slate-300"><span class="text-amber-500 font-bold font-mono">${match}</span> ${textContent}</p>`;
+                    html += `<p class="mr-4 mb-1 text-slate-300 text-[12px]"><span class="text-amber-500 font-bold font-mono">${match}</span> ${textContent}</p>`;
                 } else {
-                    html += `<p class="mb-2 text-slate-300 leading-relaxed text-justify">${trimmed}</p>`;
+                    html += `<p class="mb-1 text-slate-300 text-[12px] leading-relaxed text-justify">${trimmed}</p>`;
                 }
             });
             return html;
@@ -462,8 +497,8 @@
             const isDouble = contractData.clientMode === 'double';
 
             // Client 1 signature box
-            const label1 = isDouble 
-                ? `توقيع العميل الأول: ${contractData.clientName} (${contractData.clientRole || 'شريك'})` 
+            const label1 = isDouble
+                ? `توقيع العميل الأول: ${contractData.clientName} (${contractData.clientRole || 'شريك'})`
                 : `توقيع العميل (الطرف الثاني)`;
             wrapper.appendChild(createSignatureBoxHTML(1, label1));
             initSignaturePad(1);
@@ -534,16 +569,16 @@
                 const placeholder = document.getElementById(`sig-placeholder-${num}`);
                 if (placeholder) placeholder.style.display = 'none';
             };
-            const draw = (e) => { 
-                if (!signaturePads[num].isDrawing) return; 
-                const p = getPos(e); 
-                ctx.lineTo(p.x, p.y); 
-                ctx.stroke(); 
-                e.preventDefault(); 
+            const draw = (e) => {
+                if (!signaturePads[num].isDrawing) return;
+                const p = getPos(e);
+                ctx.lineTo(p.x, p.y);
+                ctx.stroke();
+                e.preventDefault();
             };
-            const stop = () => { 
-                signaturePads[num].isDrawing = false; 
-                ctx.closePath(); 
+            const stop = () => {
+                signaturePads[num].isDrawing = false;
+                ctx.closePath();
             };
 
             canvas.addEventListener('mousedown', start);
@@ -557,12 +592,12 @@
         window.setSigMode = (num, mode) => {
             if (!signaturePads[num]) signaturePads[num] = { mode: 'draw' };
             signaturePads[num].mode = mode;
-            
+
             const pad = document.getElementById(`sig-pad-${num}`);
             const typeArea = document.getElementById(`sig-type-area-${num}`);
             const btnDraw = document.getElementById(`btn-draw-${num}`);
             const btnType = document.getElementById(`btn-type-${num}`);
-            
+
             if (pad) pad.classList.toggle('hidden', mode !== 'draw');
             if (typeArea) typeArea.classList.toggle('hidden', mode !== 'type');
 
@@ -583,19 +618,19 @@
 
         function showSignedVersion() {
             document.getElementById('btn-confirm').classList.add('hidden');
-            
+
             const isDouble = contractData && contractData.clientMode === 'double';
             const wrapper = document.getElementById('client-signatures-wrapper');
-            wrapper.innerHTML = ''; 
-            
+            wrapper.innerHTML = '';
+
             // Client 1
-            const label1 = isDouble 
-                ? `توقيع العميل الأول: ${contractData.clientName} (${contractData.clientRole || 'شريك'})` 
+            const label1 = isDouble
+                ? `توقيع العميل الأول: ${contractData.clientName} (${contractData.clientRole || 'شريك'})`
                 : `توقيع العميل (الطرف الثاني)`;
-            
+
             const container1 = document.createElement('div');
             container1.innerHTML = `<h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-2">${label1}</h4>`;
-            
+
             const viewArea1 = document.createElement('div');
             viewArea1.className = "w-full h-32 rounded-2xl bg-white/5 flex items-center justify-center border border-white/5 relative";
             let sigContent1 = '';
@@ -611,13 +646,13 @@
                 <div class="relative z-10 text-center">${sigContent1}</div>`;
             container1.appendChild(viewArea1);
             wrapper.appendChild(container1);
-            
+
             // Client 2
             if (isDouble) {
                 const label2 = `توقيع العميل الثاني: ${contractData.clientName2} (${contractData.clientRole2 || 'شريك'})`;
                 const container2 = document.createElement('div');
                 container2.innerHTML = `<h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-2 mt-4">${label2}</h4>`;
-                
+
                 const viewArea2 = document.createElement('div');
                 viewArea2.className = "w-full h-32 rounded-2xl bg-white/5 flex items-center justify-center border border-white/5 relative";
                 let sigContent2 = '';
@@ -634,7 +669,7 @@
                 container2.appendChild(viewArea2);
                 wrapper.appendChild(container2);
             }
-            
+
             document.getElementById('btn-pdf').classList.remove('hidden');
         }
 
@@ -661,7 +696,7 @@
             const isDouble = contractData && contractData.clientMode === 'double';
             let signatureData = '';
             let sigMode = signaturePads[1] ? signaturePads[1].mode : 'draw';
-            
+
             if (sigMode === 'draw') {
                 signatureData = signaturePads[1] ? signaturePads[1].canvas.toDataURL() : '';
             } else {
@@ -693,7 +728,7 @@
                     updateData.signature2 = signatureData2;
                     updateData.sigMode2 = sigMode2;
                 }
-                
+
                 await updateDoc(docRef, updateData);
 
                 contractData = (await getDoc(docRef)).data();
@@ -715,16 +750,16 @@
                     const sigImg = new Image();
                     sigImg.crossOrigin = "anonymous";
                     sigImg.src = signatureSource;
-                    await sigImg.decode(); 
+                    await sigImg.decode();
                     tempCanvas.width = sigImg.width || 800;
                     tempCanvas.height = sigImg.height || 320;
                     tempCtx.drawImage(sigImg, 0, 0);
                     const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
                     const pixels = imageData.data;
-                    for (let i = 0; i < pixels.length; i += 4) { if (pixels[i + 3] > 0) { pixels[i] = pixels[i+1] = pixels[i+2] = 0; } }
+                    for (let i = 0; i < pixels.length; i += 4) { if (pixels[i + 3] > 0) { pixels[i] = pixels[i + 1] = pixels[i + 2] = 0; } }
                     tempCtx.putImageData(imageData, 0, 0);
                     return tempCanvas.toDataURL('image/png');
-                } catch(e) { console.warn("Sig Processing Fallback", e); return signatureSource; }
+                } catch (e) { console.warn("Sig Processing Fallback", e); return signatureSource; }
             } else {
                 return textToImage(signatureSource || '---');
             }
@@ -745,19 +780,19 @@
             const originalWrapperHTML = wrapper.innerHTML;
 
             wrapper.innerHTML = '';
-            
+
             // Client 1
             const finalImg1 = await getProcessedSignatureImg(contractData.signature, contractData.sigMode);
             const sigBlock1 = document.createElement('div');
             sigBlock1.className = "text-center";
             sigBlock1.innerHTML = `
                 <h4 style="font-size: 11px !important; font-weight: 900 !important; color: #b45309 !important; margin-bottom: 4px !important;">توقيع الطرف الثاني (العميل):</h4>
-                <p style="font-size: 13px !important; font-weight: bold !important; margin-bottom: 8px !important;">${contractData.clientName} (${contractData.clientRole || 'شريك'})</p>
+                <p style="font-size: 15px !important; font-weight: bold !important; margin-bottom: 8px !important;">${contractData.clientName} (${contractData.clientRole || 'شريك'})</p>
                 <div style="background: transparent; border-bottom: 2px solid #000; width: 220px; margin: 0 auto; padding-bottom: 2px;">
                     <img src="${finalImg1}" style="height: 70px; width: auto; display: block; margin: 0 auto; object-fit: contain;">
                 </div>`;
             wrapper.appendChild(sigBlock1);
-            
+
             // Client 2
             if (isDouble) {
                 const finalImg2 = await getProcessedSignatureImg(contractData.signature2, contractData.sigMode2);
@@ -765,7 +800,7 @@
                 sigBlock2.className = "text-center mt-6";
                 sigBlock2.innerHTML = `
                     <h4 style="font-size: 11px !important; font-weight: 900 !important; color: #b45309 !important; margin-bottom: 4px !important;">توقيع الطرف الثاني (العميل الثاني):</h4>
-                    <p style="font-size: 13px !important; font-weight: bold !important; margin-bottom: 8px !important;">${contractData.clientName2} (${contractData.clientRole2 || 'شريك'})</p>
+                    <p style="font-size: 15px !important; font-weight: bold !important; margin-bottom: 8px !important;">${contractData.clientName2} (${contractData.clientRole2 || 'شريك'})</p>
                     <div style="background: transparent; border-bottom: 2px solid #000; width: 220px; margin: 0 auto; padding-bottom: 2px;">
                         <img src="${finalImg2}" style="height: 70px; width: auto; display: block; margin: 0 auto; object-fit: contain;">
                     </div>`;
@@ -775,8 +810,33 @@
             await new Promise(r => setTimeout(r, 800));
 
             const oldScroll = window.scrollY;
-            window.scrollTo(0, 0); 
+            window.scrollTo(0, 0);
             element.classList.add('hot-swap-pdf');
+
+            // Wait a small bit for DOM/CSS to apply
+            await new Promise(r => setTimeout(r, 200));
+
+            // Find Clause 9 element and dynamically push it to the next page if it is on page 1
+            const clause9 = document.getElementById('clause-9');
+            let originalMarginTop = '';
+            if (clause9) {
+                originalMarginTop = clause9.style.marginTop;
+                const containerRect = element.getBoundingClientRect();
+                const clause9Rect = clause9.getBoundingClientRect();
+                const Y = clause9Rect.top - containerRect.top;
+
+                // Dynamically calculate page height in pixels since element width is 210mm
+                const elementWidthPx = containerRect.width;
+                const pageHeight = (297 / 210) * elementWidthPx;
+                const pageNumber = Math.floor(Y / pageHeight);
+                if (pageNumber === 0) {
+                    const nextPageStart = pageHeight;
+                    const requiredMargin = nextPageStart - Y;
+                    if (requiredMargin > 0) {
+                        clause9.style.marginTop = `${requiredMargin}px`;
+                    }
+                }
+            }
 
             try {
                 const captureCanvas = await html2canvas(element, {
@@ -788,8 +848,13 @@
                     width: element.scrollWidth,
                     height: element.scrollHeight
                 });
-                
-                window.scrollTo(0, oldScroll); 
+
+                window.scrollTo(0, oldScroll);
+
+                // Reset margin
+                if (clause9) {
+                    clause9.style.marginTop = originalMarginTop;
+                }
 
                 element.classList.remove('hot-swap-pdf');
                 actionButtons.style.display = 'block';
@@ -800,7 +865,7 @@
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = pdf.internal.pageSize.getHeight();
                 const imgHeight = (captureCanvas.height * pdfWidth) / captureCanvas.width;
-                
+
                 let heightLeft = imgHeight;
                 let position = 0;
 
