@@ -72,7 +72,11 @@
 
         .hot-swap-pdf p,
         .hot-swap-pdf h1,
+        .hot-swap-pdf h2,
+        .hot-swap-pdf h3,
         .hot-swap-pdf h4,
+        .hot-swap-pdf h5,
+        .hot-swap-pdf h6,
         .hot-swap-pdf div,
         .hot-swap-pdf span {
             color: #000 !important;
@@ -87,10 +91,22 @@
             margin-bottom: 10px !important;
         }
 
+        .hot-swap-pdf h3 {
+            font-size: 20px !important;
+            font-weight: 900 !important;
+            color: #000000 !important;
+            text-align: center !important;
+            margin-top: 15px !important;
+            margin-bottom: 15px !important;
+            border-bottom: 2px solid #000000 !important;
+            padding-bottom: 8px !important;
+        }
+
         .hot-swap-pdf h4 {
             font-size: 14px !important;
             font-weight: 900 !important;
             color: #b45309 !important;
+            margin-top: 12px !important;
             margin-bottom: 4px !important;
         }
 
@@ -361,20 +377,19 @@
             lines.forEach(line => {
                 let trimmed = line.trim();
                 if (trimmed.length === 0) {
-                    html += `<div class="h-2"></div>`;
                     return;
                 }
                 
                 // Check if it is the title of the contract
                 if (isFirstLine) {
-                    html += `<h3 class="text-white font-black text-lg mt-2 mb-4 text-center border-b border-white/5 pb-4">${trimmed}</h3>`;
+                    html += `<h3 class="text-amber-500 font-black text-xl mt-2 mb-6 text-center border-b border-white/10 pb-4">${trimmed}</h3>`;
                     isFirstLine = false;
                     return;
                 }
                 
                 // Center "بسم الله الرحمن الرحيم"
                 if (trimmed.includes("بسم الله الرحمن الرحيم")) {
-                    html += `<p class="text-center font-bold text-white my-6 text-base">${trimmed}</p>`;
+                    html += `<p class="text-center font-bold text-white my-4 text-base">${trimmed}</p>`;
                     return;
                 }
                 
@@ -389,15 +404,15 @@
                 }
                 
                 if (isHeading) {
-                    html += `<h4 class="text-amber-500 font-black text-sm mt-6 mb-2 flex items-center gap-2">
+                    html += `<h4 class="text-amber-500 font-black text-sm mt-4 mb-1.5 flex items-center gap-2">
                                 <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> ${trimmed}
                              </h4>`;
                 } else if (/^\d+\.\s/.test(trimmed) || /^\d+\-\s/.test(trimmed)) {
                     const match = trimmed.match(/^\d+[\.\-]/)[0];
                     const textContent = trimmed.replace(/^\d+[\.\-]\s*/, '');
-                    html += `<p class="mr-4 mb-2 text-slate-300"><span class="text-amber-500 font-bold font-mono">${match}</span> ${textContent}</p>`;
+                    html += `<p class="mr-4 mb-1.5 text-slate-300"><span class="text-amber-500 font-bold font-mono">${match}</span> ${textContent}</p>`;
                 } else {
-                    html += `<p class="mb-3 text-slate-300 leading-relaxed text-justify">${trimmed}</p>`;
+                    html += `<p class="mb-2 text-slate-300 leading-relaxed text-justify">${trimmed}</p>`;
                 }
             });
             return html;
