@@ -351,28 +351,53 @@
         function parseMarkdown(text) {
             if (!text) return '';
             let html = '';
-            const lines = text.split('\n');
+            
+            // Clean up any remaining asterisks and hashtags completely
+            let cleanedText = text.replace(/[*#]/g, '');
+            
+            const lines = cleanedText.split('\n');
+            let isFirstLine = true;
+            
             lines.forEach(line => {
                 let trimmed = line.trim();
-                if (trimmed.startsWith('## ')) {
-                    html += `<h4 class="text-amber-500 font-black text-sm mt-6 mb-2 flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> ${trimmed.substring(3)}
-                             </h4>`;
-                } else if (trimmed.startsWith('# ')) {
-                    html += `<h3 class="text-white font-black text-lg mt-6 mb-3 text-center uppercase tracking-wider">${trimmed.substring(2)}</h3>`;
-                } else if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
-                    html += `<p class="text-center font-bold text-white my-4">${trimmed.slice(2, -2)}</p>`;
-                } else if (trimmed.length > 0) {
-                    let formattedLine = trimmed.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>');
-                    if (/^\d+\.\s/.test(formattedLine)) {
-                        const num = formattedLine.match(/^\d+\./)[0];
-                        const textContent = formattedLine.replace(/^\d+\.\s/, '');
-                        html += `<p class="mr-4 mb-2 text-slate-300"><span class="text-amber-500 font-bold font-mono">${num}</span> ${textContent}</p>`;
-                    } else {
-                        html += `<p class="mb-3 text-slate-300 leading-relaxed">${formattedLine}</p>`;
-                    }
-                } else {
+                if (trimmed.length === 0) {
                     html += `<div class="h-2"></div>`;
+                    return;
+                }
+                
+                // Check if it is the title of the contract
+                if (isFirstLine) {
+                    html += `<h3 class="text-white font-black text-lg mt-2 mb-4 text-center border-b border-white/5 pb-4">${trimmed}</h3>`;
+                    isFirstLine = false;
+                    return;
+                }
+                
+                // Center "بسم الله الرحمن الرحيم"
+                if (trimmed.includes("بسم الله الرحمن الرحيم")) {
+                    html += `<p class="text-center font-bold text-white my-6 text-base">${trimmed}</p>`;
+                    return;
+                }
+                
+                // Check if it starts with one of the Arabic ordinal numbers for headings
+                const headingKeywords = ["أولاً", "ثانياً", "ثالثاً", "رابعاً", "خامساً", "سادساً", "سابعاً", "ثامناً", "تاسعاً", "عاشراً"];
+                let isHeading = false;
+                for (let keyword of headingKeywords) {
+                    if (trimmed.startsWith(keyword)) {
+                        isHeading = true;
+                        break;
+                    }
+                }
+                
+                if (isHeading) {
+                    html += `<h4 class="text-amber-500 font-black text-sm mt-6 mb-2 flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> ${trimmed}
+                             </h4>`;
+                } else if (/^\d+\.\s/.test(trimmed) || /^\d+\-\s/.test(trimmed)) {
+                    const match = trimmed.match(/^\d+[\.\-]/)[0];
+                    const textContent = trimmed.replace(/^\d+[\.\-]\s*/, '');
+                    html += `<p class="mr-4 mb-2 text-slate-300"><span class="text-amber-500 font-bold font-mono">${match}</span> ${textContent}</p>`;
+                } else {
+                    html += `<p class="mb-3 text-slate-300 leading-relaxed text-justify">${trimmed}</p>`;
                 }
             });
             return html;
@@ -758,9 +783,21 @@
                 const imgData = captureCanvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (captureCanvas.height * pdfWidth) / captureCanvas.width;
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const imgHeight = (captureCanvas.height * pdfWidth) / captureCanvas.width;
+                
+                let heightLeft = imgHeight;
+                let position = 0;
 
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight, undefined, 'FAST');
+                heightLeft -= pdfHeight;
+
+                while (heightLeft > 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight, undefined, 'FAST');
+                    heightLeft -= pdfHeight;
+                }
                 pdf.save(`ASAS-Contract-${Date.now()}.pdf`);
 
             } catch (error) {
