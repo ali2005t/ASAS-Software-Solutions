@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
@@ -1476,14 +1476,30 @@
         };
 
         window.copyContractLink = (id) => {
-            const url = `${window.location.origin}${window.location.pathname.replace('admin.html', 'contract.html')}?id=${id}`;
+            let path = window.location.pathname;
+            if (path.includes('admin.html')) {
+                path = path.replace('admin.html', 'contract.html');
+            } else if (path.includes('admin')) {
+                path = path.replace('admin', 'contract');
+            } else {
+                path = path + (path.endsWith('/') ? '' : '/') + 'contract';
+            }
+            const url = `${window.location.origin}${path}?id=${id}`;
             navigator.clipboard.writeText(url).then(() => {
                 alert(currentLang === 'ar' ? "تم نسخ رابط العقد! أرسله للعميل للتوقيع." : "Contract link copied! Send it to the client for signing.");
             });
         };
 
         window.downloadContractPDF = (id) => {
-            window.open(`contract.html?id=${id}`, '_blank');
+            let path = window.location.pathname;
+            if (path.includes('admin.html')) {
+                path = path.replace('admin.html', 'contract.html');
+            } else if (path.includes('admin')) {
+                path = path.replace('admin', 'contract');
+            } else {
+                path = path + (path.endsWith('/') ? '' : '/') + 'contract';
+            }
+            window.open(`${window.location.origin}${path}?id=${id}`, '_blank');
             // Inform user to use the PDF button on the contract page
             alert(currentLang === 'ar' ? "سيتم فتح العقد في نافذة جديدة. اضغط على زر حمل العقد (PDF) هناك." : "Contract will open in a new tab. Use the DOWNLOAD PDF button there.");
         };
