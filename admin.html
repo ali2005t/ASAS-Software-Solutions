@@ -1294,12 +1294,21 @@
                 projectSelect.innerHTML = `<option value="">${currentLang === 'ar' ? 'اختر المشروع' : 'Select Project'}</option>`;
                 const snapshot = await getDocs(collection(db, "projects"));
                 snapshot.forEach(docSnap => {
-                    projectSelect.innerHTML += `<option value="${docSnap.id}">${docSnap.data().name}</option>`;
+                    const pdata = docSnap.data();
+                    const defaultPrice = (pdata.discountPrice && pdata.discountPrice > 0) ? pdata.discountPrice : (pdata.price || 0);
+                    projectSelect.innerHTML += `<option value="${docSnap.id}" data-price="${defaultPrice}">${pdata.name}</option>`;
                 });
                 projectSelect.innerHTML += `<option value="other" style="color: #fbbf24; font-weight: bold;">${currentLang === 'ar' ? '+ مشروع آخر' : '+ Other Project'}</option>`;
                 
                 projectSelect.onchange = () => {
+                    const selectedOption = projectSelect.options[projectSelect.selectedIndex];
                     const otherInput = document.getElementById('contract-project-other-container');
+                    
+                    const costInput = document.getElementById('contract-cost');
+                    if (costInput) {
+                        const price = selectedOption ? selectedOption.getAttribute('data-price') : '';
+                        costInput.value = price || '';
+                    }
                     if (otherInput) otherInput.classList.toggle('hidden', projectSelect.value !== 'other');
                 };
             }
