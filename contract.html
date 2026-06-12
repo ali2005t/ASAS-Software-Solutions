@@ -825,9 +825,8 @@
                 const clause9Rect = clause9.getBoundingClientRect();
                 const Y = clause9Rect.top - containerRect.top;
 
-                // Dynamically calculate page height in pixels since element width is 210mm
-                const elementWidthPx = containerRect.width;
-                const pageHeight = (297 / 210) * elementWidthPx;
+                // One A4 page height on a 1000px wide canvas is 1414px
+                const pageHeight = 1414;
                 const pageNumber = Math.floor(Y / pageHeight);
                 if (pageNumber === 0) {
                     const nextPageStart = pageHeight;
@@ -866,18 +865,7 @@
                 const pdfHeight = pdf.internal.pageSize.getHeight();
                 const imgHeight = (captureCanvas.height * pdfWidth) / captureCanvas.width;
 
-                let heightLeft = imgHeight;
-                let position = 0;
-
-                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight, undefined, 'FAST');
-                heightLeft -= pdfHeight;
-
-                while (heightLeft > 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight, undefined, 'FAST');
-                    heightLeft -= pdfHeight;
-                }
+                pdf.addImage(imgData, "PNG", 5, 5, 200, 287, undefined, "FAST");
                 pdf.save(`ASAS-Contract-${Date.now()}.pdf`);
 
             } catch (error) {
