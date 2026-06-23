@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS MARKET POS | نظام إدارة المبيعات والمخازن المتكامل</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/ico.ico">
+    <link rel="shortcut icon" href="../assets/ico.ico" type="image/x-icon">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asassoft.com/projects/asas-market-pos.html">
+    <meta property="og:title" content="ASAS Market POS | نظام المبيعات والمخازن">
+    <meta property="og:description"
+        content="أسرع نظام مبيعات ومخازن للمحلات، يعمل بدون إنترنت مع دعم كامل للباركود والموازين.">
+    <meta property="og:image" content="../assets/market.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #00d2ff;
+            --primary-brand: #00d2ff;
+            --dark-bg: #0a0a0a;
+            --dark-card: #141414;
+            --text-main: #ffffff;
+            --text-secondary: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --glow-color: rgba(0, 210, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+        }
+
+        .text-brand-gradient {
+            background: linear-gradient(to right, #00d2ff, #3a7bd5, #10b981, #00d2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover .feature-icon {
+            background: var(--primary-blue);
+            color: black;
+            transform: scale(1.1);
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+    </style>
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-14FDJ99K84"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-14FDJ99K84');
+    </script>
+</head>
+
+<body class="selection:bg-cyan-600 selection:text-white">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed w-full z-50 py-6 px-6 md:px-12 flex justify-between items-center backdrop-blur-md border-b border-white/5">
+        <div class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+            <svg width="35" height="35" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad)" />
+                <defs>
+                    <linearGradient id="logo-grad" x1="5" y1="5" x2="95" y2="85" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00d2ff" />
+                        <stop offset="1" stop-color="#10b981" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span class="text-white">ASAS</span><span class="text-cyan-500">.</span>
+        </div>
+        <a href="../index.html#portfolio"
+            class="px-6 py-2 border border-white/20 rounded-full hover:bg-white/10 transition flex items-center gap-2 text-sm font-bold">
+            <i class="fas fa-arrow-right"></i> العودة للرئيسية
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-40 pb-20 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2" data-aos="fade-left">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-16 h-16 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-center p-2 overflow-hidden shadow-lg shadow-cyan-500/10">
+                        <img src="../assets/market.png" class="w-full h-full object-contain" alt="Market Logo"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'text-[10px] text-cyan-500 font-black leading-none text-center\'>ASAS<br>MARKET</div>'">
+                    </div>
+                    <div
+                        class="inline-block px-4 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-500 text-xs font-bold">
+                        الجيل القادم من أنظمة المبيعات
+                    </div>
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight">
+                    برنامج <span class="text-brand-gradient">ASAS MARKET</span><br>بنسخته المطورة PRO
+                </h1>
+                <p class="text-gray-400 text-lg leading-relaxed mb-10 font-['Tajawal']">
+                    الحل المتكامل لإدارة المحلات التجارية بمختلف أحجامها. يجمع بين السرعة الفائقة، التقارير الدقيقة،
+                    وسهولة الاستخدام التي لا تضاهى. مصمم ليعمل بدون إنترنت بالكامل لضمان استقرار عملك.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-col gap-4">
+                        <!-- Pricing Container -->
+                        <div id="project-price-container" class="h-10 flex items-center gap-4 font-mono">
+                            <div class="h-8 w-32 bg-white/5 rounded animate-pulse"></div> <!-- Skeleton -->
+                        </div>
+
+                        <div class="flex flex-col gap-3 w-full max-w-md">
+                            <label class="text-[11px] text-gray-400 font-bold uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-desktop text-cyan-500"></i> اختر نسخة نظام التشغيل المناسبة لجهازك:</label>
+                            <div class="relative">
+                                <select id="download-version-select" class="w-full bg-black/60 border border-cyan-500/30 text-white rounded-xl px-5 py-4 focus:border-cyan-500 outline-none appearance-none cursor-pointer text-xs font-bold font-['Cairo'] transition-all">
+                                    <option value="" disabled selected>-- اختر نسخة الويندوز للتحميل --</option>
+                                    <option value="win10_x64">Windows 10/11 (64-bit)</option>
+                                    <option value="win10_ia32">Windows 10/11 (32-bit)</option>
+                                    <option value="win10_all">Windows 10/11 (شامل النواتين 32/64-bit)</option>
+                                    <option value="win7_x64">Windows 7 (64-bit)</option>
+                                    <option value="win7_ia32">Windows 7 (32-bit)</option>
+                                    <option value="win7_all">Windows 7 (شامل النواتين 32/64-bit)</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-cyan-500">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4 mt-1">
+                            <button id="project-download-btn" disabled
+                                class="px-8 py-4 bg-cyan-600/30 text-slate-500 font-bold rounded-xl cursor-not-allowed transition flex items-center gap-2 border border-white/5">
+                                <i class="fas fa-download"></i> اختر نسخة للتحميل
+                            </button>
+                            <a id="project-activation-btn" href="#" target="_blank"
+                                class="px-8 py-4 border border-cyan-500 text-cyan-500 font-bold rounded-xl hover:bg-cyan-500 hover:text-black transition flex items-center gap-2">
+                                <i class="fab fa-whatsapp"></i> طلب كود التفعيل
+                            </a>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 flex items-center gap-2">
+                            <i class="fas fa-info-circle text-cyan-500"></i>
+                            تجربة مجانية كاملة لمدة 7 أيام عند التحميل
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 px-6 py-4 bg-white/5 border border-white/10 rounded-xl">
+                        <div class="flex -space-x-reverse -space-x-3">
+                            <img src="https://randomuser.me/api/portraits/men/1.jpg"
+                                class="w-8 h-8 rounded-full border-2 border-black" alt="">
+                            <img src="https://randomuser.me/api/portraits/women/2.jpg"
+                                class="w-8 h-8 rounded-full border-2 border-black" alt="">
+                            <img src="https://randomuser.me/api/portraits/men/3.jpg"
+                                class="w-8 h-8 rounded-full border-2 border-black" alt="">
+                        </div>
+                        <span class="text-xs text-gray-400 font-bold">+50 عميل يثقون بنا</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 relative" data-aos="zoom-in">
+                <div class="relative z-10 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                    <img src="../assets/dashboard.png" class="w-full h-auto" alt="ASAS MARKET POS Dashboard">
+                </div>
+                <div
+                    class="absolute -top-10 -right-10 w-64 h-64 bg-cyan-500/20 rounded-full blur-[100px] animate-pulse">
+                </div>
+                <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-emerald-500/10 rounded-full blur-[80px]"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="py-20 px-6 bg-white/[0.02]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-4">مميزات نظام <span class="text-cyan-500">Market POS</span></h2>
+                <p class="text-gray-400">قوة تقنية لتغطي كل ركن في تجارتك</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon"><i class="fas fa-barcode"></i></div>
+                    <h3 class="text-xl font-bold mb-4">نظام الباركود والموازين</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">دعم كامل لكل أنواع قوارئ الباركود
+                        والموازين الإلكترونية لسرعة البيع في السوبر ماركت والمحلات المزدحمة.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon"><i class="fas fa-warehouse"></i></div>
+                    <h3 class="text-xl font-bold mb-4">إدارة مخازن احترافية</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">جرد لحظي، تنبيهات عند اقتراب نفاذ
+                        الكمية، وإحصائيات دقيقة لكل صنف ودعم الوحدات الفرعية (قطعة/كرتونة).</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="text-xl font-bold mb-4">تقارير Z ومالية شاملة</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">تقرير يومي مفصل للمبيعات، الأرباح،
+                        المصاريف، وحركة الكاشير لضمان عدم وجود أي تسريب مالي.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon"><i class="fas fa-users-cog"></i></div>
+                    <h3 class="text-xl font-bold mb-4">إدارة حسابات العملاء</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">نظام كامل للأجل (Creditors) ونقاط
+                        الولاء للعملاء لزيادة مبيعاتك وربط العميل بمحلك.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3 class="text-xl font-bold mb-4">أمان وصلاحيات دقيقة</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">تحكم كامل في ما يراه الكاشير، مع
+                        نظام لمنع حذف الفواتير أو تعديلها إلا بإذن المدير.</p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="glass-card p-8 rounded-[2rem]" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon"><i class="fas fa-print"></i></div>
+                    <h3 class="text-xl font-bold mb-4">فواتير حرارية احترافية</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">دعم شامل لكل طابعات الإيصالات 80mm
+                        & 58mm مع إضافة شعار محلك وبياناتك الضريبية.</p>
+                </div>
+                <!-- Feature 7: Offline (Main Selling Point) -->
+                <div class="glass-card p-8 rounded-[2rem] border-cyan-500/30 bg-cyan-500/5" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div class="feature-icon bg-cyan-500 text-black"><i class="fas fa-wifi-slash"></i></div>
+                    <h3 class="text-xl font-bold mb-4 text-cyan-400">يعمل بدون إنترنت (Offline)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-['Tajawal']">النظام يعمل بالكامل أوفلاين، لا
+                        حاجة للإنترنت لإتمام المبيعات أو إدارة المخازن، مما يضمن استمرارية عملك في كل الظروف.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Reviews Section -->
+    <section class="py-24 px-6 bg-gradient-to-b from-transparent to-white/[0.02]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
+                <div>
+                    <h2 class="text-4xl font-black mb-4">آراء <span class="text-cyan-500">عملائنا وتقييماتهم</span></h2>
+                    <p class="text-gray-400">الآراء والتقييمات الحقيقية لأصحاب المحلات التجارية والمستخدمين</p>
+                </div>
+            </div>
+
+            <!-- Active Reviews Container -->
+            <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <!-- Loaded dynamically from Firestore -->
+                <div class="col-span-2 text-center py-10">
+                    <div class="inline-block w-8 h-8 border-2 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin"></div>
+                    <p class="text-slate-500 mt-2 font-mono text-xs uppercase tracking-widest">جاري تحميل الآراء والتقييمات...</p>
+                </div>
+            </div>
+
+            <!-- Add Review Form -->
+            <div class="max-w-3xl mx-auto glass-card p-10 rounded-[2.5rem] border-cyan-500/10 relative overflow-hidden" data-aos="fade-up">
+                <div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
+                <h3 class="text-2xl font-black mb-2 flex items-center gap-2"><i class="fas fa-pen-fancy text-cyan-500"></i> قيم البرنامج وأضف رأيك</h3>
+                <p class="text-xs text-gray-400 mb-8">رأيك يهمنا ويساعدنا في تطوير وتحديث خدماتنا بشكل مستمر.</p>
+
+                <form id="add-review-form" class="space-y-6">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold text-gray-300">التقييم بالنجوم *</label>
+                        <div class="flex gap-2 text-3xl cursor-pointer" id="rating-stars-picker">
+                            <span data-star="1" class="text-gray-600 hover:text-yellow-500 transition-colors">★</span>
+                            <span data-star="2" class="text-gray-600 hover:text-yellow-500 transition-colors">★</span>
+                            <span data-star="3" class="text-gray-600 hover:text-yellow-500 transition-colors">★</span>
+                            <span data-star="4" class="text-gray-600 hover:text-yellow-500 transition-colors">★</span>
+                            <span data-star="5" class="text-gray-600 hover:text-yellow-500 transition-colors">★</span>
+                        </div>
+                        <input type="hidden" id="review-rating-value" value="0" required>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-300 mb-2 mr-2">الاسم الكامل *</label>
+                            <input type="text" id="review-name" required placeholder="مثال: أحمد محمد"
+                                class="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-4 focus:border-cyan-500 outline-none text-xs text-white transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-300 mb-2 mr-2">المسمى الوظيفي / النشاط التجاري *</label>
+                            <input type="text" id="review-role" required placeholder="مثال: مالك سوبر ماركت البهجة"
+                                class="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-4 focus:border-cyan-500 outline-none text-xs text-white transition-all">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 mb-2 mr-2">رأيك وتجربتك بالتفصيل *</label>
+                        <textarea id="review-comment" rows="4" required placeholder="اكتب تعليقك ورأيك حول ميزات وسرعة ومستوى دعم البرنامج..."
+                            class="w-full bg-black/40 border border-white/5 rounded-xl px-5 py-4 focus:border-cyan-500 outline-none text-xs text-white transition-all"></textarea>
+                    </div>
+
+                    <button type="submit" id="submit-review-btn"
+                        class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 py-4 rounded-xl font-bold hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all transform active:scale-95 text-black">
+                        إرسال التقييم للمراجعة <i class="fas fa-paper-plane mr-1 text-sm"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specs -->
+    <section class="py-24 px-6">
+        <div
+            class="max-w-5xl mx-auto glass-card p-12 rounded-[3rem] border-cyan-500/20 bg-gradient-to-br from-white/5 to-transparent">
+            <h2 class="text-3xl font-black mb-12 text-center">المواصفات <span class="text-cyan-500">الفنية</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <i class="fab fa-react text-5xl text-blue-400 mb-4 block"></i>
+                    <span class="font-bold text-gray-300 text-sm">Ultra-Low Latency React Interface</span>
+                </div>
+                <div class="text-center">
+                    <i class="fab fa-node-js text-5xl text-green-500 mb-4 block"></i>
+                    <span class="font-bold text-gray-300 text-sm">Industrial Desktop Engine Core</span>
+                </div>
+                <div class="text-center group">
+                    <div class="mb-4 flex justify-center transition-transform group-hover:scale-110">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            class="text-cyan-500">
+                            <path d="M2.5 4.5L21.5 21.5" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" />
+                            <path d="M12 18.5V18.51" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M14.5 14C15.9378 12.8715 17.5858 12.1932 19.3333 12C13.6364 5.33333 10.3636 5.33333 4.66667 12C5.99222 12.1465 7.27511 12.5699 8.5 13.25"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M9.5 16C10.2785 15.3615 11.127 15.0116 12 15M17.3333 12C16.9606 11.564 16.5333 11.196 16.0593 10.9038"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <span class="font-bold text-gray-300 text-sm">Hybrid Edge Offline Synchronization</span>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-bolt text-5xl text-yellow-500 mb-4 block"></i>
+                    <span class="font-bold text-gray-300 text-sm">High-Velocity Transaction Engine</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 text-center px-6">
+        <h2 class="text-4xl md:text-5xl font-black mb-10" data-aos="fade-up">جاهز لتطوير تجارتك؟</h2>
+        <a href="https://wa.me/201032630429" target="_blank"
+            class="inline-flex items-center gap-4 px-12 py-5 bg-gradient-to-r from-cyan-600 to-emerald-500 text-black font-black text-xl rounded-2xl hover:scale-105 transition transform shadow-2xl shadow-cyan-500/20"
+            data-aos="zoom-in">
+            <i class="fab fa-whatsapp"></i> تواصل معنا الآن
+        </a>
+    </section>
+
+    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm font-bold">
+        &copy; 2026 ASAS Software Solutions. جميع الحقوق محفوظة.
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Background Particles Effect
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function init() {
+            points = [];
+            for (let i = 0; i < 50; i++) {
+                points.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00d2ff';
+            ctx.strokeStyle = 'rgba(0, 210, 255, 0.1)';
+
+            points.forEach((p, i) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 1, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < points.length; j++) {
+                    const p2 = points[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        init();
+        draw();
+    </script>
+
+    <!-- Dynamic Download & Reviews Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9",
+            measurementId: "G-14FDJ99K84"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const projectId = "market-pos";
+
+        async function initProject() {
+            const priceContainer = document.getElementById('project-price-container');
+            const downloadBtn = document.getElementById('project-download-btn');
+            const activationBtn = document.getElementById('project-activation-btn');
+            const selectEl = document.getElementById('download-version-select');
+
+            try {
+                const docRef = doc(db, "projects", projectId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+
+                    // 1. Pricing Logic
+                    if (data.discountPrice && data.discountPrice > 0) {
+                        priceContainer.innerHTML = `
+                            <span class="line-through text-slate-500 text-xl">${data.price} ج.م</span>
+                            <span class="text-3xl font-black text-white">${data.discountPrice} ج.م</span>
+                            <span class="bg-red-500/20 text-red-500 text-xs px-2 py-1 rounded font-bold">خصم لفترة محدودة</span>
+                        `;
+                    } else if (data.price > 0) {
+                        priceContainer.innerHTML = `<span class="text-3xl font-black text-white">${data.price} ج.م</span>`;
+                    } else {
+                        priceContainer.innerHTML = `<span class="text-xl font-bold text-gray-400">مجاني / عند الطلب</span>`;
+                    }
+
+                    // 2. Download Selection Logic
+                    selectEl.addEventListener('change', () => {
+                        const val = selectEl.value;
+                        let url = '';
+                        
+                        if (val === 'win10_x64') url = data.downloadUrl_win10_x64;
+                        else if (val === 'win10_ia32') url = data.downloadUrl_win10_ia32;
+                        else if (val === 'win10_all') url = data.downloadUrl_win10_all;
+                        else if (val === 'win7_x64') url = data.downloadUrl_win7_x64;
+                        else if (val === 'win7_ia32') url = data.downloadUrl_win7_ia32;
+                        else if (val === 'win7_all') url = data.downloadUrl_win7_all;
+                        
+                        // Fallback to default downloadUrl
+                        if (!url) url = data.downloadUrl;
+                        
+                        if (url) {
+                            downloadBtn.innerHTML = `<i class="fas fa-download"></i> تحميل النسخة الآن (v${data.version})`;
+                            downloadBtn.disabled = false;
+                            downloadBtn.className = "px-8 py-4 bg-cyan-600 text-black font-bold rounded-xl hover:bg-cyan-500 transition shadow-lg shadow-cyan-500/20 flex items-center gap-2 transform active:scale-95 cursor-pointer";
+                            downloadBtn.onclick = () => {
+                                window.location.href = url;
+                            };
+                        } else {
+                            downloadBtn.innerHTML = `<i class="fas fa-times"></i> غير متوفر حالياً`;
+                            downloadBtn.disabled = true;
+                            downloadBtn.className = "px-8 py-4 bg-white/5 text-slate-500 border border-white/5 font-bold rounded-xl cursor-not-allowed flex items-center gap-2";
+                            downloadBtn.onclick = null;
+                        }
+                    });
+
+                    // 3. Activation Button
+                    const msg = `السلام عليكم، أريد كود تفعيل لنظام ${data.name}`;
+                    activationBtn.href = `https://wa.me/201032630429?text=${encodeURIComponent(msg)}`;
+                }
+            } catch (e) {
+                console.error("Failed to fetch project info", e);
+                priceContainer.innerHTML = '<span class="text-red-500 text-sm">خطأ في تحميل البيانات</span>';
+            }
+        }
+
+        // --- REVIEWS LOAD & SUBMIT LOGIC ---
+        function initReviews() {
+            const container = document.getElementById('reviews-container');
+            const starsPicker = document.getElementById('rating-stars-picker');
+            const ratingInput = document.getElementById('review-rating-value');
+            const form = document.getElementById('add-review-form');
+
+            // Stars Picker Interaction
+            const stars = Array.from(starsPicker.children);
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const rating = parseInt(star.getAttribute('data-star'));
+                    ratingInput.value = rating;
+                    
+                    // Highlight stars
+                    stars.forEach((s, idx) => {
+                        if (idx < rating) {
+                            s.classList.remove('text-gray-600');
+                            s.classList.add('text-yellow-500');
+                        } else {
+                            s.classList.remove('text-yellow-500');
+                            s.classList.add('text-gray-600');
+                        }
+                    });
+                });
+            });
+
+            // Fetch Approved Reviews
+            const q = query(collection(db, "reviews"));
+
+            onSnapshot(q, (snap) => {
+                container.innerHTML = '';
+                
+                // Fetch and filter/sort client-side to avoid composite index requirement
+                const allReviews = [];
+                snap.forEach(docSnap => {
+                    allReviews.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                const approvedReviews = allReviews.filter(r => r.projectId === projectId && r.status === 'approved');
+
+                // Sort by createdAt desc
+                approvedReviews.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.toMillis ? a.createdAt.toMillis() : new Date(a.createdAt).getTime()) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.toMillis ? b.createdAt.toMillis() : new Date(b.createdAt).getTime()) : 0;
+                    return timeB - timeA;
+                });
+
+                if (approvedReviews.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-2 text-center py-10 bg-white/5 rounded-3xl border border-white/5">
+                            <p class="text-gray-400 font-bold text-sm">كن أول من يقيم هذا البرنامج! شاركنا تجربتك بالأسفل.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                approvedReviews.forEach(r => {
+                    const starsHtml = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+                    
+                    // Generate initials
+                    const nameParts = r.userName ? r.userName.split(' ') : ['ع'];
+                    const initials = nameParts.length > 1 ? nameParts[0][0] + '.' + nameParts[1][0] : nameParts[0][0];
+
+                    const reviewCard = `
+                        <div class="glass-card p-8 rounded-[2rem] border-l-4 border-l-cyan-500 flex flex-col justify-between" data-aos="fade-up">
+                            <div>
+                                <div class="flex justify-between items-start mb-6">
+                                    <div class="flex gap-4">
+                                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-cyan-500 font-bold">
+                                            ${initials}
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-white">${r.userName}</h4>
+                                            <p class="text-xs text-gray-500">${r.userRole || ''}</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-yellow-500 font-mono tracking-widest text-sm">${starsHtml}</span>
+                                </div>
+                                <p class="text-gray-300 italic text-sm leading-relaxed mb-4">"${r.comment}"</p>
+                            </div>
+                            
+                            <!-- Admin Reply -->
+                            ${r.reply ? `
+                                <div class="mt-4 pt-4 border-t border-white/5 flex gap-3 items-start bg-cyan-950/20 p-4 rounded-2xl border border-cyan-800/20">
+                                    <div class="w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center text-black shrink-0">
+                                        <i class="fas fa-user-tie text-xs"></i>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-xs font-black text-cyan-400">رد الإدارة</p>
+                                        <p class="text-xs text-gray-400 mt-1 leading-relaxed">${r.reply}</p>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                    container.innerHTML += reviewCard;
+                });
+            });
+
+            // Form Submit
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const ratingVal = parseInt(ratingInput.value);
+                if (ratingVal === 0) {
+                    alert("يرجى اختيار التقييم بالنجوم أولاً!");
+                    return;
+                }
+
+                const btn = document.getElementById('submit-review-btn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري إرسال التقييم...';
+
+                try {
+                    await addDoc(collection(db, "reviews"), {
+                        projectId: projectId,
+                        userName: document.getElementById('review-name').value.trim(),
+                        userRole: document.getElementById('review-role').value.trim(),
+                        rating: ratingVal,
+                        comment: document.getElementById('review-comment').value.trim(),
+                        reply: '',
+                        status: 'pending',
+                        createdAt: serverTimestamp()
+                    });
+
+                    // Clear form
+                    form.reset();
+                    ratingInput.value = 0;
+                    stars.forEach(s => {
+                        s.classList.remove('text-yellow-500');
+                        s.classList.add('text-gray-600');
+                    });
+
+                    alert("تم إرسال تقييمك بنجاح! سيظهر في الصفحة فور مراجعته واعتماده من قبل الإدارة.");
+                } catch(e) {
+                    console.error("Error submitting review: ", e);
+                    alert("عذراً، حدث خطأ أثناء إرسال التقييم. يرجى المحاولة لاحقاً.");
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = 'إرسال التقييم للمراجعة <i class="fas fa-paper-plane mr-1 text-sm"></i>';
+                }
+            });
+        }
+
+        initProject();
+        initReviews();
+    </script>
+
+    <!-- Support Widgets -->
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); background-color: #20b858; }
+        .whatsapp-float { bottom: 110px !important; right: 30px !important; }
+    </style>
+
+    <a href="https://wa.me/201032630429" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=U4NGSGWd2p7a"></script>
+</body>
+
+</html>

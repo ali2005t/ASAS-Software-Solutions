@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - الصفحة غير موجودة | ASAS Software Solutions</title>
+    <meta name="description" content="الصفحة المطلوبة غير موجودة على موقع ASAS Software Solutions. ارجع إلى الصفحة الرئيسية أو تواصل معنا.">
+    <link rel="icon" type="image/x-icon" href="assets/ico.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at top left, rgba(0,210,255,0.12), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(16,185,129,0.16), transparent 30%),
+                #05080d;
+            color: #eef2ff;
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            direction: rtl;
+            padding: 24px;
+        }
+
+        .card {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 30px;
+            padding: 48px 32px;
+            box-shadow: 0 40px 120px rgba(0,0,0,0.25);
+        }
+
+        .button-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: linear-gradient(90deg, #00d2ff, #10b981);
+            color: #020617;
+            border-radius: 999px;
+            padding: 16px 28px;
+            font-weight: 700;
+            transition: transform 0.25s ease;
+        }
+
+        .button-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .page-links {
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .page-links a {
+            color: #d1d5db;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+        }
+
+        .page-links a:hover {
+            color: #fff;
+            border-color: rgba(0,210,255,0.25);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="mb-8">
+            <span class="text-7xl font-black text-white">404</span>
+            <p class="mt-4 text-lg text-gray-300">عذرًا، الصفحة التي تبحث عنها غير متاحة أو قد تمت إزالتها.</p>
+        </div>
+        <div class="space-y-6">
+            <p class="text-gray-400 leading-relaxed">يمكنك العودة إلى الصفحة الرئيسية للبحث عن ما تريده، أو زيارة أحد الصفحات التالية لمتابعة تصفح الموقع.</p>
+            <a href="index.html" class="button-primary">العودة إلى الرئيسية</a>
+            <div class="page-links">
+                <a href="about.html">من نحن</a>
+                <a href="faq.html">الأسئلة الشائعة</a>
+                <a href="quote.html">عرض سعر</a>
+                <a href="resellers.html">الموزعين</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

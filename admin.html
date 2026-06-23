@@ -1,0 +1,2635 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS Super Admin | لوحة القيادة</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #020617;
+            color: #cbd5e1;
+            overflow-x: hidden;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0891b2;
+        }
+
+        :root {
+            --accent: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.3);
+            --bg-deep: #020617;
+            --bg-card: #0f172a;
+            --border-tech: rgba(6, 182, 212, 0.1);
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* PREMIUM LOGIN DESIGN */
+        #login-section {
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background elements */
+        .tech-bg-element {
+            position: absolute;
+            background: linear-gradient(45deg, transparent, rgba(6, 182, 212, 0.05), transparent);
+            transform: rotate(-45deg);
+            pointer-events: none;
+            width: 200%;
+            height: 100px;
+            animation: tech-scan 10s linear infinite;
+        }
+
+        @keyframes tech-scan {
+            0% {
+                top: -100%;
+            }
+
+            100% {
+                top: 200%;
+            }
+        }
+
+        .login-card {
+            position: relative;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(6, 182, 212, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #06b6d4, transparent, #3b82f6, transparent, #06b6d4);
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.3;
+            animation: border-glow 20s linear infinite;
+            border-radius: 1.5rem;
+        }
+
+        @keyframes border-glow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .cyber-input {
+            background: rgba(2, 6, 23, 0.7) !important;
+            border: 1px solid rgba(6, 182, 212, 0.2) !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cyber-input:focus {
+            border-color: #06b6d4 !important;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3), inset 0 0 5px rgba(6, 182, 212, 0.1);
+            transform: scale(1.01);
+        }
+
+        .cyber-btn {
+            background: linear-gradient(135deg, #0891b2 0%, #2563eb 100%);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .cyber-btn:hover::after {
+            left: 120%;
+        }
+
+        .cyber-btn:hover {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Sidebar Active State */
+        .nav-item.active {
+            background-color: rgba(6, 182, 212, 0.1);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Section -->
+    <div id="login-section" class="fixed inset-0 flex items-center justify-center bg-[#070b14] z-50">
+        <!-- Tech background visual elements -->
+        <div class="tech-bg-element" style="animation-delay: 0s; top: 10%;"></div>
+        <div class="tech-bg-element" style="animation-delay: 2s; top: 30%;"></div>
+        <div class="tech-bg-element" style="animation-delay: 5s; top: 60%;"></div>
+        <div class="tech-bg-element" style="animation-delay: 8s; top: 90%;"></div>
+
+        <div class="login-card p-10 rounded-3xl w-full max-w-md text-center relative overflow-hidden group">
+
+            <!-- Corner Accents -->
+            <div class="absolute top-0 right-0 w-2 h-16 bg-cyan-500/30"></div>
+            <div class="absolute top-0 right-0 w-16 h-2 bg-cyan-500/30"></div>
+            <div class="absolute bottom-0 left-0 w-2 h-16 bg-blue-500/30"></div>
+            <div class="absolute bottom-0 left-0 w-16 h-2 bg-blue-500/30"></div>
+
+            <div class="relative z-10">
+                <div
+                    class="w-24 h-24 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:border-cyan-500/50 transition-all duration-500 transform group-hover:rotate-[360deg]">
+                    <i
+                        class="fas fa-terminal text-5xl text-cyan-500 filter drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]"></i>
+                </div>
+
+                <h2
+                    class="text-3xl font-black mb-1 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent uppercase tracking-tight">
+                    ASAS Software Solutions</h2>
+                <div class="flex items-center justify-center gap-2 mb-8">
+                    <span class="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
+                    <p class="text-cyan-500/70 text-xs font-mono uppercase tracking-[0.2em]">Authorized Management
+                        Portal</p>
+                </div>
+
+                <form id="login-form" class="space-y-6">
+                    <div class="relative">
+                        <i class="fas fa-at absolute right-4 top-1/2 -translate-y-1/2 text-cyan-500/40 text-sm"></i>
+                        <input type="email" id="email" placeholder="البريد الإلكتروني" required
+                            class="cyber-input w-full rounded-xl pr-12 pl-4 py-4 text-white focus:outline-none transition-all text-right font-medium">
+                    </div>
+
+                    <div class="relative">
+                        <i class="fas fa-lock absolute right-4 top-1/2 -translate-y-1/2 text-cyan-500/40 text-sm"></i>
+                        <input type="password" id="password" placeholder="كلمة المرور" required
+                            class="cyber-input w-full rounded-xl pr-12 pl-4 py-4 text-white focus:outline-none transition-all text-right font-medium">
+                    </div>
+
+                    <button type="submit" id="login-btn"
+                        class="cyber-btn w-full py-4 rounded-xl font-black text-lg tracking-wider hover:shadow-cyan-500/50 flex justify-center items-center gap-3 transition-all duration-300">
+                        <span>INITIATE ACCESS</span> <i class="fas fa-rocket"></i>
+                    </button>
+
+                    <p id="login-error"
+                        class="bg-red-500/10 border border-red-500/30 text-red-500 text-sm p-3 rounded-lg hidden font-bold">
+                    </p>
+                </form>
+
+                <div
+                    class="mt-8 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] text-gray-500 font-mono">
+                    <span>SECURITY: v4.2.1-STABLE</span>
+                    <span class="text-cyan-500/30 group-hover:text-cyan-500 transition-colors">CONNECTED TO FIREBASE
+                        CLOUD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="hidden min-h-screen flex text-right overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside
+            class="w-72 bg-slate-950/80 backdrop-blur-xl border-l border-white/5 flex flex-col fixed h-full right-0 top-0 z-40 shadow-2xl">
+            <div class="p-8 border-b border-white/5 relative overflow-hidden group">
+                <div
+                    class="absolute -top-10 -right-10 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all">
+                </div>
+
+                <div class="flex items-center gap-4 relative z-10">
+                    <div
+                        class="w-12 h-12 bg-gradient-to-tr from-cyan-600 to-blue-600 rounded-xl flex items-center justify-center font-black text-2xl shadow-[0_0_20px_rgba(6,182,212,0.3)] transform rotate-3 hover:rotate-0 transition-all duration-500 text-white">
+                        A</div>
+                    <div>
+                        <h1 class="font-black text-xl leading-tight tracking-tight text-white uppercase italic">
+                            ASAS<span class="text-cyan-500"> SOLUTIONS</span></h1>
+                        <p class="text-[10px] text-slate-500 font-mono tracking-widest uppercase">Management Control</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="flex-1 p-6 space-y-3 overflow-y-auto">
+                <div class="text-[10px] font-mono text-slate-600 mb-2 mr-2 uppercase tracking-widest">Main Modules</div>
+
+                <button onclick="switchView('projects')" id="nav-projects"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div
+                        class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-cyan-500/50 transition-all">
+                        <i class="fas fa-cubes text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold" data-i18n="navProjects">إدارة المشاريع</span>
+                </button>
+
+                <button onclick="switchView('licenses')" id="nav-licenses"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div
+                        class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-emerald-500/50 transition-all">
+                        <i class="fas fa-fingerprint text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold" data-i18n="navLicenses">تراخيص التفعيل</span>
+                </button>
+
+                <button onclick="switchView('contracts')" id="nav-contracts"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div
+                        class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-amber-500/50 transition-all">
+                        <i class="fas fa-file-signature text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold" data-i18n="navContracts">العقود الإلكترونية</span>
+                </button>
+
+                <button onclick="switchView('resellers')" id="nav-resellers"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div
+                        class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-fuchsia-500/50 transition-all">
+                        <i class="fas fa-users-cog text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold">إدارة الموزعين</span>
+                </button>
+
+                <button onclick="switchView('leads')" id="nav-leads"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-rose-500/50 transition-all">
+                        <i class="fas fa-bullseye text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold">العملاء المحتملين (Leads)</span>
+                </button>
+
+                <button onclick="switchView('payouts')" id="nav-payouts"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-yellow-500/50 transition-all">
+                        <i class="fas fa-money-bill-wave text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold">طلبات سحب الأرباح</span>
+                </button>
+
+                <button onclick="switchView('reviews')" id="nav-reviews"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-cyan-500/50 transition-all">
+                        <i class="fas fa-star text-sm text-cyan-400"></i>
+                    </div>
+                    <span class="text-sm font-bold">الآراء والتعليقات</span>
+                </button>
+
+                <button onclick="switchView('careers')" id="nav-careers"
+                    class="nav-item w-full px-5 py-4 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all flex items-center gap-4 group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-emerald-500/50 transition-all">
+                        <i class="fas fa-briefcase text-sm text-emerald-400"></i>
+                    </div>
+                    <span class="text-sm font-bold">طلبات التوظيف</span>
+                </button>
+
+                <div class="border-t border-white/5 my-6 pt-6">
+                    <div class="text-[10px] font-mono text-slate-600 mb-2 mr-2 uppercase tracking-widest" data-i18n="externalHeader">روابط خارجية</div>
+                    <a href="../index.html" target="_blank"
+                        class="w-full flex items-center gap-4 px-5 py-3 rounded-xl text-slate-500 hover:text-white hover:bg-white/5 transition-all group">
+                        <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-blue-500/50 transition-all">
+                            <i class="fas fa-external-link-alt text-xs"></i>
+                        </div>
+                        <span class="text-xs font-bold font-mono" data-i18n="visitSite">زيارة الموقع</span>
+                    </a>
+                </div>
+    </nav>
+
+    <div class="p-6 border-t border-white/5 bg-black/20">
+        <div
+            class="bg-slate-900/50 border border-white/5 rounded-2xl p-4 mb-4 backdrop-blur-sm group hover:border-cyan-500/30 transition-all">
+            <div class="flex items-center gap-3 mb-3">
+                <div
+                    class="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-500 border border-cyan-500/20">
+                    <i class="fas fa-user-tie text-xs"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] text-slate-500 font-mono uppercase tracking-tighter">Current Admin</p>
+                    <p id="current-user-email" class="text-xs font-black truncate text-cyan-500 ltr text-left">...</p>
+                </div>
+            </div>
+            <button onclick="logout()"
+                class="w-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white py-3 rounded-xl transition-all text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fas fa-power-off"></i> LOGOUT SESSION
+            </button>
+        </div>
+        <p class="text-[9px] text-slate-700 text-center font-mono">ASAS CORE v4.2.1-STABLE</p>
+    </div>
+    </aside>
+
+    <!-- Main Content (Modernized Padding and Background) -->
+    <main class="flex-1 mr-72 p-10 bg-slate-950 min-h-screen relative overflow-y-auto">
+        <!-- Top Audio For Notifications -->
+
+        <!-- Top Controls -->
+        <div class="relative z-20 flex justify-end gap-3 mb-8">
+            <!-- Notification Bell -->
+            <button id="notification-bell" onclick="window.clearNotificationBadge()"
+                class="relative bg-white/5 border border-white/5 w-10 h-10 rounded-xl text-slate-400 hover:text-cyan-500 hover:bg-white/10 transition-all flex items-center justify-center">
+                <i class="fas fa-bell"></i>
+                <span id="notification-badge"
+                    class="hidden absolute -top-2 -right-2 bg-red-500 text-white text-[9px] font-black w-5 h-5 flex flex-col items-center justify-center rounded-full border-2 border-slate-950 animate-bounce">0</span>
+            </button>
+            <button id="lang-toggle" onclick="toggleLanguage()"
+                class="bg-white/5 border border-white/5 px-4 py-2 rounded-xl text-[10px] font-black text-slate-400 hover:text-cyan-500 hover:bg-white/10 transition-all flex items-center gap-2 uppercase tracking-widest">
+                <i class="fas fa-language text-md"></i> <span id="lang-text">English</span>
+            </button>
+        </div>
+
+        <!-- Decorative Background Element -->
+        <div
+            class="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-cyan-500/5 to-transparent pointer-events-none">
+        </div>
+
+        <!-- View: Projects -->
+        <div id="view-projects" class="view-section hidden relative z-10">
+            <header class="flex justify-between items-center mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-10 bg-cyan-500 rounded-full"></div>
+                    <div>
+                        <h2 class="text-4xl font-black text-white tracking-tight italic uppercase"
+                            data-i18n="projectHeader">إدارة <span class="text-cyan-500">المشاريع</span></h2>
+                        <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1"
+                            data-i18n="projectSub">التحكم في مستودع البرمجيات العالمي</p>
+                    </div>
+                </div>
+                <button onclick="openProjectModal()"
+                    class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] text-white px-8 py-4 rounded-2xl font-black transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                    <i class="fas fa-plus-circle"></i> <span data-i18n="addModule">إضافة مشروع جديد</span>
+                </button>
+            </header>
+
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Cards Injected via JS -->
+                <div class="col-span-3 text-center py-32">
+                    <div
+                        class="inline-block w-16 h-16 border-4 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin">
+                    </div>
+                    <p class="text-slate-500 mt-4 font-mono text-xs uppercase tracking-widest"
+                        data-i18n="loadingModules">جاري تحميل الوحدات...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Licenses -->
+        <div id="view-licenses" class="view-section hidden relative z-10">
+            <header class="flex justify-between items-center mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-10 bg-emerald-500 rounded-full"></div>
+                    <div>
+                        <h2 class="text-4xl font-black text-white tracking-tight italic uppercase"
+                            data-i18n="keyHeader">مفاتيح <span class="text-emerald-500">التفعيل</span></h2>
+                        <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1" data-i18n="keySub">
+                            إدارة رموز تنشيط البرامج</p>
+                    </div>
+                </div>
+                <button onclick="generateLicenseKey()" id="generate-btn"
+                    class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] text-white px-8 py-4 rounded-2xl font-black transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                    <i class="fas fa-magic"></i> <span data-i18n="generateToken">توليد رمز جديد</span>
+                </button>
+            </header>
+
+            <!-- New Key Display -->
+            <div id="new-key-display"
+                class="hidden mb-12 bg-emerald-500/5 backdrop-blur-md border border-emerald-500/20 p-10 rounded-3xl text-center relative overflow-hidden group">
+                <div
+                    class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent animate-pulse">
+                </div>
+                <h3 class="text-emerald-400 font-black mb-4 uppercase tracking-[0.2em] text-xs"
+                    data-i18n="tokenSuccess">تم إنشاء رمز الوصول بنجاح</h3>
+                <div class="flex items-center justify-center gap-6">
+                    <span id="generated-key"
+                        class="text-4xl font-mono font-black tracking-[0.3em] text-white select-all filter drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">ASAS-XXXX-XXXX-XXXX</span>
+                    <button onclick="copyKeyFromDisplay()"
+                        class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-emerald-400 hover:bg-emerald-500 hover:text-white transition-all shadow-lg"
+                        title="Copy Token"><i class="fas fa-copy"></i></button>
+                </div>
+            </div>
+
+            <!-- Keys Table -->
+            <div class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
+                <table class="w-full text-right">
+                    <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
+                        <tr>
+                            <th class="p-6 font-black text-cyan-500/70 text-right" data-i18n="keyIdentifier">المعرف
+                                الفريد</th>
+                            <th class="p-6 font-black" data-i18n="timestamp">وقت الإنشاء</th>
+                            <th class="p-6 font-black" data-i18n="activationTime">وقت التنشيط</th>
+                            <th class="p-6 font-black" data-i18n="targetHost">الجهاز المستهدف</th>
+                            <th class="p-6 font-black" data-i18n="status">الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody id="keys-table-body" class="text-sm divide-y divide-white/5">
+                        <!-- Rows Injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- View: Contracts -->
+        <div id="view-contracts" class="view-section hidden relative z-10">
+            <header class="flex justify-between items-center mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-10 bg-amber-500 rounded-full"></div>
+                    <div>
+                        <h2 class="text-4xl font-black text-white tracking-tight italic uppercase"
+                            data-i18n="contractHeader">العقود <span class="text-amber-500">الإلكترونية</span></h2>
+                        <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1"
+                            data-i18n="contractSub">إدارة اتفاقيات التراخيص والعقود الرقمية</p>
+                    </div>
+                </div>
+                <button onclick="openContractModal()"
+                    class="bg-gradient-to-r from-amber-600 to-orange-600 shadow-[0_0_20px_rgba(245,158,11,0.2)] text-white px-8 py-4 rounded-2xl font-black transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                    <i class="fas fa-file-contract"></i> <span data-i18n="createContract">إنشاء عقد جديد</span>
+                </button>
+            </header>
+
+            <div id="contracts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Cards Injected via JS -->
+                <div class="col-span-3 text-center py-32">
+                    <div
+                        class="inline-block w-16 h-16 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin">
+                    </div>
+                    <p class="text-slate-500 mt-4 font-mono text-xs uppercase tracking-widest"
+                        data-i18n="loadingContracts">جاري تحميل العقود...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Resellers -->
+        <div id="view-resellers" class="view-section hidden relative z-10">
+            <header class="flex justify-between items-center mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-10 bg-fuchsia-500 rounded-full"></div>
+                    <div>
+                        <h2 class="text-4xl font-black text-white tracking-tight italic uppercase">إدارة <span
+                                class="text-fuchsia-500">الموزعين</span></h2>
+                        <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1">طلبات التقديم
+                            والتسعير الجملة</p>
+                    </div>
+                </div>
+                <button onclick="openResellerConfig()"
+                    class="bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:shadow-[0_0_20px_rgba(217,70,239,0.4)] text-white px-8 py-4 rounded-2xl font-black transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                    <i class="fas fa-cogs"></i> <span>إعدادات النظام والحقيبة التسويقية</span>
+                </button>
+            </header>
+
+            <div class="grid grid-cols-1 gap-8">
+                <!-- Resellers Table -->
+                <div
+                    class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
+                    <div class="p-6 border-b border-white/5 flex items-center gap-3">
+                        <i class="fas fa-users text-fuchsia-500"></i>
+                        <h3 class="text-white font-bold uppercase">قائمة الموزعين (الوكلاء)</h3>
+                    </div>
+                    <table class="w-full text-right">
+                        <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
+                            <tr>
+                                <th class="p-6 font-black text-fuchsia-500/70">الاسم / النشاط</th>
+                                <th class="p-6 font-black">رقم الموبايل</th>
+                                <th class="p-6 font-black">البريد</th>
+                                <th class="p-6 font-black text-center">العملاء</th>
+                                <th class="p-6 font-black text-center">الحالة</th>
+                                <th class="p-6 font-black text-center">تحديث</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resellers-table-body" class="text-sm divide-y divide-white/5">
+                            <!-- JS Injection -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Key Requests from Resellers -->
+                <div
+                    class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl mt-4">
+                    <div class="p-6 border-b border-white/5 flex items-center gap-3">
+                        <i class="fas fa-key text-cyan-500"></i>
+                        <h3 class="text-white font-bold uppercase">طلبات استخراج تفعيلات للعملاء</h3>
+                    </div>
+                    <table class="w-full text-right">
+                        <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
+                            <tr>
+                                <th class="p-6 font-black">طالب التفعيل (الموزع)</th>
+                                <th class="p-6 font-black text-cyan-500/70">اسم العميل النهائي</th>
+                                <th class="p-6 font-black">رقم العميل</th>
+                                <th class="p-6 font-black">البرنامج</th>
+                                <th class="p-6 font-black text-center">الحالة</th>
+                                <th class="p-6 font-black text-center">إجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reseller-requests-body" class="text-sm divide-y divide-white/5">
+                            <!-- JS Injection -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Leads -->
+        <div id="view-leads" class="view-section hidden relative z-10">
+            <header class="flex justify-between items-center mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-10 bg-rose-500 rounded-full"></div>
+                    <div>
+                        <h2 class="text-4xl font-black text-white tracking-tight italic uppercase">العملاء <span
+                                class="text-rose-500">المحتملين (Leads)</span></h2>
+                        <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1">العملاء القادمون من
+                            الحاسبة الذكية ورابط الموزعين</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
+                <div class="p-6 border-b border-white/5 flex items-center gap-3">
+                    <i class="fas fa-bullseye text-rose-500"></i>
+                    <h3 class="text-white font-bold uppercase">قائمة العملاء الجدد</h3>
+                </div>
+                <table class="w-full text-right">
+                    <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
+                        <tr>
+                            <th class="p-6 font-black">الاسم / الهاتف</th>
+                            <th class="p-6 font-black">النشاط / الاحتياج</th>
+                            <th class="p-6 font-black">السعر المعروض</th>
+                            <th class="p-6 font-black text-center text-emerald-500/70">الوكيل الموجه (المسوق)</th>
+                            <th class="p-6 font-black text-center">التاريخ / الحالة</th>
+                            <th class="p-6 font-black text-center">إجراء (نسبة الوكيل)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leads-table-body" class="text-sm divide-y divide-white/5">
+                        <!-- JS Injection -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- View: Payouts -->
+        <div id="view-payouts" class="view-section hidden relative z-10">
+            <header class="flex justify-between items-center mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-10 bg-yellow-500 rounded-full"></div>
+                    <div>
+                        <h2 class="text-4xl font-black text-white tracking-tight italic uppercase">طلبات <span
+                                class="text-yellow-500">سحب الأرباح</span></h2>
+                        <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1">إدارة وتحويل عمولات
+                            المسوقين</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
+                <div class="p-6 border-b border-white/5 flex items-center gap-3">
+                    <i class="fas fa-money-bill-wave text-yellow-500"></i>
+                    <h3 class="text-white font-bold uppercase">طلبات السحب المعلقة</h3>
+                </div>
+                <table class="w-full text-right">
+                    <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
+                        <tr>
+                            <th class="p-6 font-black">اسم الوكيل</th>
+                            <th class="p-6 font-black text-yellow-500/70">المبلغ المطلوب</th>
+                            <th class="p-6 font-black">وسيلة الدفع</th>
+                            <th class="p-6 font-black">بيانات التحويل</th>
+                            <th class="p-6 font-black text-center">الحالة</th>
+                            <th class="p-6 font-black text-center">إجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payouts-table-body" class="text-sm divide-y divide-white/5">
+                        <!-- JS Injection -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- View: Reviews -->
+        <div id="view-reviews" class="view-section hidden relative z-10">
+            <header class="flex justify-between items-center mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-10 bg-cyan-500 rounded-full"></div>
+                    <div>
+                        <h2 class="text-4xl font-black text-white tracking-tight italic uppercase">إدارة <span
+                                class="text-cyan-500">الآراء والتعليقات</span></h2>
+                        <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1">التحكم في تقييمات
+                            العملاء وحذف أو الرد على التعليقات</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
+                <div class="p-6 border-b border-white/5 flex items-center gap-3">
+                    <i class="fas fa-star text-cyan-500"></i>
+                    <h3 class="text-white font-bold uppercase">قائمة التعليقات والآراء</h3>
+                </div>
+                <table class="w-full text-right">
+                    <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
+                        <tr>
+                            <th class="p-6 font-black text-right">المشروع</th>
+                            <th class="p-6 font-black text-right">العميل / الصفة</th>
+                            <th class="p-6 font-black text-right">التقييم</th>
+                            <th class="p-6 font-black text-right">التعليق</th>
+                            <th class="p-6 font-black text-center">الرد</th>
+                            <th class="p-6 font-black text-center">الحالة</th>
+                            <th class="p-6 font-black text-center">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reviews-table-body" class="text-sm divide-y divide-white/5">
+                        <!-- JS Injection -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- View: Careers -->
+        <div id="view-careers" class="view-section hidden relative z-10">
+            <header class="flex justify-between items-center mb-12">
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-10 bg-emerald-500 rounded-full"></div>
+                    <div>
+                        <h2 class="text-4xl font-black text-white tracking-tight italic uppercase">إدارة <span class="text-emerald-500">طلبات التوظيف</span></h2>
+                        <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mt-1">مراجعة وإدارة طلبات الانضمام لعائلة أساس</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="bg-slate-900/50 backdrop-blur-md rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
+                <div class="p-6 border-b border-white/5 flex items-center gap-3">
+                    <i class="fas fa-briefcase text-emerald-500"></i>
+                    <h3 class="text-white font-bold uppercase">قائمة طلبات التوظيف</h3>
+                </div>
+                <table class="w-full text-right">
+                    <thead class="bg-white/5 text-slate-500 text-[10px] font-mono uppercase tracking-widest">
+                        <tr>
+                            <th class="p-6 font-black text-right">الاسم / الهاتف</th>
+                            <th class="p-6 font-black text-right">الوظيفة المستهدفة</th>
+                            <th class="p-6 font-black text-right">السيرة الذاتية</th>
+                            <th class="p-6 font-black text-right">معرض الأعمال</th>
+                            <th class="p-6 font-black text-right">النبذة التعريفية</th>
+                            <th class="p-6 font-black text-center">الحالة</th>
+                            <th class="p-6 font-black text-center">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="careers-table-body" class="text-sm divide-y divide-white/5">
+                        <!-- JS Injection -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="project-modal"
+        class="fixed inset-0 bg-[#020617]/95 hidden z-50 flex items-center justify-center backdrop-blur-md p-6 overflow-y-auto">
+        <div
+            class="bg-slate-900 border border-white/10 p-10 rounded-[2.5rem] w-full max-w-2xl relative shadow-[0_0_100px_rgba(0,0,0,0.5)] my-auto max-h-[95vh] overflow-y-auto custom-scrollbar">
+            <!-- Decorative Modal Elements -->
+            <div
+                class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-transparent via-cyan-500 to-transparent">
+            </div>
+
+            <button onclick="closeProjectModal()"
+                class="absolute top-6 left-6 w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-500 hover:text-white hover:bg-red-500 transition-all">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="flex items-center gap-4 mb-10">
+                <div
+                    class="w-12 h-12 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-500 border border-cyan-500/20">
+                    <i class="fas fa-edit text-xl"></i>
+                </div>
+                <div>
+                    <h3 id="modal-title" class="text-3xl font-black text-white italic uppercase"
+                        data-i18n="modalTitleAdd">تسجيل <span class="text-cyan-500">وحدة جديدة</span></h3>
+                    <p class="text-slate-500 font-mono text-[10px] uppercase tracking-widest" data-i18n="modalSub">تعديل
+                        سجل النظام الرئيسي</p>
+                </div>
+            </div>
+
+            <input type="hidden" id="project-doc-id">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="fieldId">معرف المشروع (Primary Key)</label>
+                    <input type="text" id="project-id" placeholder="e.g. law-pro"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none font-mono text-sm transition-all text-white">
+                </div>
+
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="fieldName">الاسم الظاهر</label>
+                    <input type="text" id="project-name" placeholder="ASAS System Name"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none transition-all text-white font-bold">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                            data-i18n="fieldVersion">إصدار البناء</label>
+                        <input type="text" id="project-version" placeholder="1.0.0"
+                            class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none text-center font-mono text-cyan-500 font-black transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                            data-i18n="fieldStatus">حالة الشبكة</label>
+                        <select id="project-active"
+                            class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none transition-all text-white appearance-none cursor-pointer">
+                            <option value="true" data-i18n="online">نشط</option>
+                            <option value="false" data-i18n="offline">معطل</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="fieldUrl">رابط النشر الافتراضي (Default Endpoint URL)</label>
+                    <input type="url" id="project-download" placeholder="https://cdn.asas.com/dist/..."
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none text-xs text-white font-mono transition-all">
+                </div>
+
+                <!-- Windows Custom Download Links -->
+                <div class="md:col-span-2 border-t border-white/5 pt-4 mt-2">
+                    <span class="block text-slate-400 text-xs font-bold font-['Cairo'] mb-4">روابط التحميل المخصصة
+                        لأنظمة ويندوز (Windows Download Links)</span>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[9px] font-mono uppercase tracking-widest mb-2 mr-2">Windows
+                                10/11 (64-bit)</label>
+                            <input type="url" id="project-download-win10-x64" placeholder="رابط نسخة ويندوز 10/11 64 بت"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-3 focus:border-cyan-500 outline-none text-xs text-white font-mono transition-all">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[9px] font-mono uppercase tracking-widest mb-2 mr-2">Windows
+                                10/11 (32-bit)</label>
+                            <input type="url" id="project-download-win10-ia32"
+                                placeholder="رابط نسخة ويندوز 10/11 32 بت"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-3 focus:border-cyan-500 outline-none text-xs text-white font-mono transition-all">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[9px] font-mono uppercase tracking-widest mb-2 mr-2">Windows
+                                10/11 (Combined 32/64-bit)</label>
+                            <input type="url" id="project-download-win10-all"
+                                placeholder="رابط نسخة ويندوز 10/11 شامل النواتين"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-3 focus:border-cyan-500 outline-none text-xs text-white font-mono transition-all">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[9px] font-mono uppercase tracking-widest mb-2 mr-2">Windows
+                                7 (64-bit)</label>
+                            <input type="url" id="project-download-win7-x64" placeholder="رابط نسخة ويندوز 7 64 بت"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-3 focus:border-cyan-500 outline-none text-xs text-white font-mono transition-all">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[9px] font-mono uppercase tracking-widest mb-2 mr-2">Windows
+                                7 (32-bit)</label>
+                            <input type="url" id="project-download-win7-ia32" placeholder="رابط نسخة ويندوز 7 32 بت"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-3 focus:border-cyan-500 outline-none text-xs text-white font-mono transition-all">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[9px] font-mono uppercase tracking-widest mb-2 mr-2">Windows
+                                7 (Combined 32/64-bit)</label>
+                            <input type="url" id="project-download-win7-all"
+                                placeholder="رابط نسخة ويندوز 7 شامل النواتين"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-3 focus:border-cyan-500 outline-none text-xs text-white font-mono transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="fieldChangelog">سجل التغييرات (ما الجديد؟)</label>
+                    <textarea id="project-whatsnew" rows="4" placeholder="New features..."
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none text-sm text-right h-24 text-white transition-all"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="fieldPrice">السعر الأساسي (ج.م)</label>
+                    <input type="number" id="project-price" placeholder="00.00"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none font-mono text-white transition-all">
+                </div>
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="fieldDiscount">سعر الخصم</label>
+                    <input type="number" id="project-discount" placeholder="00.00"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-cyan-500 outline-none font-mono text-cyan-500 transition-all">
+                </div>
+            </div>
+
+            <div class="mt-10">
+                <button onclick="saveProject()"
+                    class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 py-5 rounded-2xl font-black text-lg tracking-widest hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all transform active:scale-95 text-white"
+                    data-i18n="commitChanges">
+                    اعتماد التغييرات
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contract Modal -->
+    <div id="contract-modal"
+        class="fixed inset-0 bg-[#020617]/95 hidden z-[60] flex items-center justify-center backdrop-blur-md p-6 overflow-y-auto">
+        <div
+            class="bg-slate-900 border border-white/10 p-10 rounded-[2.5rem] w-full max-w-4xl relative shadow-[0_0_100px_rgba(0,0,0,0.5)] my-auto max-h-[95vh] overflow-y-auto custom-scrollbar">
+            <!-- Decorative Modal Elements -->
+            <div
+                class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-transparent via-amber-500 to-transparent">
+            </div>
+
+            <button onclick="closeContractModal()"
+                class="absolute top-6 left-6 w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-500 hover:text-white hover:bg-red-500 transition-all">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="flex items-center gap-4 mb-10">
+                <div
+                    class="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500 border border-amber-500/20">
+                    <i class="fas fa-file-signature text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-black text-white italic uppercase"><span data-i18n="generateContract">إنشاء
+                            عقد</span> <span class="text-amber-500">رقمي</span></h3>
+                    <p class="text-slate-500 font-mono text-[10px] uppercase tracking-widest">Digital Agreement
+                        Generator</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="md:col-span-2 bg-white/5 p-6 rounded-3xl border border-white/5 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <label class="block text-slate-400 text-xs font-bold font-['Cairo']">أطراف التعاقد (الطرف
+                            الثاني)</label>
+                        <div class="flex gap-2">
+                            <button type="button" id="btn-client-single" onclick="setContractClientsMode('single')"
+                                class="px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-black">عميل واحد (طرف
+                                واحد)</button>
+                            <button type="button" id="btn-client-double" onclick="setContractClientsMode('double')"
+                                class="px-4 py-2 rounded-xl text-xs font-bold bg-white/5 text-slate-400">عميلين
+                                (طرفين)</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="contract-client-mode" value="single">
+
+                    <!-- Single Client Inputs -->
+                    <div id="client-single-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2">اسم
+                                العميل</label>
+                            <input type="text" id="contract-client-name" placeholder="الاسم الكامل"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-white font-bold">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2">الصفة</label>
+                            <input type="text" id="contract-client-role"
+                                placeholder="مثال: مدير عام / بصفته مالك النشاط"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-white font-bold">
+                        </div>
+                    </div>
+
+                    <!-- Double Client Inputs -->
+                    <div id="client-double-container" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2 border-b border-white/5 pb-2">
+                            <span class="text-xs text-amber-500 font-bold">العميل الأول (الطرف الثاني - أ)</span>
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2">اسم
+                                العميل الأول</label>
+                            <input type="text" id="contract-client-name-1" placeholder="الاسم الكامل للعميل الأول"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-white font-bold">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2">الصفة</label>
+                            <input type="text" id="contract-client-role-1" placeholder="مثال: الشريك الأول"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-white font-bold">
+                        </div>
+
+                        <div class="md:col-span-2 border-b border-white/5 pt-2 pb-2">
+                            <span class="text-xs text-amber-500 font-bold">العميل الثاني (الطرف الثاني - ب)</span>
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2">اسم
+                                العميل الثاني</label>
+                            <input type="text" id="contract-client-name-2" placeholder="الاسم الكامل للعميل الثاني"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-white font-bold">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2">الصفة</label>
+                            <input type="text" id="contract-client-role-2" placeholder="مثال: الشريك الثاني"
+                                class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-white font-bold">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="selectProject">البرنامج / الخدمة</label>
+                    <select id="contract-project"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-white appearance-none cursor-pointer">
+                        <!-- Projects Injected via JS -->
+                    </select>
+                    <!-- Other Project Name Input -->
+                    <div id="contract-project-other-container"
+                        class="hidden mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <input type="text" id="contract-project-other" placeholder="أدخل اسم المشروع المخصص..."
+                            class="w-full bg-amber-500/10 border border-amber-500/30 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none transition-all text-amber-500 font-bold placeholder:text-amber-500/40">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="contractCost">التكلفة الإجمالية (ج.م)</label>
+                    <input type="number" id="contract-cost" placeholder="00.00"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none font-mono text-white transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="contractDate">تاريخ التعاقد</label>
+                    <input type="date" id="contract-date"
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none font-mono text-white transition-all">
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2 mr-2"
+                        data-i18n="contractTerms">الشروط والأحكام الخاصة</label>
+                    <textarea id="contract-terms" rows="4" placeholder="Additional terms..."
+                        class="w-full bg-black/40 border border-white/5 rounded-2xl px-5 py-4 focus:border-amber-500 outline-none text-sm text-right h-24 text-white transition-all font-['Cairo']">يلتزم الطرف الثاني بعدم إعادة بيع البرنامج أو كود التفعيل دون إذن كتابي من الطرف الأول. تشمل التكلفة الدعم الفني لمدة عام واحد.</textarea>
+                </div>
+
+                <div class="md:col-span-2">
+                    <div class="p-6 bg-amber-500/10 border border-amber-500/20 rounded-3xl text-center">
+                        <i class="fas fa-info-circle text-amber-500 mb-2"></i>
+                        <p class="text-[10px] text-amber-500 font-mono uppercase tracking-widest leading-relaxed">
+                            سوف يوقع العميل بعد إرسال الرابط له.<br>
+                            يمكنك نسخ الرابط من قائمة العقود بعد الحفظ.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10">
+                <button onclick="saveContract()"
+                    class="w-full bg-gradient-to-r from-amber-600 to-orange-600 py-5 rounded-2xl font-black text-lg tracking-widest hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all transform active:scale-95 text-white"
+                    data-i18n="finalizeAgreement">
+                    إصدار العقد والاعتماد
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reseller Config Modal -->
+    <div id="reseller-config-modal"
+        class="fixed inset-0 bg-[#020617]/95 hidden z-[60] flex items-center justify-center backdrop-blur-md p-6 overflow-y-auto">
+        <div
+            class="bg-slate-900 border border-white/10 p-10 rounded-[2.5rem] w-full max-w-4xl relative shadow-[0_0_100px_rgba(0,0,0,0.5)] my-auto max-h-[95vh] overflow-y-auto custom-scrollbar">
+            <div
+                class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent">
+            </div>
+
+            <button onclick="document.getElementById('reseller-config-modal').classList.add('hidden')"
+                class="absolute top-6 left-6 w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-500 hover:text-white hover:bg-red-500 transition-all">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="flex items-center gap-4 mb-10">
+                <div
+                    class="w-12 h-12 bg-fuchsia-500/10 rounded-2xl flex items-center justify-center text-fuchsia-500 border border-fuchsia-500/20">
+                    <i class="fas fa-cogs text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-black text-white italic uppercase">إعدادات <span
+                            class="text-fuchsia-500">منظومة الوكلاء</span></h3>
+                    <p class="text-slate-500 font-mono text-[10px] uppercase tracking-widest">Global Master Reseller
+                        Configurations</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Marketing Materials -->
+                <div class="md:col-span-2 glass p-6 rounded-2xl border border-white/10">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-white font-bold flex items-center gap-2"><i
+                                class="fas fa-bullhorn text-emerald-500"></i> نصوص الحقيبة التسويقية للموزعين</h4>
+                        <button onclick="populateDefaultMarketing()"
+                            class="text-[10px] bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500 hover:text-black font-bold px-3 py-1 rounded-full border border-emerald-500/30 transition-all flex items-center gap-2"><i
+                                class="fas fa-magic"></i> توليد ذكي لكل المشاريع</button>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">اختر المشروع لتعديل وإضافة صياغات التسويق المتعددة له.</p>
+
+                    <div class="mb-4">
+                        <select id="marketing-project-select"
+                            class="w-full bg-black/80 border border-white/10 rounded-xl px-5 py-3 focus:border-fuchsia-500 outline-none text-white appearance-none cursor-pointer">
+                            <option value="">جاري تحميل المشاريع...</option>
+                        </select>
+                    </div>
+
+                    <div id="marketing-posts-container" class="space-y-4 mb-4">
+                        <!-- Textareas will be injected here -->
+                    </div>
+
+                    <button onclick="addMarketingPost()"
+                        class="w-full border border-dashed border-emerald-500/50 text-emerald-500 hover:bg-emerald-500/10 transition-all rounded-xl py-3 text-sm font-bold"><i
+                            class="fas fa-plus"></i> إضافة صياغة جديدة لهذا المشروع</button>
+                </div>
+            </div>
+
+            <div class="mt-10">
+                <button onclick="saveResellerConfig()"
+                    class="w-full bg-gradient-to-r from-fuchsia-600 to-purple-600 py-5 rounded-2xl font-black text-lg tracking-widest hover:shadow-[0_0_30px_rgba(217,70,239,0.4)] transition-all transform active:scale-95 text-white">
+                    حفظ وإرسال التحديثات لجميع الموزعين
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Logic Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, getDoc, doc, setDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9",
+            measurementId: "G-14FDJ99K84"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- GLOBAL STATE & NAVIGATION ---
+        let currentUser = null;
+        let unsubscribeKeys = null;
+        let currentLang = 'ar';
+
+        const i18n = {
+            ar: {
+                navProjects: "إدارة المشاريع",
+                navLicenses: "تراخيص التفعيل",
+                externalHeader: "روابط خارجية",
+                visitSite: "زيارة الموقع",
+                langToggle: "English",
+                projectHeader: "إدارة <span class='text-cyan-500'>المشاريع</span>",
+                projectSub: "التحكم في مستودع البرمجيات العالمي",
+                addModule: "إضافة مشروع جديد",
+                keyHeader: "مفاتيح <span class='text-emerald-500'>التفعيل</span>",
+                keySub: "إدارة رموز تنشيط البرامج",
+                generateToken: "توليد رمز جديد",
+                loadingModules: "جاري تحميل الوحدات...",
+                online: "نشط",
+                offline: "معطل",
+                idRef: "معرف المرجع",
+                deployment: "إصدار النشر",
+                configure: "إعداد الوحدة",
+                noDownload: "لم يتم تحديد مسار",
+                tokenSuccess: "تم إنشاء رمز الوصول بنجاح",
+                keyIdentifier: "المعرف الفريد",
+                timestamp: "وقت الإنشاء",
+                activationTime: "وقت التنشيط",
+                targetHost: "الجهاز المستهدف",
+                status: "الحالة",
+                used: "مستخدم",
+                active: "نشط",
+                noKeys: "لا توجد مفاتيح تفعيل حالياً.",
+                modalTitleAdd: "تسجيل <span class='text-cyan-500'>وحدة جديدة</span>",
+                modalTitleEdit: "تحديث <span class='text-cyan-500'>إعدادات الوحدة</span>",
+                modalSub: "تعديل سجل النظام الرئيسي",
+                fieldId: "معرف المشروع (Primary Key)",
+                fieldName: "الاسم الظاهر",
+                fieldVersion: "إصدار البناء",
+                fieldStatus: "حالة الشبكة",
+                fieldUrl: "رابط النشر (Endpoint URL)",
+                fieldChangelog: "سجل التغييرات (ما الجديد؟)",
+                fieldPrice: "السعر الأساسي (ج.م)",
+                fieldDiscount: "سعر الخصم",
+                commitChanges: "اعتماد التغييرات",
+                navContracts: "العقود الإلكترونية",
+                contractHeader: "العقود <span class='text-amber-500'>الإلكترونية</span>",
+                contractSub: "إدارة اتفاقيات التراخيص الرسمية",
+                createContract: "إنشاء عقد جديد",
+                loadingContracts: "جاري تحميل العقود...",
+                generateContract: "إنشاء عقد",
+                clientName: "اسم العميل (الطرف الثاني)",
+                selectProject: "البرنامج / الخدمة",
+                contractCost: "التكلفة الإجمالية (ج.م)",
+                contractDate: "تاريخ التعاقد",
+                contractTerms: "الشروط والأحكام الخاصة",
+                signatureArea: "منطقة التوقيع (العميل)",
+                finalizeAgreement: "إصدار العقد والاعتماد",
+                executeContract: "إبداء التنفيذ"
+            },
+            en: {
+                navProjects: "Project Management",
+                navLicenses: "License Management",
+                externalHeader: "External Links",
+                visitSite: "Live Production",
+                langToggle: "العربية",
+                projectHeader: "Project <span class='text-cyan-500'>Modules</span>",
+                projectSub: "Global Repository Control",
+                addModule: "Add New Module",
+                keyHeader: "Auth <span class='text-emerald-500'>Keys</span>",
+                keySub: "Activation Token Management",
+                generateToken: "Generate Token",
+                loadingModules: "Hydrating Modules...",
+                online: "ONLINE",
+                offline: "OFFLINE",
+                idRef: "ID_REF",
+                deployment: "DEPLOYMENT",
+                configure: "CONFIGURE MODULE",
+                noDownload: "ENDPOINT_NOT_DEFINED",
+                tokenSuccess: "Access Token Generated Successfully",
+                keyIdentifier: "Identifier",
+                timestamp: "Timestamp",
+                activationTime: "Activation Time",
+                targetHost: "Target Host",
+                status: "Status",
+                used: "Used",
+                active: "Active",
+                noKeys: "No keys available yet.",
+                modalTitleAdd: "Register <span class='text-cyan-500'>New Module</span>",
+                modalTitleEdit: "Config <span class='text-cyan-500'>Module</span>",
+                modalSub: "System Record Modification",
+                fieldId: "Module Identifier (Primary Key)",
+                fieldName: "Display Name",
+                fieldVersion: "Build Version",
+                fieldStatus: "Network Status",
+                fieldUrl: "Deployment Endpoint (URL)",
+                fieldChangelog: "Build Changelog (Features list)",
+                fieldPrice: "Base Valuation (EGP)",
+                fieldDiscount: "Discount valuation",
+                commitChanges: "COMMIT CHANGES",
+                navContracts: "E-Contracts",
+                contractHeader: "Electronic <span class='text-amber-500'>Contracts</span>",
+                contractSub: "Official Licensing Agreements",
+                createContract: "Create New Contract",
+                loadingContracts: "Hydrating Contracts...",
+                generateContract: "Generate Contract",
+                clientName: "Client Name (Party B)",
+                selectProject: "Software / Service",
+                contractCost: "Total Valuation (EGP)",
+                contractDate: "Contract Date",
+                contractTerms: "Special Terms & Conditions",
+                signatureArea: "Signature Area (Client)",
+                finalizeAgreement: "Finalize & Issue",
+                executeContract: "START EXECUTION"
+            }
+        };
+
+        window.toggleLanguage = () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            updateUI();
+
+            // Re-render Dynamic Content
+            const activeView = document.querySelector('.view-section:not(.hidden)');
+            if (activeView) {
+                if (activeView.id === 'view-projects') loadProjects();
+                if (activeView.id === 'view-licenses') startKeysListener();
+            }
+        };
+
+        function updateUI() {
+            const strings = i18n[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (strings[key]) {
+                    el.innerHTML = strings[key];
+                }
+            });
+            document.getElementById('lang-text').textContent = strings['langToggle'];
+        }
+
+        window.switchView = (viewName) => {
+            // Hide all sections
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+            // Show selected
+            const view = document.getElementById(`view-${viewName}`);
+            const nav = document.getElementById(`nav-${viewName}`);
+            if (view) view.classList.remove('hidden');
+            if (nav) nav.classList.add('active');
+
+            // Load Data
+            if (viewName === 'projects') loadProjects();
+            if (viewName === 'licenses') startKeysListener();
+            if (viewName === 'contracts') loadContracts();
+            if (viewName === 'resellers') loadResellers();
+            if (viewName === 'leads') loadLeads();
+            if (viewName === 'payouts') loadPayouts();
+            if (viewName === 'reviews') loadReviews();
+            if (viewName === 'careers') loadCareers();
+        };
+
+        // --- AUTHENTICATION ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // SECURITY CHECK: Prevent Resellers from accessing Admin Panel
+                try {
+                    const { getDoc, doc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+                    const resDoc = await getDoc(doc(db, "resellers", user.uid));
+                    if (resDoc.exists()) {
+                        alert("عفواً، حسابك مسجل كموزع ولا يمكنك الدخول للوحة تحكم الإدارة.");
+                        signOut(auth);
+                        return;
+                    }
+                } catch (e) { console.error(e); }
+
+                currentUser = user;
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('dashboard-section').classList.remove('hidden');
+                document.getElementById('current-user-email').textContent = user.email;
+
+                // Default View
+                switchView('projects');
+            } else {
+                currentUser = null;
+                document.getElementById('login-section').classList.remove('hidden');
+                document.getElementById('dashboard-section').classList.add('hidden');
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            const btn = document.getElementById('login-btn');
+            const errorMsg = document.getElementById('login-error');
+
+            try {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                btn.disabled = true;
+                await signInWithEmailAndPassword(auth, email, pass);
+                errorMsg.classList.add('hidden');
+            } catch (error) {
+                console.error(error);
+                if (error.code === 'auth/too-many-requests') {
+                    errorMsg.textContent = "تم إيقاف الحساب مؤقتاً بسبب كثرة المحاولات الخاطئة. يرجى الانتظار قليلاً.";
+                } else if (error.code === 'auth/invalid-credential') {
+                    errorMsg.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+                } else {
+                    errorMsg.textContent = "فشل تسجيل الدخول: تأكد من البيانات.";
+                }
+                errorMsg.classList.remove('hidden');
+            } finally {
+                btn.innerHTML = '<span>INITIATE ACCESS</span> <i class="fas fa-rocket"></i>';
+                btn.disabled = false;
+            }
+        });
+
+        window.logout = () => signOut(auth);
+
+
+        // --- PROJECTS MANAGMENT ---
+        async function loadProjects() {
+            const grid = document.getElementById('projects-grid');
+            const strings = i18n[currentLang];
+
+            try {
+                // Auto-Seed Check
+                await autoSeedProjects(); // Ensure defaults exist
+
+                const querySnapshot = await getDocs(collection(db, "projects"));
+                grid.innerHTML = '';
+
+                if (querySnapshot.empty) {
+                    grid.innerHTML = `<div class="col-span-3 text-center text-slate-500 py-10">${strings.noKeys}</div>`;
+                    return;
+                }
+
+                window.allProjects = {};
+                querySnapshot.forEach((doc) => {
+                    const p = doc.data();
+                    window.allProjects[doc.id] = { id: doc.id, ...p };
+                    const card = `
+                        <div class="bg-slate-900/40 backdrop-blur-md rounded-[2rem] border border-white/5 p-8 hover:border-cyan-500/30 transition-all duration-500 group relative flex flex-col shadow-2xl">
+                            
+                            <div class="absolute top-6 left-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                                <span class="bg-black/50 backdrop-blur-sm text-[10px] font-mono px-3 py-1 rounded-full border border-white/10 text-slate-400 font-bold uppercase tracking-widest">${p.active ? strings.online : strings.offline}</span>
+                            </div>
+
+                            <div class="mb-8 flex items-start justify-between">
+                                <div>
+                                    <h3 class="font-black text-2xl mb-2 text-white group-hover:text-cyan-400 transition-colors uppercase italic">${p.name}</h3>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-[10px] bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-lg text-cyan-500 font-mono font-black uppercase tracking-tighter italic">${strings.idRef}: ${doc.id}</span>
+                                        <span class="text-[10px] bg-slate-800 border border-white/5 text-slate-400 px-3 py-1 rounded-lg font-mono font-black italic">${strings.deployment} v${p.version}</span>
+                                    </div>
+                                </div>
+                                <div class="w-14 h-14 bg-gradient-to-br from-white/5 to-transparent rounded-2xl flex items-center justify-center border border-white/5 text-cyan-500/30 group-hover:text-cyan-500 transition-all">
+                                    <i class="fas fa-microchip text-2xl"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-black/40 border border-white/5 p-4 rounded-2xl mb-8 text-[11px] text-slate-500 font-mono text-left break-all group-hover:text-slate-300 transition-colors flex items-center gap-3">
+                                <i class="fas fa-link text-cyan-500/50"></i>
+                                <span class="truncate">${p.downloadUrl || strings.noDownload}</span>
+                            </div>
+
+                            <div class="mt-auto grid grid-cols-5 gap-3">
+                                <button onclick="window.editProject('${doc.id}')" 
+                                    class="col-span-4 bg-white/5 hover:bg-cyan-500 hover:text-black py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 border border-white/5 hover:border-cyan-500 text-white shadow-xl transform active:scale-95">
+                                    <i class="fas fa-sliders-h"></i> ${strings.configure}
+                                </button>
+                                <a href="${p.downloadUrl || '#'}" target="_blank" class="w-full bg-white/5 h-full rounded-2xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-blue-600 transition-all border border-white/5 transform active:scale-95">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                });
+
+            } catch (e) {
+                console.error(e);
+                grid.innerHTML = `<div class="col-span-3 text-red-500 text-center">حدث خطأ: ${e.message}</div>`;
+            }
+        }
+
+        async function autoSeedProjects() {
+            const projectsToSeed = [
+                { id: 'law-pro', name: 'ASAS Law Pro', version: '1.0.0', active: true, downloadUrl: '', price: 2500, discountPrice: 0, downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' },
+                { id: 'pharmacy-pos', name: 'ASAS Pharmacy Pro', version: '1.0.0', active: true, downloadUrl: '', price: 1500, discountPrice: 1200, downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' },
+                { id: 'market-pos', name: 'ASAS Market POS', version: '1.0.0', active: true, downloadUrl: '', price: 2000, discountPrice: 0, downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' },
+                { id: 'resto-cafe-pos', name: 'Resto & Cafe POS', version: '1.0.0', active: true, downloadUrl: '', price: 3000, discountPrice: 0, downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' }
+            ];
+
+            for (const proj of projectsToSeed) {
+                const docRef = doc(db, "projects", proj.id);
+                const docSnap = await getDoc(docRef);
+                if (!docSnap.exists()) {
+                    console.log(`Seeding ${proj.name}...`);
+                    await setDoc(docRef, { ...proj, updatedAt: new Date().toISOString() });
+                }
+            }
+        }
+
+        window.openProjectModal = () => {
+            const strings = i18n[currentLang];
+            document.getElementById('project-doc-id').value = '';
+            document.getElementById('project-id').value = '';
+            document.getElementById('project-id').disabled = false;
+            document.getElementById('project-name').value = '';
+            document.getElementById('project-version').value = '';
+            document.getElementById('project-download').value = '';
+
+            document.getElementById('project-download-win10-x64').value = '';
+            document.getElementById('project-download-win10-ia32').value = '';
+            document.getElementById('project-download-win10-all').value = '';
+            document.getElementById('project-download-win7-x64').value = '';
+            document.getElementById('project-download-win7-ia32').value = '';
+            document.getElementById('project-download-win7-all').value = '';
+
+            document.getElementById('project-price').value = '';
+            document.getElementById('project-discount').value = '';
+            document.getElementById('project-whatsnew').value = '';
+            document.getElementById('modal-title').innerHTML = strings.modalTitleAdd;
+            document.getElementById('project-modal').classList.remove('hidden');
+        };
+
+        window.editProject = (id) => {
+            const strings = i18n[currentLang];
+            const p = window.allProjects[id];
+            if (!p) return;
+
+            document.getElementById('project-doc-id').value = id;
+            document.getElementById('project-id').value = id;
+            document.getElementById('project-id').disabled = true;
+            document.getElementById('project-name').value = p.name || '';
+            document.getElementById('project-version').value = p.version || '';
+            document.getElementById('project-download').value = p.downloadUrl || '';
+
+            document.getElementById('project-download-win10-x64').value = p.downloadUrl_win10_x64 || '';
+            document.getElementById('project-download-win10-ia32').value = p.downloadUrl_win10_ia32 || '';
+            document.getElementById('project-download-win10-all').value = p.downloadUrl_win10_all || '';
+            document.getElementById('project-download-win7-x64').value = p.downloadUrl_win7_x64 || '';
+            document.getElementById('project-download-win7-ia32').value = p.downloadUrl_win7_ia32 || '';
+            document.getElementById('project-download-win7-all').value = p.downloadUrl_win7_all || '';
+
+            document.getElementById('project-price').value = p.price || '';
+            document.getElementById('project-discount').value = p.discountPrice || '';
+            document.getElementById('project-active').value = (p.active !== false).toString();
+            document.getElementById('project-whatsnew').value = p.whatsNew || '';
+            document.getElementById('modal-title').innerHTML = strings.modalTitleEdit;
+            document.getElementById('project-modal').classList.remove('hidden');
+        };
+
+        window.closeProjectModal = () => document.getElementById('project-modal').classList.add('hidden');
+
+        window.saveProject = async () => {
+            const btn = document.querySelector('button[onclick="saveProject()"]');
+            const originalText = btn.innerText;
+            btn.innerText = 'جاري الحفظ...';
+            btn.disabled = true;
+
+            const id = document.getElementById('project-id').value || document.getElementById('project-doc-id').value;
+            const data = {
+                name: document.getElementById('project-name').value,
+                version: document.getElementById('project-version').value,
+                active: document.getElementById('project-active').value === 'true',
+                downloadUrl: document.getElementById('project-download').value,
+                downloadUrl_win10_x64: document.getElementById('project-download-win10-x64').value || '',
+                downloadUrl_win10_ia32: document.getElementById('project-download-win10-ia32').value || '',
+                downloadUrl_win10_all: document.getElementById('project-download-win10-all').value || '',
+                downloadUrl_win7_x64: document.getElementById('project-download-win7-x64').value || '',
+                downloadUrl_win7_ia32: document.getElementById('project-download-win7-ia32').value || '',
+                downloadUrl_win7_all: document.getElementById('project-download-win7-all').value || '',
+                price: Number(document.getElementById('project-price').value) || 0,
+                discountPrice: Number(document.getElementById('project-discount').value) || 0,
+                whatsNew: document.getElementById('project-whatsnew').value,
+                updatedAt: new Date().toISOString()
+            };
+
+            if (!id) { alert('يجب إدخال ID للمشروع'); btn.disabled = false; btn.innerText = originalText; return; }
+
+            try {
+                await setDoc(doc(db, "projects", id), data, { merge: true });
+                closeProjectModal();
+                loadProjects();
+            } catch (e) {
+                alert('حدث خطأ: ' + e.message);
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        };
+
+
+        // --- LICENSE MANAGEMENT ---
+        function startKeysListener() {
+            if (unsubscribeKeys) unsubscribeKeys(); // Clear old listener
+            const strings = i18n[currentLang];
+
+            const q = query(collection(db, "licenses"), orderBy("createdAt", "desc"), limit(50));
+            unsubscribeKeys = onSnapshot(q, (snapshot) => {
+                const tbody = document.getElementById('keys-table-body');
+                tbody.innerHTML = '';
+
+                if (snapshot.empty) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-500 font-mono uppercase tracking-widest text-xs">${strings.noKeys}</td></tr>`;
+                    return;
+                }
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const key = docSnap.id;
+                    const isUsed = data.isUsed || false;
+                    const statusClass = isUsed ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500';
+                    const statusText = isUsed ? strings.used : strings.active;
+                    const dateCreated = data.createdAt ? data.createdAt.toDate().toLocaleString(currentLang === 'ar' ? 'ar-EG' : 'en-US') : '---';
+                    const dateUsed = data.activatedAt ? data.activatedAt.toDate().toLocaleString(currentLang === 'ar' ? 'ar-EG' : 'en-US') : `<span class="text-slate-600">- ${currentLang === 'ar' ? 'لم يُستخدم بعد' : 'Not used yet'} -</span>`;
+
+                    const row = `
+                        <tr class="hover:bg-slate-800/50 transition border-b border-slate-800/50">
+                            <td class="p-4 flex items-center gap-3">
+                                <span class="font-mono font-bold ${isUsed ? 'text-slate-500 line-through' : 'text-cyan-400 select-all'}">${key}</span>
+                                ${!isUsed ? `<button onclick="navigator.clipboard.writeText('${key}').then(()=>alert('${currentLang === 'ar' ? 'تم نسخ الكود!' : 'Key copied!'}'))" class="text-slate-500 hover:text-cyan-400 transition" title="Copy Key"><i class="fas fa-copy"></i></button>` : ''}
+                            </td>
+                            <td class="p-4 text-slate-500 font-mono text-[10px] uppercase">${dateCreated}</td>
+                            <td class="p-4 text-cyan-500/70 font-mono text-[10px] uppercase font-bold">${dateUsed}</td>
+                            <td class="p-4">
+                                <div class="text-[11px] font-bold text-cyan-500">${data.programName || '---'}</div>
+                                <div class="text-[9px] text-slate-500 truncate w-32" title="${data.deviceInfo || ''}">${data.deviceInfo || ''}</div>
+                            </td>
+                            <td class="p-4">
+                                <span class="${statusClass} px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-white/5 shadow-lg">${statusText}</span>
+                                ${isUsed ? `<button onclick="window.revokeLicense('${key}')" class="mr-2 text-red-500 hover:text-red-400 transition" title="Revoke"><i class="fas fa-undo"></i></button>` : ''}
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            });
+        }
+
+        // Initialize UI
+        updateUI();
+
+        window.generateLicenseKey = async () => {
+            const btn = document.getElementById('generate-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            const part = () => Math.random().toString(36).substring(2, 6).toUpperCase();
+            const newKey = `ASAS-${part()}-${part()}-${part()}`;
+
+            try {
+                await setDoc(doc(db, "licenses", newKey), {
+                    createdAt: serverTimestamp(),
+                    isUsed: false,
+                    activatedAt: null,
+                    generatedBy: currentUser.email
+                });
+
+                document.getElementById('generated-key').textContent = newKey;
+                document.getElementById('new-key-display').classList.remove('hidden');
+
+            } catch (error) {
+                alert("Error: " + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-magic ml-2"></i> توليد مفتاح جديد';
+            }
+        };
+
+        window.copyKeyFromDisplay = () => {
+            const key = document.getElementById('generated-key').textContent;
+            navigator.clipboard.writeText(key).then(() => alert('تم النسخ!'));
+        };
+
+        window.revokeLicense = async (key) => {
+            if (!confirm(`هل أنت متأكد من إلغاء تفعيل المفتاح ${key}؟ هذا سيسمح باستخدامه مرة أخرى.`)) return;
+
+            try {
+                const { updateDoc, deleteField } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+                await updateDoc(doc(db, "licenses", key), {
+                    isUsed: false,
+                    activatedAt: deleteField(),
+                    deviceInfo: deleteField(),
+                    programName: deleteField()
+                });
+                alert('تم إلغاء التفعيل بنجاح.');
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        };
+
+        // --- CONTRACT MANAGEMENT ---
+        let isDrawing = false;
+        let sigMode = 'draw';
+        const STAMP_URL = "asas_official_stamp.png";
+
+        window.openContractModal = async () => {
+            const modal = document.getElementById('contract-modal');
+            if (modal) modal.classList.remove('hidden');
+
+            // Standard Professional Terms - High Value & Detailed Template (V4)
+            const baseTerms = `عقد إطار لتقديم الخدمات التقنية وتطوير البرمجيات
+
+بسم الله الرحمن الرحيم
+
+بموجب هذا العقد، يقر الطرف الثاني بكامل أهليته القانونية والشرعية، وبمحض إرادته الحرة، برغبته في التعاقد مع شركة ASAS SOFTWARE SOLUTIONS (ويشار إليها فيما بعد بـ "الطرف الأول") لتصميم وتطوير وتنفيذ المشروع التقني المتفق عليه، وذلك وفقاً للشروط والأحكام التالية:
+
+أولاً: جودة التنفيذ والالتزام المهني
+يلتزم الطرف الأول بتنفيذ وتسليم المشروع باستخدام أحدث المعايير والممارسات العالمية في مجال تطوير البرمجيات، بما يضمن جودة المنتج، واستقرار الأداء، وسرعة الاستجابة، مع مراعاة أفضل معايير الأمان والكفاءة التقنية.
+
+ثانياً: ترخيص الاستخدام وحقوق الملكية الفكرية
+يمنح الطرف الأول للطرف الثاني ترخيص استخدام دائم وغير حصري للنسخة المتعاقد عليها من البرنامج، بما يتيح له تشغيلها والاستفادة منها في نطاق أعماله، مع احتفاظ الطرف الأول بكافة حقوق الملكية الفكرية والأدبية وحقوق النشر والتطوير الخاصة بالبرنامج وكافة مكوناته البرمجية.
+
+ثالثاً: الضمان الفني
+يمنح الطرف الأول للطرف الثاني ضماناً فنياً لمدة اثني عشر (12) شهراً تبدأ من تاريخ الاستلام النهائي للمشروع، ويشمل الضمان إصلاح أي أخطاء أو عيوب برمجية ناتجة عن عملية التطوير دون أي تكلفة إضافية، وذلك خلال مدة زمنية مناسبة من تاريخ الإبلاغ عنها.
+
+رابعاً: خدمات الدعم الفني
+يلتزم الطرف الأول بتوفير وسائل تواصل مباشرة ومخصصة للدعم الفني، بهدف معالجة الاستفسارات والمشكلات التقنية المتعلقة بالنظام طوال مدة التعاقد أو خلال فترة الضمان، وفق آليات الدعم المعتمدة لدى الشركة.
+
+خامساً: التحديثات والتطويرات
+يتعهد الطرف الأول بتوفير التحديثات الأمنية والتقنية اللازمة للبرنامج دون مقابل خلال فترة الضمان، بما يضمن استمرارية عمل النظام بكفاءة ومواكبته للتطورات التقنية، وذلك دون أن يشمل إضافة خصائص أو وظائف جديدة لم تكن ضمن نطاق الاتفاق الأصلي ما لم يتم الاتفاق عليها كتابةً.
+
+سادساً: متطلبات التشغيل ومسؤولية الأجهزة
+يقر الطرف الثاني بمسؤوليته عن توفير بيئة تشغيل مناسبة للبرنامج، بما في ذلك أجهزة الحاسوب والأنظمة الداعمة التي تتوافق مع الحد الأدنى من المواصفات الفنية المطلوبة (مثل نظام Windows 10 أو أحدث وذاكرة وصول عشوائي لا تقل عن 4 جيجابايت أو ما يعادلها). ولا يتحمل الطرف الأول أي مسؤولية عن الأعطال أو بطء الأداء الناتج عن عدم ملاءمة الأجهزة أو البنية التحتية لدى الطرف الثاني.
+
+سابعاً: التدريب والتسليم
+يلتزم الطرف الأول بتزويد الطرف الثاني بمواد تدريبية مناسبة، بما في ذلك فيديو توضيحي أو دليل استخدام يشرح آلية تشغيل البرنامج والاستفادة من خصائصه الأساسية، بما يضمن سهولة الاستخدام والاستفادة المثلى من النظام.
+
+ثامناً: فترة الاختبار والقبول النهائي
+يمنح الطرف الثاني مدة سبعة (7) أيام من تاريخ التسليم الأولي لاختبار النظام وإبداء أي ملاحظات أو طلبات تتعلق بتنفيذ المتطلبات المتفق عليها. وفي حال انقضاء هذه المدة دون اعتراض مكتوب، أو مع اعتماد النظام، يعتبر المشروع مقبولاً قبولاً نهائياً ومنفذاً بالكامل، ولا يلتزم الطرف الأول بإجراء أي تعديلات جوهرية إضافية دون اتفاق جديد ومستقل.
+
+تاسعاً: آلية التنفيذ والتسليم
+يبدأ الطرف الأول في تنفيذ المشروع فور اعتماد هذا العقد وسداد الدفعات المتفق عليها – إن وجدت – ويتم تسليم مراحل المشروع وفق الجدول الزمني المحدد بين الطرفين، مع التزام كل طرف بالتعاون وتوفير ما يلزم لضمان حسن سير التنفيذ.
+
+عاشراً: أحكام عامة
+1. يعتبر هذا العقد ملزماً للطرفين بمجرد اعتماده أو الموافقة عليه بأي وسيلة معتمدة بينهما.
+2. أي تعديل أو إضافة على بنود هذا العقد لا تكون نافذة إلا إذا تمت بموافقة كتابية من الطرفين.
+3. في حال نشوء أي نزاع يتعلق بتنفيذ أو تفسير هذا العقد، يتم السعي أولاً إلى حله ودياً، وفي حال تعذر ذلك يكون الاختصاص للجهة القضائية المختصة وفق الأنظمة والقوانين المعمول بها.`;
+
+            const termsBox = document.getElementById('contract-terms');
+            if (termsBox) termsBox.value = baseTerms;
+
+            // Fill projects list
+            const projectSelect = document.getElementById('contract-project');
+            if (projectSelect) {
+                projectSelect.innerHTML = `<option value="">${currentLang === 'ar' ? 'اختر المشروع' : 'Select Project'}</option>`;
+                const snapshot = await getDocs(collection(db, "projects"));
+                snapshot.forEach(docSnap => {
+                    const pdata = docSnap.data();
+                    const defaultPrice = (pdata.discountPrice && pdata.discountPrice > 0) ? pdata.discountPrice : (pdata.price || 0);
+                    projectSelect.innerHTML += `<option value="${docSnap.id}" data-price="${defaultPrice}">${pdata.name}</option>`;
+                });
+                projectSelect.innerHTML += `<option value="other" style="color: #fbbf24; font-weight: bold;">${currentLang === 'ar' ? '+ مشروع آخر' : '+ Other Project'}</option>`;
+
+                projectSelect.onchange = () => {
+                    const selectedOption = projectSelect.options[projectSelect.selectedIndex];
+                    const otherInput = document.getElementById('contract-project-other-container');
+
+                    const costInput = document.getElementById('contract-cost');
+                    if (costInput) {
+                        const price = selectedOption ? selectedOption.getAttribute('data-price') : '';
+                        costInput.value = price || '';
+                    }
+                    if (otherInput) otherInput.classList.toggle('hidden', projectSelect.value !== 'other');
+                };
+            }
+
+            initSignaturePad();
+        };
+
+        window.setContractClientsMode = (mode) => {
+            document.getElementById('contract-client-mode').value = mode;
+            const btnSingle = document.getElementById('btn-client-single');
+            const btnDouble = document.getElementById('btn-client-double');
+            const singleCont = document.getElementById('client-single-container');
+            const doubleCont = document.getElementById('client-double-container');
+
+            if (mode === 'single') {
+                btnSingle.className = "px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-black";
+                btnDouble.className = "px-4 py-2 rounded-xl text-xs font-bold bg-white/5 text-slate-400";
+                singleCont.classList.remove('hidden');
+                doubleCont.classList.add('hidden');
+            } else {
+                btnSingle.className = "px-4 py-2 rounded-xl text-xs font-bold bg-white/5 text-slate-400";
+                btnDouble.className = "px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-black";
+                singleCont.classList.add('hidden');
+                doubleCont.classList.remove('hidden');
+            }
+        };
+
+        window.closeContractModal = () => {
+            const modal = document.getElementById('contract-modal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        window.setSignatureMode = (mode) => {
+            sigMode = mode;
+            const drawCont = document.getElementById('signature-draw-container');
+            const typeCont = document.getElementById('signature-type-container');
+            if (drawCont) drawCont.classList.toggle('hidden', mode !== 'draw');
+            if (typeCont) typeCont.classList.toggle('hidden', mode !== 'type');
+
+            const btnDraw = document.getElementById('sig-mode-draw');
+            const btnType = document.getElementById('sig-mode-type');
+            if (btnDraw) btnDraw.className = mode === 'draw' ? 'text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-amber-500 text-black' : 'text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-white/5 text-slate-500';
+            if (btnType) btnType.className = mode === 'type' ? 'text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-amber-500 text-black' : 'text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-white/5 text-slate-500';
+        };
+
+        function initSignaturePad() {
+            const canvas = document.getElementById('signature-pad');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#fff';
+
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left,
+                    y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top
+                };
+            };
+
+            const start = (e) => { isDrawing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); };
+            const draw = (e) => { if (!isDrawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); e.preventDefault(); };
+            const stop = () => { isDrawing = false; ctx.closePath(); };
+
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener('mousemove', draw);
+            window.addEventListener('mouseup', stop);
+            canvas.addEventListener('touchstart', start);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', stop);
+        }
+
+        window.clearSignature = () => {
+            const canvas = document.getElementById('signature-pad');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            const typed = document.getElementById('typed-signature');
+            if (typed) typed.value = '';
+        };
+
+        window.saveContract = async () => {
+            const clientMode = document.getElementById('contract-client-mode').value;
+            let clientName = '';
+            let clientRole = '';
+            let clientName2 = '';
+            let clientRole2 = '';
+
+            if (clientMode === 'single') {
+                clientName = document.getElementById('contract-client-name').value.trim();
+                clientRole = document.getElementById('contract-client-role').value.trim();
+            } else {
+                clientName = document.getElementById('contract-client-name-1').value.trim();
+                clientRole = document.getElementById('contract-client-role-1').value.trim();
+                clientName2 = document.getElementById('contract-client-name-2').value.trim();
+                clientRole2 = document.getElementById('contract-client-role-2').value.trim();
+            }
+
+            let projectId = document.getElementById('contract-project').value;
+            if (projectId === 'other') {
+                projectId = document.getElementById('contract-project-other').value;
+            }
+            const cost = document.getElementById('contract-cost').value;
+            const terms = document.getElementById('contract-terms').value;
+            const date = document.getElementById('contract-date').value;
+
+            if (!clientName || (clientMode === 'double' && !clientName2) || !projectId || !cost) {
+                alert(currentLang === 'ar' ? "يرجى ملء الحقول الإجبارية" : "Please fill mandatory fields");
+                return;
+            }
+
+            try {
+                const contractRef = doc(collection(db, "contracts"));
+                await setDoc(contractRef, {
+                    clientMode,
+                    clientName,
+                    clientRole,
+                    clientName2,
+                    clientRole2,
+                    projectId,
+                    cost,
+                    terms,
+                    date,
+                    status: 'Pending',
+                    createdAt: serverTimestamp()
+                });
+                alert("Contract Created Successfully! Link is ready to share.");
+                closeContractModal();
+                loadContracts();
+            } catch (error) {
+                console.error("Error saving contract:", error);
+            }
+        };
+
+        let contractsUnsubscribe = null;
+        window.loadContracts = async () => {
+            const grid = document.getElementById('contracts-grid');
+            if (!grid) return;
+
+            // Clean up old listener if exists
+            if (contractsUnsubscribe) contractsUnsubscribe();
+
+            grid.innerHTML = '<div class="col-span-3 text-center py-20"><div class="inline-block w-8 h-8 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin"></div></div>';
+
+            const { onSnapshot, query, collection, orderBy } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+
+            contractsUnsubscribe = onSnapshot(query(collection(db, "contracts"), orderBy("createdAt", "desc")), (snapshot) => {
+                grid.innerHTML = '';
+
+                if (snapshot.empty) {
+                    grid.innerHTML = `<div class="col-span-3 text-slate-600 text-center py-20 font-mono text-xs uppercase tracking-widest">${currentLang === 'ar' ? 'لا توجد عقود نشطة' : 'No active contracts found'}</div>`;
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-900/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-amber-500/30 transition-all group relative overflow-hidden";
+
+                    let sigHtml = '';
+                    if (data.signature) {
+                        sigHtml = data.sigMode === 'draw'
+                            ? `<img src="${data.signature}" class="h-16 invert opacity-80" alt="Signature">`
+                            : `<span class="text-3xl font-['Cairo'] italic text-white/50 break-all">${data.signature}</span>`;
+                    } else {
+                        sigHtml = `<span class="text-[9px] font-mono text-slate-700 uppercase tracking-widest italic">${currentLang === 'ar' ? 'بانتظار توقيع العميل' : 'Awaiting client signature'}</span>`;
+                    }
+
+                    const displayName = data.clientMode === 'double' ? `${data.clientName} & ${data.clientName2}` : data.clientName;
+                    card.innerHTML = `
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+                            <i class="fas fa-file-contract text-lg"></i>
+                        </div>
+                        <div class="flex gap-2">
+                             <button onclick="copyContractLink('${docSnap.id}')" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-amber-500 transition-all" title="Copy Link"><i class="fas fa-share-alt"></i></button>
+                             <button onclick="deleteContract('${docSnap.id}')" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-400 hover:text-red-500 transition-all" title="Delete"><i class="fas fa-trash"></i></button>
+                             <div class="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${data.status === 'Signed' ? 'bg-indigo-500/20 text-indigo-500' : (data.status === 'Executing' ? 'bg-emerald-500/20 text-emerald-500' : 'bg-amber-500/20 text-amber-500')}">
+                                ${data.status === 'Signed' ? (currentLang === 'ar' ? 'تم توقيع العقد' : 'CONTRACT SIGNED') :
+                            (data.status === 'Executing' ? (currentLang === 'ar' ? 'قيد التنفيذ' : 'IN PROGRESS') :
+                                (currentLang === 'ar' ? 'بانتظار التوقيع' : 'WAITING SIGNATURE'))}
+                             </div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="text-xl font-black text-white mb-1 uppercase">${displayName}</h4>
+                        <p class="text-xs text-slate-500 font-mono uppercase tracking-widest">${data.projectId} | Cost: ${data.cost} EGP</p>
+                    </div>
+                    <div class="p-4 bg-black/40 rounded-2xl mb-6 border border-white/5">
+                        <p class="text-[10px] text-slate-400 font-['Cairo'] line-clamp-2">${data.terms}</p>
+                    </div>
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex-1">${sigHtml}</div>
+                        <img src="${STAMP_URL}" class="w-12 h-12 opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all rotate-12" alt="Stamp">
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-white/5 flex gap-3">
+                        <button onclick="startExecution('${docSnap.id}')" class="flex-1 bg-amber-500 text-black py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all transform active:scale-95">
+                            ${data.status === 'Signed' ? (currentLang === 'ar' ? 'بدء تنفيذ المشروع' : 'Start Execution') :
+                            (data.status === 'Executing' ? (currentLang === 'ar' ? 'قيد التنفيذ حالياً' : 'In Progress') :
+                                (currentLang === 'ar' ? 'إخطار العميل بالتوقيع' : 'Awaiting Client'))}
+                        </button>
+                        ${data.status === 'Signed' || data.signature ? `
+                        <button onclick="downloadContractPDF('${docSnap.id}')" class="w-12 bg-white/5 text-white py-3 rounded-xl text-[10px] hover:bg-red-600 transition-all transform active:scale-95 flex items-center justify-center">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>` : ''}
+                    </div>
+                `;
+                    grid.appendChild(card);
+                });
+            });
+        };
+
+        window.copyContractLink = (id) => {
+            let path = window.location.pathname;
+            if (path.includes('admin.html')) {
+                path = path.replace('admin.html', 'contract.html');
+            } else if (path.includes('admin')) {
+                path = path.replace('admin', 'contract');
+            } else {
+                path = path + (path.endsWith('/') ? '' : '/') + 'contract';
+            }
+            const url = `${window.location.origin}${path}?id=${id}`;
+            navigator.clipboard.writeText(url).then(() => {
+                alert(currentLang === 'ar' ? "تم نسخ رابط العقد! أرسله للعميل للتوقيع." : "Contract link copied! Send it to the client for signing.");
+            });
+        };
+
+        window.downloadContractPDF = (id) => {
+            let path = window.location.pathname;
+            if (path.includes('admin.html')) {
+                path = path.replace('admin.html', 'contract.html');
+            } else if (path.includes('admin')) {
+                path = path.replace('admin', 'contract');
+            } else {
+                path = path + (path.endsWith('/') ? '' : '/') + 'contract';
+            }
+            window.open(`${window.location.origin}${path}?id=${id}`, '_blank');
+            // Inform user to use the PDF button on the contract page
+            alert(currentLang === 'ar' ? "سيتم فتح العقد في نافذة جديدة. اضغط على زر حمل العقد (PDF) هناك." : "Contract will open in a new tab. Use the DOWNLOAD PDF button there.");
+        };
+
+        window.deleteContract = async (id) => {
+            if (!confirm(currentLang === 'ar' ? "هل أنت متأكد من حذف هذا العقد؟" : "Are you sure you want to delete this contract?")) return;
+            try {
+                const { deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+                await deleteDoc(doc(db, "contracts", id));
+                loadContracts();
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        window.startExecution = async (cid) => {
+            try {
+                await setDoc(doc(db, "contracts", cid), { status: 'Executing' }, { merge: true });
+                loadContracts();
+            } catch (e) { console.error(e); }
+        };
+
+        // --- RESELLERS SYSTEM ---
+        let unsubResellers = null;
+        let unsubRequests = null;
+
+        let isInitialResellersLoad = true;
+        window.loadResellers = () => {
+            // Listen to resellers
+            if (unsubResellers) unsubResellers();
+            unsubResellers = onSnapshot(query(collection(db, "resellers"), orderBy("created_at", "desc")), (snap) => {
+                if (!isInitialResellersLoad) {
+                    snap.docChanges().forEach(change => { if (change.type === 'added') window.triggerRealtimeNotification('lead', 'طلب تسعير جديد من: ' + (change.doc.data().name || 'عميل')); });
+                }
+                isInitialResellersLoad = false;
+                const tbody = document.getElementById('resellers-table-body');
+                tbody.innerHTML = '';
+                if (snap.empty) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500">لا يوجد موزعون حالياً.</td></tr>`;
+                    return;
+                }
+                snap.forEach(docSnap => {
+                    const r = docSnap.data();
+                    const statusClass = r.status === 'approved' ? 'text-emerald-500 bg-emerald-500/10' : (r.status === 'pending' ? 'text-amber-500 bg-amber-500/10' : 'text-red-500 bg-red-500/10');
+                    const statusBadge = `<span class="px-3 py-1 rounded-full text-xs font-bold ${statusClass}">${r.status === 'approved' ? 'نشط' : (r.status === 'pending' ? 'قيد المراجعة' : 'مرفوض')}</span>`;
+
+                    let actionButtons = '';
+                    if (r.status === 'pending') {
+                        actionButtons = `<button onclick="updateResellerStatus('${r.uid}', 'approved')" class="text-emerald-500 hover:bg-emerald-500/20 px-3 py-1 rounded border border-emerald-500/30 text-xs">قبول</button>
+                                         <button onclick="updateResellerStatus('${r.uid}', 'rejected')" class="text-red-500 hover:bg-red-500/20 px-3 py-1 rounded border border-red-500/30 text-xs mr-1">حظر</button>`;
+                    } else if (r.status === 'approved') {
+                        actionButtons = `<button onclick="updateResellerStatus('${r.uid}', 'rejected')" class="text-red-500 hover:bg-red-500/20 px-3 py-1 rounded border border-red-500/30 text-xs">إيقاف الحساب</button>`;
+                    } else {
+                        actionButtons = `<button onclick="updateResellerStatus('${r.uid}', 'approved')" class="text-emerald-500 hover:bg-emerald-500/20 px-3 py-1 rounded border border-emerald-500/30 text-xs">تفعيل مجدداً</button>`;
+                    }
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-white/5 transition-all">
+                            <td class="p-6">
+                                <div class="font-bold text-white text-sm truncate w-40" title="${r.name}">${r.name}</div>
+                            </td>
+                            <td class="p-6 text-slate-400 font-mono tracking-wider">${r.phone}</td>
+                            <td class="p-6 text-slate-400 text-xs ltr text-left truncate w-48" title="${r.email}">${r.email}</td>
+                            <td class="p-6 text-center text-cyan-400 font-black">${r.clients_count || 0}</td>
+                            <td class="p-6 text-center">${statusBadge}</td>
+                            <td class="p-6 text-center space-x-reverse space-x-2">${actionButtons}</td>
+                        </tr>
+                    `;
+                });
+            });
+
+            // Listen to key requests
+            if (unsubRequests) unsubRequests();
+            unsubRequests = onSnapshot(query(collection(db, "reseller_requests"), orderBy("timestamp", "desc")), (snap) => {
+                const tbody = document.getElementById('reseller-requests-body');
+                tbody.innerHTML = '';
+                if (snap.empty) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500">لا توجد طلبات مفاتيح معلقة.</td></tr>`;
+                    return;
+                }
+                snap.forEach(docSnap => {
+                    const req = docSnap.data();
+                    const reqId = docSnap.id;
+                    const isCompleted = req.status === 'completed';
+                    const sBadge = isCompleted
+                        ? `<span class="text-emerald-500"><i class="fas fa-check-circle"></i> تم إرسال المفتاح</span>`
+                        : `<span class="text-amber-500 animate-pulse"><i class="fas fa-clock"></i> في الانتظار</span>`;
+
+                    const actionBtn = isCompleted
+                        ? `<button disabled class="text-slate-600 bg-slate-900 px-3 py-1 rounded text-xs cursor-not-allowed">مكتمل</button>`
+                        : `<div class="flex flex-col gap-1 items-center">
+                            <input type="text" id="ak-${reqId}" placeholder="كود التفعيل..." class="w-32 bg-black/50 border border-white/10 text-white px-2 py-1 rounded text-xs text-center focus:outline-none focus:border-cyan-500">
+                            <button onclick="completeKeyRequest('${reqId}', '${req.reseller_id}')" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-3 py-1 rounded text-xs transition whitespace-nowrap">تأكيد التسليم</button>
+                           </div>`;
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-white/5 transition-all ${isCompleted ? 'opacity-50' : ''}">
+                            <td class="p-6 font-bold text-fuchsia-400">${req.reseller_name}</td>
+                            <td class="p-6 text-white font-bold">${req.client_name}</td>
+                            <td class="p-6 text-slate-400 font-mono">${req.client_phone || '---'}</td>
+                            <td class="p-6 text-cyan-400 font-mono">
+                                ${req.software}
+                                ${isCompleted && req.activation_key ? `<div class="text-[10px] bg-cyan-500/10 text-cyan-500 px-2 py-1 rounded mt-1 break-all uppercase tracking-wider">${req.activation_key}</div>` : ''}
+                            </td>
+                            <td class="p-6 text-center">${sBadge}</td>
+                            <td class="p-6 text-center">${actionBtn}</td>
+                        </tr>
+                    `;
+                });
+            });
+        };
+
+        window.updateResellerStatus = async (uid, status) => {
+            let msg = status === 'approved' ? "الموافقة على" : "رفض/حظر";
+            if (!confirm(`هل أنت متأكد من ${msg} هذا الموزع؟`)) return;
+            try {
+                // Using setDoc for merge
+                await setDoc(doc(db, "resellers", uid), { status: status }, { merge: true });
+            } catch (e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+        window.completeKeyRequest = async (reqId, resellerId) => {
+            const keyInput = document.getElementById(`ak-${reqId}`);
+            if (!keyInput) return;
+            const keyValue = keyInput.value.trim();
+
+            if (!keyValue) {
+                alert("يرجى إدخال كود التفعيل قبل التأكيد!");
+                return;
+            }
+
+            if (!confirm("هل تم استلام المبلغ من الموزع؟ بمجرد التأكيد، سيحصل العميل على الكود وسيزيد رصيد الموزع.")) return;
+            try {
+                // Using setDoc for merge
+                await setDoc(doc(db, "reseller_requests", reqId), { status: 'completed', activation_key: keyValue }, { merge: true });
+
+                // Increment reseller client count using reading and writing
+                const resRef = doc(db, "resellers", resellerId);
+                const resSnap = await getDoc(resRef);
+                if (resSnap.exists()) {
+                    const currentCount = resSnap.data().clients_count || 0;
+                    await setDoc(resRef, { clients_count: currentCount + 1 }, { merge: true });
+                }
+            } catch (e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+        let marketingData = {};
+        window.availableAdminProjects = [];
+
+        window.openResellerConfig = async () => {
+            document.getElementById('reseller-config-modal').classList.remove('hidden');
+
+            // Load DB
+            const snap = await getDoc(doc(db, "admin_config", "global_settings"));
+            if (snap.exists()) {
+                const d = snap.data();
+                marketingData = d.marketing_posts_mapped || {};
+            }
+
+            // Load Projects
+            const pSnap = await getDocs(collection(db, "projects"));
+            const select = document.getElementById('marketing-project-select');
+            select.innerHTML = '<option value="">اختر المشروع لإدارة نصوصه...</option>';
+            window.availableAdminProjects = [];
+            pSnap.forEach(d => {
+                const pdata = d.data();
+                window.availableAdminProjects.push({ id: d.id, ...pdata });
+
+                select.innerHTML += `<option value="${d.id}">${pdata.name}</option>`;
+                if (!marketingData[d.id]) marketingData[d.id] = [];
+            });
+
+            select.onchange = window.renderMarketingPosts;
+            window.renderMarketingPosts();
+        };
+
+        window.renderMarketingPosts = () => {
+            const pid = document.getElementById('marketing-project-select').value;
+            const container = document.getElementById('marketing-posts-container');
+            container.innerHTML = '';
+            if (!pid) return;
+
+            if (!marketingData[pid] || marketingData[pid].length === 0) {
+                marketingData[pid] = [""];
+            }
+
+            marketingData[pid].forEach((post, index) => {
+                container.innerHTML += `
+                    <div class="relative bg-black/40 p-4 rounded-xl border border-white/5 border-r-4 border-r-fuchsia-500 mb-2 mt-2">
+                        <textarea id="mpost-${pid}-${index}" rows="4" placeholder="اكتب المنشور هنا... لا تنس إضافة كلمة مثل [رابط] ليتم استبدالها برابط الموزع تلقائيا." class="w-full bg-transparent border-none outline-none text-sm text-right text-white transition-all font-['Cairo']" oninput="updateMarketingData('${pid}', ${index}, this.value)">${post}</textarea>
+                        <button onclick="removeMarketingPost('${pid}', ${index})" class="absolute top-2 left-2 text-red-500 bg-white/5 rounded px-2 py-1 hover:bg-red-500 hover:text-white transition" title="حذف الصيغة"><i class="fas fa-trash"></i></button>
+                        <div class="text-[10px] text-fuchsia-400 mt-2 flex justify-between">
+                            <span><i class="fas fa-info-circle"></i> يمكنك كتابة كلمة <strong>[رابط]</strong> ليتم استبدالها برابط الوكيل تلقائياً في حسابه.</span>
+                            <span>الصياغة #${index + 1}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        };
+
+        window.updateMarketingData = (pid, index, val) => {
+            marketingData[pid][index] = val;
+        };
+
+        window.addMarketingPost = () => {
+            const pid = document.getElementById('marketing-project-select').value;
+            if (!pid) { alert("اختر المشروع أولاً!"); return; }
+            marketingData[pid].push("");
+            window.renderMarketingPosts();
+        };
+
+        window.removeMarketingPost = (pid, index) => {
+            if (!confirm("هل أنت متأكد من حذف هذه الصياغة؟")) return;
+            marketingData[pid].splice(index, 1);
+            window.renderMarketingPosts();
+        };
+
+        window.saveResellerConfig = async () => {
+            const btn = event.currentTarget;
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            // Trim out totally empty posts
+            Object.keys(marketingData).forEach(k => {
+                marketingData[k] = marketingData[k].filter(p => p.trim() !== '');
+            });
+
+            try {
+                await setDoc(doc(db, "admin_config", "global_settings"), {
+                    marketing_posts_mapped: marketingData
+                }, { merge: true });
+                window.showToast ? window.showToast("تم الحفظ بنجاح! التحديثات متاحة الآن لجميع الموزعين.", "success") : alert("تم الحفظ بنجاح!");
+                document.getElementById('reseller-config-modal').classList.add('hidden');
+            } catch (e) {
+                console.error(e);
+                window.showToast ? window.showToast("خطأ في الحفظ", "error") : alert("خطأ في الحفظ");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = original;
+            }
+        };
+
+        window.populateDefaultMarketing = () => {
+            if (!confirm("سيتم توليد نصوص تسويقية ذكية لجميع مشاريعك بناء على وصفها المسجل في النظام. هل أنت متأكد من المتابعة")) return;
+
+            window.availableAdminProjects.forEach(proj => {
+                if (!marketingData[proj.id]) marketingData[proj.id] = [];
+
+                const template = "\uD83D\uDFE2 تعلن شركة ASAS عن توافر " + proj.name + "\n---\nهل تبحث عن أفضل نظام يلبي احتياجات نشاطك\nإليك الحل الأقوى والأسهل للإدارة! \uD83D\uDE80\n\nالمميزات الخاصة بالنظام:\n" + (proj.whatsNew || "✅ نظام إدارة تقني شامل ومتكامل لشركتك.\n✅ سرعة وأمان في حفظ البيانات.") + "\n\nالآن متوفر بخصم مميز ولفترة محدودة شامل التركيب والدعم الفني!\nللتفاصيل والاشتراك تواصل معي الآن:\n[رابط]";
+                marketingData[proj.id].push(template);
+            });
+            window.renderMarketingPosts();
+            window.showToast ? window.showToast("تم توليد النصوص! يمكنك مراجعتها ثم الضغط على حفظ", "success") : alert("تم التوليد بنجاح! راجع النصوص واضغط على حفظ");
+        };
+
+        // --- LEADS MANAGEMENT ---
+
+        window.notificationCount = 0;
+        window.toggleNotificationDropdown = () => {
+            const drop = document.getElementById('notification-dropdown');
+            if (drop) drop.classList.toggle('hidden');
+        };
+        // Close dropdown if clicked outside
+        document.addEventListener('click', (e) => {
+            const drop = document.getElementById('notification-dropdown');
+            const btn = document.getElementById('notification-bell');
+            if (drop && !drop.classList.contains('hidden')) {
+                if (!drop.contains(e.target) && !btn.contains(e.target)) {
+                    drop.classList.add('hidden');
+                }
+            }
+        });
+        window.triggerRealtimeNotification = (type, title) => {
+            const badge = document.getElementById('notification-badge');
+            if (!badge) return;
+            window.notificationCount++;
+            badge.innerText = window.notificationCount;
+            badge.classList.remove('hidden');
+
+            // Render in Dropdown
+            const list = document.getElementById('notification-list');
+            if (list) {
+                const emptyState = list.querySelector('.empty-state');
+                if (emptyState) emptyState.remove();
+
+                const icon = type === 'lead' ? '<i class="fas fa-bullseye text-amber-500"></i>' : '<i class="fas fa-user-plus text-fuchsia-500"></i>';
+                const timeStr = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+                const html = `
+                    <div class="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition cursor-pointer flex gap-3 items-start border-r-2 border-cyan-500 unread-notif">
+                        <div class="w-8 h-8 rounded-full bg-black/50 flex flex-col items-center justify-center text-xs shrink-0">${icon}</div>
+                        <div class="text-right flex-1">
+                            <p class="text-xs text-white font-bold">${title}</p>
+                            <p class="text-[10px] text-slate-400 mt-1">${timeStr}</p>
+                        </div>
+                    </div>
+                `;
+                list.insertAdjacentHTML('afterbegin', html);
+            }
+
+            try {
+                const osc = new (window.AudioContext || window.webkitAudioContext)();
+                if (osc.state === 'suspended') osc.resume();
+                const o = osc.createOscillator();
+                const g = osc.createGain();
+                o.type = 'sine';
+                o.frequency.value = 987.77; // B5 note for new notification vs G5 for toast
+                g.gain.exponentialRampToValueAtTime(0.00001, osc.currentTime + 1.0);
+                o.connect(g);
+                g.connect(osc.destination);
+                o.start(0);
+                o.stop(osc.currentTime + 1.0);
+            } catch (e) { console.log('Audio auto-play prevented'); }
+        };
+        window.clearNotificationBadge = () => {
+            window.notificationCount = 0;
+            const badge = document.getElementById('notification-badge');
+            if (badge) {
+                badge.innerText = '0';
+                badge.classList.add('hidden');
+            }
+            document.querySelectorAll('.unread-notif').forEach(el => {
+                el.classList.remove('border-cyan-500', 'border-r-2', 'bg-white/5');
+            });
+        };
+
+        let unsubLeads = null;
+        let isInitialLeadsLoad = true;
+        window.loadLeads = () => {
+            if (unsubLeads) unsubLeads();
+            unsubLeads = onSnapshot(query(collection(db, "leads"), orderBy("created_at", "desc")), (snap) => {
+                if (!isInitialLeadsLoad) {
+                    snap.docChanges().forEach(change => { if (change.type === 'added') window.triggerRealtimeNotification('reseller', 'تسجيل موزع جديد: ' + (change.doc.data().name || 'موزع')); });
+                }
+                isInitialLeadsLoad = false;
+                const tbody = document.getElementById('leads-table-body');
+                tbody.innerHTML = '';
+                if (snap.empty) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500">لا يوجد عملاء محتملين حالياً.</td></tr>`;
+                    return;
+                }
+                snap.forEach(docSnap => {
+                    const l = docSnap.data();
+                    const leadId = docSnap.id;
+                    const statusClass = l.status === 'sold' ? 'text-emerald-500 bg-emerald-500/10' : (l.status === 'new' ? 'text-rose-500 bg-rose-500/10' : 'text-slate-500 bg-slate-500/10');
+                    const statusText = l.status === 'sold' ? 'تم البيع' : (l.status === 'new' ? 'جديد' : 'مغلق');
+
+                    let actionBtn = '';
+                    if (l.status === 'new') {
+                        actionBtn = `<span class="text-xs text-blue-500 font-bold border border-blue-500/20 px-2 py-1 rounded bg-blue-500/10"><i class="fas fa-clock"></i> في انتظار تأكيد الموزع</span>`;
+                    } else if (l.status === 'pending_key') {
+                        actionBtn = `
+                            <div class="flex flex-col items-center gap-2">
+                               <input type="number" id="comm-${leadId}" value="${l.expected_commission || ''}" placeholder="عمولة الموزع" class="w-full bg-black/50 border border-white/10 text-white px-2 py-1 rounded text-xs text-center focus:outline-none mb-1">
+                               <input type="text" id="finalkey-${leadId}" placeholder="أدخل كود التفعيل هنا" class="w-full bg-black/50 border border-amber-500/30 text-amber-500 px-2 py-1 rounded text-xs text-center focus:outline-none font-mono font-bold tracking-widest">
+                               <button onclick="updateLeadStatus('${leadId}', 'sold', '${l.referred_by || ''}')" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-3 py-1.5 rounded text-xs transition uppercase tracking-wider">إتمام وإرسال الكود</button>
+                           </div>
+                        `;
+                    } else if (l.status === 'sold') {
+                        const msg = encodeURIComponent('أهلاً بك يا ' + l.name + '،\nتم تفعيل المنظومة (' + l.business_type + ') بنجاح! 🎉\n\n🔑 كود التفعيل: ' + l.activation_key + '\n\nلأي مساعدة فنية نحن بخدمتك.\nفريق ASAS Software Solutions');
+                        let phoneNum = l.phone ? l.phone.replace(/\D/g, '') : '';
+                        if (phoneNum.startsWith('01')) phoneNum = '2' + phoneNum;
+                        actionBtn = `
+                            <div class="flex flex-col items-center gap-1 w-full">
+                                <span class="text-xs text-emerald-500 font-bold">تم إنهاء العملية (${l.commission_granted || 0} ج)</span>
+                                ${l.activation_key ? `<span class="text-[10px] text-cyan-500 font-mono border border-cyan-500/30 px-1 py-0.5 rounded bg-cyan-500/10">${l.activation_key}</span>` : ''}
+                                <a href="https://wa.me/${phoneNum}?text=${msg}" target="_blank" class="w-full bg-[#25D366] hover:bg-emerald-600 text-white font-bold px-2 py-1 rounded text-[10px] mt-1 transition flex items-center justify-center gap-1">
+                                    <i class="fab fa-whatsapp text-sm"></i> إرسال للعميل واتس آب
+                                </a>
+                            </div>
+                        `;
+                    } else {
+                        actionBtn = `<span class="text-xs text-slate-500">${l.status}</span>`;
+                    }
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-white/5 transition-all">
+                            <td class="p-6">
+                                <div class="font-bold text-white text-sm">${l.name}</div>
+                                <div class="text-xs text-slate-400 font-mono tracking-wider">${l.phone}</div>
+                            </td>
+                            <td class="p-6">
+                                <span class="text-cyan-400 font-bold">${l.business_type}</span>
+                                <div class="text-[10px] text-slate-400">أجهزة: ${l.hardware_needed ? 'نعم' : 'لا'}</div>
+                            </td>
+                            <td class="p-6 font-bold text-amber-500">${l.estimated_price} ج.م</td>
+                            <td class="p-6 text-center text-emerald-400 font-bold">${l.referred_by_name || l.referred_by || '<span class="text-slate-500">مباشر (بدون موزع)</span>'}</td>
+                            <td class="p-6 text-center">
+                                <div class="text-[10px] text-slate-500 mb-1">${l.created_at ? l.created_at.toDate().toLocaleString('ar-EG') : ''}</div>
+                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${statusClass}">${statusText}</span>
+                            </td>
+                            <td class="p-6 text-center">${actionBtn}</td>
+                        </tr>
+                    `;
+                });
+            });
+        };
+
+        window.updateLeadStatus = async (leadId, status, resellerId) => {
+            if (status === 'sold') {
+                const commInput = document.getElementById(`comm-${leadId}`);
+                const keyInput = document.getElementById(`finalkey-${leadId}`);
+                const commission = parseFloat(commInput.value);
+                const aKey = keyInput ? keyInput.value.trim() : '';
+
+                if (!commission || commission < 0) {
+                    window.showToast("يرجى إدخال قيمة العمولة الصحيحة للموزع قبل إتمام البيع.", "error");
+                    return;
+                }
+                if (!aKey) {
+                    window.showToast("يجب إدخال كود التفعيل قبل إتمام البيع!", "error");
+                    return;
+                }
+
+                if (!confirm(`هل أنت متأكد من إتمام البيع وتحويل عمولة ${commission} ج وإرسال الكود ${aKey}؟`)) return;
+
+                try {
+                    await setDoc(doc(db, "leads", leadId), {
+                        status: 'sold',
+                        commission_granted: commission,
+                        activation_key: aKey
+                    }, { merge: true });
+
+                    if (resellerId && resellerId !== 'none') {
+                        const resRef = doc(db, "resellers", resellerId);
+                        const resSnap = await getDoc(resRef);
+                        if (resSnap.exists()) {
+                            const curBal = parseFloat(resSnap.data().wallet_balance || 0);
+                            await setDoc(resRef, { wallet_balance: curBal + commission }, { merge: true });
+                        }
+                    }
+                    window.showToast("تم إتمام العملية بنجاح وإرسال الكود للعميل/الموزع", "success");
+                } catch (e) { console.error(e); window.showToast("فشلت العملية", "error"); }
+            }
+        };
+
+        // --- PAYOUTS MANAGEMENT ---
+        let unsubPayouts = null;
+        window.loadPayouts = () => {
+            if (unsubPayouts) unsubPayouts();
+            unsubPayouts = onSnapshot(query(collection(db, "payout_requests"), orderBy("timestamp", "desc")), (snap) => {
+                const tbody = document.getElementById('payouts-table-body');
+                tbody.innerHTML = '';
+                if (snap.empty) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500">لا توجد طلبات سحب حالياً.</td></tr>`;
+                    return;
+                }
+                snap.forEach(docSnap => {
+                    const req = docSnap.data();
+                    const reqId = docSnap.id;
+                    const isPending = req.status === 'pending';
+                    const statusClass = isPending ? 'text-amber-500 bg-amber-500/10 animate-pulse' : 'text-emerald-500 bg-emerald-500/10';
+                    const statusText = isPending ? 'قيد الانتظار' : 'تم التحويل';
+
+                    const actionBtn = isPending
+                        ? `<button onclick="approvePayout('${reqId}', '${req.reseller_id}', ${req.amount})" class="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-4 py-1.5 rounded-lg text-xs transition whitespace-nowrap"><i class="fas fa-check"></i> اعتماد السحب وخصم الرصيد</button>`
+                        : `<span class="text-emerald-500 font-bold text-xs"><i class="fas fa-check-double"></i> مكتمل</span>`;
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-white/5 transition-all ${!isPending ? 'opacity-50' : ''}">
+                            <td class="p-6 font-bold text-white">${req.reseller_name}</td>
+                            <td class="p-6 font-black text-yellow-500 text-lg">${req.amount} <span class="text-xs">ج.م</span></td>
+                            <td class="p-6 font-bold text-slate-300 uppercase">${req.method}</td>
+                            <td class="p-6 font-mono text-cyan-400 tracking-wider">${req.details}</td>
+                            <td class="p-6 text-center">
+                                <div class="text-[10px] text-slate-500 mb-1">${req.timestamp ? req.timestamp.toDate().toLocaleString('ar-EG') : ''}</div>
+                                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${statusClass}">${statusText}</span>
+                            </td>
+                            <td class="p-6 text-center">${actionBtn}</td>
+                        </tr>
+                    `;
+                });
+            });
+        };
+
+        window.approvePayout = async (reqId, resellerId, amount) => {
+            if (!confirm(`هل أنت متأكد من أنك قمت بتحويل مبلغ ${amount} جنيه للموزع؟ سيؤدي هذا لخصم المبلغ من محفظته.`)) return;
+            try {
+                // Deduct from wallet
+                const resRef = doc(db, "resellers", resellerId);
+                const resSnap = await getDoc(resRef);
+                if (resSnap.exists()) {
+                    const curBal = parseFloat(resSnap.data().wallet_balance || 0);
+                    if (curBal < amount) {
+                        alert("لا يوجد رصيد كافٍ في محفظة الموزع لهذا السحب!");
+                        return;
+                    }
+                    await setDoc(resRef, { wallet_balance: curBal - amount }, { merge: true });
+                }
+
+                // Mark request as processed
+                await setDoc(doc(db, "payout_requests", reqId), { status: 'processed' }, { merge: true });
+                alert("تم اعتماد السحب وخصم الرصيد بنجاح!");
+            } catch (e) {
+                console.error(e); alert("فشلت العملية");
+            }
+        };
+
+        // --- REVIEWS & RATINGS MODERATION ---
+        let unsubReviews = null;
+        window.loadReviews = () => {
+            if (unsubReviews) unsubReviews();
+
+            const tbody = document.getElementById('reviews-table-body');
+            tbody.innerHTML = '<tr><td colspan="7" class="p-8 text-center text-slate-500"><i class="fas fa-spinner fa-spin"></i> جاري تحميل التعليقات...</td></tr>';
+
+            unsubReviews = onSnapshot(query(collection(db, "reviews")), (snap) => {
+                tbody.innerHTML = '';
+                if (snap.empty) {
+                    tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-500">لا توجد تعليقات أو آراء حالياً.</td></tr>`;
+                    return;
+                }
+
+                const allReviews = [];
+                snap.forEach(docSnap => {
+                    allReviews.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                // Sort by createdAt desc
+                allReviews.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.toMillis ? a.createdAt.toMillis() : new Date(a.createdAt).getTime()) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.toMillis ? b.createdAt.toMillis() : new Date(b.createdAt).getTime()) : 0;
+                    return timeB - timeA;
+                });
+
+                allReviews.forEach(r => {
+                    const rid = r.id;
+                    const isApproved = r.status === 'approved';
+                    const statusClass = isApproved ? 'text-emerald-500 bg-emerald-500/10' : 'text-amber-500 bg-amber-500/10';
+                    const statusText = isApproved ? 'مقبول' : 'قيد المراجعة';
+
+                    const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+
+                    let actionButtons = '';
+                    if (!isApproved) {
+                        actionButtons += `<button onclick="approveReview('${rid}')" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-400 hover:text-black font-bold px-3 py-1 rounded text-xs transition-all ml-1">قبول</button>`;
+                    } else {
+                        actionButtons += `<button onclick="unapproveReview('${rid}')" class="bg-amber-500/20 hover:bg-amber-500 text-amber-400 hover:text-black font-bold px-3 py-1 rounded text-xs transition-all ml-1">إلغاء القبول</button>`;
+                    }
+                    actionButtons += `<button onclick="deleteReview('${rid}')" class="bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-white font-bold px-3 py-1 rounded text-xs transition-all ml-1">حذف</button>`;
+
+                    const replySection = `
+                        <div class="flex flex-col gap-1 items-center">
+                            ${r.reply ? `<div class="text-[10px] text-cyan-400 max-w-xs break-words bg-cyan-950/40 p-2 rounded border border-cyan-800/40 text-right">${r.reply}</div>` : ''}
+                            <div class="flex gap-1 mt-1">
+                                <input type="text" id="reply-input-${rid}" placeholder="${r.reply ? 'تحديث الرد...' : 'اكتب ردك هنا...'}" class="bg-black/50 border border-white/10 text-white px-2 py-1 rounded text-[11px] w-36 focus:outline-none focus:border-cyan-500">
+                                <button onclick="saveReviewReply('${rid}')" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-2 py-1 rounded text-[10px] transition">رد</button>
+                            </div>
+                        </div>
+                    `;
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-white/5 transition-all">
+                            <td class="p-4 font-bold text-white text-right">${r.projectId}</td>
+                            <td class="p-4 text-right">
+                                <div class="font-bold text-slate-300 text-xs">${r.userName}</div>
+                                <div class="text-[10px] text-slate-500">${r.userRole || '---'}</div>
+                            </td>
+                            <td class="p-4 text-yellow-500 font-mono tracking-wider text-xs text-right">${stars}</td>
+                            <td class="p-4 text-slate-300 text-xs max-w-xs break-words text-right">${r.comment}</td>
+                            <td class="p-4 text-center">${replySection}</td>
+                            <td class="p-4 text-center">
+                                <span class="px-2 py-1 rounded-full text-[10px] font-bold ${statusClass}">${statusText}</span>
+                            </td>
+                            <td class="p-4 text-center whitespace-nowrap">${actionButtons}</td>
+                        </tr>
+                    `;
+                });
+            });
+        };
+
+        window.approveReview = async (rid) => {
+            try {
+                await setDoc(doc(db, "reviews", rid), { status: 'approved' }, { merge: true });
+                window.showToast ? window.showToast("تم قبول التعليق بنجاح وهو الآن معروض على الموقع.", "success") : alert("تم القبول!");
+            } catch (e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+        window.unapproveReview = async (rid) => {
+            try {
+                await setDoc(doc(db, "reviews", rid), { status: 'pending' }, { merge: true });
+                window.showToast ? window.showToast("تم إلغاء قبول التعليق بنجاح ولم يعد معروضاً.", "success") : alert("تم إلغاء القبول!");
+            } catch (e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+        window.deleteReview = async (rid) => {
+            if (!confirm("هل أنت متأكد من حذف هذا التعليق نهائياً؟")) return;
+            try {
+                const { deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+                await deleteDoc(doc(db, "reviews", rid));
+                window.showToast ? window.showToast("تم حذف التعليق نهائياً.", "success") : alert("تم الحذف!");
+            } catch (e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+        window.saveReviewReply = async (rid) => {
+            const input = document.getElementById(`reply-input-${rid}`);
+            if (!input) return;
+            const replyText = input.value.trim();
+            if (!replyText) return;
+            try {
+                await setDoc(doc(db, "reviews", rid), { reply: replyText }, { merge: true });
+                input.value = '';
+                window.showToast ? window.showToast("تم حفظ الرد بنجاح.", "success") : alert("تم حفظ الرد!");
+            } catch (e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+        // --- CAREERS MANAGEMENT ---
+        let unsubCareers = null;
+        window.loadCareers = () => {
+            if (unsubCareers) unsubCareers();
+
+            const tbody = document.getElementById('careers-table-body');
+            tbody.innerHTML = '<tr><td colspan="7" class="p-8 text-center text-slate-500"><i class="fas fa-spinner fa-spin"></i> جاري تحميل الطلبات...</td></tr>';
+
+            unsubCareers = onSnapshot(query(collection(db, "careers")), (snap) => {
+                tbody.innerHTML = '';
+                if(snap.empty) {
+                    tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-500">لا توجد طلبات توظيف حالياً.</td></tr>`;
+                    return;
+                }
+
+                const allCareers = [];
+                snap.forEach(docSnap => {
+                    allCareers.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                // Sort by createdAt desc
+                allCareers.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.toMillis ? a.createdAt.toMillis() : new Date(a.createdAt).getTime()) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.toMillis ? b.createdAt.toMillis() : new Date(b.createdAt).getTime()) : 0;
+                    return timeB - timeA;
+                });
+
+                allCareers.forEach(c => {
+                    const cid = c.id;
+                    const statusClass = c.status === 'hired' ? 'text-emerald-500 bg-emerald-500/10' : (c.status === 'rejected' ? 'text-red-500 bg-red-500/10' : 'text-amber-500 bg-amber-500/10 animate-pulse');
+                    const statusText = c.status === 'hired' ? 'مقبول للتعيين' : (c.status === 'rejected' ? 'مرفوض' : 'جديد / قيد الدراسة');
+
+                    let actionButtons = '';
+                    if (c.status !== 'hired') {
+                        actionButtons += `<button onclick="updateCareerStatus('${cid}', 'hired')" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-400 hover:text-black font-bold px-3 py-1 rounded text-xs transition-all ml-1">قبول للتعيين</button>`;
+                    }
+                    if (c.status !== 'rejected') {
+                        actionButtons += `<button onclick="updateCareerStatus('${cid}', 'rejected')" class="bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-white font-bold px-3 py-1 rounded text-xs transition-all ml-1">رفض</button>`;
+                    }
+                    actionButtons += `<button onclick="deleteCareer('${cid}')" class="bg-slate-500/20 hover:bg-red-600 text-slate-400 hover:text-white font-bold px-3 py-1 rounded text-xs transition-all">حذف</button>`;
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-white/5 transition-all">
+                            <td class="p-6">
+                                <div class="font-bold text-white text-sm">${c.name}</div>
+                                <div class="text-xs text-slate-400 font-mono tracking-wider">${c.phone}</div>
+                            </td>
+                            <td class="p-6 font-bold text-cyan-400 text-xs">${c.jobTitle}</td>
+                            <td class="p-6">
+                                <a href="${c.cvLink}" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 text-xs">
+                                    <i class="fas fa-file-pdf"></i> عرض السيرة الذاتية
+                                </a>
+                            </td>
+                            <td class="p-6">
+                                ${c.portfolio ? `
+                                <a href="${c.portfolio}" target="_blank" class="text-blue-400 hover:underline flex items-center gap-1 text-xs">
+                                    <i class="fas fa-external-link-alt"></i> معرض الأعمال
+                                </a>` : '<span class="text-slate-600 text-xs">---</span>'}
+                            </td>
+                            <td class="p-6 text-slate-300 text-xs max-w-xs break-words text-right">${c.bio}</td>
+                            <td class="p-6 text-center">
+                                <span class="px-2 py-1 rounded-full text-[10px] font-bold ${statusClass}">${statusText}</span>
+                            </td>
+                            <td class="p-6 text-center whitespace-nowrap">${actionButtons}</td>
+                        </tr>
+                    `;
+                });
+            });
+        };
+
+        window.updateCareerStatus = async (cid, status) => {
+            try {
+                await setDoc(doc(db, "careers", cid), { status: status }, { merge: true });
+                window.showToast ? window.showToast("تم تحديث حالة الطلب بنجاح.", "success") : alert("تم التحديث!");
+            } catch(e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+        window.deleteCareer = async (cid) => {
+            if(!confirm("هل أنت متأكد من حذف هذا الطلب نهائياً؟")) return;
+            try {
+                const { deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+                await deleteDoc(doc(db, "careers", cid));
+                window.showToast ? window.showToast("تم حذف الطلب بنجاح.", "success") : alert("تم الحذف!");
+            } catch(e) { console.error(e); alert("فشلت العملية"); }
+        };
+
+    </script>
+    <!-- Toast Notifications -->
+    <script src="assets/js/toast.js"></script>
+</body>
+
+</html>

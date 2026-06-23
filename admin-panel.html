@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS POS | Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0d1b2a;
+            color: white;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Login Section -->
+    <div id="login-section" class="w-full max-w-md glass p-8 rounded-2xl shadow-2xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-cyan-400 mb-2">لوحة التحكم</h1>
+            <p class="text-gray-400">تسجيل الدخول للمسؤولين فقط</p>
+        </div>
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label class="block text-sm font-bold mb-2">البريد الإلكتروني</label>
+                <input type="email" id="email"
+                    class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 focus:border-cyan-500 outline-none transition"
+                    required>
+            </div>
+            <div>
+                <label class="block text-sm font-bold mb-2">كلمة المرور</label>
+                <input type="password" id="password"
+                    class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 focus:border-cyan-500 outline-none transition"
+                    required>
+            </div>
+            <button type="submit"
+                class="w-full bg-gradient-to-r from-cyan-600 to-emerald-600 py-3 rounded-lg font-bold shadow-lg hover:shadow-cyan-500/30 transition">دخول</button>
+            <p id="login-error" class="text-red-500 text-center text-sm hidden"></p>
+        </form>
+    </div>
+
+    <!-- Dashboard Section (Hidden by default) -->
+    <div id="dashboard-section" class="w-full max-w-4xl hidden space-y-6">
+        <!-- Header -->
+        <div class="glass p-6 rounded-2xl flex justify-between items-center">
+            <div>
+                <h2 class="text-2xl font-bold text-cyan-400">مولد المفاتيح (Key Generator)</h2>
+                <p class="text-gray-400 text-sm">إدارة تراخيص ASAS POS</p>
+            </div>
+            <button id="logout-btn"
+                class="bg-red-500/20 text-red-500 px-4 py-2 rounded-lg hover:bg-red-500 hover:text-white transition">تسجيل
+                خروج</button>
+        </div>
+
+        <!-- Generator -->
+        <div class="glass p-8 rounded-2xl text-center">
+            <button id="generate-btn"
+                class="bg-gradient-to-r from-cyan-600 to-emerald-600 px-8 py-4 rounded-xl font-bold text-xl shadow-lg hover:scale-105 transition mb-6">
+                <i class="fas fa-key mr-2 ml-2"></i> توليد مفتاح جديد
+            </button>
+            <div id="new-key-display" class="hidden animate-pulse">
+                <p class="text-gray-400 mb-2">تم إنشاء المفتاح بنجاح:</p>
+                <div class="bg-black/50 p-4 rounded-xl border border-dashed border-cyan-500 inline-block relative group cursor-pointer"
+                    onclick="copyKey(this)">
+                    <span id="generated-key"
+                        class="text-3xl font-mono font-bold text-emerald-400 tracking-wider"></span>
+                    <div
+                        class="absolute -top-3 -right-3 bg-cyan-500 text-black text-xs px-2 py-1 rounded hidden group-hover:block">
+                        اضغط للنسخ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Keys -->
+        <div class="glass p-6 rounded-2xl overflow-x-auto">
+            <h3 class="text-xl font-bold mb-4 border-b border-gray-700 pb-2">آخر المفاتيح التي تم إنشاؤها</h3>
+            <table class="w-full text-right">
+                <thead>
+                    <tr class="text-gray-400 text-sm border-b border-gray-800">
+                        <th class="pb-3 text-right">المفتاح</th>
+                        <th class="pb-3 text-right">تاريخ الإنشاء</th>
+                        <th class="pb-3 text-right">الحالة</th>
+                    </tr>
+                </thead>
+                <tbody id="keys-table-body" class="text-sm">
+                    <!-- Rows will be injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9",
+            measurementId: "G-14FDJ99K84"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- UI Elemets ---
+        const loginSection = document.getElementById('login-section');
+        const dashboardSection = document.getElementById('dashboard-section');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        const generateBtn = document.getElementById('generate-btn');
+
+        // --- Auth State ---
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginSection.classList.add('hidden');
+                dashboardSection.classList.remove('hidden');
+                loadKeys();
+            } else {
+                loginSection.classList.remove('hidden');
+                dashboardSection.classList.add('hidden');
+            }
+        });
+
+        // --- Login ---
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                loginError.classList.add('hidden');
+            } catch (error) {
+                console.error(error);
+                loginError.textContent = "خطأ في تسجيل الدخول (تأكد من الصلاحيات)";
+                loginError.classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+
+        // --- Key Generator ---
+        function generateLicenseKey() {
+            const part = () => Math.random().toString(36).substring(2, 6).toUpperCase();
+            return `ASAS-${part()}-${part()}-${part()}`;
+        }
+
+        generateBtn.onclick = async () => {
+            const newKey = generateLicenseKey();
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> جاري الحفظ...';
+
+            try {
+                // Save Key as Doc ID for direct lookup by the Desktop App
+                await setDoc(doc(db, "licenses", newKey), {
+                    createdAt: serverTimestamp(),
+                    isUsed: false,
+                    activatedAt: null,
+                    generatedBy: auth.currentUser.email
+                });
+
+                document.getElementById('generated-key').textContent = newKey;
+                document.getElementById('new-key-display').classList.remove('hidden');
+
+                // Copy to clipboard automatically just in case
+                navigator.clipboard.writeText(newKey);
+
+            } catch (error) {
+                alert("Error generating key: " + error.message);
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = '<i class="fas fa-key mr-2 ml-2"></i> توليد مفتاح جديد';
+            }
+        };
+
+        // --- Load Recent Keys ---
+        function loadKeys() {
+            const q = query(collection(db, "licenses"), orderBy("createdAt", "desc"), limit(10));
+            onSnapshot(q, (snapshot) => {
+                const tbody = document.getElementById('keys-table-body');
+                tbody.innerHTML = '';
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const key = docSnap.id;
+                    const isUsed = data.isUsed || false;
+
+                    const statusClass = isUsed ? 'text-red-400' : 'text-emerald-400';
+                    const statusText = isUsed ? 'تم الاستخدام' : 'متاح';
+                    const statusIcon = isUsed ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-clock"></i>';
+
+                    const date = data.createdAt ? data.createdAt.toDate().toLocaleDateString('ar-EG') : 'الان';
+
+                    const row = `
+                        <tr class="hover:bg-white/5 transition border-b border-gray-800/50">
+                            <td class="py-4 font-mono font-bold text-lg select-all text-cyan-100">${key}</td>
+                            <td class="py-4 text-gray-400 text-xs">${date}</td>
+                            <td class="py-4 ${statusClass} font-bold text-sm">${statusIcon} ${statusText}</td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            });
+        }
+
+        window.copyKey = (el) => {
+            const keyText = el.querySelector('#generated-key').textContent;
+            navigator.clipboard.writeText(keyText).then(() => {
+                alert("تم نسخ الكود: " + keyText);
+            });
+        }
+    </script>
+</body>
+
+</html>

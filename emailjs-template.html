@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .reply-button:hover {
+            background: #008eb4 !important;
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: #050505; font-family: 'Segoe UI', Arial, sans-serif;">
+    <div style="width: 100%; table-layout: fixed; background-color: #050505; padding: 30px 0;">
+        <div
+            style="max-width: 600px; margin: 0 auto; background-color: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8);">
+
+            <!-- Header with Logo/Gradient -->
+            <div
+                style="background-color: #0a0a0a; background: linear-gradient(135deg, #0a0a0a 0%, #001f2b 100%); padding: 40px 30px; text-align: center; border-bottom: 2px solid #00d2ff;">
+                <div style="margin-bottom: 20px;">
+                    <svg width="60" height="60" viewBox="0 0 100 100" style="display: inline-block;">
+                        <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="#00d2ff" />
+                    </svg>
+                </div>
+                <h1 style="color: #ffffff; margin: 0; font-size: 26px; font-weight: 900; letter-spacing: -1px;">رسالة
+                    جديدة <span style="color: #00d2ff;">ASAS</span></h1>
+                <p
+                    style="color: #00d2ff; margin: 10px 0 0 0; font-size: 14px; text-transform: uppercase; font-weight: bold; opacity: 0.8;">
+                    إشعار استلام طلب تقني</p>
+            </div>
+
+            <!-- Content -->
+            <div style="padding: 40px 30px;">
+                <p style="color: #ffffff; font-size: 18px; margin-bottom: 30px;">أهلاً بك، لقد تلقيت رسالة جديدة من
+                    <strong>{{user_name}}</strong> عبر الموقع.</p>
+
+                <!-- Info Grid -->
+                <div
+                    style="background-color: #111111; border: 1px solid #222; border-radius: 12px; padding: 25px; margin-bottom: 30px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="direction: rtl;">
+                        <tr>
+                            <td style="padding-bottom: 20px;">
+                                <div style="color: #555; font-size: 12px; margin-bottom: 5px;">المرسل</div>
+                                <div style="color: #ffffff; font-size: 16px; font-weight: bold;">{{user_name}}</div>
+                            </td>
+                            <td style="padding-bottom: 20px; text-align: left;">
+                                <div style="color: #555; font-size: 12px; margin-bottom: 5px;">وقت الطلب</div>
+                                <div style="color: #00d2ff; font-size: 14px;">{{time}}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 1px solid #1a1a1a; padding-top: 15px;">
+                                <div style="color: #555; font-size: 12px; margin-bottom: 5px;">البريد الإلكتروني للرد
+                                </div>
+                                <div style="color: #ffffff; font-size: 16px;">
+                                    <a href="mailto:{{user_email}}"
+                                        style="color: #00d2ff; text-decoration: none;">{{user_email}}</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Message Box -->
+                <div style="margin-bottom: 40px;">
+                    <div style="color: #555; font-size: 12px; margin-bottom: 12px; text-align: right;">نص الرسالة
+                        الواردة:</div>
+                    <div
+                        style="background-color: #050505; border: 1px dashed #333; padding: 25px; border-radius: 12px; color: #cccccc; font-size: 16px; line-height: 1.8; text-align: right; white-space: pre-wrap;">
+                        {{message}}
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div style="text-align: center;">
+                    <a href="mailto:{{user_email}}" class="reply-button"
+                        style="display: inline-block; padding: 18px 45px; background-color: #00d2ff; color: #000000; font-weight: bold; text-decoration: none; border-radius: 50px; font-size: 16px; box-shadow: 0 5px 20px rgba(0,210,255,0.3);">الرد
+                        على العميل الآن</a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background-color: #050505; border-top: 1px solid #1a1a1a; padding: 30px; text-align: center;">
+                <p style="color: #333; font-size: 12px; margin: 0;">هذه الرسالة تم إنشاؤها عبر بوابة التواصل لشركة أساس
+                    للحلول البرمجية.</p>
+                <p style="color: #222; font-size: 10px; margin-top: 10px;">&copy; 2026 ASAS Software. All rights
+                    reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

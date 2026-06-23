@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAS | عقد الخدمة الرقمي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&family=Outfit:wght@300;400;900&display=swap"
+        rel="stylesheet">
+    <!-- PDF dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Cairo', 'Outfit', sans-serif;
+            background: #020617;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .signature-surface {
+            background: #000;
+            cursor: crosshair;
+            touch-action: none;
+        }
+
+        /* Hot-Swap Capture Strategy (Fixed Arabic & Non-Empty PDF) */
+        .hot-swap-pdf {
+            border: 2px solid #000 !important;
+            max-width: 210mm !important;
+            margin: 0 auto !important;
+
+            background: #ffffff !important;
+            color: #000000 !important;
+            width: 210mm !important;
+            /* High-Res fixed width */
+            padding: 10mm !important;
+            /* Absolute Minimum */
+            margin: 0 !important;
+            direction: rtl !important;
+            font-family: 'Cairo', Arial, sans-serif !important;
+            box-sizing: border-box !important;
+            height: auto !important;
+            /* Full height capture */
+            overflow: visible !important;
+        }
+
+        .hot-swap-pdf {
+            border: 2px solid #000 !important;
+            max-width: 210mm !important;
+            margin: 0 auto !important;
+
+            transform: none;
+            transform-origin: top center;
+        }
+
+
+        .hot-swap-pdf .glass-card {
+            background: #ffffff !important;
+            border: 2px solid #000 !important;
+            padding: 0.5rem !important;
+            /* Absolute Minimum Padding */
+            border-radius: 0 !important;
+            color: #000 !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            margin-top: 0 !important;
+        }
+
+        .hot-swap-pdf .bg-black\/40 {
+            background: #ffffff !important;
+            border: 1px solid #000 !important;
+            color: #000 !important;
+        }
+
+        .hot-swap-pdf p,
+        .hot-swap-pdf h1,
+        .hot-swap-pdf h2,
+        .hot-swap-pdf h3,
+        .hot-swap-pdf h4,
+        .hot-swap-pdf h5,
+        .hot-swap-pdf h6,
+        .hot-swap-pdf div,
+        .hot-swap-pdf span {
+            color: #000 !important;
+            text-shadow: none !important;
+            letter-spacing: 0 !important;
+            word-spacing: 0 !important;
+        }
+
+        .hot-swap-pdf h1 {
+            font-size: 24px !important;
+            font-weight: 900 !important;
+            margin-bottom: 10px !important;
+        }
+
+        .hot-swap-pdf h3 {
+            font-size: 15px !important;
+            font-weight: 900 !important;
+            color: #000000 !important;
+            text-align: center !important;
+            margin-top: 8px !important;
+            margin-bottom: 8px !important;
+            border-bottom: 2px solid #000000 !important;
+            padding-bottom: 4px !important;
+        }
+
+        .hot-swap-pdf h4 {
+            font-size: 12px !important;
+            font-weight: 900 !important;
+            color: #b45309 !important;
+            margin-top: 8px !important;
+            margin-bottom: 3px !important;
+        }
+
+        .hot-swap-pdf p {
+            font-size: 11px !important;
+            line-height: 1.15 !important;
+            margin-bottom: 3px !important;
+        }
+
+        .hot-swap-pdf .bg-black\/40 {
+            background: #f9fafb !important;
+            border: 1px solid #e5e7eb !important;
+            padding: 6px !important;
+            margin: 10px 0 !important;
+        }
+
+        .hot-swap-pdf .bg-amber-500\/5 {
+            background: #fffbeb !important;
+            border: 1px solid #fde68a !important;
+            padding: 10mm !important;
+            margin-top: 4px !important;
+        }
+
+        .hot-swap-pdf #sig-pad {
+            display: none !important;
+        }
+
+        .hot-swap-pdf #signature-view-area {
+            display: flex !important;
+            background: transparent !important;
+            border: 1px solid #eee !important;
+            margin-top: 4px !important;
+            min-height: 60px !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .hot-swap-pdf #signature-view-area img {
+            max-height: 90px !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            margin: 0 auto !important;
+        }
+
+        .hot-swap-pdf #signature-view-area p {
+            color: #666 !important;
+            font-size: 8px !important;
+            font-weight: normal !important;
+            margin-top: 4px !important;
+        }
+
+        /* Hide everything else for capture */
+        .hot-swap-pdf .no-print,
+        .hot-swap-pdf #action-buttons,
+        .hot-swap-pdf #sig-controls {
+            display: none !important;
+        }
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 10mm;
+            }
+
+            html,
+            body {
+                width: 210mm !important;
+                height: 297mm !important;
+                background: #fff !important;
+            }
+
+            #contract-content {
+                width: 190mm !important;
+                max-width: 190mm !important;
+                margin: 0 auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen py-10 px-4">
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="fixed inset-0 bg-slate-950 z-[100] flex items-center justify-center">
+        <div class="text-center">
+            <div
+                class="w-16 h-16 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin mb-4 mx-auto">
+            </div>
+            <p class="text-slate-500 font-mono text-xs uppercase tracking-widest">Hydrating Agreement...</p>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto" id="contract-content">
+        <!-- Header -->
+        <div class="flex justify-between items-end mb-1 border-b border-white/5 pb-0">
+            <div class="text-right">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-black">
+                        <i class="fas fa-file-contract text-lg"></i>
+                    </div>
+                    <h1 class="text-3xl font-black italic uppercase tracking-tight">ASAS <span
+                            class="text-amber-500">DIGITAL AGMT</span></h1>
+                </div>
+                <p class="text-slate-500 text-[10px] font-mono tracking-[0.3em] uppercase">Security Encrypted Document
+                    #<span id="contract-id-display">...</span></p>
+            </div>
+            <div class="text-left font-mono text-[10px] text-slate-500">
+                DATE: <span id="display-date">...</span>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-[2rem] p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            <div
+                class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent">
+            </div>
+
+            <!-- Parties with Centered Stamp -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center mb-2 relative">
+                <!-- Party A -->
+                <div class="text-right">
+                    <h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-1">الطرف الأول
+                        (المزود)</h4>
+                    <p class="text-xl font-bold mb-1 italic">ASAS SOFTWARE SOLUTIONS</p>
+                    <p class="text-[9px] text-slate-500 uppercase tracking-widest font-mono">Verified Enterprise #001
+                    </p>
+                </div>
+
+                <!-- Centered Stamp with Glow -->
+                <div class="flex justify-center items-center pointer-events-none relative">
+                    <div
+                        class="absolute inset-0 bg-amber-500/20 blur-3xl rounded-full scale-50 group-hover:scale-100 transition-all duration-700">
+                    </div>
+                    <img src="asas_official_stamp.png"
+                        class="w-32 h-32 opacity-70 rotate-12 grayscale group-hover:grayscale-0 transition-all pointer-events-none select-none relative z-10 filter drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]"
+                        alt="Official Seal">
+                </div>
+
+                <!-- Party B -->
+                <div id="party-b-container" class="md:text-left text-right">
+                    <h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-1">الطرف الثاني
+                        (العميل)</h4>
+                    <p id="display-client" class="text-xl font-bold mb-1">...</p>
+                    <p class="text-[9px] text-slate-500 uppercase tracking-widest font-mono">Registered Party Identifier
+                    </p>
+                </div>
+            </div>
+
+            <!-- Subject & Value -->
+            <div class="bg-black/40 rounded-3xl p-5 border border-white/5 mb-2">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div>
+                        <h4 class="text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2">موضوع التعاقد
+                        </h4>
+                        <p id="display-project" class="text-2xl font-black text-white italic uppercase tracking-tight">
+                            ...</p>
+                    </div>
+                    <div class="md:text-left text-center">
+                        <h4 class="text-slate-500 text-[10px] font-mono uppercase tracking-widest mb-2">القيمة الإجمالية
+                            للتعاقد</h4>
+                        <p class="text-3xl font-black text-amber-500"> <span id="display-cost">00</span> <span
+                                class="text-xs text-slate-500 font-mono">EGP</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terms -->
+            <div class="mb-4">
+                <h4 class="text-white text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-3">
+                    <span class="w-8 h-[1px] bg-amber-500"></span> الشروط والأحكام المتعاقد عليها
+                </h4>
+
+                <div class="space-y-1.5 text-[12px] text-slate-400 font-['Cairo'] leading-relaxed text-justify px-4"
+                    id="display-terms">
+                    <!-- Dynamic Terms Injected Here -->
+                </div>
+
+                <div class="mt-4 p-6 bg-amber-500/5 rounded-2xl border border-amber-500/10">
+                    <p class="text-[11px] text-amber-500 leading-relaxed">
+                        <i class="fas fa-info-circle ml-2"></i>
+                        تم تحرير هذا العقد رقمياً ليكون ملزماً لكلا الطرفين بمجرد التوقيع والاعتماد. بموجب هذا العقد يقر
+                        الطرف الثاني بموافقته على كافة التفاصيل الفنية والبنود الموضحة أعلاه.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Execution & Signature -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="relative">
+                    <h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-6">اعتماد الطرف الأول
+                    </h4>
+                    <div
+                        class="w-full h-32 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5 relative">
+                        <div class="text-center">
+                            <p class="text-[10px] font-mono text-slate-500 mb-1">Digitally Authorized by</p>
+                            <p class="text-sm font-black italic text-white uppercase tracking-wider">ASAS SOFTWARE
+                                SOLUTIONS</p>
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+                            <i class="fas fa-shield-alt text-6xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="client-signatures-wrapper" class="space-y-8">
+                    <!-- Injected dynamically via JS based on clientMode -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-16 pt-10 border-t border-white/5 no-print" id="action-buttons">
+                <button id="btn-confirm" onclick="finalizeContract()"
+                    class="w-full bg-gradient-to-r from-amber-600 to-orange-600 py-6 rounded-3xl font-black text-lg tracking-widest hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all transform active:scale-95 text-white flex items-center justify-center gap-4">
+                    <i class="fas fa-check-double"></i>
+                    توقيع واعتماد العقد نهائياً
+                </button>
+                <button id="btn-pdf" onclick="generatePDF()"
+                    class="w-full bg-white/5 border border-white/5 py-6 rounded-3xl font-black text-lg tracking-widest hover:bg-white hover:text-black transition-all transform mt-4 hidden flex items-center justify-center gap-4">
+                    <i class="fas fa-file-pdf"></i>
+                    DOWNLOAD AGREEMENT (PDF)
+                </button>
+            </div>
+        </div>
+
+        <p class="mt-10 text-center text-[10px] text-slate-700 font-mono uppercase tracking-[0.5em]">ASAS CORE SECURITY
+            PROTOCOL v4.0.0</p>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9",
+            measurementId: "G-14FDJ99K84"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Global State
+        let contractId = new URLSearchParams(window.location.search).get('id');
+        let currentSigMode = 'draw';
+        let isDrawing = false;
+        let contractData = null;
+        let currentLang = 'ar';
+
+        if (!contractId) {
+            document.body.innerHTML = '<div class="text-center py-40 bg-slate-950 min-h-screen text-red-500 font-black">X INVALID_CONTRACT_TOKEN X</div>';
+        } else {
+            loadContract();
+        }
+
+        async function loadContract() {
+            try {
+                const docRef = doc(db, "contracts", contractId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    contractData = docSnap.data();
+                    renderContract();
+                } else {
+                    document.body.innerHTML = '<div class="text-center py-40 bg-slate-950 min-h-screen text-red-500 font-black">X CONTRACT_NOT_FOUND X</div>';
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                document.getElementById('loading').classList.add('hidden');
+            }
+        }
+
+        function parseMarkdown(text) {
+            if (!text) return '';
+            let html = '';
+
+            // Clean up any remaining asterisks and hashtags completely
+            let cleanedText = text.replace(/[*#]/g, '');
+
+            const lines = cleanedText.split('\n');
+            let isFirstLine = true;
+
+            lines.forEach(line => {
+                let trimmed = line.trim();
+                if (trimmed.length === 0) {
+                    return;
+                }
+
+                // Check if it is the title of the contract
+                if (isFirstLine) {
+                    html += `<h3 class="text-amber-500 font-black text-lg mt-2 mb-4 text-center border-b border-white/10 pb-3">${trimmed}</h3>`;
+                    isFirstLine = false;
+                    return;
+                }
+
+                // Center "بسم الله الرحمن الرحيم"
+                if (trimmed.includes("بسم الله الرحمن الرحيم")) {
+                    html += `<p class="text-center font-bold text-white my-3 text-xs">${trimmed}</p>`;
+                    return;
+                }
+
+                // Check if it starts with one of the Arabic ordinal numbers for headings
+                const headingKeywords = ["أولاً", "ثانياً", "ثالثاً", "رابعاً", "خامساً", "سادساً", "سابعاً", "ثامناً", "تاسعاً", "عاشراً"];
+                let isHeading = false;
+                for (let keyword of headingKeywords) {
+                    if (trimmed.startsWith(keyword)) {
+                        isHeading = true;
+                        break;
+                    }
+                }
+
+                if (isHeading) {
+                    let idAttr = trimmed.startsWith("تاسعاً") ? ' id="clause-9"' : '';
+                    html += `<h4${idAttr} class="text-amber-500 font-black text-[13px] mt-3 mb-1 flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> ${trimmed}
+                             </h4>`;
+                } else if (/^\d+\.\s/.test(trimmed) || /^\d+\-\s/.test(trimmed)) {
+                    const match = trimmed.match(/^\d+[\.\-]/)[0];
+                    const textContent = trimmed.replace(/^\d+[\.\-]\s*/, '');
+                    html += `<p class="mr-4 mb-1 text-slate-300 text-[12px]"><span class="text-amber-500 font-bold font-mono">${match}</span> ${textContent}</p>`;
+                } else {
+                    html += `<p class="mb-1 text-slate-300 text-[12px] leading-relaxed text-justify">${trimmed}</p>`;
+                }
+            });
+            return html;
+        }
+
+        function renderContract() {
+            document.getElementById('contract-id-display').textContent = contractId.substring(0, 10).toUpperCase();
+            document.getElementById('display-date').textContent = contractData.date || '---';
+            document.getElementById('display-project').textContent = contractData.projectId;
+            document.getElementById('display-cost').textContent = contractData.cost;
+
+            // Render Party B (Clients)
+            const partyBContainer = document.getElementById('party-b-container');
+            if (contractData.clientMode === 'double') {
+                partyBContainer.innerHTML = `
+                    <h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-1">الطرف الثاني (العملاء)</h4>
+                    <p class="text-base font-bold mb-1"><span class="text-amber-500 text-xs">أ:</span> ${contractData.clientName} <span class="text-slate-500 text-[10px] font-normal">(${contractData.clientRole || 'شريك'})</span></p>
+                    <p class="text-base font-bold mb-1"><span class="text-amber-500 text-xs">ب:</span> ${contractData.clientName2} <span class="text-slate-500 text-[10px] font-normal">(${contractData.clientRole2 || 'شريك'})</span></p>
+                `;
+            } else {
+                partyBContainer.innerHTML = `
+                    <h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-1">الطرف الثاني (العميل)</h4>
+                    <p class="text-xl font-bold mb-1">${contractData.clientName} ${contractData.clientRole ? `<span class="text-slate-500 text-xs font-normal">(${contractData.clientRole})</span>` : ''}</p>
+                    <p class="text-[9px] text-slate-500 uppercase tracking-widest font-mono">Registered Party Identifier</p>
+                `;
+            }
+
+            // Render terms from database
+            let termsHtml = parseMarkdown(contractData.terms);
+            if (!termsHtml) termsHtml = `<p class="italic text-slate-600">${currentLang === 'ar' ? 'لا توجد شروط إضافية' : 'No custom terms specified'}</p>`;
+            document.getElementById('display-terms').innerHTML = termsHtml;
+
+            // Check if already signed
+            if (contractData.status === 'Signed' || contractData.signature) {
+                showSignedVersion();
+            } else {
+                setupSignaturePadsUI();
+            }
+        }
+
+        let signaturePads = {};
+
+        function setupSignaturePadsUI() {
+            const wrapper = document.getElementById('client-signatures-wrapper');
+            wrapper.innerHTML = '';
+
+            const isDouble = contractData.clientMode === 'double';
+
+            // Client 1 signature box
+            const label1 = isDouble
+                ? `توقيع العميل الأول: ${contractData.clientName} (${contractData.clientRole || 'شريك'})`
+                : `توقيع العميل (الطرف الثاني)`;
+            wrapper.appendChild(createSignatureBoxHTML(1, label1));
+            initSignaturePad(1);
+
+            if (isDouble) {
+                const label2 = `توقيع العميل الثاني: ${contractData.clientName2} (${contractData.clientRole2 || 'شريك'})`;
+                wrapper.appendChild(createSignatureBoxHTML(2, label2));
+                initSignaturePad(2);
+            }
+        }
+
+        function createSignatureBoxHTML(num, label) {
+            const container = document.createElement('div');
+            container.id = `signature-section-${num}`;
+            container.className = "relative";
+            container.innerHTML = `
+                <h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-4 flex justify-between">
+                    <span>${label}</span>
+                    <div id="sig-controls-${num}" class="flex gap-2 sig-controls">
+                        <button type="button" onclick="setSigMode(${num}, 'draw')" id="btn-draw-${num}" class="bg-amber-500 text-black px-2 py-0.5 rounded text-[8px] font-black">DRAW</button>
+                        <button type="button" onclick="setSigMode(${num}, 'type')" id="btn-type-${num}" class="bg-white/5 text-slate-500 px-2 py-0.5 rounded text-[8px] font-black">TYPE</button>
+                        <button type="button" onclick="clearSig(${num})" class="bg-red-500/10 text-red-500 px-2 py-0.5 rounded text-[8px] font-black">CLEAR</button>
+                    </div>
+                </h4>
+
+                <div id="signature-input-area-${num}" class="w-full h-32 rounded-2xl relative border border-dashed border-white/10 bg-slate-900/50 group/sig">
+                    <canvas id="sig-pad-${num}" width="800" height="200" class="w-full h-full rounded-2xl signature-surface z-10 relative"></canvas>
+                    <div id="sig-placeholder-${num}" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-20">
+                        <i class="fas fa-pen-nib text-xl mb-1"></i>
+                        <p class="text-[8px] font-black uppercase tracking-[0.2em]">وقع هنا | SIGN HERE</p>
+                    </div>
+                    <div id="sig-type-area-${num}" class="absolute inset-0 hidden z-20">
+                        <input type="text" id="typed-name-${num}" placeholder="اكتب اسمك الكامل هنا" class="w-full h-full bg-slate-900 rounded-2xl text-center text-2xl font-['Cairo'] italic text-white border border-amber-500 outline-none">
+                    </div>
+                </div>
+            `;
+            return container;
+        }
+
+        function initSignaturePad(num) {
+            const canvas = document.getElementById(`sig-pad-${num}`);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#fff';
+
+            signaturePads[num] = {
+                canvas,
+                ctx,
+                isDrawing: false,
+                mode: 'draw'
+            };
+
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left,
+                    y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top
+                };
+            };
+
+            const start = (e) => {
+                signaturePads[num].isDrawing = true;
+                ctx.beginPath();
+                const p = getPos(e);
+                ctx.moveTo(p.x, p.y);
+                const placeholder = document.getElementById(`sig-placeholder-${num}`);
+                if (placeholder) placeholder.style.display = 'none';
+            };
+            const draw = (e) => {
+                if (!signaturePads[num].isDrawing) return;
+                const p = getPos(e);
+                ctx.lineTo(p.x, p.y);
+                ctx.stroke();
+                e.preventDefault();
+            };
+            const stop = () => {
+                signaturePads[num].isDrawing = false;
+                ctx.closePath();
+            };
+
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener('mousemove', draw);
+            window.addEventListener('mouseup', stop);
+            canvas.addEventListener('touchstart', start);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', stop);
+        }
+
+        window.setSigMode = (num, mode) => {
+            if (!signaturePads[num]) signaturePads[num] = { mode: 'draw' };
+            signaturePads[num].mode = mode;
+
+            const pad = document.getElementById(`sig-pad-${num}`);
+            const typeArea = document.getElementById(`sig-type-area-${num}`);
+            const btnDraw = document.getElementById(`btn-draw-${num}`);
+            const btnType = document.getElementById(`btn-type-${num}`);
+
+            if (pad) pad.classList.toggle('hidden', mode !== 'draw');
+            if (typeArea) typeArea.classList.toggle('hidden', mode !== 'type');
+
+            if (btnDraw) btnDraw.className = mode === 'draw' ? 'bg-amber-500 text-black px-2 py-0.5 rounded text-[8px] font-black' : 'bg-white/5 text-slate-500 px-2 py-0.5 rounded text-[8px] font-black';
+            if (btnType) btnType.className = mode === 'type' ? 'bg-amber-500 text-black px-2 py-0.5 rounded text-[8px] font-black' : 'bg-white/5 text-slate-500 px-2 py-0.5 rounded text-[8px] font-black';
+        };
+
+        window.clearSig = (num) => {
+            const pad = signaturePads[num];
+            if (pad && pad.ctx) {
+                pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+            }
+            const typed = document.getElementById(`typed-name-${num}`);
+            if (typed) typed.value = '';
+            const placeholder = document.getElementById(`sig-placeholder-${num}`);
+            if (placeholder) placeholder.style.display = 'flex';
+        };
+
+        function showSignedVersion() {
+            document.getElementById('btn-confirm').classList.add('hidden');
+
+            const isDouble = contractData && contractData.clientMode === 'double';
+            const wrapper = document.getElementById('client-signatures-wrapper');
+            wrapper.innerHTML = '';
+
+            // Client 1
+            const label1 = isDouble
+                ? `توقيع العميل الأول: ${contractData.clientName} (${contractData.clientRole || 'شريك'})`
+                : `توقيع العميل (الطرف الثاني)`;
+
+            const container1 = document.createElement('div');
+            container1.innerHTML = `<h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-2">${label1}</h4>`;
+
+            const viewArea1 = document.createElement('div');
+            viewArea1.className = "w-full h-32 rounded-2xl bg-white/5 flex items-center justify-center border border-white/5 relative";
+            let sigContent1 = '';
+            if (contractData.sigMode === 'draw') {
+                sigContent1 = `<img src="${contractData.signature}" class="h-20" style="filter: brightness(0.8) invert(1); display: block; margin: 0 auto;" alt="Signed">`;
+            } else {
+                sigContent1 = `<span class="text-3xl font-['Cairo'] italic text-amber-500 font-bold block text-center">${contractData.signature}</span>`;
+            }
+            viewArea1.innerHTML = `
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+                    <i class="fas fa-file-signature text-5xl"></i>
+                </div>
+                <div class="relative z-10 text-center">${sigContent1}</div>`;
+            container1.appendChild(viewArea1);
+            wrapper.appendChild(container1);
+
+            // Client 2
+            if (isDouble) {
+                const label2 = `توقيع العميل الثاني: ${contractData.clientName2} (${contractData.clientRole2 || 'شريك'})`;
+                const container2 = document.createElement('div');
+                container2.innerHTML = `<h4 class="text-amber-500 text-[10px] font-black uppercase tracking-widest mb-2 mt-4">${label2}</h4>`;
+
+                const viewArea2 = document.createElement('div');
+                viewArea2.className = "w-full h-32 rounded-2xl bg-white/5 flex items-center justify-center border border-white/5 relative";
+                let sigContent2 = '';
+                if (contractData.sigMode2 === 'draw') {
+                    sigContent2 = `<img src="${contractData.signature2}" class="h-20" style="filter: brightness(0.8) invert(1); display: block; margin: 0 auto;" alt="Signed">`;
+                } else {
+                    sigContent2 = `<span class="text-3xl font-['Cairo'] italic text-amber-500 font-bold block text-center">${contractData.signature2}</span>`;
+                }
+                viewArea2.innerHTML = `
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+                        <i class="fas fa-file-signature text-5xl"></i>
+                    </div>
+                    <div class="relative z-10 text-center">${sigContent2}</div>`;
+                container2.appendChild(viewArea2);
+                wrapper.appendChild(container2);
+            }
+
+            document.getElementById('btn-pdf').classList.remove('hidden');
+        }
+
+        function textToImage(text) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1200;
+            canvas.height = 300;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#000000';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = "italic 900 100px 'Cairo', sans-serif";
+            ctx.fillText(text, canvas.width / 2, ctx.canvas.height / 2);
+            return canvas.toDataURL('image/png');
+        }
+
+        window.finalizeContract = async () => {
+            const btn = document.getElementById('btn-confirm');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> GENERATING BLOCKCHAIN RECORD...';
+
+            const isDouble = contractData && contractData.clientMode === 'double';
+            let signatureData = '';
+            let sigMode = signaturePads[1] ? signaturePads[1].mode : 'draw';
+
+            if (sigMode === 'draw') {
+                signatureData = signaturePads[1] ? signaturePads[1].canvas.toDataURL() : '';
+            } else {
+                signatureData = document.getElementById('typed-name-1').value.trim();
+                if (!signatureData) { alert(currentLang === 'ar' ? "يرجى كتابة اسم الطرف الأول للتوقيع" : "Please type your name for Party 1"); btn.disabled = false; btn.innerHTML = 'SIGN & ACCEPT'; return; }
+            }
+
+            let signatureData2 = '';
+            let sigMode2 = 'draw';
+            if (isDouble) {
+                sigMode2 = signaturePads[2] ? signaturePads[2].mode : 'draw';
+                if (sigMode2 === 'draw') {
+                    signatureData2 = signaturePads[2] ? signaturePads[2].canvas.toDataURL() : '';
+                } else {
+                    signatureData2 = document.getElementById('typed-name-2').value.trim();
+                    if (!signatureData2) { alert(currentLang === 'ar' ? "يرجى كتابة اسم الطرف الثاني للتوقيع" : "Please type your name for Party 2"); btn.disabled = false; btn.innerHTML = 'SIGN & ACCEPT'; return; }
+                }
+            }
+
+            try {
+                const docRef = doc(db, "contracts", contractId);
+                const updateData = {
+                    signature: signatureData,
+                    sigMode: sigMode,
+                    status: 'Signed',
+                    signedAt: serverTimestamp()
+                };
+                if (isDouble) {
+                    updateData.signature2 = signatureData2;
+                    updateData.sigMode2 = sigMode2;
+                }
+
+                await updateDoc(docRef, updateData);
+
+                contractData = (await getDoc(docRef)).data();
+                showSignedVersion();
+                alert("تم توقيع العقد بنجاح! يمكنك الآن تحميل نسخة PDF.");
+            } catch (e) {
+                console.error(e);
+                alert("حدث خطأ أثناء التوقيع.");
+            } finally {
+                btn.disabled = false;
+            }
+        };
+
+        async function getProcessedSignatureImg(signatureSource, sigMode) {
+            if (sigMode === 'draw') {
+                try {
+                    const tempCanvas = document.createElement('canvas');
+                    const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
+                    const sigImg = new Image();
+                    sigImg.crossOrigin = "anonymous";
+                    sigImg.src = signatureSource;
+                    await sigImg.decode();
+                    tempCanvas.width = sigImg.width || 800;
+                    tempCanvas.height = sigImg.height || 320;
+                    tempCtx.drawImage(sigImg, 0, 0);
+                    const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+                    const pixels = imageData.data;
+                    for (let i = 0; i < pixels.length; i += 4) { if (pixels[i + 3] > 0) { pixels[i] = pixels[i + 1] = pixels[i + 2] = 0; } }
+                    tempCtx.putImageData(imageData, 0, 0);
+                    return tempCanvas.toDataURL('image/png');
+                } catch (e) { console.warn("Sig Processing Fallback", e); return signatureSource; }
+            } else {
+                return textToImage(signatureSource || '---');
+            }
+        }
+
+        window.generatePDF = async () => {
+            const { jsPDF } = window.jspdf;
+            const element = document.getElementById('contract-content');
+            const actionButtons = document.getElementById('action-buttons');
+            const loadingOverlay = document.getElementById('loading');
+
+            loadingOverlay.classList.remove('hidden');
+            loadingOverlay.querySelector('p').textContent = 'Capturing Official Record...';
+            actionButtons.style.display = 'none';
+
+            const isDouble = contractData && contractData.clientMode === 'double';
+            const wrapper = document.getElementById('client-signatures-wrapper');
+            const originalWrapperHTML = wrapper.innerHTML;
+
+            wrapper.innerHTML = '';
+
+            // Client 1
+            const finalImg1 = await getProcessedSignatureImg(contractData.signature, contractData.sigMode);
+            const sigBlock1 = document.createElement('div');
+            sigBlock1.className = "text-center";
+            sigBlock1.innerHTML = `
+                <h4 style="font-size: 11px !important; font-weight: 900 !important; color: #b45309 !important; margin-bottom: 4px !important;">توقيع الطرف الثاني (العميل):</h4>
+                <p style="font-size: 15px !important; font-weight: bold !important; margin-bottom: 8px !important;">${contractData.clientName} (${contractData.clientRole || 'شريك'})</p>
+                <div style="background: transparent; border-bottom: 2px solid #000; width: 220px; margin: 0 auto; padding-bottom: 2px;">
+                    <img src="${finalImg1}" style="height: 70px; width: auto; display: block; margin: 0 auto; object-fit: contain;">
+                </div>`;
+            wrapper.appendChild(sigBlock1);
+
+            // Client 2
+            if (isDouble) {
+                const finalImg2 = await getProcessedSignatureImg(contractData.signature2, contractData.sigMode2);
+                const sigBlock2 = document.createElement('div');
+                sigBlock2.className = "text-center mt-6";
+                sigBlock2.innerHTML = `
+                    <h4 style="font-size: 11px !important; font-weight: 900 !important; color: #b45309 !important; margin-bottom: 4px !important;">توقيع الطرف الثاني (العميل الثاني):</h4>
+                    <p style="font-size: 15px !important; font-weight: bold !important; margin-bottom: 8px !important;">${contractData.clientName2} (${contractData.clientRole2 || 'شريك'})</p>
+                    <div style="background: transparent; border-bottom: 2px solid #000; width: 220px; margin: 0 auto; padding-bottom: 2px;">
+                        <img src="${finalImg2}" style="height: 70px; width: auto; display: block; margin: 0 auto; object-fit: contain;">
+                    </div>`;
+                wrapper.appendChild(sigBlock2);
+            }
+
+            await new Promise(r => setTimeout(r, 800));
+
+            const oldScroll = window.scrollY;
+            window.scrollTo(0, 0);
+            element.classList.add('hot-swap-pdf');
+
+            // Wait a small bit for DOM/CSS to apply
+            await new Promise(r => setTimeout(r, 200));
+
+            // Find Clause 9 element and dynamically push it to the next page if it is on page 1
+            const clause9 = document.getElementById('clause-9');
+            let originalMarginTop = '';
+            if (clause9) {
+                originalMarginTop = clause9.style.marginTop;
+                const containerRect = element.getBoundingClientRect();
+                const clause9Rect = clause9.getBoundingClientRect();
+                const Y = clause9Rect.top - containerRect.top;
+
+                // One A4 page height on a 1000px wide canvas is 1414px
+                const pageHeight = 1414;
+                const pageNumber = Math.floor(Y / pageHeight);
+                if (pageNumber === 0) {
+                    const nextPageStart = pageHeight;
+                    const requiredMargin = nextPageStart - Y;
+                    if (requiredMargin > 0) {
+                        clause9.style.marginTop = `${requiredMargin}px`;
+                    }
+                }
+            }
+
+            try {
+                const captureCanvas = await html2canvas(element, {
+                    scale: 2.5,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff',
+                    scrollY: 0,
+                    width: element.scrollWidth,
+                    height: element.scrollHeight
+                });
+
+                window.scrollTo(0, oldScroll);
+
+                // Reset margin
+                if (clause9) {
+                    clause9.style.marginTop = originalMarginTop;
+                }
+
+                element.classList.remove('hot-swap-pdf');
+                actionButtons.style.display = 'block';
+                wrapper.innerHTML = originalWrapperHTML;
+
+                const imgData = captureCanvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const imgHeight = (captureCanvas.height * pdfWidth) / captureCanvas.width;
+
+                pdf.addImage(imgData, "PNG", 5, 5, 200, 287, undefined, "FAST");
+                pdf.save(`ASAS-Contract-${Date.now()}.pdf`);
+
+            } catch (error) {
+                console.error('Snapshot Error:', error);
+                element.classList.remove('hot-swap-pdf');
+                actionButtons.style.display = 'block';
+                wrapper.innerHTML = originalWrapperHTML;
+                alert("Capture Error: " + error.message);
+            } finally {
+                loadingOverlay.classList.add('hidden');
+            }
+        };
+
+    </script>
+    <!-- Toast Notifications -->
+    <script src="assets/js/toast.js"></script>
+</body>
+
+</html>
