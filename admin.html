@@ -1420,7 +1420,8 @@
                 { id: 'law-pro', name: 'ASAS Law Pro', version: '1.0.0', active: true, downloadUrl: '', price: 2500, discountPrice: 0, downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' },
                 { id: 'pharmacy-pos', name: 'ASAS Pharmacy Pro', version: '1.0.0', active: true, downloadUrl: '', price: 1500, discountPrice: 1200, downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' },
                 { id: 'market-pos', name: 'ASAS Market POS', version: '1.0.0', active: true, downloadUrl: '', price: 2000, discountPrice: 0, downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' },
-                { id: 'resto-cafe-pos', name: 'Resto & Cafe POS', version: '1.0.0', active: true, downloadUrl: '', price: 3000, discountPrice: 0, downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' }
+                { id: 'resto-cafe-pos', name: 'Resto & Cafe POS', version: '1.0.0', active: true, downloadUrl: '', price: 3000, discountPrice: 0, downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' },
+                { id: 'service-center', name: 'ASAS Service', version: '1.0.3', active: true, downloadUrl: '', downloadUrl_win10_x64: '', downloadUrl_win10_ia32: '', downloadUrl_win10_all: '', downloadUrl_win7_x64: '', downloadUrl_win7_ia32: '', downloadUrl_win7_all: '' }
             ];
 
             for (const proj of projectsToSeed) {
@@ -1615,6 +1616,7 @@
                     isUsed: false,
                     activatedAt: deleteField(),
                     deviceInfo: deleteField(),
+                    deviceId: deleteField(),
                     programName: deleteField()
                 });
                 alert('تم إلغاء التفعيل بنجاح.');
