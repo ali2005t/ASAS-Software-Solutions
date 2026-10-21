@@ -42,12 +42,12 @@
           <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-amber-300/5 px-4 py-2 text-[11px] font-bold text-amber-200"><span class="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>نظام مكتبي لمراكز الصيانة</div>
           <h1 class="mb-5 text-5xl font-black leading-tight md:text-7xl">إدارة مركزك<br><span class="gold-text">من الاستلام للتسليم</span></h1>
           <p class="font-copy mb-8 max-w-2xl text-lg leading-9 text-slate-300">ASAS Service يجمع بيانات العملاء والأجهزة وطلبات الإصلاح في مساحة عمل واحدة. تابع حالة كل جهاز، ونظّم قطع الغيار والفواتير وحركة الدرج، واطّلع على التقارير وسجل العمليات بسهولة.</p>
+          <div id="service-price-container" class="h-10 flex items-center gap-4 font-mono" aria-live="polite"><div class="h-8 w-32 rounded bg-white/5 animate-pulse"></div></div>
           <div class="flex flex-wrap gap-3">
             <a id="service-download-cta" href="#" aria-disabled="true" tabindex="-1" class="rounded-xl border border-emerald-300/20 bg-emerald-300/5 px-6 py-3.5 text-sm font-black text-emerald-100/50 opacity-60 cursor-not-allowed"><i class="fa-solid fa-download ml-2"></i><span>تحميل النسخة</span></a>
             <a href="https://wa.me/201032630429?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%83%D9%88%D8%AF%20%D8%AA%D9%81%D8%B9%D9%8A%D9%84%20ASAS%20Service" target="_blank" rel="noopener" class="rounded-xl border border-white/15 px-6 py-3.5 text-sm font-bold text-white transition hover:border-amber-200/50 hover:bg-white/5"><i class="fa-solid fa-key ml-2 text-amber-300"></i>طلب كود التفعيل</a>
             <a href="#service-reviews" class="rounded-xl border border-amber-300/20 px-6 py-3.5 text-sm font-bold text-amber-100 transition hover:bg-amber-300/10"><i class="fa-solid fa-star ml-2 text-amber-300"></i>آراء وتقييمات العملاء</a>
           </div>
-          <div id="service-price-container" class="mt-6 flex flex-wrap items-center gap-3 font-mono" aria-live="polite"><span class="text-sm font-bold text-slate-400">جاري تحميل السعر...</span></div>
           <p class="mt-5 text-xs text-slate-400"><i class="fa-solid fa-circle-info ml-1 text-amber-300"></i>يحتاج الإنترنت عند التفعيل الأول فقط، وبعدها يعمل أوفلاين.</p>
         </div>
 
@@ -259,11 +259,15 @@
       const discountPrice = Number(project?.discountPrice) || 0;
 
       if (discountPrice > 0) {
-        priceContainer.innerHTML = `${price > 0 ? `<span class="text-lg text-slate-500 line-through">${price} ج.م</span>` : ""}<span class="text-3xl font-black text-white">${discountPrice} ج.م</span>`;
+        priceContainer.innerHTML = `
+          <span class="line-through text-slate-500 text-xl">${price} ج.م</span>
+          <span class="text-3xl font-black text-white">${discountPrice} ج.م</span>
+          <span class="rounded bg-red-500/20 px-2 py-1 text-xs font-bold text-red-500">خصم لفترة محدودة</span>
+        `;
       } else if (price > 0) {
         priceContainer.innerHTML = `<span class="text-3xl font-black text-white">${price} ج.م</span>`;
       } else {
-        priceContainer.innerHTML = '<span class="text-lg font-bold text-slate-400">السعر عند الطلب</span>';
+        priceContainer.innerHTML = '<span class="text-xl font-bold text-gray-400">مجاني / عند الطلب</span>';
       }
 
       const downloadUrl = project?.active === false ? "" : (project?.downloadUrl_win10_x64 || project?.downloadUrl || "");
@@ -280,6 +284,7 @@
       }
     } catch (error) {
       console.warn("تعذر تحميل رابط ASAS Service من إعدادات الموقع.", error);
+      document.getElementById("service-price-container").innerHTML = '<span class="text-sm text-red-500">خطأ في تحميل البيانات</span>';
     }
   </script>
   <footer class="border-t border-white/10 px-5 py-7 text-center text-xs text-slate-500">© ASAS Software Solutions · <a class="text-slate-300 hover:text-amber-200" href="../index.html">الصفحة الرئيسية</a></footer>
