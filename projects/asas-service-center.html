@@ -12,7 +12,7 @@
   <link rel="icon" type="image/x-icon" href="../assets/ico.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../assets/css/tailwind.generated.css">
   <style>
     :root { color-scheme: dark; --gold:#d4af37; --navy:#0b1422; --panel:#111e30; }
     * { box-sizing:border-box; }
@@ -45,8 +45,9 @@
           <div class="flex flex-wrap gap-3">
             <a id="service-download-cta" href="#" aria-disabled="true" tabindex="-1" class="rounded-xl border border-emerald-300/20 bg-emerald-300/5 px-6 py-3.5 text-sm font-black text-emerald-100/50 opacity-60 cursor-not-allowed"><i class="fa-solid fa-download ml-2"></i><span>تحميل النسخة</span></a>
             <a href="https://wa.me/201032630429?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%83%D9%88%D8%AF%20%D8%AA%D9%81%D8%B9%D9%8A%D9%84%20ASAS%20Service" target="_blank" rel="noopener" class="rounded-xl border border-white/15 px-6 py-3.5 text-sm font-bold text-white transition hover:border-amber-200/50 hover:bg-white/5"><i class="fa-solid fa-key ml-2 text-amber-300"></i>طلب كود التفعيل</a>
+            <a href="#service-reviews" class="rounded-xl border border-amber-300/20 px-6 py-3.5 text-sm font-bold text-amber-100 transition hover:bg-amber-300/10"><i class="fa-solid fa-star ml-2 text-amber-300"></i>آراء وتقييمات العملاء</a>
           </div>
-          <p class="mt-5 text-xs text-slate-400"><i class="fa-solid fa-circle-info ml-1 text-amber-300"></i>تجربة أولية لمدة 7 أيام، ثم يتم التفعيل عبر الإنترنت.</p>
+          <p class="mt-5 text-xs text-slate-400"><i class="fa-solid fa-circle-info ml-1 text-amber-300"></i>يحتاج الإنترنت عند التفعيل الأول فقط، وبعدها يعمل أوفلاين.</p>
         </div>
 
         <figure class="relative mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-[#0b1422] shadow-2xl shadow-black/30">
@@ -77,9 +78,51 @@
       </div>
     </section>
 
+    <section id="service-reviews" class="px-5 py-16 md:px-12 md:py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-10 text-center">
+          <span class="text-xs font-bold tracking-widest text-amber-300">تجارب العملاء</span>
+          <h2 class="mt-3 text-3xl font-black md:text-4xl">آراء وتقييمات <span class="gold-text">ASAS Service</span></h2>
+          <p class="mt-3 text-sm text-slate-400">اطّلع على التقييمات المعتمدة، أو شاركنا رأيك في البرنامج.</p>
+        </div>
+        <div id="service-reviews-list" class="mb-10 grid gap-4 md:grid-cols-2">
+          <div class="rounded-2xl border border-white/10 bg-white/[.03] p-6 text-center text-sm text-slate-400">جاري تحميل التقييمات...</div>
+        </div>
+        <div class="glass mx-auto max-w-3xl rounded-3xl p-6 sm:p-8">
+          <h3 class="mb-2 text-xl font-black">قيّم البرنامج وأضف رأيك</h3>
+          <p class="mb-6 text-xs text-slate-400">سيظهر تقييمك بعد مراجعته واعتماده من الإدارة.</p>
+          <form id="service-review-form" class="space-y-5">
+            <div>
+              <label class="mb-2 block text-xs font-bold text-slate-300">تقييمك بالنجوم *</label>
+              <div id="service-review-stars" class="flex gap-2 text-3xl" role="group" aria-label="اختر تقييمًا من نجمة إلى خمس نجوم">
+                <button type="button" data-rating="1" aria-label="نجمة واحدة" class="text-slate-600 transition hover:text-amber-300">★</button>
+                <button type="button" data-rating="2" aria-label="نجمتان" class="text-slate-600 transition hover:text-amber-300">★</button>
+                <button type="button" data-rating="3" aria-label="ثلاث نجوم" class="text-slate-600 transition hover:text-amber-300">★</button>
+                <button type="button" data-rating="4" aria-label="أربع نجوم" class="text-slate-600 transition hover:text-amber-300">★</button>
+                <button type="button" data-rating="5" aria-label="خمس نجوم" class="text-slate-600 transition hover:text-amber-300">★</button>
+              </div>
+              <input id="service-review-rating" type="hidden" value="0">
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="block text-xs font-bold text-slate-300">الاسم الكامل *
+                <input id="service-review-name" type="text" required maxlength="100" class="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none focus:border-amber-300">
+              </label>
+              <label class="block text-xs font-bold text-slate-300">المسمى أو النشاط *
+                <input id="service-review-role" type="text" required maxlength="100" placeholder="مثال: صاحب مركز صيانة" class="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none focus:border-amber-300">
+              </label>
+            </div>
+            <label class="block text-xs font-bold text-slate-300">رأيك في البرنامج *
+              <textarea id="service-review-comment" rows="4" required maxlength="1500" class="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none focus:border-amber-300"></textarea>
+            </label>
+            <button id="service-review-submit" type="submit" class="w-full rounded-xl bg-amber-300 px-5 py-3 font-black text-slate-950 transition hover:bg-amber-200">إرسال التقييم للمراجعة</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <section class="px-5 py-16 md:px-12 md:py-20">
       <div class="glass mx-auto grid max-w-5xl gap-8 rounded-3xl p-7 md:grid-cols-2 md:p-10">
-        <div><h2 class="mb-3 text-2xl font-black">متطلبات التشغيل والتفعيل</h2><p class="font-copy text-sm leading-7 text-slate-400">برنامج مكتبي لأجهزة Windows. يحتاج اتصالاً بالإنترنت عند التفعيل الأول للتحقق من الترخيص؛ مدة التجربة الأولية 7 أيام. بعد التفعيل، تُحفظ بيانات المركز محلياً على الجهاز.</p></div>
+        <div><h2 class="mb-3 text-2xl font-black">متطلبات التشغيل والتفعيل</h2><p class="font-copy text-sm leading-7 text-slate-400">برنامج مكتبي لأجهزة Windows. يحتاج اتصالاً بالإنترنت عند التفعيل الأول فقط، وبعدها يعمل دون إنترنت. تُحفظ بيانات المركز محلياً على الجهاز.</p></div>
         <ul class="space-y-3 text-sm text-slate-300"><li><i class="fa-brands fa-windows ml-2 text-sky-300"></i>Windows 10 أو Windows 11</li><li><i class="fa-solid fa-wifi ml-2 text-amber-300"></i>اتصال إنترنت عند التفعيل الأول</li><li><i class="fa-solid fa-database ml-2 text-emerald-300"></i>تخزين محلي مع إمكانية النسخ الاحتياطي</li><li><i class="fa-solid fa-building ml-2 text-violet-300"></i>مناسب لمراكز الصيانة وفرق الاستقبال والفنيين</li></ul>
       </div>
     </section>
@@ -87,7 +130,112 @@
   </main>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, collection, query, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    function initServiceReviews(db) {
+      const list = document.getElementById("service-reviews-list");
+      const form = document.getElementById("service-review-form");
+      const ratingInput = document.getElementById("service-review-rating");
+      const stars = Array.from(document.querySelectorAll("#service-review-stars [data-rating]"));
+      const submitButton = document.getElementById("service-review-submit");
+
+      function paintStars(rating) {
+        stars.forEach((star) => {
+          const selected = Number(star.dataset.rating) <= rating;
+          star.classList.toggle("text-amber-300", selected);
+          star.classList.toggle("text-slate-600", !selected);
+        });
+      }
+
+      stars.forEach((star) => star.addEventListener("click", () => {
+        ratingInput.value = star.dataset.rating;
+        paintStars(Number(ratingInput.value));
+      }));
+
+      onSnapshot(query(collection(db, "reviews")), (snapshot) => {
+        const reviews = snapshot.docs
+          .map((reviewDoc) => reviewDoc.data())
+          .filter((review) => review.projectId === "service-center" && review.status === "approved")
+          .sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+
+        list.replaceChildren();
+        if (!reviews.length) {
+          const empty = document.createElement("div");
+          empty.className = "rounded-2xl border border-white/10 bg-white/[.03] p-6 text-center text-sm text-slate-400 md:col-span-2";
+          empty.textContent = "لسه مفيش تقييمات معتمدة. كن أول من يشارك تجربته.";
+          list.appendChild(empty);
+          return;
+        }
+
+        reviews.forEach((review) => {
+          const card = document.createElement("article");
+          card.className = "rounded-2xl border border-white/10 bg-white/[.03] p-6";
+          const header = document.createElement("div");
+          header.className = "mb-4 flex items-start justify-between gap-4";
+          const identity = document.createElement("div");
+          const name = document.createElement("h3");
+          name.className = "font-black text-white";
+          name.textContent = review.userName || "عميل";
+          const role = document.createElement("p");
+          role.className = "mt-1 text-xs text-slate-400";
+          role.textContent = review.userRole || "";
+          identity.append(name, role);
+          const score = document.createElement("span");
+          score.className = "shrink-0 text-amber-300";
+          const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
+          score.textContent = `${"★".repeat(rating)}${"☆".repeat(5 - rating)}`;
+          header.append(identity, score);
+          const comment = document.createElement("p");
+          comment.className = "whitespace-pre-wrap text-sm leading-7 text-slate-300";
+          comment.textContent = review.comment || "";
+          card.append(header, comment);
+          if (review.reply) {
+            const reply = document.createElement("p");
+            reply.className = "mt-4 border-t border-white/10 pt-4 text-xs leading-6 text-amber-200";
+            reply.textContent = `رد الإدارة: ${review.reply}`;
+            card.appendChild(reply);
+          }
+          list.appendChild(card);
+        });
+      }, (error) => {
+        console.error("Unable to load ASAS Service reviews:", error);
+        list.textContent = "تعذر تحميل التقييمات الآن. حاول مرة أخرى لاحقًا.";
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const rating = Number(ratingInput.value);
+        if (!rating) {
+          alert("اختار عدد النجوم قبل إرسال التقييم.");
+          return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "جاري إرسال التقييم...";
+        try {
+          await addDoc(collection(db, "reviews"), {
+            projectId: "service-center",
+            userName: document.getElementById("service-review-name").value.trim(),
+            userRole: document.getElementById("service-review-role").value.trim(),
+            rating,
+            comment: document.getElementById("service-review-comment").value.trim(),
+            reply: "",
+            status: "pending",
+            createdAt: serverTimestamp()
+          });
+          form.reset();
+          ratingInput.value = "0";
+          paintStars(0);
+          alert("وصلنا تقييمك. هيظهر بعد مراجعته واعتماده من الإدارة.");
+        } catch (error) {
+          console.error("Unable to submit ASAS Service review:", error);
+          alert("تعذر إرسال التقييم الآن. حاول مرة أخرى لاحقًا.");
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = "إرسال التقييم للمراجعة";
+        }
+      });
+    }
 
     const firebaseConfig = {
       apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
@@ -102,6 +250,7 @@
     try {
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
+      initServiceReviews(db);
       const snapshot = await getDoc(doc(db, "projects", "service-center"));
       const project = snapshot.exists() ? snapshot.data() : null;
       const downloadUrl = project?.active === false ? "" : (project?.downloadUrl_win10_x64 || project?.downloadUrl || "");

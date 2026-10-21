@@ -47,7 +47,7 @@
     <meta property="og:image" content="assets/law_logo.png">
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/tailwind.generated.css">
 
     <!-- Google Fonts (Cairo & Tajawal) -->
     <link
@@ -753,6 +753,8 @@
                 class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">أعمالنا</a>
             <a href="blog.html"
                 class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">المدونة</a>
+            <a href="products.html"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">الأجهزة والمنتجات</a>
             <a href="#careers"
                 class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">التوظيف</a>
             <a href="#contact"
@@ -780,6 +782,7 @@
         <a href="#services" class="text-2xl text-white hover:text-cyan-500">خدماتنا</a>
         <a href="#portfolio" class="text-2xl text-white hover:text-cyan-500">أعمالنا</a>
         <a href="blog.html" class="text-2xl text-white hover:text-cyan-500">المدونة</a>
+        <a href="products.html" class="text-2xl text-white hover:text-cyan-500">الأجهزة والمنتجات</a>
         <a href="#careers" class="text-2xl text-white hover:text-cyan-500">التوظيف</a>
         <a href="#contact" class="text-2xl text-cyan-500">تواصل معنا</a>
     </div>
@@ -1374,14 +1377,14 @@
                                 الحل الرقمي المتكامل المصمم خصيصاً لإدارة مكاتب المحاماة والاستشارات القانونية. يتيح لك تنظيم القضايا، متابعة التوكيلات، أرشفة المستندات والملفات الحساسة بأعلى درجات الأمان، مع لوحة مالية شاملة وجدول مواعيد ذكي للجلسات.
                             </p>
                             <ul class="grid grid-cols-2 gap-3 text-slate-300 text-xs mb-8">
-                                <li class="flex items-center justify-end gap-2"><span class="font-bold">أرشفة سحابية ذكية للمستندات</span><i class="fas fa-check text-[#d4af37]"></i></li>
+                                <li class="flex items-center justify-end gap-2"><span class="font-bold">تشغيل محلي أو أونلاين حسب اختيارك</span><i class="fas fa-check text-[#d4af37]"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">متابعة دقيقة لمواعيد الجلسات</span><i class="fas fa-check text-[#d4af37]"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">إدارة حسابات الموكلين والرسوم</span><i class="fas fa-check text-[#d4af37]"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">نظام تقارير وإحصائيات متطور</span><i class="fas fa-check text-[#d4af37]"></i></li>
                             </ul>
                             <div class="flex justify-end gap-3 flex-wrap">
                                 <button onclick="openDemoModal('law-pro')" class="px-6 py-3 rounded-xl text-xs font-bold text-[#d4af37] border border-[#d4af37]/20 hover:bg-[#d4af37]/10 transition-all flex items-center gap-2">
-                                    <span>طلب ديمو تجريبي</span> <i class="fas fa-desktop text-[10px]"></i>
+                                    <span>طلب البرنامج</span> <i class="fas fa-desktop text-[10px]"></i>
                                 </button>
                                 <a href="projects/asas-law-pro.html" class="btn-showcase px-6 py-3 rounded-xl text-xs font-bold text-white flex items-center gap-2 group-hover:scale-105 transition-all">
                                     عرض تفاصيل النظام واستكشاف الميزات <i class="fas fa-arrow-left"></i>
@@ -1401,17 +1404,18 @@
                             </div>
                             <h3 class="text-2xl md:text-3xl font-black text-white mb-4"><span data-project-id="pharmacy-pos-name">PHARMACY PRO</span> <span data-project-id="pharmacy-pos-ver" class="text-xs font-mono text-[#0097a7] bg-[#0097a7]/10 px-2 py-1 rounded-md border border-[#0097a7]/20 ml-2">VER 1.5</span></h3>
                             <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                                نظام سحابي مبتكر مصمم لربط الصيدليات ومستودعات الأدوية. يتميز بالقدرة على قراءة وتتبع تواريخ انتهاء الصلاحية تلقائياً، وإدارة المخزون بدقة متناهية، ومزامنة الفروع المختلفة عبر قاعدة بيانات سحابية لحظية.
+                                نظام مبتكر لإدارة الصيدليات ومستودعات الأدوية. يتابع تواريخ انتهاء الصلاحية ويدير المخزون بدقة، مع مزامنة الفروع عند توفر الاتصال بالإنترنت.
                             </p>
                             <ul class="grid grid-cols-2 gap-3 text-slate-300 text-xs mb-8">
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">تنبيهات فورية لتواريخ الصلاحية</span><i class="fas fa-check text-[#0097a7]"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">ربط الفروع والمستودعات لحظياً</span><i class="fas fa-check text-[#0097a7]"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">دعم مسح الباركود السريع والكاميرا</span><i class="fas fa-check text-[#0097a7]"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">إصدار الفواتير وطباعتها حرارياً</span><i class="fas fa-check text-[#0097a7]"></i></li>
+                                <li class="flex items-center justify-end gap-2"><span class="font-bold">إنترنت عند التفعيل الأول، ثم يعمل أوفلاين</span><i class="fas fa-check text-[#0097a7]"></i></li>
                             </ul>
                             <div class="flex justify-end gap-3 flex-wrap">
                                 <button onclick="openDemoModal('pharmacy-pos')" class="px-6 py-3 rounded-xl text-xs font-bold text-[#0097a7] border border-[#0097a7]/20 hover:bg-[#0097a7]/10 transition-all flex items-center gap-2">
-                                    <span>طلب ديمو تجريبي</span> <i class="fas fa-desktop text-[10px]"></i>
+                                    <span>طلب البرنامج</span> <i class="fas fa-desktop text-[10px]"></i>
                                 </button>
                                 <a href="projects/asas-pharmacy-pos.html" class="btn-showcase px-6 py-3 rounded-xl text-xs font-bold text-white flex items-center gap-2 group-hover:scale-105 transition-all">
                                     عرض تفاصيل النظام واستكشاف الميزات <i class="fas fa-arrow-left"></i>
@@ -1471,17 +1475,17 @@
                             </div>
                             <h3 class="text-2xl md:text-3xl font-black text-white mb-4"><span data-project-id="market-pos-name">ASAS MARKET POS</span> <span data-project-id="market-pos-ver" class="text-xs font-mono text-[#06b6d4] bg-[#06b6d4]/10 px-2 py-1 rounded-md border border-[#06b6d4]/20 ml-2">VER 3.0</span></h3>
                             <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                                نظام البيع المكتبي المتطور للمحلات التجارية، أسواق التجزئة، والسوبر ماركت. يعمل بكفاءة تامة بدون اتصال إنترنت، يدعم الموازين الذكية وطباعة الباركود، مع نظام جرد ذكي للمخازن وتنبيهات بنقص الكميات.
+                                نظام البيع المكتبي المتطور للمحلات التجارية، أسواق التجزئة، والسوبر ماركت. يحتاج الإنترنت عند التفعيل الأول فقط، ثم يعمل دون اتصال؛ ويدعم الموازين الذكية وطباعة الباركود والجرد الذكي للمخازن.
                             </p>
                             <ul class="grid grid-cols-2 gap-3 text-slate-300 text-xs mb-8">
-                                <li class="flex items-center justify-end gap-2"><span class="font-bold">يعمل 100% بدون اتصال إنترنت</span><i class="fas fa-check text-cyan-400"></i></li>
+                                <li class="flex items-center justify-end gap-2"><span class="font-bold">إنترنت عند التفعيل الأول، ثم يعمل أوفلاين</span><i class="fas fa-check text-cyan-400"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">جرد آلي ومستمر للمخزون</span><i class="fas fa-check text-cyan-400"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">دعم الموازين والباركود المزدوج</span><i class="fas fa-check text-cyan-400"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">حسابات الضرائب والأرباح الصافية</span><i class="fas fa-check text-cyan-400"></i></li>
                             </ul>
                             <div class="flex justify-end gap-3 flex-wrap">
                                 <button onclick="openDemoModal('market-pos')" class="px-6 py-3 rounded-xl text-xs font-bold text-[#06b6d4] border border-[#06b6d4]/20 hover:bg-[#06b6d4]/10 transition-all flex items-center gap-2">
-                                    <span>طلب ديمو تجريبي</span> <i class="fas fa-desktop text-[10px]"></i>
+                                    <span>طلب البرنامج</span> <i class="fas fa-desktop text-[10px]"></i>
                                 </button>
                                 <a href="projects/asas-market-pos.html" class="btn-showcase px-6 py-3 rounded-xl text-xs font-bold text-white flex items-center gap-2 group-hover:scale-105 transition-all">
                                     عرض تفاصيل النظام واستكشاف الميزات <i class="fas fa-arrow-left"></i>
@@ -1507,7 +1511,7 @@
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">متابعة حالات الأجهزة وطلبات الصيانة</span><i class="fas fa-check text-[#d4af37]"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">إدارة العملاء وقطع الغيار</span><i class="fas fa-check text-[#d4af37]"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">فواتير ومصروفات وأرشيف فتح وإغلاق الدرج</span><i class="fas fa-check text-[#d4af37]"></i></li>
-                                <li class="flex items-center justify-end gap-2"><span class="font-bold">تجربة 7 أيام وتفعيل عبر الإنترنت</span><i class="fas fa-check text-[#d4af37]"></i></li>
+                                <li class="flex items-center justify-end gap-2"><span class="font-bold">إنترنت عند التفعيل الأول، ثم يعمل أوفلاين</span><i class="fas fa-check text-[#d4af37]"></i></li>
                             </ul>
                             <div class="flex justify-end gap-3 flex-wrap">
                                 <button onclick="openDemoModal('service-center')" class="px-6 py-3 rounded-xl text-xs font-bold text-[#e6c85c] border border-[#d4af37]/25 hover:bg-[#d4af37]/10 transition-all flex items-center gap-2"><span>طلب نسخة البرنامج</span><i class="fas fa-desktop text-[10px]"></i></button>
@@ -1527,17 +1531,18 @@
                             </div>
                             <h3 class="text-2xl md:text-3xl font-black text-white mb-4"><span data-project-id="resto-cafe-pos-name">RESTO & CAFE POS</span> <span data-project-id="resto-cafe-pos-ver" class="text-xs font-mono text-[#10b981] bg-[#10b981]/10 px-2 py-1 rounded-md border border-[#10b981]/20 ml-2">VER 2.1</span></h3>
                             <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                                لوحة التحكم السحابية ونظام المبيعات الأفضل للمطاعم والكافيهات. يوفر واجهة تفاعلية لتخطيط الطاولات والصالات، نظام مطبخ ذكي لتلقي الطلبات، مع تتبع دقيق لخدمات التوصيل وتكلفة المكونات (Recipe Management).
+                                نظام لإدارة المطاعم والكافيهات بواجهة تفاعلية لتخطيط الطاولات والصالات، وشاشة مطبخ ذكية، وتتبع لخدمات التوصيل وتكلفة المكونات (Recipe Management).
                             </p>
                             <ul class="grid grid-cols-2 gap-3 text-slate-300 text-xs mb-8">
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">تخطيط تفاعلي للطاولات والصالات</span><i class="fas fa-check text-emerald-400"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">شاشة مطبخ ذكية لتتبع التجهيز</span><i class="fas fa-check text-emerald-400"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">إدارة وحساب تكلفة المكونات</span><i class="fas fa-check text-emerald-400"></i></li>
                                 <li class="flex items-center justify-end gap-2"><span class="font-bold">نظام توصيل مدمج مع تتبع الكابتن</span><i class="fas fa-check text-emerald-400"></i></li>
+                                <li class="flex items-center justify-end gap-2"><span class="font-bold">إنترنت عند التفعيل الأول، ثم يعمل أوفلاين</span><i class="fas fa-check text-emerald-400"></i></li>
                             </ul>
                             <div class="flex justify-end gap-3 flex-wrap">
                                 <button onclick="openDemoModal('resto-cafe-pos')" class="px-6 py-3 rounded-xl text-xs font-bold text-[#10b981] border border-[#10b981]/20 hover:bg-[#10b981]/10 transition-all flex items-center gap-2">
-                                    <span>طلب ديمو تجريبي</span> <i class="fas fa-desktop text-[10px]"></i>
+                                    <span>طلب البرنامج</span> <i class="fas fa-desktop text-[10px]"></i>
                                 </button>
                                 <a href="projects/asas-resto-cafe-pos.html" class="btn-showcase px-6 py-3 rounded-xl text-xs font-bold text-white flex items-center gap-2 group-hover:scale-105 transition-all">
                                     عرض تفاصيل النظام واستكشاف الميزات <i class="fas fa-arrow-left"></i>
@@ -2382,6 +2387,8 @@
                                 class="fas fa-chevron-left text-xs text-cyan-500"></i> من نحن</a></li>
                     <li><a href="faq.html" class="hover:text-cyan-500 transition flex items-center gap-2"><i
                                 class="fas fa-chevron-left text-xs text-cyan-500"></i> الأسئلة الشائعة</a></li>
+                    <li><a href="products.html" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> الأجهزة والمنتجات</a></li>
                     <li><a href="#services" class="hover:text-cyan-500 transition flex items-center gap-2"><i
                                 class="fas fa-chevron-left text-xs text-cyan-500"></i> خدماتنا</a></li>
                     <li><a href="#portfolio" class="hover:text-cyan-500 transition flex items-center gap-2"><i
@@ -3220,7 +3227,7 @@
                 subtitle: 'إصدار 2.2 // نظام إدارة مكاتب المحاماة والاستشارات القانونية',
                 accentColor: '#d4af37',
                 features: [
-                    'أرشفة سحابية مشفرة ومنظمة للمستندات والملفات الورقية للقضايا.',
+                    'أرشفة مشفرة ومنظمة للمستندات؛ اختر حفظها محلياً أو عبر التشغيل الأونلاين.',
                     'جدول مواعيد تفاعلي ومنبهات لحضور الجلسات ومواعيد الاستئناف والطعون.',
                     'لوحة مالية متطورة لتسجيل المصاريف، دفعات الأتعاب، وإصدار سندات القبض والصرف.',
                     'إدارة الموكلين وقاعدة بيانات تفصيلية لكل قضية وتطوراتها التاريخية.'
@@ -3229,7 +3236,7 @@
                     'نظام تشغيل: Windows 7 SP1 / 8 / 10 / 11 (64-bit) أو متصفح الويب الحديث.',
                     'المعالج: Intel Core i3 أو أعلى.',
                     'الذاكرة العشوائية: 4 جيجابايت RAM كحد أدنى.',
-                    'الاتصال: يتطلب اتصال إنترنت مستقر لتزامن البيانات السحابية.'
+                    'يمكن تشغيل البرنامج محلياً دون إنترنت أو أونلاين حسب رغبتك؛ التشغيل السحابي يحتاج اتصالاً بالإنترنت.'
                 ]
             },
             'pharmacy-pos': {
@@ -3246,7 +3253,7 @@
                     'نظام تشغيل: Windows 10 / 11 أو نظام Android 6.0 أو أعلى.',
                     'المعالج: Dual Core 1.8 GHz أو أعلى.',
                     'الذاكرة العشوائية: 4 جيجابايت RAM (أجهزة الكمبيوتر) / 2 جيجابايت (أندرويد).',
-                    'الاتصال: يدعم العمل بدون إنترنت مؤقتاً ومزامنة البيانات عند الاتصال.'
+                    'يحتاج اتصالاً بالإنترنت عند التفعيل الأول فقط، وبعدها يعمل أوفلاين. مزامنة الفروع متاحة عند الاتصال.'
                 ]
             },
             'market-pos': {
@@ -3257,13 +3264,14 @@
                     'واجهة بيع سريعة ومبسطة تدعم الاختصارات ولوحة المفاتيح واللمس.',
                     'نظام جرد وجرد فرعي ذكي للمخازن وتنبيهات بالوصول للحد الأدنى للكمية.',
                     'إدارة الموردين والعملاء والمبيعات الآجلة والأقساط ودفعاتها.',
-                    'يعمل بنسبة 100% بدون اتصال إنترنت مع خيار النسخ الاحتياطي السحابي التلقائي.'
+                    'يعمل دون إنترنت بعد التفعيل الأول، مع خيار النسخ الاحتياطي السحابي عند الاتصال.'
                 ],
                 specs: [
                     'نظام تشغيل: Windows 7 / 8 / 10 / 11.',
                     'المعالج: Intel/AMD 2.0 GHz أو أعلى.',
                     'الذاكرة العشوائية: 2 جيجابايت RAM كحد أدنى.',
-                    'شاشة العرض: دقة 1024x768 أو أعلى.'
+                    'شاشة العرض: دقة 1024x768 أو أعلى.',
+                    'يتطلب اتصالاً بالإنترنت عند التفعيل الأول فقط، وبعدها يعمل دون اتصال.'
                 ]
             },
             'resto-cafe-pos': {
@@ -3280,7 +3288,7 @@
                     'نظام تشغيل: متوافق مع كافة الأجهزة (Windows, Android, iOS, iPadOS).',
                     'المتصفح: Google Chrome / Safari / Edge.',
                     'الذاكرة العشوائية: 2 جيجابايت RAM أو أعلى.',
-                    'الاتصال: يتطلب اتصال بالشبكة المحلية (Local Network) وشبكة الإنترنت.'
+                    'يحتاج الإنترنت عند التفعيل الأول فقط، ثم يعمل أوفلاين؛ الاتصال بالشبكة المحلية يفيد عند تشغيل عدة أجهزة معاً.'
                 ]
             },
             'service-center': {
@@ -3293,12 +3301,12 @@
                     'تسجيل أوقات فتح وإغلاق الدرج ومراجعة أرشيف الجلسات وطباعته.',
                     'تقارير وسجل للعمليات مع إمكانية تحديد صلاحيات الموظفين.',
                     'نسخ احتياطي تلقائي كل 12 ساعة إلى المجلد الذي تختاره، ودليل تفاعلي داخل الصفحات.',
-                    'تجربة أولية لمدة 7 أيام وتفعيل الترخيص عبر الإنترنت.'
+                    'يحتاج اتصالاً بالإنترنت عند التفعيل الأول فقط، وبعدها يعمل أوفلاين.'
                 ],
                 specs: [
                     'نظام التشغيل: Windows 10 أو Windows 11.',
-                    'يحتاج اتصالاً بالإنترنت عند التفعيل الأول.',
                     'تُحفظ بيانات النظام محلياً مع دعم النسخ الاحتياطي.',
+                    'يتطلب اتصالاً بالإنترنت عند التفعيل الأول فقط، وبعدها يعمل دون اتصال.',
                     'واجهة عربية مصممة لمراكز الصيانة وفرق العمل.'
                 ]
             }
@@ -3340,7 +3348,7 @@
 
             // Setup WhatsApp button URL
             const whatsappBtn = document.getElementById('demo-whatsapp-btn');
-            const msg = `السلام عليكم، أريد طلب ديمو تجريبي لنظام *${p.title}*`;
+            const msg = `السلام عليكم، أريد طلب برنامج *${p.title}* ومعرفة تفاصيل التفعيل.`;
             whatsappBtn.href = `https://wa.me/201032630429?text=${encodeURIComponent(msg)}`;
 
             // Reset tab
@@ -3423,7 +3431,7 @@
                         alert("تم تسجيل طلبك بنجاح! سيتم تحويلك للواتساب للتواصل المباشر مع الدعم.");
                     }
 
-                    const whatsappMsg = `السلام عليكم، لقد قمت بطلب نسخة تجريبية لنظام *${projectTitle}* عبر الموقع باسم: ${name}\nالهاتف: ${phone}\nاسم النشاط: ${business}\nملاحظات: ${notes || 'لا يوجد'}`;
+                    const whatsappMsg = `السلام عليكم، أريد طلب برنامج *${projectTitle}* عبر الموقع باسم: ${name}\nالهاتف: ${phone}\nاسم النشاط: ${business}\nملاحظات: ${notes || 'لا يوجد'}`;
 
                     setTimeout(() => {
                         window.open(`https://wa.me/201032630429?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
@@ -3458,8 +3466,8 @@
                     <i class="fas fa-times text-sm"></i>
                 </button>
                 <div class="text-right">
-                    <h3 id="modal-title" class="text-xl md:text-2xl font-black text-white leading-none">طلب نسخة تجريبية</h3>
-                    <p id="modal-subtitle" class="text-xs text-slate-400 mt-2 font-['Tajawal']">استكشف النظام مجاناً بدون أي التزامات</p>
+                    <h3 id="modal-title" class="text-xl md:text-2xl font-black text-white leading-none">طلب البرنامج</h3>
+                    <p id="modal-subtitle" class="text-xs text-slate-400 mt-2 font-['Tajawal']">اختر البرنامج واطلب التواصل لمعرفة تفاصيله وتفعيله</p>
                 </div>
             </div>
 
@@ -3467,14 +3475,14 @@
             <div class="p-6 md:p-8 overflow-y-auto space-y-6 text-right font-['Tajawal'] flex-1">
                 <!-- Modal Tabs -->
                 <div class="flex justify-end gap-2 border-b border-white/5 pb-4">
-                    <button onclick="switchModalTab('form')" id="tab-btn-form" class="modal-tab-btn active px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all">طلب الديمو</button>
+                    <button onclick="switchModalTab('form')" id="tab-btn-form" class="modal-tab-btn active px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all">طلب البرنامج</button>
                     <button onclick="switchModalTab('features')" id="tab-btn-features" class="modal-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all">أبرز المميزات</button>
                     <button onclick="switchModalTab('specs')" id="tab-btn-specs" class="modal-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white transition-all">متطلبات التشغيل</button>
                 </div>
 
                 <!-- Tab content: Form -->
                 <div id="tab-content-form" class="modal-tab-pane space-y-6">
-                    <p class="text-xs text-slate-400 leading-relaxed">يرجى ملء النموذج أدناه وسيتم التواصل معك من قبل فريق الدعم لتنصيب وتفعيل نسختك التجريبية مجاناً:</p>
+                    <p class="text-xs text-slate-400 leading-relaxed">اكتب بياناتك وسيتم التواصل معك بخصوص البرنامج والتثبيت والتفعيل. تحتاج البرامج إلى الإنترنت عند التفعيل الأول فقط، ثم تعمل أوفلاين؛ أما Law Pro فيعمل محلياً أو أونلاين حسب اختيارك.</p>
                     <form id="demo-request-form" class="space-y-4">
                         <input type="hidden" id="demo-project-id" value="">
                         
@@ -3501,7 +3509,7 @@
 
                         <div class="pt-2 flex flex-col sm:flex-row gap-3">
                             <button type="submit" id="submit-demo-btn" class="flex-1 py-3.5 rounded-xl font-bold transition-all text-black text-xs">
-                                إرسال الطلب مجاناً
+                                إرسال طلب البرنامج
                             </button>
                             <a id="demo-whatsapp-btn" href="#" target="_blank" class="py-3.5 px-6 rounded-xl font-bold bg-[#25d366]/10 border border-[#25d366]/20 hover:bg-[#25d366]/20 text-[#25d366] transition-all text-xs flex items-center justify-center gap-2">
                                 <span>طلب فوري عبر الواتساب</span> <i class="fab fa-whatsapp text-sm"></i>

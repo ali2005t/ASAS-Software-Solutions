@@ -1,0 +1,11 @@
+{
+  "name": "asas-software-solutions",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev-server.js",
+    "build:css": "tailwindcss -c tailwind.config.js -i assets/css/tailwind.input.css -o assets/css/tailwind.generated.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

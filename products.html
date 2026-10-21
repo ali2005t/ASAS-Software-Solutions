@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تصفح اسكانرات الباركود وطابعات الفواتير والباركود من أساس، واطلب المنتج مباشرة عبر واتساب.">
+    <meta name="theme-color" content="#080e18">
+    <title>الأجهزة والمنتجات | ASAS Software Solutions</title>
+    <link rel="stylesheet" href="assets/css/tailwind.generated.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/ico.ico">
+    <style>
+        :root { color-scheme: dark; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: #080e18; color: #f8fafc; }
+        .page-glow { background: radial-gradient(ellipse at 50% 0%, rgba(6,182,212,.15), transparent 58%); }
+        .product-card { background: linear-gradient(145deg, rgba(15,27,43,.96), rgba(9,17,29,.98)); }
+        .product-card:hover { border-color: rgba(6,182,212,.55); box-shadow: 0 20px 55px rgba(0,0,0,.25), 0 0 28px rgba(6,182,212,.08); }
+        .section-anchor { scroll-margin-top: 110px; }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <div class="page-glow fixed inset-x-0 top-0 h-[440px] pointer-events-none"></div>
+
+    <header class="relative z-10 border-b border-white/5 bg-slate-950/75 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
+            <a href="index.html" class="flex items-center gap-3 shrink-0" aria-label="العودة للرئيسية">
+                <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-emerald-500 flex items-center justify-center text-slate-950 font-black text-xl">A</span>
+                <span class="font-black text-xl tracking-tight">ASAS<span class="text-cyan-400">.</span></span>
+            </a>
+            <nav class="hidden sm:flex items-center gap-5 text-sm font-bold text-slate-400">
+                <a href="index.html" class="hover:text-cyan-400 transition">الرئيسية</a>
+                <a href="products.html" class="text-cyan-400">الأجهزة والمنتجات</a>
+                <a href="index.html#contact" class="hover:text-cyan-400 transition">تواصل معنا</a>
+            </nav>
+            <a href="https://wa.me/201032630429" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 sm:px-5 py-2 text-xs sm:text-sm font-bold text-emerald-300 hover:bg-emerald-400 hover:text-slate-950 transition">
+                <i class="fab fa-whatsapp text-base"></i><span>تواصل معنا</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <section class="text-center pt-12 sm:pt-20 pb-9 sm:pb-12">
+            <span class="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2 text-xs font-bold text-cyan-300">
+                <i class="fas fa-barcode"></i> أجهزة نقاط البيع
+            </span>
+            <h1 class="mt-5 text-3xl sm:text-5xl lg:text-6xl font-black leading-tight">الأجهزة <span class="text-cyan-400">والمنتجات</span></h1>
+            <p class="mx-auto mt-4 max-w-2xl text-sm sm:text-base leading-8 text-slate-400">اسكانرات باركود وطابعات فواتير وباركود. اختار المنتج وابعت طلبك مباشرة على واتساب.</p>
+        </section>
+
+        <nav id="category-links" aria-label="أقسام المنتجات" class="sticky top-2 z-20 mb-10 flex flex-wrap justify-center gap-2 rounded-2xl border border-white/5 bg-slate-950/85 p-2 backdrop-blur-xl"></nav>
+
+        <div id="catalog-state" class="hidden rounded-3xl border border-white/10 bg-white/[.03] p-8 sm:p-12 text-center text-slate-300" role="status" aria-live="polite"></div>
+        <div id="catalog-sections" class="space-y-16"></div>
+    </main>
+
+    <div id="store-order-modal" class="fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto bg-slate-950/90 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="store-order-title">
+        <form id="store-order-form" class="my-auto w-full max-w-lg space-y-5 rounded-3xl border border-white/10 bg-slate-900 p-5 shadow-2xl sm:p-8">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h2 id="store-order-title" class="text-xl font-black text-white">تسجيل طلب المنتج</h2>
+                    <p id="store-order-product-summary" class="mt-2 text-sm leading-6 text-cyan-300"></p>
+                </div>
+                <button id="store-order-close" type="button" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-slate-400 hover:bg-red-500 hover:text-white" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+            </div>
+            <label class="block">
+                <span class="mb-2 block text-xs font-bold text-slate-400">اسمك</span>
+                <input id="store-order-customer-name" type="text" required maxlength="100" autocomplete="name" class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none focus:border-cyan-500">
+            </label>
+            <label class="block">
+                <span class="mb-2 block text-xs font-bold text-slate-400">رقم الموبايل</span>
+                <input id="store-order-phone" type="tel" required minlength="8" maxlength="20" autocomplete="tel" class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none focus:border-cyan-500">
+            </label>
+            <label class="block">
+                <span class="mb-2 block text-xs font-bold text-slate-400">الكمية</span>
+                <input id="store-order-quantity" type="number" required min="1" max="50" step="1" value="1" inputmode="numeric" class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none focus:border-cyan-500">
+            </label>
+            <p id="store-order-error" class="hidden rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-sm leading-6 text-red-300" role="alert"></p>
+            <button id="store-order-submit" type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 font-black text-slate-950 transition hover:bg-emerald-400">
+                <i class="fab fa-whatsapp text-lg"></i><span>تسجيل الطلب والمتابعة على واتساب</span>
+            </button>
+            <p class="text-center text-[11px] leading-5 text-slate-500">بيانات الطلب تُستخدم لتجهيزه والتواصل معك فقط.</p>
+        </form>
+    </div>
+
+    <footer class="relative z-10 border-t border-white/5 bg-slate-950/70 py-8 text-center text-xs text-slate-500">
+        <p>© <span id="current-year"></span> ASAS Software Solutions — كل الحقوق محفوظة</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { STORE_CATEGORIES, STORE_PHONE } from "./assets/js/store-products.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5xTPTsbGytJ0I67A6zbzC5UaVHnE6Egc",
+            authDomain: "asas-software-solutions.firebaseapp.com",
+            projectId: "asas-software-solutions",
+            storageBucket: "asas-software-solutions.firebasestorage.app",
+            messagingSenderId: "1034136518332",
+            appId: "1:1034136518332:web:541716fa6f21eae38cdab9"
+        };
+
+        const db = getFirestore(initializeApp(firebaseConfig));
+        const sectionsRoot = document.getElementById('catalog-sections');
+        const stateBox = document.getElementById('catalog-state');
+        const categoryLinks = document.getElementById('category-links');
+        const priceFormat = new Intl.NumberFormat('ar-EG', { maximumFractionDigits: 0 });
+        const orderModal = document.getElementById('store-order-modal');
+        const orderForm = document.getElementById('store-order-form');
+        const orderError = document.getElementById('store-order-error');
+        let selectedOrderProduct = null;
+
+        function setState(message, isError = false) {
+            stateBox.classList.remove('hidden');
+            stateBox.classList.toggle('text-red-300', isError);
+            stateBox.textContent = message;
+        }
+
+        function buildCategoryLinks() {
+            categoryLinks.replaceChildren();
+            STORE_CATEGORIES.forEach((category) => {
+                const link = document.createElement('a');
+                link.href = `#${category.id}`;
+                link.textContent = category.shortName;
+                link.className = 'rounded-xl px-3 sm:px-5 py-2.5 text-xs sm:text-sm font-bold text-slate-300 hover:bg-cyan-400/10 hover:text-cyan-300 transition';
+                categoryLinks.appendChild(link);
+            });
+        }
+
+        function makeProductCard(product) {
+            const card = document.createElement('article');
+            card.className = 'product-card group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 transition duration-300';
+
+            const imageFrame = document.createElement('div');
+            imageFrame.className = 'relative flex h-52 sm:h-56 items-center justify-center overflow-hidden border-b border-white/5 bg-white/[.03] p-5';
+            const image = document.createElement('img');
+            image.src = product.image || '';
+            image.alt = product.name || 'صورة المنتج';
+            image.loading = 'lazy';
+            image.className = 'h-full w-full object-contain transition duration-500 group-hover:scale-105';
+            image.addEventListener('error', () => {
+                image.remove();
+                const fallback = document.createElement('div');
+                fallback.className = 'text-5xl text-slate-600';
+                fallback.innerHTML = '<i class="fas fa-box-open" aria-hidden="true"></i>';
+                imageFrame.appendChild(fallback);
+            }, { once: true });
+            imageFrame.appendChild(image);
+
+            const content = document.createElement('div');
+            content.className = 'flex flex-1 flex-col p-5 sm:p-6';
+            const name = document.createElement('h3');
+            name.className = 'text-lg font-black leading-8 text-white';
+            name.textContent = product.name || 'منتج';
+            const description = document.createElement('p');
+            description.className = 'mt-2 min-h-12 text-sm leading-7 text-slate-400';
+            description.textContent = product.description || '';
+
+            const footer = document.createElement('div');
+            footer.className = 'mt-auto pt-5';
+            const priceLine = document.createElement('div');
+            priceLine.className = 'mb-4 flex items-end justify-between gap-2';
+            const priceLabel = document.createElement('span');
+            priceLabel.className = 'text-xs font-semibold text-slate-500';
+            priceLabel.textContent = 'السعر';
+            const salePrice = Number(product.price) || 0;
+            const price = document.createElement('strong');
+            price.className = salePrice > 0 ? 'text-xl font-black text-cyan-300' : 'text-sm font-bold text-slate-400';
+            price.textContent = salePrice > 0 ? `${priceFormat.format(salePrice)} ج.م` : 'السعر قيد التحديد';
+            priceLine.append(priceLabel, price);
+
+            const orderLink = document.createElement('button');
+            orderLink.type = 'button';
+            if (salePrice > 0) {
+                orderLink.className = 'inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-black text-slate-950 transition hover:bg-emerald-400 active:scale-[.98]';
+                orderLink.innerHTML = '<i class="fab fa-whatsapp text-lg" aria-hidden="true"></i><span>اطلب على واتساب</span>';
+                orderLink.addEventListener('click', () => openStoreOrderModal(product));
+            } else {
+                orderLink.disabled = true;
+                orderLink.className = 'inline-flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-slate-800 px-4 py-3 text-sm font-bold text-slate-500';
+                orderLink.textContent = 'السعر قيد التحديد';
+            }
+
+            footer.append(priceLine, orderLink);
+            content.append(name, description, footer);
+            card.append(imageFrame, content);
+            return card;
+        }
+
+        function openStoreOrderModal(product) {
+            if (!(Number(product.price) > 0)) return;
+            selectedOrderProduct = product;
+            orderForm.reset();
+            document.getElementById('store-order-quantity').value = '1';
+            document.getElementById('store-order-product-summary').textContent = `${product.name} — ${priceFormat.format(Number(product.price) || 0)} ج.م للقطعة`;
+            orderError.textContent = '';
+            orderError.classList.add('hidden');
+            orderModal.classList.remove('hidden');
+            orderModal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+            document.getElementById('store-order-customer-name').focus();
+        }
+
+        function closeStoreOrderModal() {
+            orderModal.classList.add('hidden');
+            orderModal.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+            selectedOrderProduct = null;
+        }
+
+        document.getElementById('store-order-close').addEventListener('click', closeStoreOrderModal);
+        orderModal.addEventListener('click', (event) => {
+            if (event.target === orderModal) closeStoreOrderModal();
+        });
+
+        orderForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!selectedOrderProduct) return;
+
+            const product = selectedOrderProduct;
+            const customerName = document.getElementById('store-order-customer-name').value.trim();
+            const phone = document.getElementById('store-order-phone').value.trim();
+            const quantity = Number(document.getElementById('store-order-quantity').value);
+            const unitPrice = Number(product.price) || 0;
+            const submitButton = document.getElementById('store-order-submit');
+            const previousButtonHtml = submitButton.innerHTML;
+            if (!customerName || phone.length < 8 || !Number.isInteger(quantity) || quantity < 1 || quantity > 50) {
+                orderError.textContent = 'راجع الاسم ورقم الموبايل والكمية من فضلك.';
+                orderError.classList.remove('hidden');
+                return;
+            }
+            const whatsappWindow = window.open('about:blank', '_blank');
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>جاري تسجيل الطلب...</span>';
+            orderError.textContent = '';
+            orderError.classList.add('hidden');
+
+            try {
+                await addDoc(collection(db, 'store_orders'), {
+                    customerName,
+                    phone,
+                    productId: product.id,
+                    productName: product.name,
+                    unitPrice,
+                    quantity,
+                    status: 'new',
+                    createdAt: serverTimestamp()
+                });
+
+                const total = unitPrice * quantity;
+                const orderText = `السلام عليكم، سجلت طلبًا من الموقع.\nالعميل: ${customerName}\nالمنتج: ${product.name}\nالكمية: ${quantity}\nالإجمالي: ${priceFormat.format(total)} ج.م\nرقم التواصل: ${phone}`;
+                const whatsappUrl = `https://wa.me/${STORE_PHONE}?text=${encodeURIComponent(orderText)}`;
+                if (whatsappWindow && !whatsappWindow.closed) {
+                    whatsappWindow.opener = null;
+                    whatsappWindow.location.href = whatsappUrl;
+                } else {
+                    window.location.href = whatsappUrl;
+                }
+                closeStoreOrderModal();
+            } catch (error) {
+                console.error('Unable to register store order:', error);
+                if (whatsappWindow && !whatsappWindow.closed) whatsappWindow.close();
+                orderError.textContent = 'تعذر تسجيل الطلب. حاول مرة أخرى أو تواصل معنا مباشرة على واتساب.';
+                orderError.classList.remove('hidden');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = previousButtonHtml;
+            }
+        });
+
+        function renderCatalog(products) {
+            sectionsRoot.replaceChildren();
+            const activeProducts = products.filter((product) => product.active === true);
+
+            if (!activeProducts.length) {
+                setState('المنتجات هتظهر هنا قريبًا. للاستفسار عن الأجهزة المتاحة، تواصل معنا على واتساب.');
+                return;
+            }
+
+            stateBox.classList.add('hidden');
+            STORE_CATEGORIES.forEach((category) => {
+                const categoryProducts = activeProducts
+                    .filter((product) => product.category === category.id)
+                    .sort((a, b) => (Number(a.sortOrder) || 0) - (Number(b.sortOrder) || 0));
+
+                const section = document.createElement('section');
+                section.id = category.id;
+                section.className = 'section-anchor';
+                const heading = document.createElement('div');
+                heading.className = 'mb-6 flex items-center justify-between gap-4 border-b border-white/10 pb-4';
+                const titleWrap = document.createElement('div');
+                const title = document.createElement('h2');
+                title.className = 'text-xl sm:text-2xl font-black text-white';
+                title.textContent = category.name;
+                const subtitle = document.createElement('p');
+                subtitle.className = 'mt-1 text-xs sm:text-sm text-slate-500';
+                subtitle.textContent = 'اختار المنتج المناسب واطلبه مباشرة';
+                titleWrap.append(title, subtitle);
+                const count = document.createElement('span');
+                count.className = 'shrink-0 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-1 text-xs font-bold text-cyan-300';
+                count.textContent = `${priceFormat.format(categoryProducts.length)} منتج`;
+                heading.append(titleWrap, count);
+
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+                categoryProducts.forEach((product) => grid.appendChild(makeProductCard(product)));
+                if (!categoryProducts.length) {
+                    const empty = document.createElement('p');
+                    empty.className = 'col-span-full rounded-2xl border border-white/5 bg-white/[.02] p-6 text-sm text-slate-500';
+                    empty.textContent = 'لا توجد منتجات معروضة في هذا القسم حاليًا.';
+                    grid.appendChild(empty);
+                }
+                section.append(heading, grid);
+                sectionsRoot.appendChild(section);
+            });
+        }
+
+        buildCategoryLinks();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        setState('جاري تحميل المنتجات...');
+
+        onSnapshot(query(collection(db, 'store_products'), where('active', '==', true)), (snapshot) => {
+            renderCatalog(snapshot.docs.map((productDoc) => ({ id: productDoc.id, ...productDoc.data() })));
+        }, (error) => {
+            console.error('Unable to load store products:', error);
+            setState('تعذر تحميل المنتجات الآن. تواصل معنا على واتساب لمعرفة المتاح.', true);
+        });
+    </script>
+</body>
+
+</html>
