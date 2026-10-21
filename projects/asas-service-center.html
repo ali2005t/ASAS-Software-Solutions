@@ -47,6 +47,7 @@
             <a href="https://wa.me/201032630429?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%83%D9%88%D8%AF%20%D8%AA%D9%81%D8%B9%D9%8A%D9%84%20ASAS%20Service" target="_blank" rel="noopener" class="rounded-xl border border-white/15 px-6 py-3.5 text-sm font-bold text-white transition hover:border-amber-200/50 hover:bg-white/5"><i class="fa-solid fa-key ml-2 text-amber-300"></i>طلب كود التفعيل</a>
             <a href="#service-reviews" class="rounded-xl border border-amber-300/20 px-6 py-3.5 text-sm font-bold text-amber-100 transition hover:bg-amber-300/10"><i class="fa-solid fa-star ml-2 text-amber-300"></i>آراء وتقييمات العملاء</a>
           </div>
+          <div id="service-price-container" class="mt-6 flex flex-wrap items-center gap-3 font-mono" aria-live="polite"><span class="text-sm font-bold text-slate-400">جاري تحميل السعر...</span></div>
           <p class="mt-5 text-xs text-slate-400"><i class="fa-solid fa-circle-info ml-1 text-amber-300"></i>يحتاج الإنترنت عند التفعيل الأول فقط، وبعدها يعمل أوفلاين.</p>
         </div>
 
@@ -253,6 +254,18 @@
       initServiceReviews(db);
       const snapshot = await getDoc(doc(db, "projects", "service-center"));
       const project = snapshot.exists() ? snapshot.data() : null;
+      const priceContainer = document.getElementById("service-price-container");
+      const price = Number(project?.price) || 0;
+      const discountPrice = Number(project?.discountPrice) || 0;
+
+      if (discountPrice > 0) {
+        priceContainer.innerHTML = `${price > 0 ? `<span class="text-lg text-slate-500 line-through">${price} ج.م</span>` : ""}<span class="text-3xl font-black text-white">${discountPrice} ج.م</span>`;
+      } else if (price > 0) {
+        priceContainer.innerHTML = `<span class="text-3xl font-black text-white">${price} ج.م</span>`;
+      } else {
+        priceContainer.innerHTML = '<span class="text-lg font-bold text-slate-400">السعر عند الطلب</span>';
+      }
+
       const downloadUrl = project?.active === false ? "" : (project?.downloadUrl_win10_x64 || project?.downloadUrl || "");
       const downloadCta = document.getElementById("service-download-cta");
 
