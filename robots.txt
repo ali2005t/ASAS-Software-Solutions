@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://asas-software-solutions.vercel.app/sitemap.xml
