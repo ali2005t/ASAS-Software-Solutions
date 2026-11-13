@@ -8,8 +8,6 @@
     
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/ico.ico">
-    <link rel="shortcut icon" href="assets/ico.ico" type="image/x-icon">
 
     <!-- Open Graph / Facebook -->
     
@@ -30,13 +28,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            --primary-blue: #00d2ff;
-            --dark-bg: #0a0a0a;
-            --dark-card: #141414;
+            --primary-blue: #00d4ff;
+            --dark-bg: #030e22;
+            --dark-card: #0a1b35;
             --text-main: #ffffff;
             --text-secondary: #9ca3af;
             --border-color: rgba(255, 255, 255, 0.05);
@@ -98,38 +95,86 @@
     <meta name="twitter:description" content="اقرأ مقالات ونصائح تقنية من أساس عن أنظمة الإدارة، ونقاط البيع، والتحول الرقمي، وتطوير الأعمال.">
     <meta name="twitter:image" content="https://asas-software-solutions.vercel.app/assets/law_logo.png">
 
+    <link rel="stylesheet" href="assets/css/brand-theme.css">
+    <meta name="theme-color" content="#030e22">
+
+    <link rel="icon" type="image/x-icon" href="assets/ico.ico?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/asas-favicon-32.png?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/asas-favicon-48.png?v=7483a2a2">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/asas-favicon-180.png?v=7483a2a2">
+    <link rel="stylesheet" href="assets/css/site-layout.css">
+    <link rel="stylesheet" href="assets/css/blog-layout.css">
+    <script src="assets/js/store-chrome.js" defer></script>
 </head>
 
-<body class="selection:bg-cyan-600 selection:text-white">
+<body class="asas-home asas-blog selection:bg-cyan-600 selection:text-white">
+<script>try { if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode"); } catch {}</script>
 
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Navigation -->
-    <nav
-        class="fixed w-full z-50 py-6 px-6 md:px-12 flex justify-between items-center backdrop-blur-md border-b border-white/5">
-        <div class="text-2xl font-bold tracking-tighter flex items-center gap-2">
-            <svg width="35" height="35" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad)" />
-                <defs>
-                    <linearGradient id="logo-grad" x1="5" y1="5" x2="95" y2="85" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#00d2ff" />
-                        <stop offset="1" stop-color="#10b981" />
-                    </linearGradient>
-                </defs>
-            </svg>
-            <span class="text-white">ASAS</span><span class="text-cyan-500">.</span>
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 py-4 px-6 md:px-12 flex justify-between items-center" id="navbar">
+        <div class="text-3xl font-bold tracking-tighter flex items-center gap-2">
+            <!-- Customized SVG ASAS 'A' Logo Icon -->
+            <img loading="lazy" decoding="async" src="assets/asas-animated-logo.svg?v=1" alt="" class="asas-header-logo" width="48" height="48">
+            <div>
+                <span class="text-[var(--text-main)]">ASAS</span><span class="text-cyan-500">.</span>
+            </div>
         </div>
-        <div class="flex items-center gap-4">
-            <a href="index.html" class="text-gray-400 hover:text-white transition text-sm font-bold">الرئيسية</a>
-            <a href="index.html#contact"
-                class="px-6 py-2 border border-white/20 rounded-full hover:bg-white/10 transition text-sm font-bold">تواصل
+
+        <div class="hidden lg:flex space-x-reverse space-x-6 text-sm font-semibold tracking-wide items-center">
+            <a href="index.html#home"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">الرئيسية</a>
+            <a href="index.html#about" class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">من
+                نحن</a>
+            <a href="index.html#services"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">خدماتنا</a>
+            <a href="index.html#portfolio"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">أعمالنا</a>
+            <a href="blog.html" aria-current="page"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">المدونة</a>
+            <a href="products.html"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">الأجهزة والمنتجات</a>
+            <a href="index.html#careers"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">التوظيف</a>
+            <a href="#contact"
+                class="px-6 py-2 border border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-500 hover:text-black transition duration-300">تواصل
                 معنا</a>
+
+            <!-- Dark/Light Mode Toggle -->
+
+        </div>
+
+        <div class="asas-nav-controls">
+            <button id="theme-toggle" aria-label="تبديل الوضع النهاري والليلي"
+                class="w-10 h-10 rounded-full bg-[var(--card-bg)] border border-[var(--border-color)] flex items-center justify-center text-cyan-500 hover:scale-110 transition">
+                <i class="fas fa-moon"></i>
+            </button>
+        <button class="lg:hidden text-[var(--text-main)] text-2xl" id="mobile-menu-btn" aria-label="فتح القائمة" aria-controls="mobile-menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
         </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-black bg-opacity-95 z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 lg:hidden">
+        <button id="close-menu" class="absolute top-6 left-6 text-white text-3xl">&times;</button>
+        <a href="index.html#home" class="text-2xl text-white hover:text-cyan-500">الرئيسية</a>
+        <a href="index.html#about" class="text-2xl text-white hover:text-cyan-500">من نحن</a>
+        <a href="index.html#services" class="text-2xl text-white hover:text-cyan-500">خدماتنا</a>
+        <a href="index.html#portfolio" class="text-2xl text-white hover:text-cyan-500">أعمالنا</a>
+        <a href="blog.html" class="text-2xl text-white hover:text-cyan-500">المدونة</a>
+        <a href="products.html" class="text-2xl text-white hover:text-cyan-500">الأجهزة والمنتجات</a>
+        <a href="index.html#careers" class="text-2xl text-white hover:text-cyan-500">التوظيف</a>
+        <a href="#contact" class="text-2xl text-cyan-500">تواصل معنا</a>
+    </div>
+
+
+
     <!-- Hero Section -->
-    <header class="pt-40 pb-20 px-6 text-center">
-        <div class="max-w-4xl mx-auto" data-aos="zoom-in">
+    <header class="asas-blog-hero">
+        <div class="max-w-4xl mx-auto">
             <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">مدونة <span
                     class="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">أساس</span></h1>
             <p class="text-gray-400 text-lg md:text-xl font-['Tajawal'] leading-relaxed max-w-2xl mx-auto">اكتشف أحدث
@@ -138,9 +183,9 @@
     </header>
 
     <!-- Filter Section -->
-    <section class="pb-16 px-6">
+    <section class="asas-blog-content">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-wrap justify-center gap-4 mb-16" data-aos="fade-up">
+            <div class="asas-blog-filters">
                 <button
                     class="blog-filter-btn active px-8 py-3 rounded-full border border-white/10 text-sm font-bold transition"
                     data-filter="all">الكل</button>
@@ -156,12 +201,12 @@
             </div>
 
             <!-- Blog Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="asas-article-grid">
                 <!-- Article 1 -->
                 <article class="article-card glass-card rounded-3xl overflow-hidden group flex flex-col"
-                    data-category="tech" data-aos="fade-up">
+                    data-category="tech">
                     <div class="h-56 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
                             alt="SEO Article">
                         <div
@@ -188,9 +233,9 @@
 
                 <!-- Article 2 -->
                 <article class="article-card glass-card rounded-3xl overflow-hidden group flex flex-col"
-                    data-category="code" data-aos="fade-up" data-aos-delay="100">
+                    data-category="code">
                     <div class="h-56 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop"
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop"
                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
                             alt="App Development">
                         <div
@@ -217,9 +262,9 @@
 
                 <!-- Article 3 -->
                 <article class="article-card glass-card rounded-3xl overflow-hidden group flex flex-col"
-                    data-category="business" data-aos="fade-up" data-aos-delay="200">
+                    data-category="business">
                     <div class="h-56 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop"
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop"
                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
                             alt="CRM Systems">
                         <div
@@ -246,9 +291,9 @@
 
                 <!-- Article 4 -->
                 <article class="article-card glass-card rounded-3xl overflow-hidden group flex flex-col"
-                    data-category="tech" data-aos="fade-up" data-aos-delay="100">
+                    data-category="tech">
                     <div class="h-56 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop"
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop"
                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
                             alt="Software Trends">
                         <div
@@ -274,9 +319,9 @@
 
                 <!-- Article 5 -->
                 <article class="article-card glass-card rounded-3xl overflow-hidden group flex flex-col"
-                    data-category="business" data-aos="fade-up" data-aos-delay="200">
+                    data-category="business">
                     <div class="h-56 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop"
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop"
                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
                             alt="Legal Tech">
                         <div
@@ -302,9 +347,9 @@
 
                 <!-- Article 6 -->
                 <article class="article-card glass-card rounded-3xl overflow-hidden group flex flex-col"
-                    data-category="code" data-aos="fade-up" data-aos-delay="300">
+                    data-category="code">
                     <div class="h-56 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=800&auto=format&fit=crop"
+                        <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=800&auto=format&fit=crop"
                             class="w-full h-full object-cover transition duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
                             alt="Code Cleanliness">
                         <div
@@ -332,14 +377,102 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm font-bold">
-        &copy; 2026 ASAS Software Solutions. جميع الحقوق محفوظة.
+    <footer id="contact"
+        class="bg-gradient-to-b from-[#030e22] to-black border-t border-cyan-500/30 pt-20 pb-10 px-6 relative overflow-hidden">
+        <!-- Glow Effect -->
+        <div
+            class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full max-w-3xl h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent shadow-[0_0_50px_rgba(0,210,255,0.5)]">
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 relative z-10">
+            <!-- Brand Column -->
+            <div class="space-y-6">
+                <a href="index.html" class="asas-footer-brand" aria-label="ASAS Software Solutions"><img src="assets/asas-animated-logo.svg?v=1" class="asas-footer-logo" alt="ASAS Software Solutions" width="160" height="160" loading="lazy"></a>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    نبتكر حلولاً رقمية ذكية تمكن الشركات من النمو في عصر التحول الرقمي. شريكك التقني الموثوق في مصر
+                    والشرق الأوسط.
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://www.facebook.com/ASASSoftwareSolutions" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-cyan-500 hover:text-black hover:border-cyan-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/asas.software.solutions/" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-emerald-500 hover:text-black hover:border-emerald-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-instagram"></i></a>
+                    <!-- Chatway Support Widget -->
+                    <script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=U4NGSGWd2p7a"></script>
+<br>
+                    <a href="https://wa.me/201032630429" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-black hover:border-green-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Links Column -->
+            <div>
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">روابط هامة <span
+                        class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="about.html" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> من نحن</a></li>
+                    <li><a href="faq.html" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> الأسئلة الشائعة</a></li>
+                    <li><a href="products.html" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> الأجهزة والمنتجات</a></li>
+                    <li><a href="index.html#services" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> خدماتنا</a></li>
+                    <li><a href="index.html#portfolio" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> معرض الأعمال</a></li>
+                    <li><a href="index.html#calculator" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> اطلب عرض سعر لمشروعك</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Column -->
+            <div>
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">تواصل معنا <span
+                        class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
+                <ul class="space-y-6 text-gray-400 text-sm">
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 text-cyan-500"><i class="fas fa-map-marker-alt"></i></div>
+                        <span>الشركة أونلاين</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="text-cyan-500"><i class="fas fa-phone-alt"></i></div>
+                        <span class="font-['Tajawal']" dir="ltr">+20 103 263 0429</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="text-cyan-500"><i class="fas fa-envelope"></i></div>
+                        <span>asas.software.solutions@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div>
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">السياسات القانونية <span
+                        class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
+                <div class="flex flex-col gap-4 text-gray-400 text-sm">
+                    <a href="privacy.html" class="hover:text-cyan-500 transition flex items-center gap-2">
+                        <i class="fas fa-shield-alt text-cyan-500"></i> سياسة الخصوصية
+                    </a>
+                    <a href="terms.html" class="hover:text-cyan-500 transition flex items-center gap-2">
+                        <i class="fas fa-file-contract text-cyan-500"></i> الشروط والأحكام
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto relative z-10">
+            <p class="text-gray-600 text-sm">&copy; <span id="current-year"></span> ASAS Software Solutions. جميع الحقوق محفوظة.</p>
+        </div>
+
     </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        
 
+        document.getElementById("current-year").textContent = new Date().getFullYear();
         // Filter Logic
         const filterBtns = document.querySelectorAll('.blog-filter-btn');
         const articleCards = document.querySelectorAll('.article-card');
@@ -392,7 +525,7 @@
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00d2ff';
+            ctx.fillStyle = '#00d4ff';
             ctx.strokeStyle = 'rgba(0, 210, 255, 0.1)';
 
             points.forEach((p, i) => {

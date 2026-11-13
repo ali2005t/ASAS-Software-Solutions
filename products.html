@@ -5,16 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <meta name="theme-color" content="#080e18">
+    <meta name="theme-color" content="#030e22">
     <title>الأجهزة والمنتجات | ASAS Software Solutions</title>
     <link rel="stylesheet" href="assets/css/tailwind.generated.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="assets/ico.ico">
     <style>
         :root { color-scheme: dark; }
         * { box-sizing: border-box; }
-        body { font-family: 'Cairo', sans-serif; background: #080e18; color: #f8fafc; }
+        body { font-family: 'Cairo', sans-serif; background: #030e22; color: #f8fafc; }
         .page-glow { background: radial-gradient(ellipse at 50% 0%, rgba(6,182,212,.15), transparent 58%); }
         .product-card { background: linear-gradient(145deg, rgba(15,27,43,.96), rgba(9,17,29,.98)); }
         .product-card:hover { border-color: rgba(6,182,212,.55); box-shadow: 0 20px 55px rgba(0,0,0,.25), 0 0 28px rgba(6,182,212,.08); }
@@ -36,36 +35,90 @@
     <meta name="twitter:description" content="اكتشف أجهزة اسكانر الباركود وطابعات الفواتير والباركود، مع مواصفات واضحة وأسعار بالجنيه المصري وطلب مباشر عبر واتساب.">
     <meta name="twitter:image" content="https://asas-software-solutions.vercel.app/assets/law_logo.png">
 
+    <link rel="stylesheet" href="assets/css/brand-theme.css">
+    <link rel="stylesheet" href="assets/css/site-layout.css">
+    <link rel="stylesheet" href="assets/css/store-layout.css">
+    <script src="assets/js/store-chrome.js" defer></script>
+
+    <link rel="icon" type="image/x-icon" href="assets/ico.ico?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/asas-favicon-32.png?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/asas-favicon-48.png?v=7483a2a2">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/asas-favicon-180.png?v=7483a2a2">
 </head>
 
-<body class="min-h-screen">
+<body class="asas-home asas-store min-h-screen">
+    <script>try { if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode'); } catch {}</script>
     <div class="page-glow fixed inset-x-0 top-0 h-[440px] pointer-events-none"></div>
 
-    <header class="relative z-10 border-b border-white/5 bg-slate-950/75 backdrop-blur-xl">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
-            <a href="index.html" class="flex items-center gap-3 shrink-0" aria-label="العودة للرئيسية">
-                <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-emerald-500 flex items-center justify-center text-slate-950 font-black text-xl">A</span>
-                <span class="font-black text-xl tracking-tight">ASAS<span class="text-cyan-400">.</span></span>
-            </a>
-            <nav class="hidden sm:flex items-center gap-5 text-sm font-bold text-slate-400">
-                <a href="index.html" class="hover:text-cyan-400 transition">الرئيسية</a>
-                <a href="products.html" class="text-cyan-400">الأجهزة والمنتجات</a>
-                <a href="index.html#contact" class="hover:text-cyan-400 transition">تواصل معنا</a>
-            </nav>
-            <a href="https://wa.me/201032630429" target="_blank" rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 sm:px-5 py-2 text-xs sm:text-sm font-bold text-emerald-300 hover:bg-emerald-400 hover:text-slate-950 transition">
-                <i class="fab fa-whatsapp text-base"></i><span>تواصل معنا</span>
-            </a>
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 py-4 px-6 md:px-12 flex justify-between items-center" id="navbar">
+        <div class="text-3xl font-bold tracking-tighter flex items-center gap-2">
+            <!-- Customized SVG ASAS 'A' Logo Icon -->
+            <img src="assets/asas-animated-logo.svg?v=1" alt="" class="asas-header-logo" width="48" height="48">
+            <div>
+                <span class="text-[var(--text-main)]">ASAS</span><span class="text-cyan-500">.</span>
+            </div>
         </div>
-    </header>
+
+        <div class="hidden lg:flex space-x-reverse space-x-6 text-sm font-semibold tracking-wide items-center">
+            <a href="index.html#home"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">الرئيسية</a>
+            <a href="index.html#about" class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">من
+                نحن</a>
+            <a href="index.html#services"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">خدماتنا</a>
+            <a href="index.html#portfolio"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">أعمالنا</a>
+            <a href="blog.html"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">المدونة</a>
+            <a href="products.html" aria-current="page"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">الأجهزة والمنتجات</a>
+            <a href="index.html#careers"
+                class="text-[var(--text-secondary)] hover:text-cyan-500 transition duration-300">التوظيف</a>
+            <a href="#contact"
+                class="px-6 py-2 border border-cyan-500 text-cyan-500 rounded-full hover:bg-cyan-500 hover:text-black transition duration-300">تواصل
+                معنا</a>
+
+            <!-- Dark/Light Mode Toggle -->
+
+        </div>
+
+        <div class="asas-nav-controls">
+            <button id="theme-toggle" aria-label="تبديل الوضع النهاري والليلي"
+                class="w-10 h-10 rounded-full bg-[var(--card-bg)] border border-[var(--border-color)] flex items-center justify-center text-cyan-500 hover:scale-110 transition">
+                <i class="fas fa-moon"></i>
+            </button>
+        <button class="lg:hidden text-[var(--text-main)] text-2xl" id="mobile-menu-btn" aria-label="فتح القائمة" aria-controls="mobile-menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-black bg-opacity-95 z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 lg:hidden">
+        <button id="close-menu" class="absolute top-6 left-6 text-white text-3xl">&times;</button>
+        <a href="index.html#home" class="text-2xl text-white hover:text-cyan-500">الرئيسية</a>
+        <a href="index.html#about" class="text-2xl text-white hover:text-cyan-500">من نحن</a>
+        <a href="index.html#services" class="text-2xl text-white hover:text-cyan-500">خدماتنا</a>
+        <a href="index.html#portfolio" class="text-2xl text-white hover:text-cyan-500">أعمالنا</a>
+        <a href="blog.html" class="text-2xl text-white hover:text-cyan-500">المدونة</a>
+        <a href="products.html" class="text-2xl text-white hover:text-cyan-500">الأجهزة والمنتجات</a>
+        <a href="index.html#careers" class="text-2xl text-white hover:text-cyan-500">التوظيف</a>
+        <a href="#contact" class="text-2xl text-cyan-500">تواصل معنا</a>
+    </div>
 
     <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <section class="text-center pt-12 sm:pt-20 pb-9 sm:pb-12">
+        <section class="store-hero">
+          <div class="store-hero-copy">
             <span class="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2 text-xs font-bold text-cyan-300">
                 <i class="fas fa-barcode"></i> أجهزة نقاط البيع
             </span>
-            <h1 class="mt-5 text-3xl sm:text-5xl lg:text-6xl font-black leading-tight">الأجهزة <span class="text-cyan-400">والمنتجات</span></h1>
+            <h1 class="mt-5 text-3xl sm:text-5xl lg:text-6xl font-black leading-tight">الأجهزة <span class="text-brand-gradient">والمنتجات</span></h1>
             <p class="mx-auto mt-4 max-w-2xl text-sm sm:text-base leading-8 text-slate-400">اسكانرات باركود وطابعات فواتير وباركود. اختار المنتج وابعت طلبك مباشرة على واتساب.</p>
+            <a class="store-browse-link" href="#category-links">استعرض أقسام الأجهزة <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+          </div>
+          
         </section>
 
         <nav id="category-links" aria-label="أقسام المنتجات" class="sticky top-2 z-20 mb-10 flex flex-wrap justify-center gap-2 rounded-2xl border border-white/5 bg-slate-950/85 p-2 backdrop-blur-xl"></nav>
@@ -103,8 +156,97 @@
         </form>
     </div>
 
-    <footer class="relative z-10 border-t border-white/5 bg-slate-950/70 py-8 text-center text-xs text-slate-500">
-        <p>© <span id="current-year"></span> ASAS Software Solutions — كل الحقوق محفوظة</p>
+    <footer id="contact"
+        class="bg-gradient-to-b from-[#030e22] to-black border-t border-cyan-500/30 pt-20 pb-10 px-6 relative overflow-hidden">
+        <!-- Glow Effect -->
+        <div
+            class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full max-w-3xl h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent shadow-[0_0_50px_rgba(0,210,255,0.5)]">
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 relative z-10">
+            <!-- Brand Column -->
+            <div class="space-y-6">
+                <a href="index.html" class="asas-footer-brand" aria-label="ASAS Software Solutions"><img src="assets/asas-animated-logo.svg?v=1" class="asas-footer-logo" alt="ASAS Software Solutions" width="160" height="160" loading="lazy"></a>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    نبتكر حلولاً رقمية ذكية تمكن الشركات من النمو في عصر التحول الرقمي. شريكك التقني الموثوق في مصر
+                    والشرق الأوسط.
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://www.facebook.com/ASASSoftwareSolutions" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-cyan-500 hover:text-black hover:border-cyan-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/asas.software.solutions/" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-emerald-500 hover:text-black hover:border-emerald-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-instagram"></i></a>
+                    <!-- Chatway Support Widget -->
+                    <script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=U4NGSGWd2p7a"></script>
+<br>
+                    <a href="https://wa.me/201032630429" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-black hover:border-green-500 transition-all duration-300 transform hover:-translate-y-1"><i
+                            class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Links Column -->
+            <div>
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">روابط هامة <span
+                        class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="about.html" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> من نحن</a></li>
+                    <li><a href="faq.html" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> الأسئلة الشائعة</a></li>
+                    <li><a href="products.html" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> الأجهزة والمنتجات</a></li>
+                    <li><a href="index.html#services" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> خدماتنا</a></li>
+                    <li><a href="index.html#portfolio" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> معرض الأعمال</a></li>
+                    <li><a href="index.html#calculator" class="hover:text-cyan-500 transition flex items-center gap-2"><i
+                                class="fas fa-chevron-left text-xs text-cyan-500"></i> اطلب عرض سعر لمشروعك</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Column -->
+            <div>
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">تواصل معنا <span
+                        class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
+                <ul class="space-y-6 text-gray-400 text-sm">
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 text-cyan-500"><i class="fas fa-map-marker-alt"></i></div>
+                        <span>الشركة أونلاين</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="text-cyan-500"><i class="fas fa-phone-alt"></i></div>
+                        <span class="font-['Tajawal']" dir="ltr">+20 103 263 0429</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="text-cyan-500"><i class="fas fa-envelope"></i></div>
+                        <span>asas.software.solutions@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div>
+                <h4 class="text-white font-bold text-lg mb-8 relative inline-block">السياسات القانونية <span
+                        class="absolute -bottom-2 right-0 w-1/2 h-1 bg-cyan-500 rounded-full"></span></h4>
+                <div class="flex flex-col gap-4 text-gray-400 text-sm">
+                    <a href="privacy.html" class="hover:text-cyan-500 transition flex items-center gap-2">
+                        <i class="fas fa-shield-alt text-cyan-500"></i> سياسة الخصوصية
+                    </a>
+                    <a href="terms.html" class="hover:text-cyan-500 transition flex items-center gap-2">
+                        <i class="fas fa-file-contract text-cyan-500"></i> الشروط والأحكام
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto relative z-10">
+            <p class="text-gray-600 text-sm">&copy; <span id="current-year"></span> ASAS Software Solutions. جميع الحقوق محفوظة.</p>
+        </div>
+
     </footer>
 
     <script type="module">
@@ -153,7 +295,7 @@
             card.className = 'product-card group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 transition duration-300';
 
             const imageFrame = document.createElement('div');
-            imageFrame.className = 'relative flex h-52 sm:h-56 items-center justify-center overflow-hidden border-b border-white/5 bg-white/[.03] p-5';
+            imageFrame.className = 'store-product-image relative flex h-52 sm:h-56 items-center justify-center overflow-hidden border-b border-white/5 bg-white/[.03] p-5';
             const image = document.createElement('img');
             image.src = product.image || '';
             image.alt = product.name || 'صورة المنتج';
@@ -169,7 +311,7 @@
             imageFrame.appendChild(image);
 
             const content = document.createElement('div');
-            content.className = 'flex flex-1 flex-col p-5 sm:p-6';
+            content.className = 'store-product-content flex flex-1 flex-col p-5 sm:p-6';
             const name = document.createElement('h3');
             name.className = 'text-lg font-black leading-8 text-white';
             name.textContent = product.name || 'منتج';
@@ -178,7 +320,7 @@
             description.textContent = product.description || '';
 
             const footer = document.createElement('div');
-            footer.className = 'mt-auto pt-5';
+            footer.className = 'store-product-footer mt-auto pt-5';
             const priceLine = document.createElement('div');
             priceLine.className = 'mb-4 flex items-end justify-between gap-2';
             const priceLabel = document.createElement('span');
@@ -308,7 +450,7 @@
                 section.id = category.id;
                 section.className = 'section-anchor';
                 const heading = document.createElement('div');
-                heading.className = 'mb-6 flex items-center justify-between gap-4 border-b border-white/10 pb-4';
+                heading.className = 'store-category-heading mb-6 flex items-center justify-between gap-4 border-b border-white/10 pb-4';
                 const titleWrap = document.createElement('div');
                 const title = document.createElement('h2');
                 title.className = 'text-xl sm:text-2xl font-black text-white';
@@ -323,7 +465,7 @@
                 heading.append(titleWrap, count);
 
                 const grid = document.createElement('div');
-                grid.className = 'grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+                grid.className = 'store-product-grid grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
                 categoryProducts.forEach((product) => grid.appendChild(makeProductCard(product)));
                 if (!categoryProducts.length) {
                     const empty = document.createElement('p');

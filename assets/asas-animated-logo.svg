@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title desc">
+  <title id="title">ASAS Software Solutions</title>
+  <desc id="desc">شعار مرسوم بالأزرق الكهربائي والذهبي داخل إطار دائري، مع إضاءة متحركة واسم ASAS بالفضي.</desc>
+  <defs>
+    <radialGradient id="navy" cx="45%" cy="30%" r="75%"><stop stop-color="#103b70"/><stop offset=".55" stop-color="#04172e"/><stop offset="1" stop-color="#020916"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="1" x2=".8" y2="0"><stop stop-color="#73501a"/><stop offset=".24" stop-color="#d19b35"/><stop offset=".48" stop-color="#ffe6a0"/><stop offset=".65" stop-color="#b98127"/><stop offset=".84" stop-color="#fff0b4"/><stop offset="1" stop-color="#dda944"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#69f1ff"/><stop offset=".22" stop-color="#00c8fa"/><stop offset=".48" stop-color="#087bee"/><stop offset=".73" stop-color="#0038a2"/><stop offset="1" stop-color="#071b52"/></linearGradient>
+    <linearGradient id="blueBase" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00caff"/><stop offset=".4" stop-color="#073ba7"/><stop offset=".76" stop-color="#102660"/><stop offset="1" stop-color="#039dea"/></linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset=".28" stop-color="#e8f3ff"/><stop offset=".5" stop-color="#8caac6"/><stop offset=".63" stop-color="#e0edf7"/><stop offset="1" stop-color="#6486a4"/></linearGradient>
+    <linearGradient id="shine"><stop stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity=".8"/></filter>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3"/></filter>
+    <clipPath id="disc"><circle cx="300" cy="300" r="277"/></clipPath>
+    <style>
+      .glow-blue { animation: bluePulse 6s ease-in-out infinite; }
+      .trace { stroke-dasharray: 20 600; animation: traceFlow 8s linear infinite; }
+      .ring-light { transform-origin: 300px 300px; animation: orbit 18s linear infinite; }
+      .light-sweep { animation: sweep 8s ease-in-out infinite; }
+      @keyframes bluePulse { 0%,100% { opacity:.35 } 50% { opacity:.85 } }
+      @keyframes traceFlow { to { stroke-dashoffset:-620 } }
+      @keyframes orbit { to { transform:rotate(360deg) } }
+      @keyframes sweep { 0%,20% { transform:translateX(-650px) } 65%,100% { transform:translateX(650px) } }
+      @media(prefers-reduced-motion:reduce) { * { animation:none!important } .light-sweep { display:none } }
+    </style>
+  </defs>
+  <circle cx="300" cy="300" r="283" fill="#020916"/>
+  <circle cx="300" cy="300" r="277" fill="url(#navy)" stroke="url(#gold)" stroke-width="7"/>
+  <circle cx="300" cy="300" r="266" fill="none" stroke="#087bee" stroke-opacity=".55" stroke-width="1.5"/>
+  <g clip-path="url(#disc)">
+    <path d="M54 313L318 41H393L91 357Z" fill="#000" opacity=".13"/>
+    <g fill="none" stroke-width="2" opacity=".65">
+      <path d="M32 228H92L124 195H150M29 288H105L138 254H171M42 347H100L151 296H187M568 233H480L449 263H426M570 292H502L465 329H437" stroke="#1562b6"/>
+      <path d="M34 265H93L126 234H155M553 264H480L452 292H424M548 326H502L469 358H444" stroke="#b78939"/>
+    </g>
+    <g fill="none" stroke="#00d4ff" stroke-width="2.5" class="trace"><path d="M32 228H92L124 195H150"/><path d="M570 292H502L465 329H437"/></g>
+    <g fill="#e5bd60"><circle cx="126" cy="234" r="3"/><circle cx="480" cy="264" r="3"/><circle cx="502" cy="326" r="3"/></g>
+    <g filter="url(#shadow)">
+      <!-- The slanted blue beam and folded base form the outer A. -->
+      <path d="M276 115H331L206 329H351L369 357H143Z" fill="url(#blue)" stroke="#40d4ff" stroke-width="1.2"/>
+      <path d="M332 121L388 217H338L308 165Z" fill="url(#blue)" stroke="#087bee" stroke-width="1.2"/>
+      <path d="M169 329H295L315 357H143Z" fill="url(#blueBase)"/>
+      <path d="M299 282H342L386 357H343Z" fill="url(#blueBase)" stroke="#087bee" stroke-width="1"/>
+      <!-- Gold inner A: stepped crossbar and separate descending foot. -->
+      <path d="M288 218H384L432 305H386L357 254H310L293 280H334L351 305H241Z" fill="url(#gold)" stroke="#ffe39a" stroke-width="1.1"/>
+      <path d="M396 320H439L461 357H417Z" fill="url(#gold)" stroke="#e5bd60" stroke-width="1"/>
+      <path d="M277 116H329M145 356H383M289 219H383" fill="none" stroke="#e2fdff" stroke-opacity=".7" stroke-width="1.5"/>
+    </g>
+    <g class="glow-blue" fill="none" stroke="#00d4ff" filter="url(#glow)"><path d="M276 116L151 341M170 330H291M153 358H383" stroke-width="5"/></g>
+    <g filter="url(#shadow)">
+      <text x="304" y="452" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-style="italic" font-size="104" textLength="395" lengthAdjust="spacingAndGlyphs" fill="url(#silver)" stroke="#d5e9fb" stroke-width=".65">ASAS</text>
+      <text x="300" y="490" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700" letter-spacing="3.5" fill="url(#gold)">SOFTWARE SOLUTIONS</text>
+    </g>
+    <path d="M126 456H466" stroke="#00bfff" stroke-width="3" filter="url(#glow)" class="glow-blue"/>
+    <path class="light-sweep" d="M180 30L80 570H180L280 30Z" fill="url(#shine)" opacity=".13"/>
+  </g>
+  <g class="ring-light"><circle cx="300" cy="23" r="5" fill="#fff2bd" filter="url(#glow)"/><path d="M287 23H313M300 12V34" stroke="#fff5d4" stroke-width="1"/></g>
+</svg>

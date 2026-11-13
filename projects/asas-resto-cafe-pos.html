@@ -7,8 +7,6 @@
     <title>ASAS RESTO & CAFE POS | نظام إدارة المطاعم والكافيهات الذكي</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/ico.ico">
-    <link rel="shortcut icon" href="../assets/ico.ico" type="image/x-icon">
 
     <!-- Open Graph / Facebook -->
     
@@ -33,10 +31,10 @@
 
     <style>
         :root {
-            --primary-emerald: #10b981;
-            --primary-brand: #10b981;
-            --dark-bg: #0a0a0a;
-            --dark-card: #141414;
+            --primary-emerald: #e5bd60;
+            --primary-brand: #e5bd60;
+            --dark-bg: #030e22;
+            --dark-card: #0a1b35;
             --text-main: #ffffff;
             --text-secondary: #9ca3af;
             --border-color: rgba(255, 255, 255, 0.05);
@@ -59,7 +57,7 @@
         }
 
         .text-brand-gradient {
-            background: linear-gradient(to right, #10b981, #00d2ff, #3a7bd5, #10b981);
+            background: linear-gradient(to right, #e5bd60, #00d4ff, #087bee, #e5bd60);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -128,6 +126,15 @@
     <meta name="twitter:description" content="نظام ASAS Resto & Cafe POS لإدارة المطاعم والكافيهات والطلبات والطاولات والمخزون والمبيعات.">
     <meta name="twitter:image" content="https://asas-software-solutions.vercel.app/assets/resto_cafe.png">
 
+    <link rel="stylesheet" href="../assets/css/brand-theme.css">
+    <meta name="theme-color" content="#030e22">
+    <link rel="stylesheet" href="../assets/css/program-layout.css">
+    <link rel="stylesheet" href="../assets/css/video-player.css">
+
+    <link rel="icon" type="image/x-icon" href="../assets/ico.ico?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/asas-favicon-32.png?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="48x48" href="../assets/asas-favicon-48.png?v=7483a2a2">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/asas-favicon-180.png?v=7483a2a2">
 </head>
 
 <body class="selection:bg-emerald-600 selection:text-white">
@@ -142,8 +149,8 @@
                 <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad)" />
                 <defs>
                     <linearGradient id="logo-grad" x1="5" y1="5" x2="95" y2="85" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#00d2ff" />
-                        <stop offset="1" stop-color="#10b981" />
+                        <stop stop-color="#00d4ff" />
+                        <stop offset="1" stop-color="#e5bd60" />
                     </linearGradient>
                 </defs>
             </svg>
@@ -173,6 +180,7 @@
                 <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight">
                     برنامج <span class="text-brand-gradient">RESTO & CAFE</span><br>إتقان الإدارة والخدمة
                 </h1>
+<a href="#project-video-section" class="asas-video-shortcut"><i class="fas fa-play-circle" aria-hidden="true"></i> فيديو شرح البرنامج</a>
                 <p class="text-gray-400 text-lg leading-relaxed mb-10 font-['Tajawal']">
                     تم تطوير هذا النظام خصيصاً ليلبي احتياجات المطاعم والكافيهات العصرية. من إدارة الطاولات المعقدة
                     وبونات المطبخ اللحظية إلى تخصيص مكاتب الطلبات (Addons) ومتابعة دقيقة للورديات والأرباح.
@@ -220,6 +228,12 @@
             </div>
         </div>
     </section>
+<section id="project-video-section" class="asas-video-section" aria-labelledby="project-video-heading">
+      <div class="asas-video-heading"><span class="asas-video-icon" aria-hidden="true"><i class="fas fa-play"></i></span><div><h2 id="project-video-heading">شرح البرنامج بالفيديو</h2><p>تعرّف على واجهة البرنامج وطريقة استخدامه.</p></div></div>
+      <div id="project-video-player" class="asas-video-container" hidden></div>
+      <p id="project-video-empty" class="asas-video-empty" role="status">فيديو شرح البرنامج غير متاح حاليًا. يمكنك التواصل معنا للاستفسار عن طريقة الاستخدام.</p>
+    </section>
+
 
     <!-- Key Features -->
     <section class="py-20 px-6 bg-white/[0.02]">
@@ -351,48 +365,10 @@
         </div>
     </section>
 
-    <!-- Technical Specs -->
-    <section class="py-24 px-6">
-        <div
-            class="max-w-5xl mx-auto glass-card p-12 rounded-[3rem] border-emerald-500/20 bg-gradient-to-br from-white/5 to-transparent">
-            <h2 class="text-3xl font-black mb-12 text-center">المواصفات <span class="text-emerald-500">الفنية</span>
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <i class="fab fa-react text-5xl text-blue-400 mb-4 block"></i>
-                    <span class="font-bold text-gray-300 text-sm">Ultra-Low Latency React Interface</span>
-                </div>
-                <div class="text-center">
-                    <i class="fab fa-node-js text-5xl text-green-500 mb-4 block"></i>
-                    <span class="font-bold text-gray-300 text-sm">Industrial Desktop Engine Core</span>
-                </div>
-                <div class="text-center group">
-                    <div class="mb-4 flex justify-center transition-transform group-hover:scale-110">
-                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                            class="text-emerald-500">
-                            <path d="M2.5 4.5L21.5 21.5" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" />
-                            <path d="M12 18.5V18.51" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path
-                                d="M14.5 14C15.9378 12.8715 17.5858 12.1932 19.3333 12C13.6364 5.33333 10.3636 5.33333 4.66667 12C5.99222 12.1465 7.27511 12.5699 8.5 13.25"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path
-                                d="M9.5 16C10.2785 15.3615 11.127 15.0116 12 15M17.3333 12C16.9606 11.564 16.5333 11.196 16.0593 10.9038"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                    </div>
-                    <span class="font-bold text-gray-300 text-sm">Hybrid Edge Offline Synchronization</span>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-shield-halved text-5xl text-indigo-400 mb-4 block"></i>
-                    <span class="font-bold text-gray-300 text-sm">Military-Grade Encryption (AES-256)</span>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="asas-program-benefits" aria-label="مميزات البرنامج في الاستخدام اليومي"><div class="asas-benefits-shell"><h2>مميزات تساعدك <span class="text-cyan-500">في شغلك اليومي</span></h2><div class="asas-benefits-grid"><article class="asas-benefit-card"><i class="fas fa-utensils" aria-hidden="true"></i><h3>إدارة الطاولات والطلبات</h3><p>تابع طلبات الصالة والطاولات ونظّم حركة الخدمة.</p></article>
+<article class="asas-benefit-card"><i class="fas fa-receipt" aria-hidden="true"></i><h3>بونات المطبخ</h3><p>وجّه الطلبات إلى المطبخ من خلال بونات الطلبات.</p></article>
+<article class="asas-benefit-card"><i class="fas fa-sliders-h" aria-hidden="true"></i><h3>تخصيص الطلبات والفواتير</h3><p>أضف تعديلات الطلب، وقسّم الفواتير أو ادمجها حسب احتياج الخدمة.</p></article>
+<article class="asas-benefit-card"><i class="fas fa-chart-pie" aria-hidden="true"></i><h3>الورديات والمصروفات</h3><p>تابع الورديات والعهد والمصروفات وراجع صافي الربح.</p></article></div></div></section>
 
     <!-- CTA -->
     <section class="py-20 text-center px-6">
@@ -436,7 +412,7 @@
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#10b981';
+            ctx.fillStyle = '#e5bd60';
             ctx.strokeStyle = 'rgba(16, 185, 129, 0.1)';
 
             points.forEach((p, i) => {
@@ -472,6 +448,7 @@
 
     <!-- Dynamic Download & Reviews Logic -->
     <script type="module">
+    import { renderVideo } from "../assets/js/video-player.js";
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -500,6 +477,7 @@
 
                 if (docSnap.exists()) {
                     const data = docSnap.data();
+                    document.getElementById('project-video-empty').hidden = (data.active !== false && renderVideo(document.getElementById('project-video-player'), data.videoUrl, 'فيديو شرح البرنامج'));
 
                     // 1. Pricing Logic
                     if (data.discountPrice && data.discountPrice > 0) {

@@ -1,0 +1,194 @@
+/* Homepage layout. Existing IDs, forms and Firebase integrations stay in place. */
+.asas-home {
+    --layout-surface: #091a32;
+    --layout-soft: #0d2340;
+    --layout-line: rgba(149, 186, 225, .17);
+    --layout-muted: #afc0d5;
+}
+.asas-home.light-mode {
+    --layout-surface: #fff;
+    --layout-soft: #edf2f9;
+    --layout-line: #d6e1ee;
+    --layout-muted: #465d78;
+}
+.asas-home #navbar {
+    inset: 16px 0 auto;
+    width: min(1320px, calc(100% - 40px));
+    margin-inline: auto;
+    padding: 14px 24px;
+    gap: 24px;
+    border: 1px solid var(--layout-line);
+    border-radius: 18px;
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .08);
+}
+.asas-home #navbar > .text-3xl { flex-shrink: 0; font-size: 26px; }
+.asas-header-logo { display: block; width: 48px; height: 48px; flex-shrink: 0; border-radius: 50%; }
+.asas-footer-brand { display: inline-block; border-radius: 50%; }
+.asas-footer-logo { display: block; width: 160px; height: 160px; max-width: 100%; border-radius: 50%; filter: drop-shadow(0 4px 16px rgba(8, 123, 238, .16)); }
+.asas-home #navbar > .hidden { gap: 18px; }
+.asas-home #navbar > .hidden > * { margin: 0; white-space: nowrap; font-size: 12px; }
+.asas-nav-controls { display: flex; align-items: center; gap: 18px; }
+.asas-home #theme-toggle { flex-shrink: 0; }
+.asas-home #mobile-menu { padding: 100px 24px 32px; overflow-y: auto; }
+.asas-home #mobile-menu a { font-size: 20px; }
+.asas-home #mobile-menu > * { margin-top: 20px; }
+.asas-home section[id] { scroll-margin-top: 112px; }
+.asas-home > section:not(#home) { padding-block: 80px; }
+.asas-hero { position: relative; padding: 172px 32px 88px; }
+.asas-hero-grid { max-width: 1260px; margin: auto; display: grid; grid-template-columns: 1fr 1.08fr; align-items: center; gap: 64px; }
+.asas-eyebrow { color: var(--primary-brand); font-size: 12px; font-weight: 700; margin-bottom: 24px; letter-spacing: .04em; }
+.asas-hero h1 { font-size: clamp(32px, 3.5vw, 52px); line-height: 1.5; font-weight: 900; letter-spacing: -.035em; margin-bottom: 20px; }
+.asas-hero-description { color: var(--layout-muted); font-size: 15px; line-height: 2.1; max-width: 490px; }
+.asas-hero-specialties { display: block; min-height: 9.5em; margin-top: 22px; color: var(--primary-brand); font-size: 16px; line-height: 1.9; overflow-wrap: break-word; }
+.asas-hero-specialties > span[aria-hidden] { margin-inline-start: 4px; }
+.asas-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.asas-primary, .asas-secondary { display: inline-flex; justify-content: center; align-items: center; gap: 16px; min-height: 50px; padding: 12px 22px; border-radius: 12px; font-size: 13px; font-weight: 700; transition: background .2s, transform .2s; }
+.asas-primary { color: #fff; background: #0865bb; border: 1px solid #0865bb; }
+.asas-primary:hover { background: #08569e; transform: translateY(-2px); }
+.asas-secondary { border: 1px solid var(--layout-line); color: var(--text-main); background: var(--layout-surface); }
+.asas-secondary:hover { border-color: var(--primary-brand); }
+.asas-hero-store { display: inline-flex; align-items: center; gap: 12px; color: var(--layout-muted); font-size: 11px; line-height: 1.9; margin-top: 24px; }
+.asas-hero-store:hover { color: var(--primary-brand); }
+.asas-hero-preview { min-width: 0; margin: 0; border: 1px solid var(--layout-line); border-radius: 20px; background: var(--layout-surface); overflow: hidden; box-shadow: 0 28px 70px rgba(0, 0, 0, .17); }
+.asas-preview-top, .asas-hero-preview figcaption { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; font-size: 11px; color: var(--layout-muted); }
+.asas-preview-top { border-bottom: 1px solid var(--layout-line); }
+.asas-preview-label { color: var(--primary-brand); font-family: monospace; letter-spacing: .06em; }
+.asas-preview-image { padding: 18px; background: var(--layout-soft); }
+.asas-preview-image img { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--layout-line); }
+.asas-hero-preview figcaption a { color: var(--primary-brand); white-space: nowrap; }
+.asas-home #portfolio { border-top: 1px solid var(--layout-line); }
+.asas-home #portfolio > .max-w-7xl > .text-center { text-align: start; margin-bottom: 32px; }
+.asas-home section h2 { font-size: clamp(26px, 3vw, 38px); line-height: 1.6; letter-spacing: -.025em; }
+.asas-home #portfolio .filter-btn { border-radius: 10px; font-size: 11px; padding: 10px 16px; }
+.asas-project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.asas-project-grid > .project-card { margin: 0 !important; padding: 24px; border-radius: 20px; background: var(--layout-surface); border-color: var(--layout-line); }
+.asas-project-grid > .project-card > .grid { display: flex; flex-direction: column; align-items: stretch; gap: 24px; }
+.asas-project-grid > .project-card > .grid > div { order: initial; min-width: 0; }
+.asas-project-grid .browser-frame { border-radius: 12px; box-shadow: none; }
+.asas-project-grid h3 { font-size: 22px; line-height: 1.7; }
+.asas-project-grid h3 > span.text-xs { display: inline-block; font-size: 10px; }
+.asas-project-grid p { line-height: 1.95; }
+.asas-project-grid .project-card:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0, 0, 0, .1); }
+.asas-project-grid .project-card:last-child { grid-column: 1 / -1; }
+.asas-project-grid .project-card:last-child > .grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+.asas-home #about > .grid { gap: 56px; }
+.asas-home #services .group, .asas-home .testimonial-card, .asas-home .blog-card { border-radius: 18px; }
+.asas-home #process .process-card { box-shadow: none; }
+.asas-home #resellers { background: var(--layout-surface); border-color: var(--layout-line); }
+.asas-home footer { background: var(--layout-surface); border-color: var(--layout-line); padding-top: 64px; }
+.asas-home footer > .max-w-7xl { gap: 32px; }
+.asas-home .cursor-dot, .asas-home .cursor-outline { display: none; }
+.asas-home #bg-canvas { opacity: .12; }
+.asas-home .tech-icon { animation: none; text-shadow: none; }
+.asas-home .blog-card:hover, .asas-home .testimonial-card:hover { box-shadow: 0 12px 28px rgba(0, 0, 0, .1); }
+.asas-home.light-mode .bg-slate-900\/40 { background: var(--layout-soft); }
+@media (max-width: 1100px) {
+    .asas-hero-grid { gap: 32px; }
+    .asas-home #navbar { gap: 14px; padding-inline: 18px; }
+    .asas-home #navbar > .hidden { gap: 12px; }
+}
+@media (max-width: 1023px) {
+    .asas-home #navbar > .hidden { display: none; }
+    .asas-nav-controls { margin-inline-start: auto; }
+    .asas-home #mobile-menu { z-index: 60; }
+    .asas-home #close-menu { top: 20px; left: 24px; }
+    .asas-hero { padding-top: 140px; }
+    .asas-hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .asas-hero-copy { max-width: 640px; }
+    .asas-hero-preview { max-width: 720px; width: 100%; }
+}
+@media (max-width: 767px) {
+    .asas-home #navbar { inset-block-start: 10px; width: calc(100% - 24px); padding: 12px 16px; border-radius: 14px; }
+    .asas-home #navbar > .text-3xl { font-size: 22px; }
+    .asas-home #navbar svg { width: 32px; height: 32px; }
+    .asas-home #navbar .asas-header-logo { width: 40px; height: 40px; }
+    .asas-home footer .asas-footer-logo { width: 144px; height: 144px; }
+    .asas-hero { padding: 124px 20px 48px; }
+    .asas-hero h1 { font-size: 33px; }
+    .asas-hero-description { font-size: 14px; }
+    .asas-hero-actions > a { flex: 1; padding-inline: 12px; font-size: 12px; }
+    .asas-preview-top, .asas-hero-preview figcaption { padding: 14px; font-size: 10px; }
+    .asas-preview-image { padding: 10px; }
+    .asas-home > section:not(#home) { padding: 48px 20px; }
+    .asas-project-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .asas-project-grid > .project-card { padding: 18px; }
+    .asas-project-grid .project-card:last-child > .grid { display: flex; }
+    .asas-project-grid .project-card:last-child { grid-column: auto; }
+    .asas-home #portfolio .filter-btn { flex-shrink: 0; }
+    .asas-home #portfolio > .max-w-7xl > .flex { justify-content: flex-start; gap: 8px; }
+    .asas-home #about > .grid { gap: 32px; }
+    .asas-home #careers h2 { font-size: 32px; }
+    .asas-home footer { padding-inline: 20px; }
+}
+/* Compact program cards: retain actual logos and previews without tall stacks. */
+.asas-project-grid { grid-template-columns: minmax(0, 1fr); gap: 22px; max-width: 1160px; margin-inline: auto; }
+.asas-project-grid > .project-card { padding: 24px; border-radius: 20px; }
+.asas-project-grid > .project-card > .grid,
+.asas-project-grid .project-card:last-child > .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.asas-project-grid .project-card:last-child { grid-column: auto; }
+.asas-project-grid .project-card > .grid > .text-right { order: 0; }
+.asas-project-grid .project-card > .grid > div:not(.text-right) { order: 1; }
+.asas-project-grid h3 { display: flex; align-items: center; gap: 14px; font-size: 20px; margin-bottom: 18px; min-height: 62px; }
+.asas-program-title { display: block; min-width: 0; line-height: 1.6; }
+.asas-program-title > .text-xs { display: block; width: fit-content; margin: 5px 0 0; font-size: 10px; }
+.asas-program-logo { width: 62px; height: 62px; flex: 0 0 62px; object-fit: contain; display: block; padding: 5px; background: #fff; border-radius: 14px; border: 1px solid #d6e1ee; }
+.asas-project-grid .text-right > div:first-child:has(> span.font-mono) { display: none; }
+.asas-project-grid p { font-size: 12px; margin-bottom: 14px; }
+.asas-project-grid ul { gap: 8px; margin-bottom: 16px; font-size: 11px; }
+.asas-project-grid .btn-showcase, .asas-project-grid button { font-size: 11px; padding: 10px 12px; }
+.asas-project-grid .text-right > .flex:last-child { justify-content: flex-start; gap: 10px; }
+.asas-project-grid li { justify-content: flex-start; }
+.asas-project-grid .browser-frame { border: 1px solid var(--layout-line); }
+.asas-project-grid .browser-frame > .relative { aspect-ratio: auto; height: 150px; background: #07162d; }
+.asas-project-grid .browser-frame img { object-fit: contain; padding: 8px; }
+.asas-project-grid .project-card a:has(> img) { height: 150px; background: #07162d; }
+.asas-project-grid .project-card a > img { height: 100%; width: 100%; object-fit: contain; }
+.asas-home #portfolio > .max-w-7xl > .flex { margin-bottom: 28px; }
+@media (min-width: 768px) {
+    .asas-project-grid { grid-template-columns: minmax(0, 1fr); }
+    .asas-project-grid > .project-card > .grid,
+    .asas-project-grid .project-card:last-child > .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+    .asas-project-grid .browser-frame > .relative,
+    .asas-project-grid .project-card a:has(> img) { height: 240px; }
+    .asas-project-grid p { max-width: 640px; }
+}
+@media (max-width: 767px) {
+    .asas-project-grid > .project-card { padding: 16px; }
+    .asas-project-grid .browser-frame > .relative,
+    .asas-project-grid .project-card a:has(> img) { height: 180px; }
+    .asas-project-grid h3 { font-size: 16px; }
+    .asas-project-grid ul { grid-template-columns: minmax(0, 1fr); }
+    .asas-program-logo { width: 52px; height: 52px; flex-basis: 52px; }
+}
+/* Programs on the homepage use logos and copy only, without screenshot columns. */
+.asas-hero-grid { grid-template-columns: minmax(0, 1fr); max-width: 1160px; }
+.asas-hero-copy { max-width: 760px; }
+.asas-hero-description { max-width: 620px; }
+.asas-hero-grid:has(.asas-logo-stage) { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 44px; }
+.asas-logo-stage { position: relative; min-width: 0; text-align: center; }
+.asas-logo-film { position: relative; isolation: isolate; overflow: hidden; width: min(100%, 380px); margin: auto; border-radius: 50%; background: #030e22; box-shadow: 0 0 45px rgba(8, 123, 238, .16); animation: asas-brand-glow 6s ease-in-out infinite; }
+.asas-brand-logo-image { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
+.asas-logo-sheen { position: absolute; inset: -30%; pointer-events: none; background: linear-gradient(110deg, transparent 43%, rgba(255, 241, 183, .12) 49%, transparent 55%); transform: translateX(-80%); animation: asas-logo-sheen 7s ease-in-out infinite; }
+@keyframes asas-brand-glow { 50% { box-shadow: 0 0 60px rgba(8, 123, 238, .25), 0 0 18px rgba(229, 189, 96, .12); } }
+@keyframes asas-logo-sheen { 0%, 25% { transform: translateX(-80%); } 70%, 100% { transform: translateX(80%); } }
+@media (max-width: 900px) {
+    .asas-hero-grid:has(.asas-logo-stage) { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .asas-logo-film { max-width: 290px; }
+}
+.asas-project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+.asas-project-grid > .project-card > .grid,
+.asas-project-grid .project-card:last-child > .grid { display: block; }
+.asas-project-grid > .project-card > .grid > .text-right { width: 100%; }
+@media (max-width: 767px) {
+    .asas-project-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .asas-home *, .asas-home *::before, .asas-home *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .asas-home [data-aos] { opacity: 1 !important; transform: none !important; }
+}

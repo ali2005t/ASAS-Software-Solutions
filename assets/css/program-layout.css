@@ -1,0 +1,46 @@
+/* Shared, compact detail-page layout; product logos remain visible. */
+.asas-benefits-shell { max-width: 1140px; margin: auto; }
+.asas-program-benefits h2 { margin-bottom: 24px; }
+.asas-benefits-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.asas-benefit-card { padding: 22px; border: 1px solid var(--border-color); border-radius: 16px; background: var(--card-bg); }
+.asas-benefit-card > i { display: inline-block; font-size: 26px; color: var(--primary-brand, #00d4ff); margin-bottom: 18px; }
+.asas-benefit-card h3 { margin-bottom: 10px; }
+.asas-benefit-card p { color: var(--text-secondary, #afc0d5); font-size: 13px; line-height: 1.9; }
+@media (max-width: 1023px) { .asas-benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .asas-benefits-grid { grid-template-columns: minmax(0, 1fr); } }
+.asas-program-page > nav { padding: 14px 28px; border-bottom: 1px solid var(--border-color); background: var(--card-bg); backdrop-filter: blur(16px); }
+.asas-program-page > section { padding: 44px 24px; }
+.asas-program-page > section:first-of-type { padding-top: 112px; padding-bottom: 44px; }
+.asas-program-page main > section { padding: 44px 24px; }
+.asas-program-page :is(section, nav) > .max-w-7xl,
+.asas-program-page main > section > .max-w-7xl { max-width: 1140px; }
+.asas-program-page section > .flex { gap: 36px; }
+.asas-program-page h1 { font-size: clamp(28px, 3.1vw, 42px); line-height: 1.5; margin-bottom: 20px; }
+.asas-program-page h2 { font-size: clamp(23px, 2.4vw, 30px); line-height: 1.6; margin-bottom: 20px; }
+.asas-program-page h3 { font-size: 17px; line-height: 1.7; }
+.asas-program-page section:first-of-type p { font-size: 15px; line-height: 1.9; margin-bottom: 20px; }
+.asas-program-page section:first-of-type img:not([alt*="Logo"]):not([alt*="logo"]) { max-height: 340px; width: 100%; object-fit: contain; }
+.asas-program-page section:first-of-type img[alt*="Logo"],
+.asas-program-page section:first-of-type img[alt*="logo"] { width: 100%; height: 100%; object-fit: contain; }
+.asas-program-page .glass-card { padding: 22px; border-radius: 16px; }
+.asas-program-page section > .max-w-7xl > .text-center { margin-bottom: 28px; }
+.asas-program-page section .gap-8 { gap: 20px; }
+.asas-program-page section .mb-16 { margin-bottom: 28px; }
+.asas-program-page section .mb-12 { margin-bottom: 24px; }
+.asas-program-page section .text-5xl:not(h1):not(h2) { font-size: 32px; }
+.asas-program-page section :is(a, button).px-12 { padding: 12px 24px; font-size: 15px; }
+.asas-program-page footer { padding-block: 24px; }
+@media (max-width: 1023px) {
+    .asas-program-page section:first-of-type > .flex { gap: 28px; align-items: stretch; }
+    .asas-program-page section:first-of-type img:not([alt*="Logo"]):not([alt*="logo"]) { max-height: 260px; }
+}
+@media (max-width: 640px) {
+    .asas-program-page > nav { padding: 12px 18px; }
+    .asas-program-page > section, .asas-program-page main > section { padding: 32px 18px; }
+    .asas-program-page > section:first-of-type { padding-top: 96px; padding-bottom: 32px; }
+    .asas-program-page h1 { font-size: 28px; }
+    .asas-program-page section:first-of-type p { font-size: 14px; }
+    .asas-program-page section:first-of-type img:not([alt*="Logo"]):not([alt*="logo"]) { max-height: 200px; }
+    .asas-program-page .glass-card { padding: 18px; }
+    .asas-program-page section .gap-16 { gap: 24px; }
+}

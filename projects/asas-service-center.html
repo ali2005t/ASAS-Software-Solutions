@@ -4,22 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ASAS Service | نظام إدارة مراكز الصيانة</title>
-  
-  
-  
-  
-  
-  <link rel="icon" type="image/x-icon" href="../assets/ico.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/tailwind.generated.css">
   <style>
-    :root { color-scheme: dark; --gold:#d4af37; --navy:#0b1422; --panel:#111e30; }
+    :root { color-scheme: dark; --gold:#e5bd60; --navy:#0b1422; --panel:#111e30; }
     * { box-sizing:border-box; }
     body { margin:0; background:radial-gradient(ellipse at 78% 4%,#1b3045 0,transparent 34%),var(--navy); color:#f8fafc; font-family:'Cairo',sans-serif; }
     .font-copy { font-family:'Tajawal','Cairo',sans-serif; }
     .glass { background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025)); border:1px solid rgba(255,255,255,.1); backdrop-filter:blur(14px); }
-    .gold-text { background:linear-gradient(100deg,#f6e4a2,#d4af37,#fff1bd); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .gold-text { background:linear-gradient(100deg,#f6e4a2,#e5bd60,#fff1bd); -webkit-background-clip:text; background-clip:text; color:transparent; }
     .grid-bg { background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px); background-size:34px 34px; }
   </style>
 
@@ -38,8 +32,17 @@
     <meta name="twitter:description" content="نظام ASAS Service لإدارة مراكز الصيانة ومتابعة الأجهزة والعملاء وأوامر الشغل والمدفوعات.">
     <meta name="twitter:image" content="https://asas-software-solutions.vercel.app/assets/asas-service.png">
 
+    <link rel="stylesheet" href="../assets/css/brand-theme.css">
+    <meta name="theme-color" content="#030e22">
+    <link rel="stylesheet" href="../assets/css/program-layout.css">
+    <link rel="stylesheet" href="../assets/css/video-player.css">
+
+    <link rel="icon" type="image/x-icon" href="../assets/ico.ico?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/asas-favicon-32.png?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="48x48" href="../assets/asas-favicon-48.png?v=7483a2a2">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/asas-favicon-180.png?v=7483a2a2">
 </head>
-<body>
+<body class="asas-program-page">
   <header class="sticky top-0 z-20 border-b border-white/10 bg-[#0b1422]/85 px-5 py-4 backdrop-blur-xl md:px-12">
     <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4">
       <a href="../index.html#portfolio" class="flex items-center gap-3" aria-label="العودة إلى مشاريع ASAS">
@@ -57,6 +60,7 @@
         <div class="relative z-10">
           <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-amber-300/5 px-4 py-2 text-[11px] font-bold text-amber-200"><span class="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>نظام مكتبي لمراكز الصيانة</div>
           <h1 class="mb-5 text-5xl font-black leading-tight md:text-7xl">إدارة مركزك<br><span class="gold-text">من الاستلام للتسليم</span></h1>
+<a href="#project-video-section" class="asas-video-shortcut"><i class="fas fa-play-circle" aria-hidden="true"></i> فيديو شرح البرنامج</a>
           <p class="font-copy mb-8 max-w-2xl text-lg leading-9 text-slate-300">ASAS Service يجمع بيانات العملاء والأجهزة وطلبات الإصلاح في مساحة عمل واحدة. تابع حالة كل جهاز، ونظّم قطع الغيار والفواتير وحركة الدرج، واطّلع على التقارير وسجل العمليات بسهولة.</p>
           <div id="service-price-container" class="h-10 flex items-center gap-4 font-mono" aria-live="polite"><div class="h-8 w-32 rounded bg-white/5 animate-pulse"></div></div>
           <div class="flex flex-wrap gap-3">
@@ -73,6 +77,12 @@
         </figure>
       </div>
     </section>
+<section id="project-video-section" class="asas-video-section" aria-labelledby="project-video-heading">
+      <div class="asas-video-heading"><span class="asas-video-icon" aria-hidden="true"><i class="fas fa-play"></i></span><div><h2 id="project-video-heading">شرح البرنامج بالفيديو</h2><p>تعرّف على واجهة البرنامج وطريقة استخدامه.</p></div></div>
+      <div id="project-video-player" class="asas-video-container" hidden></div>
+      <p id="project-video-empty" class="asas-video-empty" role="status">فيديو شرح البرنامج غير متاح حاليًا. يمكنك التواصل معنا للاستفسار عن طريقة الاستخدام.</p>
+    </section>
+
 
     <section class="border-y border-white/5 bg-white/[.025] px-5 py-10 md:px-12 md:py-12">
       <div class="glass mx-auto flex max-w-4xl items-center justify-center gap-4 rounded-2xl p-6 text-center md:p-8">
@@ -144,8 +154,13 @@
       </div>
     </section>
 
+<section class="asas-program-benefits" aria-label="مميزات البرنامج في الاستخدام اليومي"><div class="asas-benefits-shell"><h2>مميزات تساعدك <span class="text-cyan-500">في شغلك اليومي</span></h2><div class="asas-benefits-grid"><article class="asas-benefit-card"><i class="fas fa-tools" aria-hidden="true"></i><h3>متابعة طلبات الصيانة</h3><p>تابع الجهاز من الاستلام إلى التسليم وراجع حالة كل طلب إصلاح.</p></article>
+<article class="asas-benefit-card"><i class="fas fa-address-book" aria-hidden="true"></i><h3>بيانات العملاء والأجهزة</h3><p>نظّم معلومات العميل والأجهزة والطلبات المرتبطة به.</p></article>
+<article class="asas-benefit-card"><i class="fas fa-boxes" aria-hidden="true"></i><h3>قطع الغيار والفواتير</h3><p>تابع مخزون قطع الغيار والفواتير والمدفوعات الخاصة بالمركز.</p></article>
+<article class="asas-benefit-card"><i class="fas fa-history" aria-hidden="true"></i><h3>تقارير وسجل العمليات</h3><p>راجع التقارير وحركة الدرج وسجل العمليات وصلاحيات الفريق.</p></article></div></div></section>
   </main>
   <script type="module">
+    import { renderVideo } from "../assets/js/video-player.js";
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, doc, getDoc, collection, query, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -270,6 +285,7 @@
       initServiceReviews(db);
       const snapshot = await getDoc(doc(db, "projects", "service-center"));
       const project = snapshot.exists() ? snapshot.data() : null;
+      document.getElementById('project-video-empty').hidden = (project && project.active !== false && renderVideo(document.getElementById('project-video-player'), project.videoUrl, 'شرح برنامج ASAS Service'));
       const priceContainer = document.getElementById("service-price-container");
       const price = Number(project?.price) || 0;
       const discountPrice = Number(project?.discountPrice) || 0;

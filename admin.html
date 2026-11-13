@@ -174,6 +174,15 @@
     </style>
     <meta name="robots" content="noindex,follow">
 
+    <link rel="stylesheet" href="assets/css/brand-theme.css">
+    <link rel="stylesheet" href="assets/css/admin-responsive.css">
+    <script src="assets/js/admin-responsive.js" defer></script>
+    <meta name="theme-color" content="#030e22">
+
+    <link rel="icon" type="image/x-icon" href="assets/ico.ico?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/asas-favicon-32.png?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/asas-favicon-48.png?v=7483a2a2">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/asas-favicon-180.png?v=7483a2a2">
 </head>
 
 <body>
@@ -247,9 +256,11 @@
     <div id="dashboard-section" class="hidden min-h-screen flex text-right overflow-hidden">
 
         <!-- Sidebar -->
-        <aside
+        <button id="admin-nav-backdrop" type="button" aria-label="إغلاق القائمة" hidden></button>
+        <aside id="admin-sidebar" aria-label="أقسام لوحة الإدارة"
             class="w-72 bg-slate-950/80 backdrop-blur-xl border-l border-white/5 flex flex-col fixed h-full right-0 top-0 z-40 shadow-2xl">
             <div class="p-8 border-b border-white/5 relative overflow-hidden group">
+                <button id="admin-nav-close" type="button" aria-label="إغلاق القائمة"><i class="fas fa-times" aria-hidden="true"></i></button>
                 <div
                     class="absolute -top-10 -right-10 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all">
                 </div>
@@ -401,6 +412,7 @@
 
         <!-- Top Controls -->
         <div class="relative z-20 flex justify-end gap-3 mb-8">
+            <button id="admin-nav-open" type="button" aria-label="فتح قائمة الإدارة" aria-controls="admin-sidebar" aria-expanded="false"><i class="fas fa-bars" aria-hidden="true"></i><span>القائمة</span></button>
             <!-- Notification Bell -->
             <button id="notification-bell" onclick="window.clearNotificationBadge()"
                 class="relative bg-white/5 border border-white/5 w-10 h-10 rounded-xl text-slate-400 hover:text-cyan-500 hover:bg-white/10 transition-all flex items-center justify-center">
@@ -437,6 +449,14 @@
                 </button>
             </header>
 
+            <form id="home-video-form" class="mb-8 rounded-2xl border border-white/10 bg-slate-900/60 p-5 space-y-4">
+                <h3 class="text-lg font-bold text-white">فيديو قسم أكاديمية أساس في الرئيسية</h3>
+                <label for="home-video-url" class="block text-sm text-slate-300">رابط الفيديو</label>
+                <input id="home-video-url" type="url" dir="ltr" placeholder="https://www.youtube.com/watch?v=..." class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white">
+                <p class="text-xs leading-6 text-slate-400">يظهر بجوار شرح الأكاديمية. يدعم YouTube وVimeo وروابط MP4 / WebM المباشرة. ترك الرابط فارغًا يعرض معلومات التدريب مكان الفيديو.</p>
+                <button id="save-home-video" type="submit" class="rounded-xl bg-cyan-600 px-5 py-3 font-bold text-white">حفظ الفيديو التعريفي</button>
+                <p id="home-video-status" role="status" aria-live="polite" class="text-sm leading-7 text-slate-300"></p>
+            </form>
             <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Cards Injected via JS -->
                 <div class="col-span-3 text-center py-32">
@@ -1013,6 +1033,11 @@
             </div>
 
             <input type="hidden" id="project-doc-id">
+            <div class="mb-6 space-y-2">
+                <label for="project-video-url" class="block text-sm font-bold text-slate-300">رابط فيديو شرح البرنامج</label>
+                <input id="project-video-url" type="url" dir="ltr" placeholder="https://www.youtube.com/watch?v=..." class="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white">
+                <p class="text-xs leading-6 text-slate-400">يظهر في صفحة البرنامج. يدعم YouTube وVimeo وملفات MP4 / WebM المباشرة. تركه فارغًا يخفي الفيديو.</p>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
@@ -1364,6 +1389,7 @@
 
     <!-- Logic Script -->
     <script type="module">
+        import { parseVideoUrl } from "./assets/js/video-player.js";
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, getDocs, getDoc, doc, setDoc, updateDoc, deleteDoc, deleteField, writeBatch, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -1624,6 +1650,7 @@
 
         // --- PROJECTS MANAGMENT ---
         async function loadProjects() {
+            loadHomeVideoSetting();
             const grid = document.getElementById('projects-grid');
             const strings = i18n[currentLang];
 
@@ -1707,11 +1734,48 @@
             }
         }
 
+        let homeVideoLoaded = false;
+        async function loadHomeVideoSetting() {
+            if (homeVideoLoaded) return;
+            const status = document.getElementById('home-video-status');
+            const button = document.getElementById('save-home-video');
+            button.disabled = true;
+            try {
+                const snapshot = await getDoc(doc(db, 'site_content', 'home'));
+                document.getElementById('home-video-url').value = snapshot.data()?.introVideoUrl || '';
+                homeVideoLoaded = true;
+                status.textContent = '';
+            } catch (error) {
+                status.textContent = 'تعذر تحميل إعداد الفيديو. راجع الاتصال وصلاحيات site_content/home في Firebase قبل الحفظ.';
+                console.error(error);
+            } finally {
+                button.disabled = false;
+            }
+        }
+        document.getElementById('home-video-form').addEventListener('submit', async event => {
+            event.preventDefault();
+            const status = document.getElementById('home-video-status');
+            const button = document.getElementById('save-home-video');
+            const introVideoUrl = document.getElementById('home-video-url').value.trim();
+            try { parseVideoUrl(introVideoUrl); } catch (error) { status.textContent = error.message; return; }
+            button.disabled = true;
+            status.textContent = 'جاري الحفظ...';
+            try {
+                await setDoc(doc(db, 'site_content', 'home'), { introVideoUrl, updatedAt: serverTimestamp() }, { merge: true });
+                homeVideoLoaded = true;
+                status.textContent = 'تم حفظ الفيديو التعريفي. حدّث الصفحة الرئيسية لمشاهدته.';
+            } catch (error) {
+                status.textContent = 'تعذر الحفظ. راجع الاتصال وصلاحيات site_content/home في Firebase.';
+                console.error(error);
+            } finally { button.disabled = false; }
+        });
+
         window.openProjectModal = () => {
             const strings = i18n[currentLang];
             document.getElementById('project-doc-id').value = '';
             document.getElementById('project-id').value = '';
             document.getElementById('project-id').disabled = false;
+            document.getElementById('project-video-url').value = '';
             document.getElementById('project-name').value = '';
             document.getElementById('project-version').value = '';
             document.getElementById('project-download').value = '';
@@ -1738,6 +1802,7 @@
             document.getElementById('project-doc-id').value = id;
             document.getElementById('project-id').value = id;
             document.getElementById('project-id').disabled = true;
+            document.getElementById('project-video-url').value = p.videoUrl || '';
             document.getElementById('project-name').value = p.name || '';
             document.getElementById('project-version').value = p.version || '';
             document.getElementById('project-download').value = p.downloadUrl || '';
@@ -1760,6 +1825,8 @@
         window.closeProjectModal = () => document.getElementById('project-modal').classList.add('hidden');
 
         window.saveProject = async () => {
+            const videoUrl = document.getElementById('project-video-url').value.trim();
+            try { parseVideoUrl(videoUrl); } catch (error) { alert(error.message); return; }
             const btn = document.querySelector('button[onclick="saveProject()"]');
             const originalText = btn.innerText;
             btn.innerText = 'جاري الحفظ...';
@@ -1767,6 +1834,7 @@
 
             const id = document.getElementById('project-id').value || document.getElementById('project-doc-id').value;
             const data = {
+                videoUrl,
                 name: document.getElementById('project-name').value,
                 version: document.getElementById('project-version').value,
                 active: document.getElementById('project-active').value === 'true',

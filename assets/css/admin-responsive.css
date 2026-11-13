@@ -1,0 +1,68 @@
+/* Keep wide data inside its own scroll area, not the entire dashboard. */
+#dashboard-section, #dashboard-section main, .view-section { min-width: 0; }
+#dashboard-section main { width: calc(100% - 18rem); }
+#admin-sidebar { min-height: 0; height: 100dvh; }
+#admin-sidebar nav { min-height: 0; overscroll-behavior: contain; }
+#admin-sidebar > div:last-child { flex-shrink: 0; }
+#current-user-email { max-width: 174px; }
+#admin-nav-open, #admin-nav-close, #admin-nav-backdrop { display: none; }
+.admin-table-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.admin-table-scroll table { min-width: 700px; }
+@media (max-width: 1023px) {
+    #dashboard-section main { margin-right: 0; width: 100%; padding: 22px; }
+    #admin-sidebar { width: min(310px, calc(100vw - 48px)); z-index: 75; transform: translateX(105%); visibility: hidden; transition: transform .22s ease, visibility .22s; background: #071329; }
+    body.admin-nav-visible #admin-sidebar { transform: translateX(0); visibility: visible; }
+    #admin-nav-backdrop:not([hidden]) { display: block; position: fixed; inset: 0; z-index: 70; border: 0; background: rgba(0, 0, 0, .6); backdrop-filter: blur(3px); }
+    #admin-nav-open { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 10px 14px; margin-inline-end: auto; border: 1px solid rgba(0, 212, 255, .25); border-radius: 12px; color: #e8eff6; background: #0a1b35; font-size: 13px; }
+    #admin-nav-close { display: flex; align-items: center; justify-content: center; position: absolute; top: 12px; left: 12px; z-index: 5; width: 36px; height: 36px; border-radius: 10px; background: #152943; color: #e8eff6; }
+    #admin-sidebar > div:first-child { padding: 24px 18px; }
+    #admin-sidebar > div:first-child h1 { font-size: 16px; }
+    #admin-sidebar nav { padding: 14px; }
+    #admin-sidebar .nav-item { padding: 10px 14px; gap: 12px; min-height: 46px; }
+    #admin-sidebar nav > .nav-item + .nav-item { margin-top: 6px; }
+    #admin-sidebar > div:last-child { padding: 12px; }
+    #admin-sidebar > div:last-child > div { margin-bottom: 6px; padding: 12px; }
+    #dashboard-section main > .flex:first-of-type { align-items: center; gap: 10px; margin-bottom: 24px; }
+    .view-section > header { flex-wrap: wrap; gap: 18px; margin-bottom: 24px; }
+    .view-section header h2 { font-size: 28px; line-height: 1.5; }
+    .view-section > header > button { padding: 12px 18px; font-size: 13px; }
+    #projects-grid, #contracts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    #projects-grid > [class*="col-span-"], #contracts-grid > [class*="col-span-"] { grid-column: 1 / -1; }
+    .view-section > .overflow-hidden:has(> table), .view-section .overflow-hidden:has(> table) { overflow-x: auto; }
+    .view-section th, .view-section td { padding: 12px; font-size: 12px; }
+    #login-section { padding: 20px; overflow-y: auto; min-height: 100dvh; }
+    #login-section .login-card { margin-block: auto; }
+    body > [id$="-modal"] { padding: 14px; }
+    body > [id$="-modal"] > div { max-height: calc(100dvh - 28px); padding: 24px; border-radius: 20px; min-width: 0; }
+}
+@media (max-width: 639px) {
+    #dashboard-section main { padding: 16px 12px; }
+    #dashboard-section input:not([type=checkbox]):not([type=radio]), #dashboard-section select,
+    body > [id$="-modal"] :is(input:not([type=checkbox]):not([type=radio]), textarea, select), #login-form input { font-size: 16px; max-width: 100%; }
+    #login-section .login-card { padding: 28px 22px; }
+    .view-section > header { align-items: stretch; gap: 14px; }
+    .view-section > header > div { min-width: 0; }
+    .view-section header h2 { font-size: 24px; overflow-wrap: anywhere; }
+    .view-section header p { font-size: 10px; letter-spacing: .03em; line-height: 1.8; }
+    .view-section > header > button { width: 100%; justify-content: center; min-height: 44px; border-radius: 12px; }
+    #projects-grid, #contracts-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+    #projects-grid > div, #contracts-grid > div { min-width: 0; padding: 20px; border-radius: 18px; }
+    #projects-grid .grid-cols-5 { gap: 8px; }
+    #store-report-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    #store-orders-summary > div, #store-report-summary > div { min-width: 0; padding: 14px; }
+    #new-key-result { padding: 20px 12px; }
+    #new-key-result span { font-size: 17px; letter-spacing: .04em; overflow-wrap: anywhere; }
+    .view-section .flex.justify-between { flex-wrap: wrap; gap: 10px; }
+    body > [id$="-modal"] { padding: 8px; }
+    body > [id$="-modal"] > div { padding: 20px 16px; max-height: calc(100dvh - 16px); border-radius: 16px; }
+    body > [id$="-modal"] h3 { font-size: 21px; line-height: 1.6; }
+    body > [id$="-modal"] .grid-cols-2 { grid-template-columns: minmax(0, 1fr); }
+    body > [id$="-modal"] .col-span-2 { grid-column: 1 / -1; }
+    body > [id$="-modal"] .gap-8 { gap: 18px; }
+    body > [id$="-modal"] :is(button, a) { overflow-wrap: anywhere; }
+    #current-user-email { max-width: 180px; }
+    #lang-toggle { padding-inline: 10px; letter-spacing: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #admin-sidebar { transition: none; }
+}

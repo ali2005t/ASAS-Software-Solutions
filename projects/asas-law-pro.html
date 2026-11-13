@@ -7,8 +7,6 @@
     <title>ASAS Law Pro | نظام إدارة مكاتب المحاماة المتطور</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/ico.ico">
-    <link rel="shortcut icon" href="../assets/ico.ico" type="image/x-icon">
 
     <!-- Open Graph / Facebook -->
     
@@ -33,9 +31,9 @@
 
     <style>
         :root {
-            --primary-color: #00d2ff;
+            --primary-color: #00d4ff;
             /* Cyan */
-            --secondary-color: #10b981;
+            --secondary-color: #e5bd60;
             /* Green */
             --dark-bg: #050505;
             --dark-card: #0e0e0e;
@@ -61,7 +59,7 @@
         }
 
         .text-brand-gradient {
-            background: linear-gradient(to right, #00d2ff, #10b981, #00d2ff);
+            background: linear-gradient(to right, #00d4ff, #e5bd60, #00d4ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -130,6 +128,15 @@
     <meta name="twitter:description" content="نظام ASAS Law Pro لإدارة مكاتب المحاماة والقضايا والعملاء والمواعيد، مع إمكانية العمل محلياً أو عبر الإنترنت.">
     <meta name="twitter:image" content="https://asas-software-solutions.vercel.app/assets/law_logo.png">
 
+    <link rel="stylesheet" href="../assets/css/brand-theme.css">
+    <meta name="theme-color" content="#030e22">
+    <link rel="stylesheet" href="../assets/css/program-layout.css">
+    <link rel="stylesheet" href="../assets/css/video-player.css">
+
+    <link rel="icon" type="image/x-icon" href="../assets/ico.ico?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/asas-favicon-32.png?v=7483a2a2">
+    <link rel="icon" type="image/png" sizes="48x48" href="../assets/asas-favicon-48.png?v=7483a2a2">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/asas-favicon-180.png?v=7483a2a2">
 </head>
 
 <body class="selection:bg-amber-500 selection:text-white">
@@ -144,8 +151,8 @@
                 <path d="M50 5L95 85H75L50 40L25 85H5L50 5Z" fill="url(#logo-grad)" />
                 <defs>
                     <linearGradient id="logo-grad" x1="5" y1="5" x2="95" y2="85" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#00d2ff" />
-                        <stop offset="1" stop-color="#10b981" />
+                        <stop stop-color="#00d4ff" />
+                        <stop offset="1" stop-color="#e5bd60" />
                     </linearGradient>
                 </defs>
             </svg>
@@ -172,8 +179,9 @@
                     </div>
                 </div>
                 <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight">
-                    برنامج <span class="text-[#00d2ff]">Law Pro</span><br>للمحامين والمكاتب
+                    برنامج <span class="text-[#00d4ff]">Law Pro</span><br>للمحامين والمكاتب
                 </h1>
+<a href="#project-video-section" class="asas-video-shortcut"><i class="fas fa-play-circle" aria-hidden="true"></i> فيديو شرح البرنامج</a>
                 <p class="text-gray-400 text-lg leading-relaxed mb-10 font-['Tajawal']">
                     النظام الأمثل لإدارة القضايا، الموكلين، والجلسات بذكاء. واجهة عصرية، أرشفة إلكترونية للمستندات،
                     وتقارير شاملة تساعدك على تنظيم عمل مكتبك بكفاءة عالية.
@@ -186,16 +194,16 @@
 
                     <div class="flex flex-wrap gap-4">
                         <a id="project-download-btn" href="#" download
-                            class="px-8 py-4 bg-[#00d2ff] text-black font-bold rounded-xl hover:bg-[#00b8e6] transition shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+                            class="px-8 py-4 bg-[#00d4ff] text-black font-bold rounded-xl hover:bg-[#00b8e6] transition shadow-lg shadow-cyan-500/20 flex items-center gap-2">
                             <i class="fas fa-download"></i> Loading...
                         </a>
                         <a id="project-activation-btn" href="#" target="_blank"
-                            class="px-8 py-4 border border-[#00d2ff] text-[#00d2ff] font-bold rounded-xl hover:bg-[#00d2ff] hover:text-black transition flex items-center gap-2">
+                            class="px-8 py-4 border border-[#00d4ff] text-[#00d4ff] font-bold rounded-xl hover:bg-[#00d4ff] hover:text-black transition flex items-center gap-2">
                             <i class="fab fa-whatsapp"></i> طلب كود التفعيل
                         </a>
                     </div>
                     <p class="text-xs text-gray-400 mt-2 flex items-center gap-2">
-                        <i class="fas fa-info-circle text-[#00d2ff]"></i>
+                        <i class="fas fa-info-circle text-[#00d4ff]"></i>
                         يمكن تشغيل Law Pro محليًا دون إنترنت أو أونلاين حسب رغبتك.
                     </p>
                 </div>
@@ -212,6 +220,12 @@
             </div>
         </div>
     </section>
+<section id="project-video-section" class="asas-video-section" aria-labelledby="project-video-heading">
+      <div class="asas-video-heading"><span class="asas-video-icon" aria-hidden="true"><i class="fas fa-play"></i></span><div><h2 id="project-video-heading">شرح البرنامج بالفيديو</h2><p>تعرّف على واجهة البرنامج وطريقة استخدامه.</p></div></div>
+      <div id="project-video-player" class="asas-video-container" hidden></div>
+      <p id="project-video-empty" class="asas-video-empty" role="status">فيديو شرح البرنامج غير متاح حاليًا. يمكنك التواصل معنا للاستفسار عن طريقة الاستخدام.</p>
+    </section>
+
 
     <!-- Key Features -->
     <section class="py-20 px-6 bg-white/[0.02]">
@@ -337,31 +351,10 @@
         </div>
     </section>
 
-    <!-- Technical Specs -->
-    <section class="py-24 px-6">
-        <div
-            class="max-w-5xl mx-auto glass-card p-12 rounded-[3rem] border-cyan-500/20 bg-gradient-to-br from-white/5 to-transparent">
-            <h2 class="text-3xl font-black mb-12 text-center">المواصفات <span class="text-cyan-500">الفنية</span></h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <i class="fab fa-react text-5xl text-blue-400 mb-4 block"></i>
-                    <span class="font-bold text-gray-300 text-sm">Ultra-Low Latency React Interface</span>
-                </div>
-                <div class="text-center">
-                    <i class="fab fa-node-js text-5xl text-green-500 mb-4 block"></i>
-                    <span class="font-bold text-gray-300 text-sm">Industrial Desktop Engine Core</span>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-server text-5xl text-cyan-500 mb-4 block"></i>
-                    <span class="font-bold text-gray-300 text-sm">Relational SQLite Data Engine</span>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-shield-halved text-5xl text-gray-300 mb-4 block"></i>
-                    <span class="font-bold text-gray-300 text-sm">Military-Grade Encryption (AES-256)</span>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="asas-program-benefits" aria-label="مميزات البرنامج في الاستخدام اليومي"><div class="asas-benefits-shell"><h2>مميزات تساعدك <span class="text-cyan-500">في شغلك اليومي</span></h2><div class="asas-benefits-grid"><article class="asas-benefit-card"><i class="fas fa-folder-open" aria-hidden="true"></i><h3>تنظيم القضايا والموكلين</h3><p>اجمع بيانات القضايا والموكلين والتوكيلات في ملفات منظمة يسهل الرجوع إليها.</p></article>
+<article class="asas-benefit-card"><i class="fas fa-calendar-alt" aria-hidden="true"></i><h3>متابعة الجلسات والمواعيد</h3><p>راجع مواعيد الجلسات ومتابعات القضايا من داخل البرنامج.</p></article>
+<article class="asas-benefit-card"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i><h3>متابعة الحسابات والرسوم</h3><p>نظّم حسابات الموكلين والرسوم وراجع التقارير المالية للمكتب.</p></article>
+<article class="asas-benefit-card"><i class="fas fa-archive" aria-hidden="true"></i><h3>أرشفة المستندات</h3><p>رتّب مستندات القضايا وملفات المكتب لتسهيل الوصول إلى المعلومات.</p></article></div></div></section>
 
     <!-- CTA -->
     <section class="py-20 text-center px-6">
@@ -405,7 +398,7 @@
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00d2ff';
+            ctx.fillStyle = '#00d4ff';
             ctx.strokeStyle = 'rgba(0, 210, 255, 0.1)';
 
             points.forEach((p, i) => {
@@ -441,6 +434,7 @@
 
     <!-- Dynamic Download & Reviews Logic -->
     <script type="module">
+    import { renderVideo } from "../assets/js/video-player.js";
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -469,6 +463,7 @@
 
                 if (docSnap.exists()) {
                     const data = docSnap.data();
+                    document.getElementById('project-video-empty').hidden = (data.active !== false && renderVideo(document.getElementById('project-video-player'), data.videoUrl, 'فيديو شرح البرنامج'));
 
                     // 1. Pricing Logic
                     if (data.discountPrice && data.discountPrice > 0) {
